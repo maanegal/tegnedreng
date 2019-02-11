@@ -58,7 +58,7 @@ class PostVideo(models.Model):
     """Video post items. References a locally stored video file. Includes Link items"""
     text = models.TextField()  # video description
     video = models.CharField(max_length=160)  # filename of video, stored in folder
-    title = models.CharField(max_length=160)  # title of video
+    title = models.CharField(max_length=160, null=True)  # title of video
     photo = models.CharField(max_length=160)  # filename of photo, stored in folder. Maybe change to an image field type?
     time_stamp = models.IntegerField()
     page_name = models.CharField(max_length=60)  # link to profile-event via function
@@ -108,7 +108,7 @@ class Song(models.Model):
     alias = models.CharField(max_length=30)
     photo = models.CharField(max_length=160)  # filename of photo, stored in folder. Maybe change to an image field type?
     title = models.CharField(max_length=100)
-    track_number = models.IntegerField()
+    track_number = models.IntegerField(null=True)
     text = models.TextField()  # description
     artist_name = models.CharField(max_length=60)  # link to profile-event via function
     embed_url = models.CharField(max_length=100)  # url used embedding item player
@@ -118,8 +118,8 @@ class Song(models.Model):
     link_sc = models.CharField(max_length=100, null=True)  # soundcloud
     link_it = models.CharField(max_length=100, null=True)  # itunes
     appears = models.ManyToManyField(Character, related_name='appears_on_song')
-    producer = models.ManyToManyField(Character, related_name='produced')
-    album = models.ForeignKey(Album, on_delete=models.CASCADE)
+    producer = models.ManyToManyField(Character, related_name='producer')
+    album = models.ForeignKey(Album, null=True, on_delete=models.CASCADE)
     # Add lyrics
 
 
@@ -129,7 +129,7 @@ class MusicVideo(models.Model):
     photo = models.CharField(max_length=160)  # filename of photo, stored in folder. Maybe change to an image field type?
     title = models.CharField(max_length=100)
     text = models.TextField()  # description
-    release_date = models.DateField()
+    release_date = models.DateField(null=True)
     artist_name = models.CharField(max_length=60)  # link to profile-event via function
     embed_url = models.CharField(max_length=100)  # url used embedding item player
     link_yt = models.CharField(max_length=100, null=True)  # youtube
@@ -138,5 +138,5 @@ class MusicVideo(models.Model):
     link_sc = models.CharField(max_length=100, null=True)  # soundcloud
     link_it = models.CharField(max_length=100, null=True)  # itunes
     appears = models.ManyToManyField(Character, related_name='appears_in_video')
-    song = models.OneToOneField(Song, on_delete=models.CASCADE)  # The song featured in the music video
+    song = models.OneToOneField(Song, null=True, on_delete=models.CASCADE)  # The song featured in the music video
 

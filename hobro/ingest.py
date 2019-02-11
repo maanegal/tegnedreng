@@ -4,7 +4,7 @@ import os
 import re
 from datetime import datetime
 from markdown import markdown
-from .helpers import set_expirations, make_relations
+from .helpers import set_expirations, make_relations, str_to_int
 
 
 # This is the master list of hashtags. Commit it to database after ingest. Key is hashtag, value is a list of aliases
@@ -16,7 +16,7 @@ temp_path = "E:/Dropbox/Månegal/Tegnedreng Records/content"
 
 def loader(files=[]):
     items = []
-    objects = []
+    objects = 0
     relations = {}
     for file in files:
         print("working on", file)
@@ -25,15 +25,25 @@ def loader(files=[]):
         i = mark_it_down(content)
         for u in i:
             items.append(u)
-    print('markdown done')
+    print('markdown done.', len(items), 'found')
     for item in items:
         obj, rel = process_tree(item)
-        obj.save()
-        objects.append(obj)
-        relations[obj] = rel
+        if obj:
+            obj.save()
+            try:
+                val = obj.alias
+            except:
+                val = obj.time_stamp
+            relations[val] = rel
+            objects += 1
+        else:
+            pass
+            # print(item)
+    print('interpretation done.', objects, 'processed')
     set_expirations()
+    print('expirations done')
     make_relations(relations)
-    return objects
+    print('relations done\nAll done!')
 
 
 def folder_loader(path):
@@ -93,7 +103,9 @@ def mark_it_down(data):
                 raise
         elif line.startswith(body_head):  # body section of item has been opened
             load_body = True
-
+    if body:  # write final item
+        cur_item['body'] = body
+    output.append(cur_item)
     return output
 
 
@@ -193,7 +205,7 @@ def process_tree(item={}):
         html = make_mentions(html)
         link_fb = item.get('link_fb', '')
         link_tw = item.get('link_tw', '')
-        relations.append(parse_relation('appears', item.get('appears', None)))
+        relations.extend(parse_relation('appears', item.get('appears', None)))
         obj = Post(text=html, time_stamp=int(alias), link_fb=link_fb, link_tw=link_tw)
     elif element == 'post-photo':
         if not text:
@@ -205,7 +217,7 @@ def process_tree(item={}):
         link_fb = item.get('link_fb', '')
         link_tw = item.get('link_tw', '')
         link_ig = item.get('link_ig', '')
-        relations.append(parse_relation('appears', item.get('appears', None)))
+        relations.extend(parse_relation('appears', item.get('appears', None)))
         obj = PostPhoto(text=html, time_stamp=int(alias), photo=item.get('photo'),
                         link_fb=link_fb, link_tw=link_tw, link_ig=link_ig)
     elif element == 'post-video':
@@ -218,9 +230,14 @@ def process_tree(item={}):
         link_fb = item.get('link_fb', '')
         link_tw = item.get('link_tw', '')
         link_ig = item.get('link_ig', '')
-        relations.append(parse_relation('appears', item.get('appears', None)))
-        obj = PostVideo(text=html, time_stamp=int(alias), title=item.get('title', ''), video=item.get('video'),
-                            photo=item.get('photo', ''), link_fb=link_fb, link_tw=link_tw, link_ig=link_ig)
+        title = item.get('title', '')
+        if title:
+            title = title[0]
+        else:
+            title = None
+        relations.extend(parse_relation('appears', item.get('appears', None)))
+        obj = PostVideo(text=html, time_stamp=int(alias), title=title, video=item.get('video')[0],
+                            photo=item.get('photo', '')[0], link_fb=link_fb, link_tw=link_tw, link_ig=link_ig)
     elif element == 'profile-event':
         if not text:
             text = ''
@@ -228,7 +245,7 @@ def process_tree(item={}):
         html = make_links(html)
         link_fb = item.get('link_fb', '')
         al = int(alias)
-        obj = ProfileEvent(time_stamp=al, photo=item.get('photo'), text=html, page_name=item.get('name'),
+        obj = ProfileEvent(time_stamp=al, photo=item.get('photo')[0], text=html, page_name=item.get('name')[0],
                            link_fb=link_fb)
     elif element == 'item-embed':
         # set alias (timestamp)
@@ -260,30 +277,32 @@ def process_tree(item={}):
         html = make_links(text)
         html = make_hashtags(html, alias)
         html = make_mentions(html)
-        obj = Character(alias=alias, name=item.get('name'), photo=item.get('photo'), text=html)
-    elif element == 'album':
+        obj = Character(alias=alias, name=item.get('name')[0], photo=item.get('photo')[0], text=html)
+    elif element == 'music-album':
         if not text:
             text = ''
         html = make_links(text)
         html = make_hashtags(html, alias)
         html = make_mentions(html)
-        rel = item.get('release_date')
-        dt = datetime.fromtimestamp(int(rel)).strftime('%c')
-        obj = Album(alias=alias, title=item.get('title'), link_bc=item.get('url'), text=html, release_date=dt)
-    elif element == 'song':
+        rel = item.get('release_date')[0]
+        dt = datetime.fromtimestamp(int(rel))
+        obj = Album(alias=alias, title=item.get('title')[0], link_bc=item.get('url')[0], text=html, release_date=dt)
+    elif element == 'music-song':
         if not text:
             text = ''
         html = make_links(text)
         html = make_hashtags(html, alias)
         html = make_mentions(html)
-        link_bc = item.get('url')
+        link_bc = item.get('url')[0]
         track = item.get('track_number', None)
-        relations.append(parse_relation('appears', item.get('featuring', None)))
-        relations.append(parse_relation('producer', item.get('producer', None)))
-        relations.append(parse_relation('album', item.get('album', None)))
         if track:
-            track = int(track)
-        obj = Song(alias=alias, title=item.get('title'), album=item.get('album'), link_bc=link_bc,
+            track = str_to_int(track[0])
+        else:
+            track = None
+        relations.extend(parse_relation('appears', item.get('featuring', None)))
+        relations.extend(parse_relation('producer', item.get('producer', None)))
+        relations.extend(parse_relation('album', item.get('album', None)))
+        obj = Song(alias=alias, title=item.get('title')[0], link_bc=link_bc,
                    text=html, track_number=track)
     elif element == 'music-video':
         if not text:
@@ -291,10 +310,12 @@ def process_tree(item={}):
         html = make_links(text)
         html = make_hashtags(html, alias)
         html = make_mentions(html)
-        yt = item.get('link-yt')
-        relations.append(parse_relation('appears', item.get('appears', None)))
-        relations.append(parse_relation('song', item.get('video-for', None)))
-        obj = MusicVideo(alias=alias, title=item.get('title'), embed_url=yt, link_yt=yt, text=html)
+        yt = item.get('link-yt')[0]
+        relations.extend(parse_relation('appears', item.get('appears', None)))
+        relations.extend(parse_relation('song', item.get('video-for', None)))
+        obj = MusicVideo(alias=alias, title=item.get('title')[0], embed_url=yt, link_yt=yt, text=html)
+    if not obj:
+        print(element, alias)
     return obj, relations
 
 

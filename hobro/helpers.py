@@ -81,9 +81,12 @@ def set_expirations():
         timestamps.sort()
         results = {}
         for index, stamp in enumerate(timestamps):
-            if index is not len(timestamps):
-                next_index = index+1
-                exp = timestamps[next_index] - 1
+            if index < len(timestamps):
+                next_index = index + 1
+                try:
+                    exp = timestamps[next_index] - 1
+                except:
+                    exp = int(datetime.now().timestamp())
             else:  # for the last item, just get the current time as expiration, to be way on the safe side
                 exp = int(datetime.now().timestamp())
             results[stamp] = exp
@@ -96,9 +99,17 @@ def set_expirations():
 def make_relations(data):
     """Put relationships into db once the objects have been saved.
     Takes dict with object alias as key, and list of tuples as values. Tuples are field and target object alias"""
+    one_to_ones = ['album', 'song']
     for k, v in data.items():
+        parent = object_from_alias(k)
         for r in v:
             rel = r[0]
             target = object_from_alias(r[1])
-            setattr(k, rel, target)
-        k.save()
+            if rel in one_to_ones:
+                setattr(parent, rel, target)
+            else:
+                try:
+                    parent.__getattribute__(rel).add(target)
+                except:
+                    print(rel, parent, target, r, k)
+        parent.save()
