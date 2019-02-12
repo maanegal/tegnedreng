@@ -1,8 +1,20 @@
 {% extends 'hobro/base.html' %}
+{% load itemviews %}
 
 {% block content %}
-    <div class="post">
-        <h2>{{ item.time_stamp }}</h2>
-        <p>{{ item.text|linebreaksbr }}</p>
-    </div>
+        {% with a=item.get_type %}
+            {% if a == "post" %}
+                {% show_post item %}
+            {% elif a == "postphoto" %}
+                {% show_postphoto item %}
+            {% elif a == "postvideo" %}
+                {% show_postvideo item %}
+            {% elif a == "profileevent" %}
+                {% show_profileevent item %}
+            {% else %}
+                <div class="post">
+                    <h2>Nothing!</h2>
+                </div>
+            {% endif %}
+        {% endwith %}
 {% endblock %}

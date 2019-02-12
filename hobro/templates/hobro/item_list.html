@@ -16,10 +16,11 @@
                 {% show_postvideo item %}
             {% elif a == "profileevent" %}
                 {% show_profileevent item %}
+            {% elif a == "itemembed" %}
+                {% show_itemembed item %}
             {% else %}
                 <div class="post">
-                    <h2><a href="{% url 'item_detail' pk=item.pk %}">{{ item.time_stamp }}</a></h2>
-                    {{ item.text | safe }}
+                    <h2>Something else...</h2>
                 </div>
             {% endif %}
         {% endwith %}

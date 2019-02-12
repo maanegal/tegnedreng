@@ -1,7 +1,10 @@
-<div style="border: 3px solid green; margin: 10px; background-color: #f2f2f2; padding: 10px;">
-    <h2>{{ name }}</h2>
+<div id="{{ post.time_stamp }}" style="border: 3px solid green; margin: 10px; background-color: #f2f2f2; padding: 10px;">
+    <h3><a href="{% url 'item_detail' pk=post.pk tp=post.get_type %}">{{ name }}</a></h3>
+    Profile pic: {{ profilepic }}
+    <p>{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>
     <p>{{ post.text|safe }}</p>
     <p><i>Indsæt dette billede: {{ post.photo }}</i></p>
+    <img src="{{ post.photo2.url }}" style="max-width: 250px; border-radius: 25px;"/>
     {% if post.appears.all %}
         <p>I dette opslag:</p>
         <ul>

@@ -33,6 +33,7 @@ class Character(models.Model):
     """Information on a character in the story"""
     name = models.CharField(max_length=100)
     photo = models.CharField(max_length=160)  # filename of photo, stored in folder. Maybe change to an image field type?
+    photo2 = models.ImageField(default="default.jpg")
     text = models.TextField()  # in case a description is needed
     alias = models.CharField(max_length=30)
 
@@ -61,6 +62,7 @@ class PostPhoto(models.Model):
     """Photo post items. References a locally stored image. Includes Link items"""
     text = models.TextField()  # photo description
     photo = models.CharField(max_length=160)  # filename of photo, stored in folder. Maybe change to an image field type?
+    photo2 = models.ImageField(default="default.jpg")
     time_stamp = models.IntegerField()
     page_name = models.CharField(max_length=60)  # link to profile-event via function
     layout = models.CharField(max_length=30, default='standard')  # how the post should appear. Select from html presets
@@ -80,6 +82,7 @@ class PostVideo(models.Model):
     video = models.CharField(max_length=160)  # filename of video, stored in folder
     title = models.CharField(max_length=160, null=True)  # title of video
     photo = models.CharField(max_length=160)  # filename of photo, stored in folder. Maybe change to an image field type?
+    photo2 = models.ImageField(default="default.jpg")
     time_stamp = models.IntegerField()
     page_name = models.CharField(max_length=60)  # link to profile-event via function
     layout = models.CharField(max_length=30, default='standard')  # how the post should appear. Select from html presets
@@ -99,6 +102,7 @@ class ProfileEvent(models.Model):
     expires = models.IntegerField(null=True)  # one less than value of next object
     page_name = models.CharField(max_length=60)  # link to profile-event via function
     photo = models.CharField(max_length=160)  # filename of photo, stored in folder. Maybe change to an image field type?
+    photo2 = models.ImageField(default="default.jpg")
     text = models.TextField()  # free text field, in case it is needed
     link_fb = models.CharField(max_length=100, null=True)  # facebook post id
     link_tw = models.CharField(max_length=100, null=True)  # twitter post id
@@ -123,6 +127,7 @@ class Album(models.Model):
     """An album, containing songs"""
     alias = models.CharField(max_length=30)
     photo = models.CharField(max_length=160)  # filename of photo, stored in folder. Maybe change to an image field type?
+    photo2 = models.ImageField(default="default.jpg")
     title = models.CharField(max_length=100)
     text = models.TextField()  # description
     release_date = models.DateField()
@@ -144,6 +149,7 @@ class Song(models.Model):
     """A song. Most belong to an album"""
     alias = models.CharField(max_length=30)
     photo = models.CharField(max_length=160)  # filename of photo, stored in folder. Maybe change to an image field type?
+    photo2 = models.ImageField(default="default.jpg")
     title = models.CharField(max_length=100)
     track_number = models.IntegerField(null=True)
     text = models.TextField()  # description

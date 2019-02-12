@@ -1,15 +1,16 @@
 from django.shortcuts import render, get_object_or_404
 from .models import *
-from .helpers import the_big_retriever
+from .helpers import the_big_retriever, class_from_str
 
 
-def item_list(request):
-    data = the_big_retriever()
+def item_list(request, index=0):
+    data = the_big_retriever(index)
     return render(request, 'hobro/item_list.html', {'items': data})
 
 
-def item_detail(request, pk):
-    item = get_object_or_404(Section, pk=pk)
+def item_detail(request, pk, tp):
+    cl = class_from_str(tp)
+    item = get_object_or_404(cl, pk=pk)
     return render(request, 'hobro/item_detail.html', {'item': item})
 
 

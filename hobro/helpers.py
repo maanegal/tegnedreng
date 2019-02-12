@@ -10,6 +10,33 @@ def str_to_int(s):
     return i
 
 
+def class_from_str(name):
+    if name == 'post':
+        return Post
+    elif name == 'postphoto':
+        return PostPhoto
+    elif name == 'postvideo':
+        return PostVideo
+    elif name == 'profileevent':
+        return ProfileEvent
+    elif name == 'character':
+        return Character
+    elif name == 'itemembed':
+        return ItemEmbed
+    elif name == 'story':
+        return Story
+    elif name == 'section':
+        return Section
+    elif name == 'album':
+        return Album
+    elif name == 'song':
+        return Song
+    elif name == 'musicvideo':
+        return MusicVideo
+    else:
+        return None
+
+
 def object_from_alias(alias):
     """From an alias or timestamp, get the associated object"""
     o = Section.objects.filter(time_stamp=str_to_int(alias)).first()
@@ -55,6 +82,7 @@ def get_current_info(ts):
         return None
     data = ProfileEvent.objects.filter(expires__gt=ts, time_stamp__lt=ts).first()
     hit = {'name': data.page_name, 'photo': data.photo}
+    print(hit)
     return hit
 
 
@@ -115,23 +143,27 @@ def make_relations(data):
         parent.save()
 
 
-def the_big_retriever():
+def the_big_retriever(index=None):
     """Right now, just the first one"""
     content = {}
     id_list = []
     objects = []
-    section = Section.objects.all()[5]
-    stamp_start = section.time_stamp
-    stamp_end = section.expires
-    id_list.append(stamp_start)
-    content[stamp_start] = section
-    objects.extend(list(Post.objects.filter(time_stamp__lt=stamp_end, time_stamp__gt=stamp_start)))
-    objects.extend(list(PostPhoto.objects.filter(time_stamp__lt=stamp_end, time_stamp__gt=stamp_start)))
-    objects.extend(list(PostVideo.objects.filter(time_stamp__lte=stamp_end, time_stamp__gte=stamp_start)))
-    objects.extend(list(Section.objects.filter(time_stamp__lt=stamp_end, time_stamp__gt=stamp_start)))
-    objects.extend(list(Story.objects.filter(time_stamp__lte=stamp_end, time_stamp__gte=stamp_start)))
-    objects.extend(list(ProfileEvent.objects.filter(time_stamp__lt=stamp_end, time_stamp__gt=stamp_start)))
-
+    if index:
+        sections = [Section.objects.all()[index]]
+    else:
+        sections = Section.objects.all()
+    for section in sections:
+        stamp_start = section.time_stamp
+        stamp_end = section.expires
+        id_list.append(stamp_start)
+        content[stamp_start] = section
+        objects.extend(list(Post.objects.filter(time_stamp__lt=stamp_end, time_stamp__gt=stamp_start)))
+        objects.extend(list(PostPhoto.objects.filter(time_stamp__lt=stamp_end, time_stamp__gt=stamp_start)))
+        objects.extend(list(PostVideo.objects.filter(time_stamp__lte=stamp_end, time_stamp__gte=stamp_start)))
+        objects.extend(list(Section.objects.filter(time_stamp__lt=stamp_end, time_stamp__gt=stamp_start)))
+        objects.extend(list(Story.objects.filter(time_stamp__lte=stamp_end, time_stamp__gte=stamp_start)))
+        objects.extend(list(ProfileEvent.objects.filter(time_stamp__lt=stamp_end, time_stamp__gt=stamp_start)))
+        objects.extend(list(ItemEmbed.objects.filter(time_stamp__lt=stamp_end, time_stamp__gt=stamp_start)))
     for o in objects:
         content[o.time_stamp] = o
         id_list.append(o.time_stamp)
