@@ -1,0 +1,10 @@
+<div style="border: 1px solid grey; margin: 10px; background-color: #f2f2f2; padding: 10px;">
+    <h2>{{ name }}</h2>
+    <p>{{ post.text|safe }}</p>
+    {% if post.appears.all %}
+        <p>I dette opslag:</p>
+        <ul>
+            {% for c in post.appears.all %} <li><a href="{% url 'character_viewer' pk=c.pk %}">{{ c.name|linebreaksbr }}</a></li> {% endfor %}
+        </ul>
+    {% endif %}
+</div>

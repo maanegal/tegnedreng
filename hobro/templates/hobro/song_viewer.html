@@ -1,0 +1,12 @@
+{% extends 'hobro/base.html' %}
+
+{% block content %}
+    <div class="post">
+        <h2>{{ song.title }}</h2>
+        <p>Nummer {{ song.track_number }} på <a href="{% url 'album_viewer' pk=song.album.pk %}">{{ song.album.title }}</a></p>
+        <p>På dette nummer:
+            {% for c in song.appears.all %} <a href="{% url 'character_viewer' pk=c.pk %}">{{ c.name|linebreaksbr }}</a>, {% endfor %}</p>
+        <p> Produceret af:
+            {% for c in song.producer.all %} <a href="{% url 'character_viewer' pk=c.pk %}">{{ c.name|linebreaksbr }}</a>, {% endfor %} </p>
+    </div>
+{% endblock %}

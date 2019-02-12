@@ -1,0 +1,23 @@
+{% extends 'hobro/base.html' %}
+
+{% block content %}
+    <h2>Albums</h2>
+    <ul>
+    {% for album in albums %}
+        <li><a href="{% url 'album_viewer' pk=album.pk %}">{{ album.title }}</a> - ({{ album.release_date|date:"F j Y" }})</li>
+    {% endfor %}
+    </ul>
+    <br>
+    <h2>Sange</h2>
+    <ul>
+    {% for song in songs %}
+        <li><a href="{% url 'song_viewer' pk=song.pk %}">{{ song.title }}</a></li>
+    {% endfor %}
+    </ul>
+    <h2>Personer</h2>
+    <ul>
+    {% for character in characters %}
+        <li><a href="{% url 'character_viewer' pk=character.pk %}">{{ character.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}

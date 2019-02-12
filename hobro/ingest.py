@@ -135,6 +135,8 @@ def make_links(text):
     """Find URLs in string and replace with html-links"""
     urls = re.findall(WEB_URL_REGEX, text)
     for url in urls:
+        if not url.startswith('http'): # don't interpret partial links as relative, thank you very much
+            url = 'http://' + url
         html_o, html_c = html_element('a', custom={'href': url})
         tag = html_o + url + html_c
         t2 = text.replace(url, tag)

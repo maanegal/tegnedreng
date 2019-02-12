@@ -53,7 +53,7 @@ def get_current_info(ts):
         ts = int(ts.timestamp())
     if not isinstance(ts, int):
         return None
-    data = ProfileEvent.objects.filter(expires__lte=ts, time_stamp__gte=ts).first()
+    data = ProfileEvent.objects.filter(expires__gt=ts, time_stamp__lt=ts).first()
     hit = {'name': data.page_name, 'photo': data.photo}
     return hit
 
@@ -64,7 +64,7 @@ def get_current_section(ts):
         ts = int(datetime.strftime(ts))
     if not isinstance(ts, int):
         return None
-    data = Section.objects.filter(expires__lte=ts, time_stamp__gte=ts).first()
+    data = Section.objects.filter(expires__gt=ts, time_stamp__lt=ts).first()
     return data
 
 
@@ -113,3 +113,34 @@ def make_relations(data):
                 except:
                     print(rel, parent, target, r, k)
         parent.save()
+
+
+def the_big_retriever():
+    """Right now, just the first one"""
+    content = {}
+    id_list = []
+    objects = []
+    section = Section.objects.all()[5]
+    stamp_start = section.time_stamp
+    stamp_end = section.expires
+    id_list.append(stamp_start)
+    content[stamp_start] = section
+    objects.extend(list(Post.objects.filter(time_stamp__lt=stamp_end, time_stamp__gt=stamp_start)))
+    objects.extend(list(PostPhoto.objects.filter(time_stamp__lt=stamp_end, time_stamp__gt=stamp_start)))
+    objects.extend(list(PostVideo.objects.filter(time_stamp__lte=stamp_end, time_stamp__gte=stamp_start)))
+    objects.extend(list(Section.objects.filter(time_stamp__lt=stamp_end, time_stamp__gt=stamp_start)))
+    objects.extend(list(Story.objects.filter(time_stamp__lte=stamp_end, time_stamp__gte=stamp_start)))
+    objects.extend(list(ProfileEvent.objects.filter(time_stamp__lt=stamp_end, time_stamp__gt=stamp_start)))
+
+    for o in objects:
+        content[o.time_stamp] = o
+        id_list.append(o.time_stamp)
+
+    id_list.sort()
+    output = []
+
+    for id in id_list:
+        o = content.get(id)
+        output.append(o)
+
+    return output

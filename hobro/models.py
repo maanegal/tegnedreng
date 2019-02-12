@@ -14,11 +14,19 @@ class Section(models.Model):
     def __str__(self):
         return str(self.time_stamp)'''
 
+    def get_type(self):
+        class_name = "section"
+        return class_name
+
 
 class Story(models.Model):
     """Blocks of text describing the story. Formatted as HTML. Timestamps are purely for sorting here"""
     text = models.TextField()
     time_stamp = models.IntegerField()
+
+    def get_type(self):
+        class_name = "story"
+        return class_name
 
 
 class Character(models.Model):
@@ -27,6 +35,10 @@ class Character(models.Model):
     photo = models.CharField(max_length=160)  # filename of photo, stored in folder. Maybe change to an image field type?
     text = models.TextField()  # in case a description is needed
     alias = models.CharField(max_length=30)
+
+    def get_type(self):
+        class_name = "character"
+        return class_name
 
 
 # POST ELEMENTS
@@ -40,6 +52,10 @@ class Post(models.Model):
     link_fb = models.CharField(max_length=100, null=True)  # facebook post id
     link_tw = models.CharField(max_length=100, null=True)  # twitter post id
 
+    def get_type(self):
+        class_name = "post"
+        return class_name
+
 
 class PostPhoto(models.Model):
     """Photo post items. References a locally stored image. Includes Link items"""
@@ -52,6 +68,10 @@ class PostPhoto(models.Model):
     link_fb = models.CharField(max_length=100, null=True)  # facebook post id
     link_ig = models.CharField(max_length=100, null=True)  # instagram post id
     link_tw = models.CharField(max_length=100, null=True)  # twitter post id
+
+    def get_type(self):
+        class_name = "postphoto"
+        return class_name
 
 
 class PostVideo(models.Model):
@@ -68,6 +88,10 @@ class PostVideo(models.Model):
     link_ig = models.CharField(max_length=100, null=True)  # instagram post id
     link_tw = models.CharField(max_length=100, null=True)  # twitter post id
 
+    def get_type(self):
+        class_name = "postvideo"
+        return class_name
+
 
 class ProfileEvent(models.Model):
     """Posts indicating changes in the online presence, such as new profile picture or page name"""
@@ -78,6 +102,21 @@ class ProfileEvent(models.Model):
     text = models.TextField()  # free text field, in case it is needed
     link_fb = models.CharField(max_length=100, null=True)  # facebook post id
     link_tw = models.CharField(max_length=100, null=True)  # twitter post id
+
+    def get_type(self):
+        class_name = "profileevent"
+        return class_name
+
+
+class ItemEmbed(models.Model):
+    """include another type of item, like person or song"""
+    time_stamp = models.IntegerField()
+
+    # relationship to another item that will be embedded at timecode
+
+    def get_type(self):
+        class_name = "itemembed"
+        return class_name
 
 
 class Album(models.Model):
@@ -96,11 +135,9 @@ class Album(models.Model):
     link_it = models.CharField(max_length=100, null=True)  # itunes
     # relationship: songs
 
-
-class ItemEmbed(models.Model):
-    """include another type of item, like person or song"""
-    time_stamp = models.IntegerField()
-    # relationship to another item that will be embedded at timecode
+    def get_type(self):
+        class_name = "album"
+        return class_name
 
 
 class Song(models.Model):
@@ -122,6 +159,10 @@ class Song(models.Model):
     album = models.ForeignKey(Album, null=True, on_delete=models.CASCADE)
     # Add lyrics
 
+    def get_type(self):
+        class_name = "song"
+        return class_name
+
 
 class MusicVideo(models.Model):
     """An album, containing songs"""
@@ -139,4 +180,8 @@ class MusicVideo(models.Model):
     link_it = models.CharField(max_length=100, null=True)  # itunes
     appears = models.ManyToManyField(Character, related_name='appears_in_video')
     song = models.OneToOneField(Song, null=True, on_delete=models.CASCADE)  # The song featured in the music video
+
+    def get_type(self):
+        class_name = "musicvideo"
+        return class_name
 
