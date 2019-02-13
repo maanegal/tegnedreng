@@ -1,5 +1,6 @@
 <div id="{{ post.time_stamp }}" style="border: 1px solid grey; margin: 10px; background-color: #f2f2f2; padding: 10px;">
     <h3><a href="{% url 'item_detail' pk=post.pk tp=post.get_type %}">{{ name }}</a></h3>
+    <img src="{{ profilepic.url }}" style="max-width: 50px; border-radius: 5px;"/>
     <p>{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>
     <p>{{ post.text|safe }}</p>
     {% if post.appears.all %}

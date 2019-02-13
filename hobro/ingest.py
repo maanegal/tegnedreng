@@ -4,11 +4,12 @@ import os
 import re
 from datetime import datetime
 from markdown import markdown
-from .helpers import set_expirations, make_relations, str_to_int
+from .helpers import set_expirations, make_relations, str_to_int, class_from_str
 
 
 # This is the master list of hashtags. Commit it to database after ingest. Key is hashtag, value is a list of aliases
 hashtags = {}
+
 WEB_URL_REGEX = r"""(?i)\b((?:https?:(?:/{1,3}|[a-z0-9%])|[a-z0-9.\-]+[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)/)(?:[^\s()<>{}\[\]]+|\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\))+(?:\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’])|(?:(?<!@)[a-z0-9]+(?:[.\-][a-z0-9]+)*[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)\b/?(?!@)))"""
 
 temp_path = "E:/Dropbox/Månegal/Tegnedreng Records/content"
@@ -131,11 +132,19 @@ def render_html(data):
     return html
 
 
+def make_linebreaks(text_list):
+    text = ""
+    for t in text_list:
+        text += t + '\n\n'
+    text = text.strip()
+    return text
+
+
 def make_links(text):
     """Find URLs in string and replace with html-links"""
     urls = re.findall(WEB_URL_REGEX, text)
     for url in urls:
-        if not url.startswith('http'): # don't interpret partial links as relative, thank you very much
+        if not url.startswith('http'):  # don't interpret partial links as relative, thank you very much
             url = 'http://' + url
         html_o, html_c = html_element('a', custom={'href': url})
         tag = html_o + url + html_c
@@ -144,7 +153,7 @@ def make_links(text):
     return text
 
 
-def make_hashtags(text, alias):
+def make_hashtags(text, alias, element):
     """Take string of text. Split into words. If a word starts with #, it's a hashtag.
     Add alias to that hashtag's entry in the master list.
     Transform the word to an HTML link. Initially, just a '#' target.
@@ -152,18 +161,19 @@ def make_hashtags(text, alias):
     words = text.split(' ')
     new_words = []
     ht = []
+    link = "#"
     for word in words:
         if '#' in word and not word.endswith('#'):
             ht.append(word)
             # make word a link
-            html_o, html_c = html_element('a', custom={'href': '#'})
+            html_o, html_c = html_element('a', custom={'href': link})
             word = html_o + word + html_c
         new_words.append(word)
     for tag in ht:
         if hashtags.get(tag):
-            hashtags[tag].append(alias)
+            hashtags[tag].append((alias, element))
         else:
-            hashtags[tag] = [alias]
+            hashtags[tag] = [(alias, element)]
     new_text = " ".join(new_words)
     return new_text
 
@@ -196,14 +206,14 @@ def process_tree(item={}):
     if item.get('body', None):
         text = item.get('body', None)
     elif item.get('text', None):
-        text = item.get('text', None)[0]
+        text = make_linebreaks(item.get('text', None))
     obj = None
     if element == 'post':
         if not text:
             return None
         html = markdown(text)
         html = make_links(html)
-        html = make_hashtags(html, alias)
+        html = make_hashtags(html, alias, element)
         html = make_mentions(html)
         link_fb = item.get('link_fb', '')
         link_tw = item.get('link_tw', '')
@@ -214,45 +224,51 @@ def process_tree(item={}):
             return None
         html = markdown(text)
         html = make_links(html)
-        html = make_hashtags(html, alias)
+        html = make_hashtags(html, alias, element)
         html = make_mentions(html)
+        photo = 'posts/' + item.get('photo')[0]
         link_fb = item.get('link_fb', '')
         link_tw = item.get('link_tw', '')
         link_ig = item.get('link_ig', '')
         relations.extend(parse_relation('appears', item.get('appears', None)))
-        obj = PostPhoto(text=html, time_stamp=int(alias), photo=item.get('photo'),
+        obj = PostPhoto(text=html, time_stamp=int(alias), photo=photo,
                         link_fb=link_fb, link_tw=link_tw, link_ig=link_ig)
     elif element == 'post-video':
         if not text:
             return None
         html = markdown(text)
         html = make_links(html)
-        html = make_hashtags(html, alias)
+        html = make_hashtags(html, alias, element)
         html = make_mentions(html)
         link_fb = item.get('link_fb', '')
         link_tw = item.get('link_tw', '')
         link_ig = item.get('link_ig', '')
         title = item.get('title', '')
+        video = 'posts/' + item.get('video')[0]
+        photo = 'posts/' + item.get('photo')[0]
         if title:
             title = title[0]
         else:
             title = None
         relations.extend(parse_relation('appears', item.get('appears', None)))
-        obj = PostVideo(text=html, time_stamp=int(alias), title=title, video=item.get('video')[0],
-                            photo=item.get('photo', '')[0], link_fb=link_fb, link_tw=link_tw, link_ig=link_ig)
+        obj = PostVideo(text=html, time_stamp=int(alias), title=title, video=video,
+                            photo=photo, link_fb=link_fb, link_tw=link_tw, link_ig=link_ig)
     elif element == 'profile-event':
         if not text:
             text = ''
         html = markdown(text)
         html = make_links(html)
+        photo = 'profile/' + item.get('photo')[0]
         link_fb = item.get('link_fb', '')
         al = int(alias)
-        obj = ProfileEvent(time_stamp=al, photo=item.get('photo')[0], text=html, page_name=item.get('name')[0],
+        obj = ProfileEvent(time_stamp=al, photo=photo, text=html, page_name=item.get('name')[0],
                            link_fb=link_fb)
     elif element == 'item-embed':
         # set alias (timestamp)
         # expect embed prop with the alias of another element
-        obj = ItemEmbed(time_stamp=int(alias))
+        if '§§' not in item.get('embed', [])[0]:
+            relations.extend(parse_relation('target_'+item.get('type')[0], item.get('embed', None)))
+        obj = ItemEmbed(time_stamp=int(alias), target=item.get('embed')[0])
     elif element == 'section':
         # set alias (timestamp)
         # expect a text element with two values -- chapter number and title. Render to HTML as h2, split up somehow
@@ -270,30 +286,33 @@ def process_tree(item={}):
             return None
         html = markdown(text)
         html = make_links(html)
-        html = make_hashtags(html, alias)
+        html = make_hashtags(html, alias, element)
         html = make_mentions(html)
         obj = Story(text=html, time_stamp=int(alias))
     elif element == 'character':
         if not text:
             text = ''
         html = make_links(text)
-        html = make_hashtags(html, alias)
+        html = make_hashtags(html, alias, element)
         html = make_mentions(html)
-        obj = Character(alias=alias, name=item.get('name')[0], photo=item.get('photo')[0], text=html)
+        photo = 'posts/' + item.get('photo')[0]
+        obj = Character(alias=alias, name=item.get('name')[0], photo=photo, text=html)
     elif element == 'music-album':
         if not text:
             text = ''
         html = make_links(text)
-        html = make_hashtags(html, alias)
+        html = make_hashtags(html, alias, element)
         html = make_mentions(html)
         rel = item.get('release_date')[0]
         dt = datetime.fromtimestamp(int(rel))
-        obj = Album(alias=alias, title=item.get('title')[0], link_bc=item.get('url')[0], text=html, release_date=dt)
+        photo = 'albums/' + item.get('photo')[0]
+        obj = Album(alias=alias, title=item.get('title')[0], photo=photo, link_bc=item.get('url')[0],
+                    embed_url=item.get('url')[0], text=html, release_date=dt)
     elif element == 'music-song':
         if not text:
             text = ''
         html = make_links(text)
-        html = make_hashtags(html, alias)
+        html = make_hashtags(html, alias, element)
         html = make_mentions(html)
         link_bc = item.get('url')[0]
         track = item.get('track_number', None)
@@ -304,13 +323,13 @@ def process_tree(item={}):
         relations.extend(parse_relation('appears', item.get('featuring', None)))
         relations.extend(parse_relation('producer', item.get('producer', None)))
         relations.extend(parse_relation('album', item.get('album', None)))
-        obj = Song(alias=alias, title=item.get('title')[0], link_bc=link_bc,
+        obj = Song(alias=alias, title=item.get('title')[0], link_bc=link_bc, embed_url=link_bc,
                    text=html, track_number=track)
     elif element == 'music-video':
         if not text:
             text = ''
         html = make_links(text)
-        html = make_hashtags(html, alias)
+        html = make_hashtags(html, alias, element)
         html = make_mentions(html)
         yt = item.get('link-yt')[0]
         relations.extend(parse_relation('appears', item.get('appears', None)))

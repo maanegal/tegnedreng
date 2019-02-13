@@ -1,4 +1,20 @@
-<div class="post">
-    <p>{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>
-    <p>Embed noget her.</p>
+{% load itemviews %}
+
+<div id="{{ itemembed.time_stamp }}" class="post">
+    <p>Embed det her: {{ itemembed.target }}</p>
+    {% if kind == "character" %}
+        {% embed_character itemembed.target_character.all %}
+    {% elif kind == "song" %}
+        {% embed_song itemembed.target_song.all %}
+    {% elif kind == "album" %}
+        {% embed_album itemembed.target_album.all %}
+    {% elif kind == "musicvideo" %}
+        {% embed_musicvideo itemembed.target_musicvideo.all %}
+    {% else %}
+        <div class="post">
+            <h2>Kunne ikke findes...</h2>
+            {{ itemembed.pk }}{{ itemembed.what_kind }}
+            {{ itemembed.get_embed.title }}
+        </div>
+    {% endif %}
 </div>

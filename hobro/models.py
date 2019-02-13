@@ -32,8 +32,7 @@ class Story(models.Model):
 class Character(models.Model):
     """Information on a character in the story"""
     name = models.CharField(max_length=100)
-    photo = models.CharField(max_length=160)  # filename of photo, stored in folder. Maybe change to an image field type?
-    photo2 = models.ImageField(default="default.jpg")
+    photo = models.ImageField(default="default.jpg")  # filename of photo, stored in folder
     text = models.TextField()  # in case a description is needed
     alias = models.CharField(max_length=30)
 
@@ -61,8 +60,7 @@ class Post(models.Model):
 class PostPhoto(models.Model):
     """Photo post items. References a locally stored image. Includes Link items"""
     text = models.TextField()  # photo description
-    photo = models.CharField(max_length=160)  # filename of photo, stored in folder. Maybe change to an image field type?
-    photo2 = models.ImageField(default="default.jpg")
+    photo = models.ImageField(default="default.jpg")  # filename of photo, stored in folder
     time_stamp = models.IntegerField()
     page_name = models.CharField(max_length=60)  # link to profile-event via function
     layout = models.CharField(max_length=30, default='standard')  # how the post should appear. Select from html presets
@@ -79,10 +77,9 @@ class PostPhoto(models.Model):
 class PostVideo(models.Model):
     """Video post items. References a locally stored video file. Includes Link items"""
     text = models.TextField()  # video description
-    video = models.CharField(max_length=160)  # filename of video, stored in folder
+    video = models.FileField()  # filename of video, stored in folder
     title = models.CharField(max_length=160, null=True)  # title of video
-    photo = models.CharField(max_length=160)  # filename of photo, stored in folder. Maybe change to an image field type?
-    photo2 = models.ImageField(default="default.jpg")
+    photo = models.ImageField(default="default.jpg")  # filename of photo, stored in folder
     time_stamp = models.IntegerField()
     page_name = models.CharField(max_length=60)  # link to profile-event via function
     layout = models.CharField(max_length=30, default='standard')  # how the post should appear. Select from html presets
@@ -101,8 +98,7 @@ class ProfileEvent(models.Model):
     time_stamp = models.IntegerField()
     expires = models.IntegerField(null=True)  # one less than value of next object
     page_name = models.CharField(max_length=60)  # link to profile-event via function
-    photo = models.CharField(max_length=160)  # filename of photo, stored in folder. Maybe change to an image field type?
-    photo2 = models.ImageField(default="default.jpg")
+    photo = models.ImageField(default="default.jpg")  # filename of photo, stored in folder
     text = models.TextField()  # free text field, in case it is needed
     link_fb = models.CharField(max_length=100, null=True)  # facebook post id
     link_tw = models.CharField(max_length=100, null=True)  # twitter post id
@@ -112,22 +108,10 @@ class ProfileEvent(models.Model):
         return class_name
 
 
-class ItemEmbed(models.Model):
-    """include another type of item, like person or song"""
-    time_stamp = models.IntegerField()
-
-    # relationship to another item that will be embedded at timecode
-
-    def get_type(self):
-        class_name = "itemembed"
-        return class_name
-
-
 class Album(models.Model):
     """An album, containing songs"""
     alias = models.CharField(max_length=30)
-    photo = models.CharField(max_length=160)  # filename of photo, stored in folder. Maybe change to an image field type?
-    photo2 = models.ImageField(default="default.jpg")
+    photo = models.ImageField(default="default.jpg")  # filename of photo, stored in folder
     title = models.CharField(max_length=100)
     text = models.TextField()  # description
     release_date = models.DateField()
@@ -148,8 +132,7 @@ class Album(models.Model):
 class Song(models.Model):
     """A song. Most belong to an album"""
     alias = models.CharField(max_length=30)
-    photo = models.CharField(max_length=160)  # filename of photo, stored in folder. Maybe change to an image field type?
-    photo2 = models.ImageField(default="default.jpg")
+    photo = models.ImageField(default="default.jpg")  # filename of photo, stored in folder
     title = models.CharField(max_length=100)
     track_number = models.IntegerField(null=True)
     text = models.TextField()  # description
@@ -173,7 +156,6 @@ class Song(models.Model):
 class MusicVideo(models.Model):
     """An album, containing songs"""
     alias = models.CharField(max_length=30)
-    photo = models.CharField(max_length=160)  # filename of photo, stored in folder. Maybe change to an image field type?
     title = models.CharField(max_length=100)
     text = models.TextField()  # description
     release_date = models.DateField(null=True)
@@ -191,3 +173,41 @@ class MusicVideo(models.Model):
         class_name = "musicvideo"
         return class_name
 
+
+class ItemEmbed(models.Model):
+    """include another type of item, like person or song"""
+    time_stamp = models.IntegerField()
+    target = models.CharField(max_length=60)  # alias of item to be embedded. Make this relationship instead
+    target_character = models.ManyToManyField(Character)
+    target_song = models.ManyToManyField(Song)
+    target_album = models.ManyToManyField(Album)
+    target_musicvideo = models.ManyToManyField(MusicVideo)
+    # relationship to another item that will be embedded at timecode
+
+    def get_type(self):
+        class_name = "itemembed"
+        return class_name
+
+    def get_embed(self):
+        if self.target_character.all():
+            return self.target_character.all().first()
+        elif self.target_song.all():
+            return self.target_song.all().first()
+        elif self.target_album.all():
+            return self.target_album.all().first()
+        elif self.target_musicvideo.all():
+            return self.target_musicvideo.all().first()
+        else:
+            return None
+
+    def what_kind(self):
+        if self.target_character.all():
+            return 'character'
+        elif self.target_song.all():
+            return 'song'
+        elif self.target_album.all():
+            return 'album'
+        elif self.target_musicvideo.all():
+            return 'musicvideo'
+        else:
+            return None

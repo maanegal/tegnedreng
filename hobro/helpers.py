@@ -82,7 +82,6 @@ def get_current_info(ts):
         return None
     data = ProfileEvent.objects.filter(expires__gt=ts, time_stamp__lt=ts).first()
     hit = {'name': data.page_name, 'photo': data.photo}
-    print(hit)
     return hit
 
 
@@ -176,3 +175,7 @@ def the_big_retriever(index=None):
         output.append(o)
 
     return output
+
+
+def make_embed():
+    pass

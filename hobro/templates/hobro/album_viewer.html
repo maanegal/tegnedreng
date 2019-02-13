@@ -3,6 +3,7 @@
 {% block content %}
     <div class="post">
         <h2>{{ album.title }}</h2>
+        <img src="{{ album.photo.url }}" style="max-width: 300px"/>
         <p>Udgivet {{ album.release_date|date:"F j Y" }}</p>
         <p>Sange på dette album:<ul>
         {% for s in album.song_set.all %}

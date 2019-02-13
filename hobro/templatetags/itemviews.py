@@ -9,7 +9,7 @@ register = template.Library()
 def show_post(post):
     info = get_current_info(post.time_stamp)
     dt = datetime.utcfromtimestamp(post.time_stamp)
-    return {'post': post, 'name': info.get('name', ''), 'post_time': dt}
+    return {'post': post, 'name': info.get('name', ''), 'profilepic': info.get('photo', ''), 'post_time': dt}
 
 
 @register.inclusion_tag('hobro/postphoto.html')
@@ -23,7 +23,7 @@ def show_postphoto(postphoto):
 def show_postvideo(postvideo):
     info = get_current_info(postvideo.time_stamp)
     dt = datetime.utcfromtimestamp(postvideo.time_stamp)
-    return {'post': postvideo, 'name': info.get('name', ''), 'post_time': dt}
+    return {'post': postvideo, 'name': info.get('name', ''), 'profilepic': info.get('photo', ''), 'post_time': dt}
 
 
 @register.inclusion_tag('hobro/section.html')
@@ -45,4 +45,25 @@ def show_profileevent(profileevent):
 @register.inclusion_tag('hobro/itemembed.html')
 def show_itemembed(itemembed):
     dt = datetime.utcfromtimestamp(itemembed.time_stamp)
-    return {'itemembed': itemembed, 'post_time': dt}
+    kind = itemembed.what_kind()
+    return {'itemembed': itemembed, 'post_time': dt, 'kind': kind}
+
+
+@register.inclusion_tag('hobro/embed_song.html')
+def embed_song(song):
+    return {'song': song.first()}
+
+
+@register.inclusion_tag('hobro/embed_album.html')
+def embed_album(album):
+    return {'album': album.first()}
+
+
+@register.inclusion_tag('hobro/embed_musicvideo.html')
+def embed_musicvideo(musicvideo):
+    return {'musicvideo': musicvideo.first()}
+
+
+@register.inclusion_tag('hobro/embed_character.html')
+def embed_character(character):
+    return {'character': character.first()}
