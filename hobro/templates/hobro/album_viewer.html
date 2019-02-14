@@ -9,5 +9,13 @@
         {% for s in album.song_set.all %}
             <li>{{ s.track_number }}. <a href="{% url 'song_viewer' pk=s.pk %}">{{ s.title }}</a></li>
         {% endfor %} </ul></p>
+        {% if embed_code_sp %}
+            <br>
+            <div>{{ embed_code_sp|safe }}</div>
+        {% endif %}
+        {% if embed_code_bc %}
+            <br>
+            <div>{{ embed_code_bc|safe }}</div>
+        {% endif %}
     </div>
 {% endblock %}

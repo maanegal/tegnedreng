@@ -55,22 +55,23 @@ def embed_song(song):
     a = None
     if s.album:
         a = s.album
-    embed_bc = make_bandcamp_embed(a, s)
-    embed_sp = make_spotify_embed(s)
-    return {'song': s, 'embed-code-bc': embed_bc, 'embed-code-sp': embed_sp}
+    embed_bc = make_bandcamp_embed(album=a, song=s)
+    embed_sp = make_spotify_embed(album=None, song=s)
+    return {'song': s, 'embed_code_bc': embed_bc, 'embed_code_sp': embed_sp}
 
 
 @register.inclusion_tag('hobro/embed_album.html')
 def embed_album(album):
-    embed_bc = make_bandcamp_embed(album.first())
-    embed_sp = make_spotify_embed(album.first())
-    return {'album': album.first(), 'embed-code-bc': embed_bc, 'embed-code-sp': embed_sp}
+    al = album.first()
+    embed_bc = make_bandcamp_embed(album=al, song=None)
+    embed_sp = make_spotify_embed(album=al, song=None)
+    return {'album': al, 'embed_code_bc': embed_bc, 'embed_code_sp': embed_sp}
 
 
 @register.inclusion_tag('hobro/embed_musicvideo.html')
 def embed_musicvideo(musicvideo):
     embed = make_youtube_embed(musicvideo.first())
-    return {'musicvideo': musicvideo.first(), 'embed-code': embed}
+    return {'musicvideo': musicvideo.first(), 'embed_code': embed}
 
 
 @register.inclusion_tag('hobro/embed_character.html')

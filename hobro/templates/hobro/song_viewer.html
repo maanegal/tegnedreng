@@ -7,6 +7,18 @@
         <p>Nummer {{ song.track_number }} på <a href="{% url 'album_viewer' pk=song.album.pk %}">{{ song.album.title }}</a></p>
         <img src="{{ song.album.photo.url }}" style="max-width: 300px"/>
         {% endif %}
+        {% if embed_code_sp %}
+            <br>
+            <div>{{ embed_code_sp|safe }}</div>
+        {% endif %}
+        {% if embed_code_bc %}
+            <br>
+            <div>{{ embed_code_bc|safe }}</div>
+        {% endif %}
+        {% if song.musicvideo %}
+        <p>Denne sang har en <a href="{% url 'musicvideo_viewer' pk=song.musicvideo.pk %}">musikvideo</a></p>
+        {% endif %}
+        <hr>
         {% if song.appears.all %}
             <p>På dette nummer:
                 {% for c in song.appears.all %}

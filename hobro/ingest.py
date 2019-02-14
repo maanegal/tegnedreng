@@ -1,5 +1,6 @@
 from .models import *
 from pathlib import Path
+from django.utils.text import slugify
 import os
 import re
 from datetime import datetime
@@ -43,6 +44,9 @@ def loader(files=[]):
     print('interpretation done.', objects, 'processed')
     set_expirations()
     print('expirations done')
+    print('starting on', len(relations), 'relations and', len(hashtags), 'hashtags')
+    relations.update(hashtags)
+    print('total:', len(relations))
     make_relations(relations)
     print('relations done\nAll done!')
 
@@ -164,18 +168,39 @@ def make_hashtags(text, alias, element):
     link = "#"
     for word in words:
         if '#' in word and not word.endswith('#'):
+            word = word.split('<')[0]
             ht.append(word)
             # make word a link
             html_o, html_c = html_element('a', custom={'href': link})
             word = html_o + word + html_c
         new_words.append(word)
     for tag in ht:
-        if hashtags.get(tag):
-            hashtags[tag].append((alias, element))
+        matches = Hashtag.objects.filter(name=tag)
+        if not matches:  # make object in db if it doesn't exist already
+            hashtag = Hashtag(name=tag)
+            hashtag.save()
+            id = hashtag.pk
+            slug = str(id) + '_' + slugify(tag)
+            hashtag.slug = slug
+            hashtag.save()
+        hashtag = Hashtag.objects.filter(name=tag).first()
+        slug = hashtag.slug
+        rel = ''
+        if element == 'post':
+            rel = 'tagged_in_post'
+        elif element == 'post-photo':
+            rel = 'tagged_in_postphoto'
+        elif element == 'post-video':
+            rel = 'tagged_in_postvideo'
+        elif element == 'song':
+            rel = 'tagged_in_song'
+        if hashtags.get(tag):  # save relationship with other item in list
+            hashtags[slug].append((rel, alias))
         else:
-            hashtags[tag] = [(alias, element)]
+            hashtags[slug] = [(rel, alias)]
     new_text = " ".join(new_words)
     return new_text
+
 
 
 def make_mentions(text):
@@ -266,6 +291,7 @@ def process_tree(item={}):
     elif element == 'item-embed':
         # set alias (timestamp)
         # expect embed prop with the alias of another element
+        #print(item)
         if '§§' not in item.get('embed', [])[0]:
             relations.extend(parse_relation('target_'+item.get('type')[0], item.get('embed', None)))
         obj = ItemEmbed(time_stamp=int(alias), target=item.get('embed')[0])
@@ -306,8 +332,14 @@ def process_tree(item={}):
         rel = item.get('release_date')[0]
         dt = datetime.fromtimestamp(int(rel))
         photo = 'albums/' + item.get('photo')[0]
+        e_bc = item.get('bc-embed-code', None)
+        if e_bc:
+            e_bc = e_bc[0]
+        e_sp = item.get('sp-embed-code', None)
+        if e_sp:
+            e_sp = e_sp[0]
         obj = Album(alias=alias, title=item.get('title')[0], photo=photo, link_bc=item.get('url')[0],
-                    bc_embed_code=item.get('bc-embed-code')[0], sp_embed_code=item.get('sp-embed-code')[0],
+                    bc_embed_code=e_bc, sp_embed_code=e_sp,
                     text=html, release_date=dt)
     elif element == 'music-song':
         if not text:
@@ -324,8 +356,14 @@ def process_tree(item={}):
         relations.extend(parse_relation('appears', item.get('featuring', None)))
         relations.extend(parse_relation('producer', item.get('producer', None)))
         relations.extend(parse_relation('album', item.get('album', None)))
-        obj = Song(alias=alias, title=item.get('title')[0], link_bc=link_bc, bc_embed_code=item.get('bc-embed-code')[0],
-                   sp_embed_code=item.get('sp-embed-code')[0], text=html, track_number=track)
+        e_bc = item.get('bc-embed-code', None)
+        if e_bc:
+            e_bc = e_bc[0]
+        e_sp = item.get('sp-embed-code', None)
+        if e_sp:
+            e_sp = e_sp[0]
+        obj = Song(alias=alias, title=item.get('title')[0], link_bc=link_bc, bc_embed_code=e_bc,
+                   sp_embed_code=e_sp, text=html, track_number=track)
     elif element == 'music-video':
         if not text:
             text = ''

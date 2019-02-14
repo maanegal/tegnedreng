@@ -13,15 +13,15 @@ def str_to_int(s):
 def class_from_str(name):
     if name == 'post':
         return Post
-    elif name == 'postphoto':
+    elif name in ('postphoto', 'post-photo'):
         return PostPhoto
-    elif name == 'postvideo':
+    elif name in ('postvideo', 'post-video'):
         return PostVideo
-    elif name == 'profileevent':
+    elif name in ('profileevent', 'profile-event'):
         return ProfileEvent
     elif name == 'character':
         return Character
-    elif name == 'itemembed':
+    elif name in ('itemembed', 'item-embed'):
         return ItemEmbed
     elif name == 'story':
         return Story
@@ -31,8 +31,10 @@ def class_from_str(name):
         return Album
     elif name == 'song':
         return Song
-    elif name == 'musicvideo':
+    elif name in ('musicvideo', 'music-video'):
         return MusicVideo
+    elif name == 'hashtag':
+        return Hashtag
     else:
         return None
 
@@ -70,6 +72,9 @@ def object_from_alias(alias):
     if o:
         return o
     o = MusicVideo.objects.filter(alias=str(alias)).first()
+    if o:
+        return o
+    o = Hashtag.objects.filter(slug=str(alias)).first()
     if o:
         return o
 
@@ -128,18 +133,21 @@ def make_relations(data):
     Takes dict with object alias as key, and list of tuples as values. Tuples are field and target object alias"""
     one_to_ones = ['album', 'song']
     for k, v in data.items():
-        parent = object_from_alias(k)
-        for r in v:
-            rel = r[0]
-            target = object_from_alias(r[1])
-            if rel in one_to_ones:
-                setattr(parent, rel, target)
-            else:
-                try:
-                    parent.__getattribute__(rel).add(target)
-                except:
-                    print(rel, parent, target, r, k)
-        parent.save()
+        try:
+            parent = object_from_alias(k)
+            for r in v:
+                rel = r[0]
+                target = object_from_alias(r[1])
+                if rel in one_to_ones:
+                    setattr(parent, rel, target)
+                else:
+                    try:
+                        parent.__getattribute__(rel).add(target)
+                    except Exception as e:
+                        print(e, rel, parent, target, r, k)
+            parent.save()
+        except:
+            print(rel, parent, target, r, k, v)
 
 
 def the_big_retriever(index=None):
@@ -177,22 +185,23 @@ def the_big_retriever(index=None):
     return output
 
 
-def make_bandcamp_embed(album=Album, track=Song):
-    if album and track:
+def make_bandcamp_embed(album=None, song=None):
+    if album and song:
+        print(album, song)
         a = '<iframe style="border: 0; width: 100%; height: 42px;"src="https://bandcamp.com/EmbeddedPlayer/album='
         b = '/size=small/bgcol=ffffff/linkcol=0687f5/track='
         c = '/transparent=true/" seamless><a href="'
         d = '">'
         f = '</a></iframe>'
-        e = a + album.bc_embed_code + b + track.bc_embed_code + c + track.link_bc + d + track.title + f
-    elif track:
+        e = a + album.bc_embed_code + b + song.bc_embed_code + c + song.link_bc + d + song.title + f
+    elif song:
         a = '<iframe style="border: 0; width: 100%; height: 42px;" src="https://bandcamp.com/EmbeddedPlayer/track='
         b = '/size=small/bgcol=ffffff/linkcol=0687f5/transparent=true/" seamless><a href="'
         c = '">'
         d = '</a></iframe>'
-        e = a + track.bc_embed_code + b + track.link_bc + c + track.title + d
+        e = a + song.bc_embed_code + b + song.link_bc + c + song.title + d
     elif album:
-        a = '<iframe style="border: 0; width: 700px; height: 472px;" rc="https://bandcamp.com/EmbeddedPlayer/album='
+        a = '<iframe style="border: 0; width: 700px; height: 500px;" src="https://bandcamp.com/EmbeddedPlayer/album='
         b = '/size=large/bgcol=ffffff/linkcol=333333/artwork=small/transparent=true/" seamless><a href="'
         c = '">'
         d = '</a></iframe>'
@@ -202,21 +211,24 @@ def make_bandcamp_embed(album=Album, track=Song):
     return e
 
 
-def make_spotify_embed(album=Album, track=Song):
+def make_spotify_embed(album=None, song=None):
+    e = None
     if album:
         a = '<iframe src="https://open.spotify.com/embed/album/'
-        b = '" width="400" height="480" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>'
-        e = a + album.sp_embed_code + b
-    elif track:
+        b = '" width="700" height="500" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>'
+        if album.sp_embed_code:
+            e = a + album.sp_embed_code + b
+    elif song:
         a = '<iframe src="https://open.spotify.com/embed/track/'
-        b = '" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>'
-        e = a + track.sp_embed_code + b
+        b = '" width="700" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>'
+        if song.sp_embed_code:
+            e = a + song.sp_embed_code + b
     return e
 
 
 def make_youtube_embed(obj):
-    a = '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'
-    b = '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-    c = obj.link_yt.split('/')[-1]
+    a = '<iframe width="560" height="315" src="https://www.youtube.com/embed/'
+    b = '" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+    c = obj.link_yt.split('=')[-1]
     e = a + c + b
     return e

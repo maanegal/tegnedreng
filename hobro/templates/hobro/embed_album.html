@@ -1,4 +1,6 @@
 <div class="post">
     <h3>{{ album.title }}</h3>
-    <p>{{ album.embed_url }}</p>
+    <div>{{ embed_code_sp|safe }}</div>
+    <br>
+    <div>{{ embed_code_bc|safe }}</div>
 </div>

@@ -16,6 +16,12 @@
                 <li> <a href="{% url 'song_viewer' pk=s.pk %}">{{ s.title }}</a></li>
             {% endfor %} </ul>
         {% endif %}
+        {% if character.appears_in_video.all %}
+        <p>Medvirker i disse musikvideoer:</p><ul>
+        {% for v in character.appears_in_video.all %}
+            <li><a href="{% url 'musicvideo_viewer' pk=v.pk %}">{{ v.title }}</a></li>
+        {% endfor %}</ul>
+        {% endif %}
         <p>Optræder i disse opslag:</p><ul>
         {% for post in posts %}
             <li>{% show_post post %}</li>
