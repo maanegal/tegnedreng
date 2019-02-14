@@ -1,6 +1,6 @@
 from datetime import datetime
 from ..models import *
-from hobro.helpers import get_current_info
+from hobro.helpers import get_current_info, make_bandcamp_embed, make_spotify_embed, make_youtube_embed
 from django import template
 register = template.Library()
 
@@ -51,17 +51,26 @@ def show_itemembed(itemembed):
 
 @register.inclusion_tag('hobro/embed_song.html')
 def embed_song(song):
-    return {'song': song.first()}
+    s = song.first()
+    a = None
+    if s.album:
+        a = s.album
+    embed_bc = make_bandcamp_embed(a, s)
+    embed_sp = make_spotify_embed(s)
+    return {'song': s, 'embed-code-bc': embed_bc, 'embed-code-sp': embed_sp}
 
 
 @register.inclusion_tag('hobro/embed_album.html')
 def embed_album(album):
-    return {'album': album.first()}
+    embed_bc = make_bandcamp_embed(album.first())
+    embed_sp = make_spotify_embed(album.first())
+    return {'album': album.first(), 'embed-code-bc': embed_bc, 'embed-code-sp': embed_sp}
 
 
 @register.inclusion_tag('hobro/embed_musicvideo.html')
 def embed_musicvideo(musicvideo):
-    return {'musicvideo': musicvideo.first()}
+    embed = make_youtube_embed(musicvideo.first())
+    return {'musicvideo': musicvideo.first(), 'embed-code': embed}
 
 
 @register.inclusion_tag('hobro/embed_character.html')

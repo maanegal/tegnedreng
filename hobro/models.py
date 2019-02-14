@@ -116,7 +116,8 @@ class Album(models.Model):
     text = models.TextField()  # description
     release_date = models.DateField()
     artist_name = models.CharField(max_length=60)  # link to profile-event via function
-    embed_url = models.CharField(max_length=100)  # url used embedding item player
+    bc_embed_code = models.CharField(max_length=100)  # code used for bandcamp embeds
+    sp_embed_code = models.CharField(max_length=100, null=True)  # code used for spotify embeds
     link_yt = models.CharField(max_length=100, null=True)  # youtube
     link_bc = models.CharField(max_length=100, null=True)  # bandcamp
     link_sp = models.CharField(max_length=100, null=True)  # spotify
@@ -137,7 +138,8 @@ class Song(models.Model):
     track_number = models.IntegerField(null=True)
     text = models.TextField()  # description
     artist_name = models.CharField(max_length=60)  # link to profile-event via function
-    embed_url = models.CharField(max_length=100)  # url used embedding item player
+    bc_embed_code = models.CharField(max_length=100)  # code used for bandcamp embeds
+    sp_embed_code = models.CharField(max_length=100, null=True)  # code used for spotify embeds
     link_yt = models.CharField(max_length=100, null=True)  # youtube
     link_bc = models.CharField(max_length=100, null=True)  # bandcamp
     link_sp = models.CharField(max_length=100, null=True)  # spotify

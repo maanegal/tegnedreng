@@ -307,7 +307,8 @@ def process_tree(item={}):
         dt = datetime.fromtimestamp(int(rel))
         photo = 'albums/' + item.get('photo')[0]
         obj = Album(alias=alias, title=item.get('title')[0], photo=photo, link_bc=item.get('url')[0],
-                    embed_url=item.get('url')[0], text=html, release_date=dt)
+                    bc_embed_code=item.get('bc-embed-code')[0], sp_embed_code=item.get('sp-embed-code')[0],
+                    text=html, release_date=dt)
     elif element == 'music-song':
         if not text:
             text = ''
@@ -323,8 +324,8 @@ def process_tree(item={}):
         relations.extend(parse_relation('appears', item.get('featuring', None)))
         relations.extend(parse_relation('producer', item.get('producer', None)))
         relations.extend(parse_relation('album', item.get('album', None)))
-        obj = Song(alias=alias, title=item.get('title')[0], link_bc=link_bc, embed_url=link_bc,
-                   text=html, track_number=track)
+        obj = Song(alias=alias, title=item.get('title')[0], link_bc=link_bc, bc_embed_code=item.get('bc-embed-code')[0],
+                   sp_embed_code=item.get('sp-embed-code')[0], text=html, track_number=track)
     elif element == 'music-video':
         if not text:
             text = ''

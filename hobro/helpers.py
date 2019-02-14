@@ -177,5 +177,46 @@ def the_big_retriever(index=None):
     return output
 
 
-def make_embed():
-    pass
+def make_bandcamp_embed(album=Album, track=Song):
+    if album and track:
+        a = '<iframe style="border: 0; width: 100%; height: 42px;"src="https://bandcamp.com/EmbeddedPlayer/album='
+        b = '/size=small/bgcol=ffffff/linkcol=0687f5/track='
+        c = '/transparent=true/" seamless><a href="'
+        d = '">'
+        f = '</a></iframe>'
+        e = a + album.bc_embed_code + b + track.bc_embed_code + c + track.link_bc + d + track.title + f
+    elif track:
+        a = '<iframe style="border: 0; width: 100%; height: 42px;" src="https://bandcamp.com/EmbeddedPlayer/track='
+        b = '/size=small/bgcol=ffffff/linkcol=0687f5/transparent=true/" seamless><a href="'
+        c = '">'
+        d = '</a></iframe>'
+        e = a + track.bc_embed_code + b + track.link_bc + c + track.title + d
+    elif album:
+        a = '<iframe style="border: 0; width: 700px; height: 472px;" rc="https://bandcamp.com/EmbeddedPlayer/album='
+        b = '/size=large/bgcol=ffffff/linkcol=333333/artwork=small/transparent=true/" seamless><a href="'
+        c = '">'
+        d = '</a></iframe>'
+        e = a + album.bc_embed_code + b + album.link_bc + c + album.title + d
+    else:
+        e = None
+    return e
+
+
+def make_spotify_embed(album=Album, track=Song):
+    if album:
+        a = '<iframe src="https://open.spotify.com/embed/album/'
+        b = '" width="400" height="480" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>'
+        e = a + album.sp_embed_code + b
+    elif track:
+        a = '<iframe src="https://open.spotify.com/embed/track/'
+        b = '" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>'
+        e = a + track.sp_embed_code + b
+    return e
+
+
+def make_youtube_embed(obj):
+    a = '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'
+    b = '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+    c = obj.link_yt.split('/')[-1]
+    e = a + c + b
+    return e
