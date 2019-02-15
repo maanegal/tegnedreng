@@ -35,7 +35,14 @@ def class_from_str(name):
         return MusicVideo
     elif name == 'hashtag':
         return Hashtag
+    elif name == 'swgrs_song':
+        return SwgrsSong
+    elif name == 'swgrs_post':
+        return SwgrsPost
+    elif name == 'swgrs_media':
+        return SwgrsMedia
     else:
+        print('unknown class:', name)
         return None
 
 
@@ -77,6 +84,17 @@ def object_from_alias(alias):
     o = Hashtag.objects.filter(slug=str(alias)).first()
     if o:
         return o
+    o = SwgrsPost.objects.filter(time_stamp=str_to_int(alias)).first()
+    if o:
+        return o
+    o = SwgrsMedia.objects.filter(time_stamp=str_to_int(alias)).first()
+    if o:
+        return o
+    o = SwgrsSong.objects.filter(alias=str(alias)).first()
+    if o:
+        return o
+    if not o:
+        print('failed getting', alias)
 
 
 def get_current_info(ts):
@@ -231,4 +249,13 @@ def make_youtube_embed(obj):
     b = '" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
     c = obj.link_yt.split('=')[-1]
     e = a + c + b
+    return e
+
+
+def make_soundcloud_embed(obj):
+    a = '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/'
+    b = '&color=%231a1a1a&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
+    e = None
+    if obj.sp_embed_code:
+        e = a + obj.sc_embed_code + b
     return e

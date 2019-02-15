@@ -176,13 +176,63 @@ class MusicVideo(models.Model):
         return class_name
 
 
+class SwgrsPost(models.Model):
+    text = models.TextField()
+    text_link = models.CharField(max_length=100, null=True)  # If post has a content link
+    time_stamp = models.IntegerField()
+    layout = models.CharField(max_length=30, default='standard')  # how the post should appear. Select from html presets
+    link_fb = models.CharField(max_length=100, null=True)  # facebook post id
+
+    def get_type(self):
+        class_name = "swgrs_post"
+        return class_name
+
+
+class SwgrsMedia(models.Model):
+    """Photo or video"""
+    text = models.TextField()  # photo description
+    photo = models.ImageField(default="swgrs/profile.jpg")  # filename of photo, stored in folder
+    video = models.FileField(null=True)  # filename of video, stored in folder
+    video_title = models.CharField(max_length=160, null=True)  # title of video
+    time_stamp = models.IntegerField()
+    layout = models.CharField(max_length=30, default='standard')  # how the post should appear. Select from html presets
+    link_fb = models.CharField(max_length=100, null=True)  # facebook post id
+
+    def get_type(self):
+        class_name = "swgrs_media"
+        return class_name
+
+    def is_video(self):
+        if self.video:
+            return True
+        else:
+            return False
+
+
+class SwgrsSong(models.Model):
+    alias = models.CharField(max_length=30)
+    photo = models.ImageField(default="swgrs/profile.jpg")  # filename of photo, stored in folder
+    title = models.CharField(max_length=100)
+    text = models.TextField()  # description
+    sc_embed_code = models.CharField(max_length=100)  # code used for spotify embeds
+    link_sc = models.CharField(max_length=100, null=True)  # soundcloud
+
+    def get_type(self):
+        class_name = "swgrs_song"
+        return class_name
+
+
 class Hashtag(models.Model):
     name = models.CharField(max_length=200)
     slug = models.CharField(max_length=200)
     tagged_in_post = models.ManyToManyField(Post, related_name='post_hashtag')
     tagged_in_postphoto = models.ManyToManyField(PostPhoto, related_name='photo_hashtag')
     tagged_in_postvideo = models.ManyToManyField(PostVideo, related_name='video_hashtag')
-    tagged_in_song = models.ManyToManyField(PostVideo, related_name='song_hashtag')
+    tagged_in_song = models.ManyToManyField(Song, related_name='song_hashtag')
+    tagged_in_album = models.ManyToManyField(Album, related_name='album_hashtag')
+    tagged_in_swgrs_song = models.ManyToManyField(SwgrsSong, related_name='swgrs_song_hashtag')
+    tagged_in_swgrs_post = models.ManyToManyField(SwgrsPost, related_name='swgrs_post_hashtag')
+    tagged_in_swgrs_media = models.ManyToManyField(SwgrsMedia, related_name='swgrs_media_hashtag')
 
 
 class ItemEmbed(models.Model):

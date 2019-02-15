@@ -114,13 +114,13 @@ def mark_it_down(data):
     return output
 
 
-def html_element(tag='div', id="", classes=[], custom={}):
+def html_element(tag='div', id_="", classes=[], custom={}):
     """make a valid HTML element, with open and close tags and optional classes and id.
     Custom should be a dict of property as key, value as value"""
     close_tag = '</'+tag+'>'
     open_tag = '<'+tag
-    if id:
-        open_tag += ' id="'+id+'"'
+    if id_:
+        open_tag += ' id="' + id_ + '"'
     if classes:
         open_tag += ' class="'.join(classes)
         open_tag += '"'
@@ -165,13 +165,13 @@ def make_hashtags(text, alias, element):
     words = text.split(' ')
     new_words = []
     ht = []
-    link = "#"
+    link = "temp"
     for word in words:
         if '#' in word and not word.endswith('#'):
             word = word.split('<')[0]
             ht.append(word)
             # make word a link
-            html_o, html_c = html_element('a', custom={'href': link})
+            html_o, html_c = html_element('a', custom={'href': link + slugify(word)})
             word = html_o + word + html_c
         new_words.append(word)
     for tag in ht:
@@ -179,8 +179,8 @@ def make_hashtags(text, alias, element):
         if not matches:  # make object in db if it doesn't exist already
             hashtag = Hashtag(name=tag)
             hashtag.save()
-            id = hashtag.pk
-            slug = str(id) + '_' + slugify(tag)
+            h_id = hashtag.pk
+            slug = str(h_id) + '_' + slugify(tag)
             hashtag.slug = slug
             hashtag.save()
         hashtag = Hashtag.objects.filter(name=tag).first()
@@ -192,15 +192,24 @@ def make_hashtags(text, alias, element):
             rel = 'tagged_in_postphoto'
         elif element == 'post-video':
             rel = 'tagged_in_postvideo'
-        elif element == 'song':
+        elif element in ('song', 'music-song'):
             rel = 'tagged_in_song'
-        if hashtags.get(tag):  # save relationship with other item in list
+        elif element == 'music-album':
+            rel = 'tagged_in_album'
+        elif element == 'swgrs_post':
+            rel = 'tagged_in_swgrs_post'
+        elif element == 'swgrs_song':
+            rel = 'tagged_in_swgrs_song'
+        elif element == 'swgrs_media':
+            rel = 'tagged_in_swgrs_media'
+        else:
+            print('unknown tag type', tag, element, alias)
+        if hashtags.get(slug):  # save relationship with other item in list
             hashtags[slug].append((rel, alias))
         else:
             hashtags[slug] = [(rel, alias)]
     new_text = " ".join(new_words)
     return new_text
-
 
 
 def make_mentions(text):
@@ -277,7 +286,7 @@ def process_tree(item={}):
             title = None
         relations.extend(parse_relation('appears', item.get('appears', None)))
         obj = PostVideo(text=html, time_stamp=int(alias), title=title, video=video,
-                            photo=photo, link_fb=link_fb, link_tw=link_tw, link_ig=link_ig)
+                        photo=photo, link_fb=link_fb, link_tw=link_tw, link_ig=link_ig)
     elif element == 'profile-event':
         if not text:
             text = ''
@@ -374,14 +383,49 @@ def process_tree(item={}):
         relations.extend(parse_relation('appears', item.get('appears', None)))
         relations.extend(parse_relation('song', item.get('video-for', None)))
         obj = MusicVideo(alias=alias, title=item.get('title')[0], embed_url=yt, link_yt=yt, text=html)
+    elif element == 'swgrs_song':
+        if not text:
+            text = ""
+        text = make_links(text)
+        text = make_hashtags(text, alias, element)
+        text = make_mentions(text)
+        link_sc = item.get('link_sc', '')
+        e_sc = item.get('sc_embed_code', None)
+        if e_sc:
+            e_sc = e_sc[0]
+        obj = SwgrsSong(alias=alias, title=item.get('title')[0], text=text, sc_embed_code=e_sc, link_sc=link_sc)
+    elif element == 'swgrs_post':
+        if not text:
+            return None
+        html = markdown(text)
+        html = make_links(html)
+        html = make_hashtags(html, alias, element)
+        html = make_mentions(html)
+        text_link = item.get('link', '')
+        link_fb = item.get('link_fb', '')
+        obj = SwgrsPost(text=html, time_stamp=int(alias), link_fb=link_fb, text_link=text_link)
+    elif element == 'swgrs_media':
+        if not text:
+            text = ""
+        html = markdown(text)
+        html = make_links(html)
+        html = make_hashtags(html, alias, element)
+        html = make_mentions(html)
+        link_fb = item.get('link_fb', '')
+        video = item.get('video', '')
+        if video:
+            video = 'swgrs/' + video[0]
+        photo = 'swgrs/' + item.get('photo')[0]
+        video_title = item.get('video_title', '')
+        if video_title and isinstance(video_title, list):
+            video_title = video_title[0]
+        else:
+            video_title = ''
+        obj = SwgrsMedia(text=html, time_stamp=int(alias), video_title=video_title, video=video,
+                        photo=photo, link_fb=link_fb)
     if not obj:
         print(element, alias)
     return obj, relations
 
 
 
-
-
-
-# Store relationships in var while doing initial create. Save objects to db
-# Second round: Load relationship list and set them. Calculate expiration for profile info objects
