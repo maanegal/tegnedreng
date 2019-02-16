@@ -312,9 +312,7 @@ def process_tree(item={}):
         # expect a text element with two values -- chapter number and title. Render to HTML as h2, split up somehow
         if not text:
             return None
-        html_o, html_c = html_element('h2')
-        html = html_o + text + html_c
-        obj = Section(text=html, time_stamp=int(alias))
+        obj = Section(text=text, time_stamp=int(alias))
     elif element == 'story':
         # set alias (timestamp)
         # expect either text or body element

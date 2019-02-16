@@ -1,5 +1,10 @@
-<div class="post">
-    <h3>{{ song.title }}</h3>
+<section id="{{ song.alias }}" class="section columns is-mobile is-centered">
+<div class="column is-two-thirds"><div class="box">
+    <a href="{% url 'song_viewer' slug=song.slug %}">
+        <span class="title">{{ song.title }}</span><span class="icon is-small">&emsp;<i class="fas fa-external-link-alt"></i></span>
+    </a>
+    <p class="subtitle">Sang</p>
+    <p>{{ song.text|safe }}</p><br>
     {% if embed_code_sp %}
     <div>{{ embed_code_sp|safe }}</div>
     <br>
@@ -7,4 +12,5 @@
     {% if embed_code_bc %}
     <div>{{ embed_code_bc|safe }}</div>
     {% endif %}
-</div>
+</div></div>
+</section>

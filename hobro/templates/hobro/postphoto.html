@@ -1,13 +1,35 @@
-<div id="{{ post.time_stamp }}" style="border: 3px solid green; margin: 10px; background-color: #f2f2f2; padding: 10px;">
-    <h3><a href="{% url 'item_detail' pk=post.pk tp=post.get_type %}">{{ name }}</a></h3>
-    <img src="{{ profilepic.url }}" style="max-width: 50px; border-radius: 5px;"/>
-    <p>{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>
-    <p>{{ post.text|safe }}</p>
-    <img src="{{ post.photo.url }}" style="max-width: 300px"/>
-    {% if post.appears.all %}
-        <p>I dette opslag:</p>
-        <ul>
-            {% for c in post.appears.all %} <li><a href="{% url 'character_viewer' slug=c.slug %}">{{ c.name|linebreaksbr }}</a></li> {% endfor %}
-        </ul>
-    {% endif %}
-</div>
+<section id="{{ post.time_stamp }}" class="section is-medium columns is-desktop is-centered is-gapless">
+  <div class="column">
+    <img src="{{ post.photo.url }}"/>
+  </div>
+  <div class="column">
+    <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img src="{{ profilepic.url }}" alt="{{ name }}">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <h2 class="title is-4">{{ name }}</h2>
+            <p class="subtitle is-6 has-text-grey">{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>
+            <p>{{ post.text|safe }}</p>
+            {% if post.appears.all %}
+                <p class="has-text-grey is-size-7">I dette opslag:
+                {% for c in post.appears.all %} <span class="tag is-uppercase has-text-grey"><a href="{% url 'character_viewer' slug=c.slug %}">{{ c.name|linebreaksbr }}</a></span> {% endfor %}
+                </p>
+            {% endif %}
+        </div>
+      </div>
+      <div class="media-right">
+          <ul class="icon-list">
+          <li><a href="{% url 'item_detail' pk=post.pk tp=post.get_type %}">
+            <span class="icon is-small"><i class="fas fa-external-link-alt"></i></span>
+          </a></li>
+          </ul>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>

@@ -1,4 +1,15 @@
-<div class="post">
-    <h3>{{ musicvideo.title }}</h3>
+<section id="{{ musicvideo.alias }}" class="section columns is-mobile is-centered">
+<div class="column is-two-thirds"><div class="box">
+    <h3 class="title">{{ musicvideo.title }}</h3>
+    <p class="subtitle">Musikvideo</p>
+    {% if musicvideo.text %}
+        <p>{{ musicvideo.text|safe }}</p>
+    {% endif %}
+    {% if musicvideo.appears.all %}
+        <p class="has-text-grey is-size-7">Medvirkende:
+        {% for c in musicvideo.appears.all %} <span class="tag is-uppercase has-text-grey"><a href="{% url 'character_viewer' slug=c.slug %}">{{ c.name|linebreaksbr }}</a></span> {% endfor %}
+        </p><br>
+    {% endif %}
     {{ embed_code|safe }}
-</div>
+</div></div>
+</section>

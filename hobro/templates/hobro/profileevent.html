@@ -1,7 +1,9 @@
-<div style="border: 1px solid blue; margin: 10px; padding: 10px;">
-    <h3>Nyt navn: {{ profileevent.page_name }}</h3>
-    <p>{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>
-    <p>Nyt profilbillede:</p>
-    <img src="{{ profileevent.photo.url }}" style="max-width: 250px; border-radius: 25px;"/>
+<section id="{{ profileevent.time_stamp }}" class="section columns is-mobile is-centered">
+<div class="column is-two-thirds"><div class="box">
+    <p class="subtitle">Profilen skiftede navn og billede</p>
+    <h3 class="title">{{ profileevent.page_name }}</h3>
+    <p class="subtitle is-6 has-text-grey">{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>
     <p>{{ profileevent.text|safe }}</p>
-</div>
+    <img src="{{ profileevent.photo.url }}" class="image" alt="{{ profileevent.page_name }}">
+</div></div>
+</section>

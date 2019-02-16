@@ -1,6 +1,12 @@
-<div class="post">
-    <h3>{{ album.title }}</h3>
+<section id="{{ album.alias }}" class="section columns is-mobile is-centered">
+<div class="column is-two-thirds"><div class="box">
+    <a href="{% url 'album_viewer' slug=album.slug %}">
+        <span class="title">{{ album.title }}</span><span class="icon is-small">&emsp;<i class="fas fa-external-link-alt"></i></span>
+    </a>
+    <p class="subtitle">Album</p>
+    <p>{{ album.text|safe }}</p><br>
     <div>{{ embed_code_sp|safe }}</div>
     <br>
     <div>{{ embed_code_bc|safe }}</div>
-</div>
+</div></div>
+</section>
