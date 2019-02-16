@@ -3,14 +3,14 @@
 {% block content %}
 <div class="post">
     <h3>{{ musicvideo.title }}</h3>
-    <p>Musik video til sangen <a href="{% url 'song_viewer' pk=musicvideo.song.pk %}">{{ musicvideo.song.title }}</a></p>
+    <p>Musik video til sangen <a href="{% url 'song_viewer' slug=musicvideo.song.slug %}">{{ musicvideo.song.title }}</a></p>
     <br>
     {{ embed_code|safe }}
     <hr>
     {% if musicvideo.appears.all %}
         <p>I denne video:
             {% for c in musicvideo.appears.all %}
-            <a href="{% url 'character_viewer' pk=c.pk %}">{{ c.name|linebreaksbr }}</a>,
+            <a href="{% url 'character_viewer' slug=c.slug %}">{{ c.name|linebreaksbr }}</a>,
             {% endfor %}</p>
         {% endif %}
 </div>

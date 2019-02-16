@@ -6,22 +6,35 @@
         <h2>Ting tagget med {{ hashtag.name }}</h2>
         {% if hashtag.tagged_in_post.all %}
             <p>Opslag:</p>
-            {% for post in hashtag.tagged_in_post.all %}<ul>
-                <li>{% show_post post %}</li>
-            {% endfor %}</ul>
+            <ul>
+                {% for post in hashtag.tagged_in_post.all %}
+                    <li>{% show_post post %}</li>
+                {% endfor %}
+            </ul>
         {% endif %}
         {% if hashtag.tagged_in_postphoto.all %}
             <p>Billeder:</p>
-            {% for post in hashtag.tagged_in_postphoto.all %}<ul>
-                <li>{% show_post post %}</li>
-            {% endfor %}</ul>
+            <ul>
+                {% for post in hashtag.tagged_in_postphoto.all %}
+                    <li>{% show_post post %}</li>
+                {% endfor %}
+            </ul>
         {% endif %}
         {% if hashtag.tagged_in_postvideo.all %}
             <p>Videoer:</p>
-            {% for post in hashtag.tagged_in_postvideo.all %}<ul>
-                <li>{% show_post post %}</li>
-            {% endfor %}</ul>
+            <ul>
+                {% for post in hashtag.tagged_in_postvideo.all %}
+                    <li>{% show_post post %}</li>
+                {% endfor %}
+            </ul>
         {% endif %}
-
+        {% if hashtag.tagged_in_swgrs_post.all %}
+            <p>Videoer:</p>
+            <ul>
+                {% for post in hashtag.tagged_in_swgrs_post.all %}
+                    <li>{% show_swgrspost post %}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
 {% endblock %}

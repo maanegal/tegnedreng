@@ -6,7 +6,7 @@
     {% if post.appears.all %}
         <p>I dette opslag:</p>
         <ul>
-            {% for c in post.appears.all %} <li><a href="{% url 'character_viewer' pk=c.pk %}">{{ c.name|linebreaksbr }}</a></li> {% endfor %}
+            {% for c in post.appears.all %} <li><a href="{% url 'character_viewer' slug=c.slug %}">{{ c.name|linebreaksbr }}</a></li> {% endfor %}
         </ul>
     {% endif %}
 </div>

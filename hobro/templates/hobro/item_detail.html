@@ -11,9 +11,14 @@
             {% show_postvideo item %}
         {% elif a == "profileevent" %}
             {% show_profileevent item %}
+        {% elif a == "swgrs_post" %}
+            {% show_swgrspost item %}
+        {% elif a == "swgrs_media" %}
+            {% show_swgrsmedia item %}
         {% else %}
             <div class="post">
-                <h2>Nothing to see!</h2>
+                <h2>Indhold kunne ikke findes</h2>
+                <p>{{item}}</p>
             </div>
         {% endif %}
     {% endwith %}

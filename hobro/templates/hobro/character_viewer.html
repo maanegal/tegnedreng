@@ -8,18 +8,18 @@
         <p>{{ character.text }}</p>
         <p>Optræder på disse sange:</p><ul>
         {% for s in character.appears_on_song.all %}
-            <li> <a href="{% url 'song_viewer' pk=s.pk %}">{{ s.title }}</a></li>
+            <li> <a href="{% url 'song_viewer' slug=s.slug %}">{{ s.title }}</a></li>
         {% endfor %} </ul>
         {% if character.producer.all %}
             <p>Producer på disse sange:</p><ul>
             {% for s in character.producer.all %}
-                <li> <a href="{% url 'song_viewer' pk=s.pk %}">{{ s.title }}</a></li>
+                <li> <a href="{% url 'song_viewer' slug=s.slug %}">{{ s.title }}</a></li>
             {% endfor %} </ul>
         {% endif %}
         {% if character.appears_in_video.all %}
         <p>Medvirker i disse musikvideoer:</p><ul>
         {% for v in character.appears_in_video.all %}
-            <li><a href="{% url 'musicvideo_viewer' pk=v.pk %}">{{ v.title }}</a></li>
+            <li><a href="{% url 'musicvideo_viewer' slug=v.slug %}">{{ v.title }}</a></li>
         {% endfor %}</ul>
         {% endif %}
         <p>Optræder i disse opslag:</p><ul>

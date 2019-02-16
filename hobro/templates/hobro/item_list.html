@@ -18,11 +18,21 @@
                 {% show_profileevent item %}
             {% elif a == "itemembed" %}
                 {% show_itemembed item %}
+            {% elif a == "swgrs_post" %}
+                {% show_swgrspost item %}
+            {% elif a == "swgrs_media" %}
+                {% show_swgrsmedia item %}
             {% else %}
                 <div class="post">
-                    <h2>Something else...</h2>
+                    <h2>Indhold kunne ikke findes</h2>
+                    <p>{{item}}</p>
                 </div>
             {% endif %}
         {% endwith %}
     {% endfor %}
+    {% if next %}
+        <div style="text-align: center;">
+            <a href="{% url 'item_page' number=next %}"><button><h2>Videre til kapitel {{next}}</h2></button></a>
+        </div>
+    {% endif %}
 {% endblock %}

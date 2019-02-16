@@ -4,7 +4,7 @@
     <div class="post">
         <h2>{{ song.title }}</h2>
         {% if song.album %}
-        <p>Nummer {{ song.track_number }} på <a href="{% url 'album_viewer' pk=song.album.pk %}">{{ song.album.title }}</a></p>
+        <p>Nummer {{ song.track_number }} på <a href="{% url 'album_viewer' slug=song.album.slug %}">{{ song.album.title }}</a></p>
         <img src="{{ song.album.photo.url }}" style="max-width: 300px"/>
         {% endif %}
         {% if embed_code_sp %}
@@ -16,19 +16,19 @@
             <div>{{ embed_code_bc|safe }}</div>
         {% endif %}
         {% if song.musicvideo %}
-        <p>Denne sang har en <a href="{% url 'musicvideo_viewer' pk=song.musicvideo.pk %}">musikvideo</a></p>
+        <p>Denne sang har en <a href="{% url 'musicvideo_viewer' slug=song.musicvideo.slug %}">musikvideo</a></p>
         {% endif %}
         <hr>
         {% if song.appears.all %}
             <p>På dette nummer:
                 {% for c in song.appears.all %}
-                <a href="{% url 'character_viewer' pk=c.pk %}">{{ c.name|linebreaksbr }}</a>,
+                <a href="{% url 'character_viewer' slug=c.slug %}">{{ c.name|linebreaksbr }}</a>,
                 {% endfor %}</p>
             {% endif %}
         {% if song.producer.all %}
             <p> Produceret af:
                 {% for c in song.producer.all %}
-                <a href="{% url 'character_viewer' pk=c.pk %}">{{ c.name|linebreaksbr }}</a>,
+                <a href="{% url 'character_viewer' slug=c.slug %}">{{ c.name|linebreaksbr }}</a>,
             {% endfor %} </p>
         {% endif %}
     </div>

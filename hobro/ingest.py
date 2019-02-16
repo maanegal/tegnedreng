@@ -165,15 +165,16 @@ def make_hashtags(text, alias, element):
     words = text.split(' ')
     new_words = []
     ht = []
-    link = "temp"
+    link = "§§"
     for word in words:
         if '#' in word and not word.endswith('#'):
             word = word.split('<')[0]
             ht.append(word)
             # make word a link
-            html_o, html_c = html_element('a', custom={'href': link + slugify(word)})
+            html_o, html_c = html_element('a', custom={'href': '/hashtag/' + link + slugify(word)})
             word = html_o + word + html_c
         new_words.append(word)
+    new_text = " ".join(new_words)
     for tag in ht:
         matches = Hashtag.objects.filter(name=tag)
         if not matches:  # make object in db if it doesn't exist already
@@ -185,6 +186,8 @@ def make_hashtags(text, alias, element):
             hashtag.save()
         hashtag = Hashtag.objects.filter(name=tag).first()
         slug = hashtag.slug
+        old = link + slugify(hashtag.name)
+        new_text = new_text.replace(old, slug)
         rel = ''
         if element == 'post':
             rel = 'tagged_in_post'
@@ -208,7 +211,7 @@ def make_hashtags(text, alias, element):
             hashtags[slug].append((rel, alias))
         else:
             hashtags[slug] = [(rel, alias)]
-    new_text = " ".join(new_words)
+
     return new_text
 
 
@@ -401,9 +404,13 @@ def process_tree(item={}):
         html = make_links(html)
         html = make_hashtags(html, alias, element)
         html = make_mentions(html)
-        text_link = item.get('link', '')
+        yt_embed = item.get('yt-embed', None)
+        if yt_embed:
+            yt_embed = yt_embed[0]
+        else:
+            yt_embed = ''
         link_fb = item.get('link_fb', '')
-        obj = SwgrsPost(text=html, time_stamp=int(alias), link_fb=link_fb, text_link=text_link)
+        obj = SwgrsPost(text=html, time_stamp=int(alias), link_fb=link_fb, link_yt=yt_embed)
     elif element == 'swgrs_media':
         if not text:
             text = ""

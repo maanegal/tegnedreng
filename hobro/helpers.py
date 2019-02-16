@@ -168,13 +168,14 @@ def make_relations(data):
             print(rel, parent, target, r, k, v)
 
 
-def the_big_retriever(index=None):
+def the_big_retriever(number=None):
     """Right now, just the first one"""
     content = {}
     id_list = []
     objects = []
-    if index:
-        sections = [Section.objects.all()[index]]
+    if number:
+        number -= 1
+        sections = [Section.objects.all()[number]]
     else:
         sections = Section.objects.all()
     for section in sections:
@@ -188,6 +189,8 @@ def the_big_retriever(index=None):
         objects.extend(list(Section.objects.filter(time_stamp__lt=stamp_end, time_stamp__gt=stamp_start)))
         objects.extend(list(Story.objects.filter(time_stamp__lte=stamp_end, time_stamp__gte=stamp_start)))
         objects.extend(list(ProfileEvent.objects.filter(time_stamp__lt=stamp_end, time_stamp__gt=stamp_start)))
+        objects.extend(list(SwgrsPost.objects.filter(time_stamp__lt=stamp_end, time_stamp__gt=stamp_start)))
+        objects.extend(list(SwgrsMedia.objects.filter(time_stamp__lt=stamp_end, time_stamp__gt=stamp_start)))
         objects.extend(list(ItemEmbed.objects.filter(time_stamp__lt=stamp_end, time_stamp__gt=stamp_start)))
     for o in objects:
         content[o.time_stamp] = o
@@ -256,6 +259,7 @@ def make_soundcloud_embed(obj):
     a = '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/'
     b = '&color=%231a1a1a&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
     e = None
-    if obj.sp_embed_code:
+    if obj.sc_embed_code:
         e = a + obj.sc_embed_code + b
+    print('sc', e)
     return e

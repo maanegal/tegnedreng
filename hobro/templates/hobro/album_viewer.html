@@ -7,7 +7,7 @@
         <p>Udgivet {{ album.release_date|date:"F j Y" }}</p>
         <p>Sange på dette album:<ul>
         {% for s in album.song_set.all %}
-            <li>{{ s.track_number }}. <a href="{% url 'song_viewer' pk=s.pk %}">{{ s.title }}</a></li>
+            <li>{{ s.track_number }}. <a href="{% url 'song_viewer' slug=s.slug %}">{{ s.title }}</a></li>
         {% endfor %} </ul></p>
         {% if embed_code_sp %}
             <br>

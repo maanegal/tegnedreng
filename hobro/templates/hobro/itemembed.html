@@ -10,6 +10,8 @@
         {% embed_album itemembed.target_album.all %}
     {% elif kind == "musicvideo" %}
         {% embed_musicvideo itemembed.target_musicvideo.all %}
+    {% elif kind == "swgrs_song" %}
+        {% embed_swgrssong itemembed.target_swgrssong.all %}
     {% else %}
         <div class="post">
             <h2>Kunne ikke findes...</h2>

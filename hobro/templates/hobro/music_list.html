@@ -4,26 +4,26 @@
     <h2>Albums</h2>
     <ul>
     {% for album in albums %}
-        <li><a href="{% url 'album_viewer' pk=album.pk %}">{{ album.title }}</a> - ({{ album.release_date|date:"F j Y" }})</li>
+        <li><a href="{% url 'album_viewer' slug=album.slug %}">{{ album.title }}</a> - ({{ album.release_date|date:"F j Y" }})</li>
     {% endfor %}
     </ul>
     <br>
     <h2>Sange</h2>
     <ul>
     {% for song in songs %}
-        <li><a href="{% url 'song_viewer' pk=song.pk %}">{{ song.title }}</a></li>
+        <li><a href="{% url 'song_viewer' slug=song.slug %}">{{ song.title }}</a></li>
     {% endfor %}
     </ul>
     <h2>Musikvideoer</h2>
     <ul>
     {% for musicvideo in musicvideos %}
-        <li><a href="{% url 'musicvideo_viewer' pk=musicvideo.pk %}">{{ musicvideo.title }}</a></li>
+        <li><a href="{% url 'musicvideo_viewer' slug=musicvideo.slug %}">{{ musicvideo.title }}</a></li>
     {% endfor %}
     </ul>
     <h2>Personer</h2>
     <ul>
     {% for character in characters %}
-        <li><a href="{% url 'character_viewer' pk=character.pk %}">{{ character.name }}</a></li>
+        <li><a href="{% url 'character_viewer' slug=character.slug %}">{{ character.name }}</a></li>
     {% endfor %}
     </ul>
 {% endblock %}

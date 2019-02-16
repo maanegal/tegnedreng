@@ -1,6 +1,6 @@
 from datetime import datetime
 from ..models import *
-from hobro.helpers import get_current_info, make_bandcamp_embed, make_spotify_embed, make_youtube_embed
+from hobro.helpers import get_current_info, make_bandcamp_embed, make_spotify_embed, make_youtube_embed, make_soundcloud_embed
 from django import template
 register = template.Library()
 
@@ -77,3 +77,31 @@ def embed_musicvideo(musicvideo):
 @register.inclusion_tag('hobro/embed_character.html')
 def embed_character(character):
     return {'character': character.first()}
+
+
+@register.inclusion_tag('hobro/swgrspost.html')
+def show_swgrspost(swgrspost):
+    dt = datetime.utcfromtimestamp(swgrspost.time_stamp)
+    yt = ""
+    if swgrspost.link_yt:
+        yt = make_youtube_embed(swgrspost)
+    return {'swgrspost': swgrspost, 'post_time': dt, 'yt_embed': yt}
+
+
+@register.inclusion_tag('hobro/swgrsmedia.html')
+def show_swgrsmedia(swgrsmedia):
+    dt = datetime.utcfromtimestamp(swgrsmedia.time_stamp)
+    if swgrsmedia.video:
+        video = swgrsmedia.video.url
+        video_title = swgrsmedia.video_title
+    else:
+        video = ""
+        video_title = ""
+    return {'post': swgrsmedia, 'post_time': dt, 'video': video, 'video_title': video_title}
+
+
+@register.inclusion_tag('hobro/embed_swgrssong.html')
+def embed_swgrssong(swgrssong):
+    swgrssong = swgrssong.first()
+    embed_sc = make_soundcloud_embed(swgrssong)
+    return {'song': swgrssong, 'embed_code_sc': embed_sc}

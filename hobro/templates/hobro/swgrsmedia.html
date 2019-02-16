@@ -1,0 +1,14 @@
+<div id="{{ post.time_stamp }}" style="border: 1px solid yellow; margin: 10px; color: white; background-color: #333333; padding: 10px;">
+    <h3><a href="{% url 'item_detail' pk=post.pk tp=post.get_type %}">SWGRS</a></h3>
+    <img src="{{ post.profile.url }}" style="max-width: 50px; border-radius: 5px;"/>
+    <p>{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>
+    {% if video_title %}<h4>{{video_title}}</h4>{% endif %}
+    <p>{{ post.text|safe }}</p>
+    {% if video %}
+        <video src="{{ video }}" controls="1" style="width: 500px;">
+            <a href="{{ video }}"> <img src="{{ post.photo.url }}"></a>
+        </video>
+    {% else %}
+        <img src="{{ post.photo.url }}" style="max-width: 300px"/>
+    {% endif %}
+</div>
