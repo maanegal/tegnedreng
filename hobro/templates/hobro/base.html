@@ -4,25 +4,42 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-
+          {% load django_simple_bulma %}
+          {% bulma %}
+          {% font_awesome %}
         <link rel="stylesheet" type="text/css" href="{% static 'hobro/style.css' %}">
 
         <title>Tegnedreng Records</title>
     </head>
-    <body class="has-background-info">
+    <body class="has-navbar-fixed-top has-background-info">
 
-        <header class="hero is-success">
-          <div class="hero-body">
-            <div class="container">
-                  <h1 class="title has-text-centered">
-                    <a href="/">Tegnedreng Records</a></h1>
-                  </h1>
-            </div>
-          </div>
-        </header>
+<nav class="navbar is-fixed-top is-dark is-transparent trans-bg" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="/media/moon_m.png" alt="Månegal Media">
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+<div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start"></div>
+
+    <div class="navbar-end">
+          <a class="navbar-item" href="/">
+            Forside (indeks)
+          </a>
+          <a class="navbar-item" href="/kapitel/1">
+            Kapitel 1
+          </a>
+    </div>
+  </div>
+</nav>
+
         <!--
         <div class="container is-desktop">
         --!>

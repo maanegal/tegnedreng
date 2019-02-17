@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_simple_bulma',
     'hobro',
 ]
 
@@ -118,8 +119,29 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+STATICFILES_FINDERS = [
+  # First add the two default Finders, since this will overwrite the default.
+  'django.contrib.staticfiles.finders.FileSystemFinder',
+  'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+
+  # Now add our custom SimpleBulma one.
+  'django_simple_bulma.finders.SimpleBulmaFinder',
+]
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
 MEDIA_URL = '/media/'
+
+
+# Custom settings for django-simple-bulma
+BULMA_SETTINGS = {
+    "extensions": [
+        "bulma-divider",
+    ],
+    "variables": {
+        "primary": "#00d169",
+        "navbar-breakpoint": "8000px",
+    }
+}

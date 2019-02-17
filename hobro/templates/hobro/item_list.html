@@ -32,7 +32,7 @@
     {% endfor %}
     {% if next %}
         <div style="text-align: center; padding:30px;">
-            <a href="{% url 'item_page' number=next %}" class="button is-large is-primary is-rounded">Videre til kapitel {{next}}</a>
+            <a href="{% url 'item_page' number=next %}" class="button is-large is-info is-inverted is-rounded">Videre til kapitel {{next}}</a>
         </div>
     {% endif %}
 {% endblock %}

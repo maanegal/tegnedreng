@@ -1,8 +1,12 @@
-<div id="{{ song.slug }}" style="border: 1px solid yellow; margin: 10px; color: white; background-color: #333333; padding: 10px;">
-    <h3>SWGRS -- {{ song.title }}</h3>
-    <p>{{ song.text|safe }}</p>
-    <br>
+<article id="{{ song.slug }}" class="section columns is-mobile is-centered">
+<div class="column is-two-thirds"><div class="box has-text-light has-background-dark darkmode">
+    <a href="{% url 'song_viewer' slug=song.slug %}">
+        <span class="title has-text-light">{{ song.title }}</span><span class="icon is-small">&emsp;<i class="fas fa-external-link-alt"></i></span>
+    </a>
+    <p class="subtitle has-text-light">Fra SWGRS</p>
+    <p>{{ song.text|safe }}</p><br>
     {% if embed_code_sc %}
     <div>{{ embed_code_sc|safe }}</div>
     {% endif %}
-</div>
+</div></div>
+</article>

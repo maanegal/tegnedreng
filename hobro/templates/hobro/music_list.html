@@ -1,29 +1,36 @@
 {% extends 'hobro/base.html' %}
 
 {% block content %}
-    <h2>Albums</h2>
-    <ul>
+    <section id="{{ musicvideo.alias }}" class="section columns is-tablet is-centered">
+    <div class="column is-two-thirds"><div class="box">
+    <div class="is-divider" data-content="&#xf001"></div>
+    <h2 class="subtitle has-text-centered">Albums</h2>
+    <div class="multicol-3"><ul>
     {% for album in albums %}
-        <li><a href="{% url 'album_viewer' slug=album.slug %}">{{ album.title }}</a> - ({{ album.release_date|date:"F j Y" }})</li>
+        <li><a href="{% url 'album_viewer' slug=album.slug %}">{{ album.title }}</a> -- {{ album.release_date|date:"F j Y" }}</li>
     {% endfor %}
-    </ul>
+    </ul></div>
     <br>
-    <h2>Sange</h2>
-    <ul>
+    <div class="is-divider" data-content="&#xf001"></div>
+    <h2 class="subtitle has-text-centered">Sange</h2>
+    <div class="multicol-3"><ul>
     {% for song in songs %}
         <li><a href="{% url 'song_viewer' slug=song.slug %}">{{ song.title }}</a></li>
     {% endfor %}
-    </ul>
-    <h2>Musikvideoer</h2>
-    <ul>
+    </ul></div>
+    <div class="is-divider" data-content="&#xf001"></div>
+    <h2 class="subtitle has-text-centered">Musikvideoer</h2>
+    <div class="multicol-3"><ul>
     {% for musicvideo in musicvideos %}
         <li><a href="{% url 'musicvideo_viewer' slug=musicvideo.slug %}">{{ musicvideo.title }}</a></li>
     {% endfor %}
-    </ul>
-    <h2>Personer</h2>
-    <ul>
+    </ul></div>
+    <div class="is-divider" data-content="&#xf001"></div>
+    <h2 class="subtitle has-text-centered">Personer</h2>
+    <div class="multicol-3"><ul>
     {% for character in characters %}
         <li><a href="{% url 'character_viewer' slug=character.slug %}">{{ character.name }}</a></li>
     {% endfor %}
-    </ul>
+    </ul></div>
+</div></section>
 {% endblock %}

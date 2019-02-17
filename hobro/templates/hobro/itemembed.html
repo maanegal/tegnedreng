@@ -1,7 +1,6 @@
 {% load itemviews %}
 
-<div id="{{ itemembed.time_stamp }}" class="post">
-    <p>Embed det her: {{ itemembed.target }}</p>
+<div id="{{ itemembed.time_stamp }}">
     {% if kind == "character" %}
         {% embed_character itemembed.target_character.all %}
     {% elif kind == "song" %}
@@ -15,6 +14,7 @@
     {% else %}
         <div class="post">
             <h2>Kunne ikke findes...</h2>
+            <p>Embed det her: {{ itemembed.target }}</p>
             {{ itemembed.pk }}{{ itemembed.what_kind }}
             {{ itemembed.get_embed.title }}
         </div>

@@ -1,9 +1,30 @@
-<div id="{{ swgrspost.time_stamp }}" style="border: 1px solid yellow; margin: 10px; color: white; background-color: #333333; padding: 10px;">
-    <h3><a href="{% url 'item_detail' pk=swgrspost.pk tp=swgrspost.get_type %}">SWGRS</a></h3>
-    <img src="{{ swgrspost.profile.url }}" style="max-width: 50px; border-radius: 5px;"/>
-    <p>{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>
-    <p>{{ swgrspost.text|safe }}</p>
-    {% if yt_embed %}
-        {{ yt_embed|safe }}
-    {% endif %}
+<article id="{{ swgrspost.time_stamp }}" class="section columns is-mobile is-centered">
+<div class="column is-half">
+<div class="box has-text-light has-background-dark darkmode">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img src="{{ swgrspost.profile.url }}" alt="SWGRS">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <h2 class="title is-4 has-text-light">SWGRS</h2>
+            <p class="subtitle is-6 has-text-grey">{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>
+            <p>{{ swgrspost.text|safe }}</p>
+            {% if yt_embed %}
+                {{ yt_embed|safe }}
+            {% endif %}
+        </div>
+      </div>
+      <div class="media-right">
+          <ul class="icon-list">
+          <li><a href="{% url 'item_detail' pk=swgrspost.pk tp=swgrspost.get_type %}">
+            <span class="icon is-small"><i class="fas fa-external-link-alt"></i></span>
+          </a></li>
+          </ul>
+      </div>
+    </div>
 </div>
+</div>
+</article>

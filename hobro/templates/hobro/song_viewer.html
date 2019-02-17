@@ -1,35 +1,46 @@
 {% extends 'hobro/base.html' %}
 
 {% block content %}
-    <div class="post">
-        <h2>{{ song.title }}</h2>
-        {% if song.album %}
-        <p>Nummer {{ song.track_number }} på <a href="{% url 'album_viewer' slug=song.album.slug %}">{{ song.album.title }}</a></p>
-        <img src="{{ song.album.photo.url }}" style="max-width: 300px"/>
-        {% endif %}
-        {% if embed_code_sp %}
+    <section id="{{ song.slug }}" class="section columns is-tablet is-centered">
+    <div class="column is-two-thirds"><div class="box">
+        <div class="media">
+              <figure class="media-left flex-20">
+                <p class="image">
+                    {% if song.album %}
+                      <img src="{{ song.album.photo.url }}" alt="{{ song.album.title }}">
+                    {% endif %}
+                </p>
+              </figure>
+              <div class="media-content">
+                  <div class="content">
+                      <h2 class="title">{{ song.title }}</h2>
+                      {% if song.album %}
+                      <p>Nummer {{ song.track_number }} på <a href="{% url 'album_viewer' slug=song.album.slug %}">{{ song.album.title }}</a></p>
+                      {% endif %}
+            <p>{{ song.text|safe }}</p>
+            {% if song.musicvideo %}
+            <p>Denne sang har en <a href="{% url 'musicvideo_viewer' slug=song.musicvideo.slug %}">musikvideo</a></p>
+            {% endif %}
             <br>
-            <div>{{ embed_code_sp|safe }}</div>
+            {% if song.appears.all %}
+                <p class="has-text-grey is-size-7">På dette nummer:
+                {% for c in song.appears.all %} <span class="tag is-uppercase has-text-grey"><a href="{% url 'character_viewer' slug=c.slug %}">{{ c.name|linebreaksbr }}</a></span> {% endfor %}
+                </p>
+            {% endif %}
+            {% if song.producer.all %}
+                <p class="has-text-grey is-size-7">Produceret af:
+                {% for c in song.producer.all %} <span class="tag is-uppercase has-text-grey"><a href="{% url 'character_viewer' slug=c.slug %}">{{ c.name|linebreaksbr }}</a></span> {% endfor %}
+                </p>
+            {% endif %}
+        </div></div></div>
+
+        <div class="is-divider" data-content="&#xf001"></div>
+        {% if embed_code_sp %}
+            <div>{{ embed_code_sp|safe }}</div><br>
         {% endif %}
         {% if embed_code_bc %}
-            <br>
-            <div>{{ embed_code_bc|safe }}</div>
+            <div>{{ embed_code_bc|safe }}</div><br>
         {% endif %}
-        {% if song.musicvideo %}
-        <p>Denne sang har en <a href="{% url 'musicvideo_viewer' slug=song.musicvideo.slug %}">musikvideo</a></p>
-        {% endif %}
-        <hr>
-        {% if song.appears.all %}
-            <p>På dette nummer:
-                {% for c in song.appears.all %}
-                <a href="{% url 'character_viewer' slug=c.slug %}">{{ c.name|linebreaksbr }}</a>,
-                {% endfor %}</p>
-            {% endif %}
-        {% if song.producer.all %}
-            <p> Produceret af:
-                {% for c in song.producer.all %}
-                <a href="{% url 'character_viewer' slug=c.slug %}">{{ c.name|linebreaksbr }}</a>,
-            {% endfor %} </p>
-        {% endif %}
-    </div>
+    </div></div>
+    </section>
 {% endblock %}

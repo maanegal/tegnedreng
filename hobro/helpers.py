@@ -222,7 +222,7 @@ def make_bandcamp_embed(album=None, song=None):
         d = '</a></iframe>'
         e = a + song.bc_embed_code + b + song.link_bc + c + song.title + d
     elif album:
-        a = '<iframe style="border: 0; width: 700px; height: 500px;" src="https://bandcamp.com/EmbeddedPlayer/album='
+        a = '<iframe style="border: 0; width: 100%; height: 500px;" src="https://bandcamp.com/EmbeddedPlayer/album='
         b = '/size=large/bgcol=ffffff/linkcol=333333/artwork=small/transparent=true/" seamless><a href="'
         c = '">'
         d = '</a></iframe>'
@@ -236,12 +236,12 @@ def make_spotify_embed(album=None, song=None):
     e = None
     if album:
         a = '<iframe src="https://open.spotify.com/embed/album/'
-        b = '" width="700" height="500" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>'
+        b = '" width="100%" height="500" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>'
         if album.sp_embed_code:
             e = a + album.sp_embed_code + b
     elif song:
         a = '<iframe src="https://open.spotify.com/embed/track/'
-        b = '" width="700" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>'
+        b = '" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>'
         if song.sp_embed_code:
             e = a + song.sp_embed_code + b
     return e

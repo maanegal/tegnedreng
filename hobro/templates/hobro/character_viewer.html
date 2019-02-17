@@ -2,30 +2,49 @@
 {% load itemviews %}
 
 {% block content %}
-    <div class="post">
-        <h2>{{ character.name }}</h2>
-        <img src="{{ character.photo.url }}" style="max-width: 300px"/>
-        <p>{{ character.text }}</p>
-        <p>Optræder på disse sange:</p><ul>
-        {% for s in character.appears_on_song.all %}
-            <li> <a href="{% url 'song_viewer' slug=s.slug %}">{{ s.title }}</a></li>
-        {% endfor %} </ul>
+    <section id="{{ musicvideo.alias }}" class="section columns is-tablet is-centered">
+    <div class="column is-two-thirds"><div class="box">
+        <div class="columns is-tablet is-vcentered">
+          <div class="column is-one-quarter is-half-mobile has-image-centered">
+
+                <figure class="image"><img class="is-rounded" src="{{ character.photo.url }}"></figure>
+
+          </div>
+          <div class="column has-text-centered-mobile">
+              <div class="content">
+                <h2 class="title">{{ character.name }}</h2>
+                <p>{{ character.text }}</p>
+        </div></div>
+        </div>
+        <div class="is-divider" data-content="&#xf007"></div>
+        <h3 class="subtitle has-text-centered">Optræder på disse sange:</h3>
+        <div class="multicol-3"><ul>
+            {% for s in character.appears_on_song.all %}
+                <li> <a href="{% url 'song_viewer' slug=s.slug %}">{{ s.title }}</a></li>
+            {% endfor %} </ul>
+        </div><br>
         {% if character.producer.all %}
-            <p>Producer på disse sange:</p><ul>
+            <div class="is-divider" data-content="&#xf007"></div>
+            <h3 class="subtitle has-text-centered">Producer på disse sange:</h3>
+            <div class="multicol-3"><ul>
             {% for s in character.producer.all %}
                 <li> <a href="{% url 'song_viewer' slug=s.slug %}">{{ s.title }}</a></li>
             {% endfor %} </ul>
+            </div><br>
         {% endif %}
         {% if character.appears_in_video.all %}
-        <p>Medvirker i disse musikvideoer:</p><ul>
-        {% for v in character.appears_in_video.all %}
-            <li><a href="{% url 'musicvideo_viewer' slug=v.slug %}">{{ v.title }}</a></li>
-        {% endfor %}</ul>
+            <div class="is-divider" data-content="&#xf007"></div>
+            <h3 class="subtitle has-text-centered">Medvirker i disse musikvideoer:</h3>
+            <div class="multicol-3"><ul>
+            {% for v in character.appears_in_video.all %}
+                <li><a href="{% url 'musicvideo_viewer' slug=v.slug %}">{{ v.title }}</a></li>
+            {% endfor %} </ul>
+            </div><br>
         {% endif %}
-        <p>Optræder i disse opslag:</p><ul>
+        <div class="is-divider" data-content="&#xf007"></div>
+        <h3 class="subtitle has-text-centered">Optræder i disse opslag:</h3>
         {% for post in posts %}
-            <li>{% show_post post %}</li>
+            {% show_post post %}
         {% endfor %}
-        </ul>
-    </div>
+    </div></div></section>
 {% endblock %}

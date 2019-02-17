@@ -1,21 +1,34 @@
 {% extends 'hobro/base.html' %}
 
 {% block content %}
-    <div class="post">
-        <h2>{{ album.title }}</h2>
-        <img src="{{ album.photo.url }}" style="max-width: 300px"/>
-        <p>Udgivet {{ album.release_date|date:"F j Y" }}</p>
-        <p>Sange på dette album:<ul>
-        {% for s in album.song_set.all %}
-            <li>{{ s.track_number }}. <a href="{% url 'song_viewer' slug=s.slug %}">{{ s.title }}</a></li>
-        {% endfor %} </ul></p>
+    <section id="{{ album.slug }}" class="section columns is-tablet is-centered">
+    <div class="column is-two-thirds"><div class="box">
+        <div class="columns is-desktop is-vcentered">
+          <div class="column is-one-third is-half-mobile has-image-centered">
+            <figure class="image"><img src="{{ album.photo.url }}" alt="{{ album.title }}"></figure>
+          </div>
+              <div class="column has-text-centered-mobile">
+                  <div class="content">
+                      <h2 class="title">{{ album.title }}</h2>
+                      <p>Udgivet {{ album.release_date|date:"F j Y" }}</p>
+                      <p>{{ album.text|safe }}</p>
+                    </div>
+                <br>
+                <p>Sange på dette album:</p>
+                <ul>
+                    {% for s in album.song_set.all %}
+                        <li>{{ s.track_number }}. <a href="{% url 'song_viewer' slug=s.slug %}">{{ s.title }}</a></li>
+                    {% endfor %}
+                </ul>
+        </div></div>
+
+        <div class="is-divider" data-content="&#xf001"></div>
         {% if embed_code_sp %}
-            <br>
-            <div>{{ embed_code_sp|safe }}</div>
+            <div>{{ embed_code_sp|safe }}</div><br>
         {% endif %}
         {% if embed_code_bc %}
-            <br>
-            <div>{{ embed_code_bc|safe }}</div>
+            <div>{{ embed_code_bc|safe }}</div><br>
         {% endif %}
     </div>
+    </section>
 {% endblock %}

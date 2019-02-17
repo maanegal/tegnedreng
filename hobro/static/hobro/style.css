@@ -7,3 +7,39 @@
 .icon-list li {
     margin-bottom: 10px;
 }
+
+.is-divider {
+    font-family: "Font Awesome 5 Free";
+    font-weight: bold;
+}
+
+.multicol-3 {
+    column-count: 3;
+}
+
+.multicol-3 li {
+    padding-bottom: 10px;
+}
+
+.flex-20 {
+    flex-basis: 20%;
+}
+
+
+.has-image-centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.darkmode strong {
+    color: inherit !important;
+}
+
+.navbar-item img {
+    max-height: 3rem;
+}
+
+.trans-bg {
+    background-color: rgba(255, 255, 255, 0) !important;
+}

@@ -1,17 +1,19 @@
 {% extends 'hobro/base.html' %}
 
 {% block content %}
-<div class="post">
-    <h3>{{ musicvideo.title }}</h3>
-    <p>Musik video til sangen <a href="{% url 'song_viewer' slug=musicvideo.song.slug %}">{{ musicvideo.song.title }}</a></p>
+<section id="{{ musicvideo.slug }}" class="section columns is-tablet is-centered">
+    <div class="column is-two-thirds  has-image-centered"><div class="box">
+    <h2 class="title">{{ musicvideo.title }}</h2>
+    <p>Musikvideo til sangen <a href="{% url 'song_viewer' slug=musicvideo.song.slug %}">{{ musicvideo.song.title }}</a></p>
     <br>
-    {{ embed_code|safe }}
-    <hr>
     {% if musicvideo.appears.all %}
-        <p>I denne video:
-            {% for c in musicvideo.appears.all %}
-            <a href="{% url 'character_viewer' slug=c.slug %}">{{ c.name|linebreaksbr }}</a>,
-            {% endfor %}</p>
-        {% endif %}
-</div>
+        <p class="has-text-grey is-size-7">I denne video:
+        {% for c in musicvideo.appears.all %} <span class="tag is-uppercase has-text-grey"><a href="{% url 'character_viewer' slug=c.slug %}">{{ c.name|linebreaksbr }}</a></span> {% endfor %}
+        </p>
+    {% endif %}
+    <div class="is-divider" data-content="&#xf001"></div>
+        <div></div>
+        {{ embed_code|safe }}
+    </div></div></section>
+
 {% endblock %}
