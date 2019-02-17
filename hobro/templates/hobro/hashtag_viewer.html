@@ -2,39 +2,43 @@
 {% load itemviews %}
 
 {% block content %}
-    <div class="post">
-        <h2>Ting tagget med {{ hashtag.name }}</h2>
+<section class="hero">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title is-2 has-text-light">Ting tagget med {{ hashtag.name }}</h1>
+    </div>
+  </div>
+</section>
+
         {% if hashtag.tagged_in_post.all %}
-            <p>Opslag:</p>
-            <ul>
-                {% for post in hashtag.tagged_in_post.all %}
-                    <li>{% show_post post %}</li>
-                {% endfor %}
-            </ul>
+            <h2 class="subtitle is-3 has-text-centered has-text-light">Opslag:</h2>
+            {% for post in hashtag.tagged_in_post.all %}
+                {% show_post post %}
+            {% endfor %}
         {% endif %}
         {% if hashtag.tagged_in_postphoto.all %}
-            <p>Billeder:</p>
-            <ul>
-                {% for post in hashtag.tagged_in_postphoto.all %}
-                    <li>{% show_post post %}</li>
-                {% endfor %}
-            </ul>
+            <h2 class="subtitle is-3 has-text-centered has-text-light">Billeder:</h2>
+            {% for post in hashtag.tagged_in_postphoto.all %}
+                {% show_post post %}
+            {% endfor %}
         {% endif %}
         {% if hashtag.tagged_in_postvideo.all %}
-            <p>Videoer:</p>
-            <ul>
-                {% for post in hashtag.tagged_in_postvideo.all %}
-                    <li>{% show_post post %}</li>
-                {% endfor %}
-            </ul>
+            <h2 class="subtitle is-3 has-text-centered has-text-light">Videoer:</h2>
+            {% for post in hashtag.tagged_in_postvideo.all %}
+                {% show_post post %}
+            {% endfor %}
         {% endif %}
         {% if hashtag.tagged_in_swgrs_post.all %}
-            <p>Videoer:</p>
-            <ul>
-                {% for post in hashtag.tagged_in_swgrs_post.all %}
-                    <li>{% show_swgrspost post %}</li>
-                {% endfor %}
-            </ul>
+            <h2 class="subtitle is-3 has-text-centered has-text-light">Opslag fra SWGRS:</h2>
+            {% for post in hashtag.tagged_in_swgrs_post.all %}
+                {% show_swgrspost post %}
+            {% endfor %}
+        {% endif %}
+        {% if hashtag.tagged_in_swgrs_media.all %}
+            <h2 class="subtitle is-3 has-text-centered has-text-light">Billeder fra SWGRS:</h2>
+            {% for post in hashtag.tagged_in_swgrs_media.all %}
+                {% show_swgrspost post %}
+            {% endfor %}
         {% endif %}
     </div>
 {% endblock %}

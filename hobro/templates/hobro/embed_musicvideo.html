@@ -1,6 +1,8 @@
-<article id="{{ musicvideo.alias }}" class="section columns is-mobile is-centered">
-<div class="column is-two-thirds"><div class="box">
-    <h3 class="title">{{ musicvideo.title }}</h3>
+<article id="{{ musicvideo.slug }}" class="section columns is-mobile is-centered">
+<div class="column is-one-third"><div class="box">
+    <a href="{% url 'musicvideo_viewer' slug=musicvideo.slug %}">
+        <span class="title">{{ musicvideo.title }}</span><span class="icon is-small">&emsp;<i class="fas fa-external-link-alt"></i></span>
+    </a>
     <p class="subtitle">Musikvideo</p>
     {% if musicvideo.text %}
         <p>{{ musicvideo.text|safe }}</p>

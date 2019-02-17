@@ -1,9 +1,9 @@
-<section id="{{ profileevent.time_stamp }}" class="section columns is-mobile is-centered">
-<div class="column is-two-thirds"><div class="box">
+<section id="{{ profileevent.time_stamp }}" class="section columns is-desktop is-centered">
+<div class="column is-half has-text-centered has-image-centered"><div class="box">
     <p class="subtitle">Profilen skiftede navn og billede</p>
     <h3 class="title">{{ profileevent.page_name }}</h3>
     <p class="subtitle is-6 has-text-grey">{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>
     <p>{{ profileevent.text|safe }}</p>
-    <img src="{{ profileevent.photo.url }}" class="image" alt="{{ profileevent.page_name }}">
+    <figure class="image"><img src="{{ profileevent.photo.url }}" class="image has-image-centered" style="max-width: 500px;" alt="{{ profileevent.page_name }}"></figure>
 </div></div>
 </section>

@@ -8,6 +8,7 @@
     margin-bottom: 10px;
 }
 
+
 .is-divider {
     font-family: "Font Awesome 5 Free";
     font-weight: bold;
@@ -31,6 +32,28 @@
   margin-right: auto;
 }
 
+.lightmode a {
+    border-bottom: 1px solid lightgray;
+}
+
+.lightmode a:hover, .lightmode a:focus {
+    border-bottom: 1px solid gray;
+}
+
+
+.darkmode a {
+    color: lightgray;
+    border-bottom: 1px solid #666;
+}
+
+.darkmode a:hover, .darkmode a:focus {
+    color: gray;
+    border-bottom: 1px solid #555;
+}
+
+.icon-list a, .icon-list a:hover, .icon-list a:focus {
+    border-bottom: none;
+}
 
 .darkmode strong {
     color: inherit !important;
@@ -42,4 +65,37 @@
 
 .trans-bg {
     background-color: rgba(255, 255, 255, 0) !important;
+}
+
+.do-shadow {
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+}
+
+.navy:hover {
+    background-color: rgba(102, 102, 102, 0.2) !important;
+    border-radius: 30px;
+}
+
+.navbar-burger span {
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
+}
+
+.navbar-menu {
+    height: 100vh;
+    overflow: auto;
+    width: 250px;
+    float: right;
+    padding-top: 50px;
+}
+
+.side-menu {
+    left: unset !important;
+    z-index: 29 !important;
+    background-color: rgba(38, 38, 38, 0.8) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.is-active {
+    background-color: rgba(102, 102, 102, 0.2);
 }

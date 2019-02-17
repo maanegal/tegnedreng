@@ -1,24 +1,25 @@
-<article id="{{ post.time_stamp }}" class="section columns is-mobile is-centered">
-<div class="column is-half">
-<div class="box has-text-light has-background-dark darkmode">
+
+<article id="{{ post.time_stamp }}" class="section is-medium columns is-tablet is-centered is-gapless">
+  <div class="column is-one-third-desktop is-half-tablet do-shadow">
+    {% if video %}
+        <video src="{{ video }}" controls="1">
+            <a href="{{ video }}"> <img src="{{ post.photo.url }}"></a>
+        </video>
+    {% else %}
+        <img src="{{ post.photo.url }}" style="width: 100%"/>
+    {% endif %}
+  </div>
+  <div class="column is-one-third-desktop is-half-tablet">
+    <div class="box has-text-light has-background-dark darkmode">
     <div class="media">
       <figure class="media-left">
-        <p class="image is-64x64">
-          <img src="{{ post.profile.url }}" alt="SWGRS">
-        </p>
+        <div class="image is-64x64"><img src="{{ post.profile.url }}" alt="SWGRS"></div>
       </figure>
       <div class="media-content">
         <div class="content">
           <h2 class="title is-4 has-text-light">SWGRS</h2>
             <p class="subtitle is-6 has-text-grey">{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>
             <p>{{ post.text|safe }}</p>
-            {% if video %}
-                <video src="{{ video }}" controls="1" style="width: 500px;">
-                    <a href="{{ video }}"> <img src="{{ post.photo.url }}"></a>
-                </video>
-            {% else %}
-                <img src="{{ post.photo.url }}" style="max-width: 300px"/>
-            {% endif %}
         </div>
       </div>
       <div class="media-right">
@@ -29,6 +30,6 @@
           </ul>
       </div>
     </div>
-</div>
-</div>
+    </div>
+  </div>
 </article>

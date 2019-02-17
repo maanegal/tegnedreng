@@ -1,44 +1,45 @@
 {% load static %}
 
-<html>
+<html class="has-background-info">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
           {% load django_simple_bulma %}
           {% bulma %}
           {% font_awesome %}
+        <link href="https://fonts.googleapis.com/css?family=Assistant|Crimson+Text" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{% static 'hobro/style.css' %}">
 
         <title>Tegnedreng Records</title>
     </head>
-    <body class="has-navbar-fixed-top has-background-info">
+    <body>
 
 <nav class="navbar is-fixed-top is-dark is-transparent trans-bg" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="/">
+    <a class="navbar-item navy" href="/">
       <img src="/media/moon_m.png" alt="Månegal Media">
     </a>
 
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+    <a role="button" class="navbar-burger burger navy" aria-label="menu" aria-expanded="false" data-target="sideMenu">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
   </div>
-
-<div id="navbarBasicExample" class="navbar-menu">
+</nav>
+<div id="sideMenu" class="navbar is-fixed-top navbar-menu is-dark is-transparent side-menu">
     <div class="navbar-start"></div>
 
     <div class="navbar-end">
-          <a class="navbar-item" href="/">
+          <a class="navbar-item has-text-light has-text-centered" href="/">
             Forside (indeks)
           </a>
-          <a class="navbar-item" href="/kapitel/1">
+        <a class="navbar-item has-text-light has-text-centered" href="/kapitel/1">
             Kapitel 1
           </a>
     </div>
   </div>
-</nav>
+
 
         <!--
         <div class="container is-desktop">

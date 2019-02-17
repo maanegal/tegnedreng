@@ -5,6 +5,7 @@ from django.utils.text import slugify
 # BASIC STORY ELEMENTS
 class Section(models.Model):
     """Sections in the story. Plain text, renders to HTML headings H2. Timestamps are purely for sorting here"""
+    #number = models.CharField(max_length=2)
     text = models.CharField(max_length=200)
     time_stamp = models.IntegerField()
     expires = models.IntegerField(null=True)  # one less than value of next object

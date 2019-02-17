@@ -1,14 +1,12 @@
-<section id="{{ post.time_stamp }}" class="section is-medium columns is-desktop is-centered is-gapless">
-  <div class="column">
+<article id="{{ post.time_stamp }}" class="section is-medium columns is-tablet is-centered is-gapless">
+  <div class="column is-one-third-desktop is-half-tablet do-shadow">
     <img src="{{ post.photo.url }}"/>
   </div>
-  <div class="column">
+  <div class="column is-one-third-desktop is-half-tablet">
     <div class="box">
     <div class="media">
       <figure class="media-left">
-        <p class="image is-64x64">
-          <img src="{{ profilepic.url }}" alt="{{ name }}">
-        </p>
+        <div class="image is-64x64"><img src="{{ profilepic.url }}" alt="{{ name }}"></div>
       </figure>
       <div class="media-content">
         <div class="content">
@@ -32,4 +30,4 @@
     </div>
     </div>
   </div>
-</section>
+</article>

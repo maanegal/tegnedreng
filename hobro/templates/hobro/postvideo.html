@@ -1,10 +1,10 @@
 <article id="{{ post.time_stamp }}" class="section is-medium columns is-tablet is-centered is-gapless">
-  <div class="column">
-    <video src="{{ post.video.url }}" controls="1" style="width: 500px;">
+  <div class="column is-one-third do-shadow">
+    <video src="{{ post.video.url }}" controls="1">
         <a href="{{ post.video.url }}"> <img src="{{ post.photo.url }}"></a>
     </video>
   </div>
-  <div class="column is-two-thirds">
+  <div class="column is-one-third">
     <div class="box">
     <div class="media">
       <figure class="media-left">
