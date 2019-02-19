@@ -1,7 +1,7 @@
-<article id="{{ post.time_stamp }}" class="section is-medium columns is-tablet is-centered is-gapless">
+<article id="{{ post.time_stamp }}" class="section is-medium has-line columns is-tablet is-centered is-gapless">
   <div class="column is-one-third do-shadow">
-    <video src="{{ post.video.url }}" controls="1">
-        <a href="{{ post.video.url }}"> <img src="{{ post.photo.url }}"></a>
+    <video class="lazy" data-src="{{ post.video.url }}" controls="1">
+        <a href="{{ post.video.url }}"> <img class="lazy" data-src="{{ post.photo.url }}"></a>
     </video>
   </div>
   <div class="column is-one-third">
@@ -9,7 +9,7 @@
     <div class="media">
       <figure class="media-left">
         <p class="image is-64x64">
-          <img src="{{ profilepic.url }}" alt="{{ name }}">
+          <img class="lazy" data-src="{{ profilepic.url }}" alt="{{ name }}">
         </p>
       </figure>
       <div class="media-content">
@@ -28,10 +28,25 @@
         </div>
       </div>
       <div class="media-right">
-          <ul class="icon-list">
+          <ul class="lightmode icon-list">
           <li><a href="{% url 'item_detail' pk=post.pk tp=post.get_type %}">
             <span class="icon is-small"><i class="fas fa-external-link-alt"></i></span>
           </a></li>
+          {% if post.link_fb %}
+              <li><a href="{{ post.link_fb }}">
+                <span class="icon is-small"><i class="fab fa-facebook"></i></span>
+              </a></li>
+          {% endif %}
+          {% if post.link_ig %}
+              <li><a href="{{ post.link_ig }}">
+                <span class="icon is-small"><i class="fab fa-instagram"></i></span>
+              </a></li>
+          {% endif %}
+          {% if post.link_tw %}
+              <li><a href="{{ post.link_tw }}">
+                <span class="icon is-small"><i class="fab fa-twitter"></i></span>
+              </a></li>
+          {% endif %}
           </ul>
       </div>
     </div>

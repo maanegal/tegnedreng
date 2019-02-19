@@ -1,0 +1,29 @@
+{% extends 'hobro/base.html' %}
+
+{% block content %}
+    <section class="section columns is-tablet is-centered">
+    <div class="column is-two-thirds is-centered"><div class="box">
+        <br>
+        <h1 class="title is-size-2-desktop is-size-3-tablet has-text-centered">Medlemmer af Tegnedreng Records</h1>
+<div class="is-divider" data-content="&#xf007"></div>
+    <div class="tile is-ancestor" style="flex-wrap: wrap;">
+    {% for character in characters %}
+        <div class="tile is-parent is-4 has-image-centered" style="max-width: 70%; padding: 3rem;">
+            <div class="tile is-child card has-background-light">
+              <div class="card-image">
+                <figure class="image">
+                    <a href="{% url 'character_viewer' slug=character.slug %}">
+                        <img class="is-rounded" src="{{ character.photo.url }}" alt="{{ character.name }}"></a>
+                </figure>
+              </div>
+                <div class="card-content has-text-centered">
+                <a class="title is-4 is-uppercase" href="{% url 'character_viewer' slug=character.slug %}">{{ character.name }}</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    </div>
+        <div class="is-divider" data-content="&#xf007"></div>
+</div></section>
+{% endblock %}

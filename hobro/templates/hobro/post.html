@@ -1,5 +1,5 @@
-<article id="{{ post.time_stamp }}" class="section columns is-tablet is-centered">
-<div class="column is-half-desktop is-two-thirds-tablet">
+<article id="{{ post.time_stamp }}" class="section has-line columns is-tablet {{ layout_outer }}">
+<div class="{{ layout_inner }}">
 <div class="box">
     <div class="media">
       <figure class="media-left">
@@ -20,10 +20,20 @@
         </div>
       </div>
       <div class="media-right">
-          <ul class="icon-list">
+          <ul class="lightmode icon-list">
           <li><a href="{% url 'item_detail' pk=post.pk tp=post.get_type %}">
             <span class="icon is-small"><i class="fas fa-external-link-alt"></i></span>
           </a></li>
+          {% if post.link_fb %}
+              <li><a href="{{ post.link_fb }}">
+                <span class="icon is-small"><i class="fab fa-facebook"></i></span>
+              </a></li>
+          {% endif %}
+          {% if post.link_tw %}
+              <li><a href="{{ post.link_tw }}">
+                <span class="icon is-small"><i class="fab fa-twitter"></i></span>
+              </a></li>
+          {% endif %}
           </ul>
       </div>
     </div>

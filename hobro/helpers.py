@@ -206,23 +206,35 @@ def the_big_retriever(number=None):
     return output
 
 
+def get_layout(lt):
+    if 'left' in lt:
+        outer = ""
+        inner = "column is-6-desktop is-8-tablet is-offset-1"
+    elif 'right' in lt:
+        outer = ""
+        inner = "column is-6-desktop is-8-tablet is-offset-5-desktop is-offset-3-tablet"
+    else:
+        outer = "is-centered"
+        inner = "column is-6-desktop is-8-tablet"
+    return outer, inner
+
+
 def make_bandcamp_embed(album=None, song=None):
     if album and song:
-        print(album, song)
-        a = '<iframe style="border: 0; width: 100%; height: 42px;"src="https://bandcamp.com/EmbeddedPlayer/album='
+        a = '<iframe style="border: 0; width: 100%; height: 42px;" class="lazy" data-src="https://bandcamp.com/EmbeddedPlayer/album='
         b = '/size=small/bgcol=ffffff/linkcol=0687f5/track='
         c = '/transparent=true/" seamless><a href="'
         d = '">'
         f = '</a></iframe>'
         e = a + album.bc_embed_code + b + song.bc_embed_code + c + song.link_bc + d + song.title + f
     elif song:
-        a = '<iframe style="border: 0; width: 100%; height: 42px;" src="https://bandcamp.com/EmbeddedPlayer/track='
+        a = '<iframe style="border: 0; width: 100%; height: 42px;" class="lazy" data-src="https://bandcamp.com/EmbeddedPlayer/track='
         b = '/size=small/bgcol=ffffff/linkcol=0687f5/transparent=true/" seamless><a href="'
         c = '">'
         d = '</a></iframe>'
         e = a + song.bc_embed_code + b + song.link_bc + c + song.title + d
     elif album:
-        a = '<iframe style="border: 0; width: 100%; height: 500px;" src="https://bandcamp.com/EmbeddedPlayer/album='
+        a = '<iframe id="' + album.bc_embed_code + '"style="border: 0; width: 100%; height: 500px;" class="lazy" data-src="https://bandcamp.com/EmbeddedPlayer/album='
         b = '/size=large/bgcol=ffffff/linkcol=333333/artwork=small/transparent=true/" seamless><a href="'
         c = '">'
         d = '</a></iframe>'
@@ -235,12 +247,12 @@ def make_bandcamp_embed(album=None, song=None):
 def make_spotify_embed(album=None, song=None):
     e = None
     if album:
-        a = '<iframe src="https://open.spotify.com/embed/album/'
+        a = '<iframe class="lazy" data-src="https://open.spotify.com/embed/album/'
         b = '" width="100%" height="500" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>'
         if album.sp_embed_code:
             e = a + album.sp_embed_code + b
     elif song:
-        a = '<iframe src="https://open.spotify.com/embed/track/'
+        a = '<iframe class="lazy" data-src="https://open.spotify.com/embed/track/'
         b = '" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>'
         if song.sp_embed_code:
             e = a + song.sp_embed_code + b
@@ -248,7 +260,7 @@ def make_spotify_embed(album=None, song=None):
 
 
 def make_youtube_embed(obj):
-    a = '<iframe width="560" height="315" src="https://www.youtube.com/embed/'
+    a = '<iframe width="560" height="315" class="lazy" data-src="https://www.youtube.com/embed/'
     b = '" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
     c = obj.link_yt.split('=')[-1]
     e = a + c + b
@@ -256,7 +268,7 @@ def make_youtube_embed(obj):
 
 
 def make_soundcloud_embed(obj):
-    a = '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/'
+    a = '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" class="lazy" data-src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/'
     b = '&color=%231a1a1a&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
     e = None
     if obj.sc_embed_code:

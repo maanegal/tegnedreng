@@ -2,21 +2,24 @@
 
 <html class="has-background-info">
     <head>
+        <title>Tegnedreng Records</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
           {% load django_simple_bulma %}
           {% bulma %}
           {% font_awesome %}
-        <link href="https://fonts.googleapis.com/css?family=Assistant|Crimson+Text" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Assistant:400,700,800|Crimson+Text:400,400i,700" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{% static 'hobro/style.css' %}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="{% static "hobro/js/site.js" %}" type="text/javascript"></script>
 
-        <title>Tegnedreng Records</title>
+
     </head>
     <body>
 
 <nav class="navbar is-fixed-top is-dark is-transparent trans-bg" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item navy" href="/">
+    <a class="navbar-item navy" href="https://maanegal.dk">
       <img src="/media/moon_m.png" alt="Månegal Media">
     </a>
 
@@ -32,24 +35,79 @@
 
     <div class="navbar-end">
           <a class="navbar-item has-text-light has-text-centered" href="/">
-            Forside (indeks)
+            <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-home"></i></span>
+            Forsiden
           </a>
         <a class="navbar-item has-text-light has-text-centered" href="/kapitel/1">
-            Kapitel 1
+            <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-book-open"></i></span>
+            Historien
           </a>
+      <a class="navbar-item has-text-light has-text-centered" href="/musik/">
+        <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-music"></i></span>
+        Musikken
+      </a>
+      <a class="navbar-item has-text-light has-text-centered" href="/medlemmer/">
+        <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-user"></i></span>
+        Personerne
+      </a>
+      <hr>
+      <p class="navbar-item has-text-light has-text-centered">
+        Indstillinger
+        </p>
     </div>
   </div>
 
+    {% block content %}
+    {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@10.20.1/dist/lazyload.min.js"></script>
+    <script>
+		(function () {
+			ll = new LazyLoad({
+				elements_selector: '.lazy',
+			});
 
-        <!--
-        <div class="container is-desktop">
-        --!>
+		}());
+        var iframe = document.getElementById('1054350418');
+iframe.contentDocument.body.addEventListener('mouseup', Handler);
+
+function Handler() {
+    alert('works');
+}
+	</script>
+    <script type="text/javascript">
+         var $div = $("#1054350418").contents().find("#player");
+            var observer = new MutationObserver(function(mutations) {
+              mutations.forEach(function(mutation) {
+                if (mutation.attributeName === "class") {
+                  var attributeValue = $(mutation.target).prop(mutation.attributeName);
+                  console.log("Class attribute changed to:", attributeValue);
+                }
+              });
+            });
+            observer.observe($div[0], {
+              attributes: true
+            });
+
+            $div.addClass('red');
+
+        $(document).ready(function() {
+        $('iframe').ready(function(){
+            //here you have the control over the body of the iframe document
+            var iBody = $("#1054350418").contents().find("body");
+            iBody.css("background-color", "#fff");
+
+            //here you have the control over any element (#myContent)
+            var myContent = iBody.find("#big_play_button");
+
+            if(myContent){
+                console.log('abraham');
+            }
+        });
+        });
 
 
-            {% block content %}
-            {% endblock %}
-        <!--
-        </div>
-        --!>
+
+
+    </script>
     </body>
 </html>

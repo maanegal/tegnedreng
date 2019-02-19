@@ -1,7 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from .helpers import the_big_retriever, class_from_str, make_bandcamp_embed, make_spotify_embed, make_youtube_embed
 
+
+def frontpage(request):
+    return render(request, 'hobro/frontpage.html')
 
 def item_list(request):
     data = the_big_retriever()
@@ -46,12 +49,17 @@ def musicvideo_viewer(request, slug):
 
 
 def music_list(request):
-    albums = Album.objects.all()
-    songs = Song.objects.all().order_by('title')
-    musicvideos = MusicVideo.objects.all().order_by('title')
-    characters = Character.objects.all().order_by('name')
+    albums = Album.objects.order_by('release_date')
+    songs = Song.objects.order_by('title')
+    musicvideos = MusicVideo.objects.order_by('title')
+    characters = Character.objects.order_by('name')
     return render(request, 'hobro/music_list.html', {'albums': albums, 'songs': songs, 'musicvideos': musicvideos,
                                                      'characters': characters})
+
+
+def character_list(request):
+    characters = Character.objects.order_by('?')
+    return render(request, 'hobro/character_list.html', {'characters': characters})
 
 
 def character_viewer(request, slug):
@@ -63,3 +71,16 @@ def character_viewer(request, slug):
 def hashtag_viewer(request, slug):
     hashtag = get_object_or_404(Hashtag, slug=slug)
     return render(request, 'hobro/hashtag_viewer.html', {'hashtag': hashtag})
+
+# REDIRECTS
+def redirect_music(request):
+    response = redirect('/musik/')
+    return response
+
+def redirect_chapter(request):
+    response = redirect('/kapitel/1/')
+    return response
+
+def redirect_character(request):
+    response = redirect('/character/')
+    return response

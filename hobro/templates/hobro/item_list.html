@@ -1,6 +1,7 @@
 {% extends 'hobro/base.html' %}
 {% load itemviews %}
 
+
 {% block content %}
     {% for item in items %}
         {% with a=item.get_type %}
@@ -31,7 +32,7 @@
         {% endwith %}
     {% endfor %}
     {% if next %}
-        <div style="text-align: center; padding:30px;">
+        <div class="has-background-info" style="text-align: center; padding-bottom:30px;">
             <a href="{% url 'item_page' number=next %}" class="button is-large is-info is-inverted is-rounded">Videre til kapitel {{next}}</a>
         </div>
     {% endif %}

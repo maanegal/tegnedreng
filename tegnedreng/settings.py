@@ -139,7 +139,6 @@ MEDIA_URL = '/media/'
 BULMA_SETTINGS = {
     "extensions": [
         "bulma-divider",
-        "bulma-navbar-burger",
     ],
     "variables": {
         "primary": "#00d169",
@@ -148,5 +147,7 @@ BULMA_SETTINGS = {
         "family-secondary": "'Crimson Text', serif;",
         "navbar-breakpoint": "8000px",
         "link": "hsl(217, 71%, 40%)",
+        "size-1": "6rem",
+        "size-2": "3.5rem",
     }
 }

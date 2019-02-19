@@ -1,5 +1,5 @@
-<article id="{{ swgrspost.time_stamp }}" class="section columns is-tablet is-centered">
-<div class="column is-half-tablet is-two-thirds-tablet">
+<article id="{{ swgrspost.time_stamp }}" class="section has-line columns is-tablet {{ layout_outer }}">
+<div class="{{ layout_inner }}">
 <div class="box has-text-light has-background-dark darkmode">
     <div class="media">
       <figure class="media-left">
@@ -18,10 +18,15 @@
         </div>
       </div>
       <div class="media-right">
-          <ul class="icon-list">
+          <ul class="darkmode icon-list">
           <li><a href="{% url 'item_detail' pk=swgrspost.pk tp=swgrspost.get_type %}">
             <span class="icon is-small"><i class="fas fa-external-link-alt"></i></span>
           </a></li>
+          {% if swgrspost.link_fb %}
+              <li><a href="{{ swgrspost.link_fb }}">
+                <span class="icon is-small"><i class="fab fa-facebook"></i></span>
+              </a></li>
+          {% endif %}
           </ul>
       </div>
     </div>

@@ -1,12 +1,12 @@
 <article id="{{ post.time_stamp }}" class="section is-medium columns is-tablet is-centered is-gapless">
   <div class="column is-one-third-desktop is-half-tablet do-shadow">
-    <img src="{{ post.photo.url }}"/>
+    <img class="lazy" data-src="{{ post.photo.url }}"/>
   </div>
   <div class="column is-one-third-desktop is-half-tablet">
     <div class="box">
     <div class="media">
       <figure class="media-left">
-        <div class="image is-64x64"><img src="{{ profilepic.url }}" alt="{{ name }}"></div>
+        <div class="image is-64x64"><img class="lazy" data-src="{{ profilepic.url }}" alt="{{ name }}"></div>
       </figure>
       <div class="media-content">
         <div class="content">
@@ -21,10 +21,25 @@
         </div>
       </div>
       <div class="media-right">
-          <ul class="icon-list">
+          <ul class="lightmode icon-list">
           <li><a href="{% url 'item_detail' pk=post.pk tp=post.get_type %}">
             <span class="icon is-small"><i class="fas fa-external-link-alt"></i></span>
           </a></li>
+          {% if post.link_fb %}
+              <li><a href="{{ post.link_fb }}">
+                <span class="icon is-small"><i class="fab fa-facebook"></i></span>
+              </a></li>
+          {% endif %}
+          {% if post.link_ig %}
+              <li><a href="{{ post.link_ig }}">
+                <span class="icon is-small"><i class="fab fa-instagram"></i></span>
+              </a></li>
+          {% endif %}
+          {% if post.link_tw %}
+              <li><a href="{{ post.link_tw }}">
+                <span class="icon is-small"><i class="fab fa-twitter"></i></span>
+              </a></li>
+          {% endif %}
           </ul>
       </div>
     </div>

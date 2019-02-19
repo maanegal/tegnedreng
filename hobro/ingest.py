@@ -31,7 +31,11 @@ def loader(files=[]):
     for item in items:
         obj, rel = process_tree(item)
         if obj:
-            obj.save()
+            try:
+                obj.save()
+            except:
+                print(obj.__dict__)
+                raise
             try:
                 val = obj.alias
             except:
@@ -59,6 +63,11 @@ def folder_loader(path):
         files.append(os.path.join(folder, file))
     objects = loader(files)
     return objects
+
+
+def prepare_ingest():
+    pass
+    #delete migrations and db
 
 
 def mark_it_down(data):
@@ -240,8 +249,9 @@ def process_tree(item={}):
     element = item['element'][0]
     alias = item['id']
     text = None
+    body = ''
     if item.get('body', None):
-        text = item.get('body', None)
+        body = item.get('body', None)
     elif item.get('text', None):
         text = make_linebreaks(item.get('text', None))
     obj = None
@@ -252,8 +262,12 @@ def process_tree(item={}):
         html = make_links(html)
         html = make_hashtags(html, alias, element)
         html = make_mentions(html)
-        link_fb = item.get('link_fb', '')
-        link_tw = item.get('link_tw', '')
+        link_fb = item.get('link-fb', '')
+        if link_fb:
+            link_fb = 'https://facebook.com'+link_fb[0]
+        link_tw = item.get('link-tw', '')
+        if link_tw:
+            link_tw = link_tw[0]
         relations.extend(parse_relation('appears', item.get('appears', None)))
         obj = Post(text=html, time_stamp=int(alias), link_fb=link_fb, link_tw=link_tw)
     elif element == 'post-photo':
@@ -264,9 +278,15 @@ def process_tree(item={}):
         html = make_hashtags(html, alias, element)
         html = make_mentions(html)
         photo = 'posts/' + item.get('photo')[0]
-        link_fb = item.get('link_fb', '')
-        link_tw = item.get('link_tw', '')
-        link_ig = item.get('link_ig', '')
+        link_fb = item.get('link-fb', '')
+        if link_fb:
+            link_fb = 'https://facebook.com'+link_fb[0]
+        link_tw = item.get('link-tw', '')
+        if link_tw:
+            link_tw = link_tw[0]
+        link_ig = item.get('link-ig', '')
+        if link_ig:
+            link_ig = link_ig[0]
         relations.extend(parse_relation('appears', item.get('appears', None)))
         obj = PostPhoto(text=html, time_stamp=int(alias), photo=photo,
                         link_fb=link_fb, link_tw=link_tw, link_ig=link_ig)
@@ -277,9 +297,15 @@ def process_tree(item={}):
         html = make_links(html)
         html = make_hashtags(html, alias, element)
         html = make_mentions(html)
-        link_fb = item.get('link_fb', '')
-        link_tw = item.get('link_tw', '')
-        link_ig = item.get('link_ig', '')
+        link_fb = item.get('link-fb', '')
+        if link_fb:
+            link_fb = 'https://facebook.com'+link_fb[0]
+        link_tw = item.get('link-tw', '')
+        if link_tw:
+            link_tw = link_tw[0]
+        link_ig = item.get('link-ig', '')
+        if link_ig:
+            link_ig = link_ig[0]
         title = item.get('title', '')
         video = 'posts/' + item.get('video')[0]
         photo = 'posts/' + item.get('photo')[0]
@@ -296,7 +322,9 @@ def process_tree(item={}):
         html = markdown(text)
         html = make_links(html)
         photo = 'profile/' + item.get('photo')[0]
-        link_fb = item.get('link_fb', '')
+        link_fb = item.get('link-fb', '')
+        if link_fb:
+            link_fb = 'https://facebook.com'+link_fb[0]
         al = int(alias)
         obj = ProfileEvent(time_stamp=al, photo=photo, text=html, page_name=item.get('name')[0],
                            link_fb=link_fb)
@@ -312,7 +340,9 @@ def process_tree(item={}):
         # expect a text element with two values -- chapter number and title. Render to HTML as h2, split up somehow
         if not text:
             return None
-        number = item.get('number', None)
+        number = item.get('number', '')
+        if number:
+            number = number[0]
         obj = Section(text=text, time_stamp=int(alias), number=number)
     elif element == 'story':
         # set alias (timestamp)
@@ -320,7 +350,10 @@ def process_tree(item={}):
         # parse them from markdown to HTML. Locate URLs and hashtags and mentions.
         # Make URLs live. Make hashtags relate to a master object. Set mentions bold
         if not text:
-            return None
+            if body:
+                text = body
+            else:
+                return None
         html = markdown(text)
         html = make_links(html)
         html = make_hashtags(html, alias, element)
@@ -350,20 +383,31 @@ def process_tree(item={}):
         if e_sp:
             e_sp = e_sp[0]
         obj = Album(alias=alias, title=item.get('title')[0], photo=photo, link_bc=item.get('url')[0],
-                    bc_embed_code=e_bc, sp_embed_code=e_sp,
-                    text=html, release_date=dt)
+                    bc_embed_code=e_bc, sp_embed_code=e_sp, text=html, release_date=dt)
     elif element == 'music-song':
         if not text:
             text = ''
         html = make_links(text)
         html = make_hashtags(html, alias, element)
         html = make_mentions(html)
-        link_bc = item.get('url')[0]
+        link_bc = item.get('link-bc')
+        if link_bc:
+            link_bc = link_bc[0]
         track = item.get('track_number', None)
         if track:
             track = str_to_int(track[0])
         else:
             track = None
+        if body:
+            lyrics = markdown(body)
+        else:
+            lyrics = ""
+        link_yt = item.get('link-yt', '')
+        if link_yt:
+            link_yt = link_yt[0]
+        link_sc = item.get('link-sc', '')
+        if link_sc:
+            link_sc = link_sc[0]
         relations.extend(parse_relation('appears', item.get('featuring', None)))
         relations.extend(parse_relation('producer', item.get('producer', None)))
         relations.extend(parse_relation('album', item.get('album', None)))
@@ -373,8 +417,8 @@ def process_tree(item={}):
         e_sp = item.get('sp-embed-code', None)
         if e_sp:
             e_sp = e_sp[0]
-        obj = Song(alias=alias, title=item.get('title')[0], link_bc=link_bc, bc_embed_code=e_bc,
-                   sp_embed_code=e_sp, text=html, track_number=track)
+        obj = Song(alias=alias, title=item.get('title')[0], link_bc=link_bc, link_yt=link_yt, link_sc=link_sc,
+                   bc_embed_code=e_bc, sp_embed_code=e_sp, text=html, track_number=track, lyrics=lyrics)
     elif element == 'music-video':
         if not text:
             text = ''
@@ -391,7 +435,9 @@ def process_tree(item={}):
         text = make_links(text)
         text = make_hashtags(text, alias, element)
         text = make_mentions(text)
-        link_sc = item.get('link_sc', '')
+        link_sc = item.get('link-sc', '')
+        if link_sc:
+            link_sc = link_sc[0]
         e_sc = item.get('sc_embed_code', None)
         if e_sc:
             e_sc = e_sc[0]
@@ -408,7 +454,9 @@ def process_tree(item={}):
             yt_embed = yt_embed[0]
         else:
             yt_embed = ''
-        link_fb = item.get('link_fb', '')
+        link_fb = item.get('link-fb', '')
+        if link_fb:
+            link_fb = 'https://facebook.com'+link_fb[0]
         obj = SwgrsPost(text=html, time_stamp=int(alias), link_fb=link_fb, link_yt=yt_embed)
     elif element == 'swgrs_media':
         if not text:
@@ -417,7 +465,9 @@ def process_tree(item={}):
         html = make_links(html)
         html = make_hashtags(html, alias, element)
         html = make_mentions(html)
-        link_fb = item.get('link_fb', '')
+        link_fb = item.get('link-fb', '')
+        if link_fb:
+            link_fb = 'https://facebook.com'+link_fb[0]
         video = item.get('video', '')
         if video:
             video = 'swgrs/' + video[0]
@@ -428,9 +478,9 @@ def process_tree(item={}):
         else:
             video_title = ''
         obj = SwgrsMedia(text=html, time_stamp=int(alias), video_title=video_title, video=video,
-                        photo=photo, link_fb=link_fb)
+                         photo=photo, link_fb=link_fb)
     if not obj:
-        print(element, alias)
+        print('No object passes to process tree.', element, alias)
     return obj, relations
 
 

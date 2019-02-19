@@ -1,0 +1,24 @@
+{% extends 'hobro/base.html' %}
+{% load itemviews %}
+
+{% block content %}
+<section class="hero is-info is-bold is-fullheight">
+    <div class="hero-body">
+        <div class="container is-family-secondary has-text-centered">
+        <h1 class="title is-capitalized is-size-1 txt-shadow">Hobro for livet</h1>
+        <h2 class="subtitle is-2 txt-shadow">Legenden om <em>Tegnedreng Records</em></h2>
+        </div>
+    </div>
+      <div class="hero-foot">
+          <div style="text-align: center; padding:30px;">
+            <a href="{% url 'item_page' number=1 %}" class="button is-large is-white is-outlined is-rounded do-shadow" style="margin-right:30px">
+                <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-book-open"></i></span>
+                Læs historien</a>
+            <a href="{% url 'music_list' %}" class="button is-large is-light is-outlined is-rounded do-shadow">
+                <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-music"></i></span>
+                Hør musikken</a>
+        </div><br>
+      </div>
+
+</section>
+{% endblock %}

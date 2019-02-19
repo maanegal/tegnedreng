@@ -1,6 +1,7 @@
 from datetime import datetime
 from ..models import *
-from hobro.helpers import get_current_info, make_bandcamp_embed, make_spotify_embed, make_youtube_embed, make_soundcloud_embed
+from hobro.helpers import get_current_info, make_bandcamp_embed, make_spotify_embed, make_youtube_embed, \
+    make_soundcloud_embed, get_layout
 from django import template
 register = template.Library()
 
@@ -8,21 +9,23 @@ register = template.Library()
 @register.inclusion_tag('hobro/post.html')
 def show_post(post):
     info = get_current_info(post.time_stamp)
-    dt = datetime.utcfromtimestamp(post.time_stamp)
-    return {'post': post, 'name': info.get('name', ''), 'profilepic': info.get('photo', ''), 'post_time': dt}
+    dt = datetime.fromtimestamp(post.time_stamp)
+    outer, inner = get_layout(post.layout)
+    return {'post': post, 'name': info.get('name', ''), 'profilepic': info.get('photo', ''), 'post_time': dt,
+            'layout_outer': outer, 'layout_inner': inner}
 
 
 @register.inclusion_tag('hobro/postphoto.html')
 def show_postphoto(postphoto):
     info = get_current_info(postphoto.time_stamp)
-    dt = datetime.utcfromtimestamp(postphoto.time_stamp)
+    dt = datetime.fromtimestamp(postphoto.time_stamp)
     return {'post': postphoto, 'name': info.get('name', ''), 'profilepic': info.get('photo', ''), 'post_time': dt}
 
 
 @register.inclusion_tag('hobro/postvideo.html')
 def show_postvideo(postvideo):
     info = get_current_info(postvideo.time_stamp)
-    dt = datetime.utcfromtimestamp(postvideo.time_stamp)
+    dt = datetime.fromtimestamp(postvideo.time_stamp)
     return {'post': postvideo, 'name': info.get('name', ''), 'profilepic': info.get('photo', ''), 'post_time': dt}
 
 
@@ -38,13 +41,13 @@ def show_story(story):
 
 @register.inclusion_tag('hobro/profileevent.html')
 def show_profileevent(profileevent):
-    dt = datetime.utcfromtimestamp(profileevent.time_stamp)
+    dt = datetime.fromtimestamp(profileevent.time_stamp)
     return {'profileevent': profileevent, 'post_time': dt}
 
 
 @register.inclusion_tag('hobro/itemembed.html')
 def show_itemembed(itemembed):
-    dt = datetime.utcfromtimestamp(itemembed.time_stamp)
+    dt = datetime.fromtimestamp(itemembed.time_stamp)
     kind = itemembed.what_kind()
     return {'itemembed': itemembed, 'post_time': dt, 'kind': kind}
 
@@ -81,16 +84,17 @@ def embed_character(character):
 
 @register.inclusion_tag('hobro/swgrspost.html')
 def show_swgrspost(swgrspost):
-    dt = datetime.utcfromtimestamp(swgrspost.time_stamp)
+    dt = datetime.fromtimestamp(swgrspost.time_stamp)
+    outer, inner = get_layout(swgrspost.layout)
     yt = ""
     if swgrspost.link_yt:
         yt = make_youtube_embed(swgrspost)
-    return {'swgrspost': swgrspost, 'post_time': dt, 'yt_embed': yt}
+    return {'swgrspost': swgrspost, 'post_time': dt, 'yt_embed': yt, 'layout_outer': outer, 'layout_inner': inner}
 
 
 @register.inclusion_tag('hobro/swgrsmedia.html')
 def show_swgrsmedia(swgrsmedia):
-    dt = datetime.utcfromtimestamp(swgrsmedia.time_stamp)
+    dt = datetime.fromtimestamp(swgrsmedia.time_stamp)
     if swgrsmedia.video:
         video = swgrsmedia.video.url
         video_title = swgrsmedia.video_title

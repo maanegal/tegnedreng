@@ -5,21 +5,15 @@ from django.utils.text import slugify
 # BASIC STORY ELEMENTS
 class Section(models.Model):
     """Sections in the story. Plain text, renders to HTML headings H2. Timestamps are purely for sorting here"""
-    #number = models.CharField(max_length=2)
-    text = models.CharField(max_length=200)
     time_stamp = models.IntegerField()
-    expires = models.IntegerField(null=True)  # one less than value of next object
     slug = models.SlugField(unique=True)
+    number = models.CharField(max_length=2)
+    text = models.CharField(max_length=200)
+    expires = models.IntegerField(null=True)  # one less than value of next object
 
     def save(self, *args, **kwargs):
         self.slug = slugify(str(self.time_stamp))
         super(Section, self).save(*args, **kwargs)
-
-    '''def publish(self):
-        self.save()
-
-    def __str__(self):
-        return str(self.time_stamp)'''
 
     def get_type(self):
         class_name = "section"
@@ -28,9 +22,9 @@ class Section(models.Model):
 
 class Story(models.Model):
     """Blocks of text describing the story. Formatted as HTML. Timestamps are purely for sorting here"""
-    text = models.TextField()
     time_stamp = models.IntegerField()
     slug = models.SlugField(unique=True)
+    text = models.TextField()
 
     def save(self, *args, **kwargs):
         self.slug = slugify(str(self.time_stamp))
@@ -43,11 +37,11 @@ class Story(models.Model):
 
 class Character(models.Model):
     """Information on a character in the story"""
+    alias = models.CharField(max_length=30)
+    slug = models.SlugField(unique=True)
     name = models.CharField(max_length=100)
     photo = models.ImageField(default="default.jpg")  # filename of photo, stored in folder
     text = models.TextField()  # in case a description is needed
-    alias = models.CharField(max_length=30)
-    slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -61,14 +55,14 @@ class Character(models.Model):
 # POST ELEMENTS
 class Post(models.Model):
     """Basic post items. Includes Link items"""
-    text = models.TextField()
     time_stamp = models.IntegerField()
+    slug = models.SlugField(unique=True)
+    text = models.TextField()
     page_name = models.CharField(max_length=60)  # link to profile-event via function
     layout = models.CharField(max_length=30, default='standard')  # how the post should appear. Select from html presets
     appears = models.ManyToManyField(Character) # Set characters that appear in this post
     link_fb = models.CharField(max_length=100, null=True)  # facebook post id
     link_tw = models.CharField(max_length=100, null=True)  # twitter post id
-    slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(str(self.time_stamp))
@@ -81,16 +75,16 @@ class Post(models.Model):
 
 class PostPhoto(models.Model):
     """Photo post items. References a locally stored image. Includes Link items"""
+    time_stamp = models.IntegerField()
+    slug = models.SlugField(unique=True)
     text = models.TextField()  # photo description
     photo = models.ImageField(default="default.jpg")  # filename of photo, stored in folder
-    time_stamp = models.IntegerField()
     page_name = models.CharField(max_length=60)  # link to profile-event via function
     layout = models.CharField(max_length=30, default='standard')  # how the post should appear. Select from html presets
     appears = models.ManyToManyField(Character)  # Set characters that appear in this post
     link_fb = models.CharField(max_length=100, null=True)  # facebook post id
     link_ig = models.CharField(max_length=100, null=True)  # instagram post id
     link_tw = models.CharField(max_length=100, null=True)  # twitter post id
-    slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(str(self.time_stamp))
@@ -103,18 +97,18 @@ class PostPhoto(models.Model):
 
 class PostVideo(models.Model):
     """Video post items. References a locally stored video file. Includes Link items"""
+    time_stamp = models.IntegerField()
+    slug = models.SlugField(unique=True)
     text = models.TextField()  # video description
     video = models.FileField()  # filename of video, stored in folder
     title = models.CharField(max_length=160, null=True)  # title of video
     photo = models.ImageField(default="default.jpg")  # filename of photo, stored in folder
-    time_stamp = models.IntegerField()
     page_name = models.CharField(max_length=60)  # link to profile-event via function
     layout = models.CharField(max_length=30, default='standard')  # how the post should appear. Select from html presets
     appears = models.ManyToManyField(Character)  # Set characters that appear in this post
     link_fb = models.CharField(max_length=100, null=True)  # facebook post id
     link_ig = models.CharField(max_length=100, null=True)  # instagram post id
     link_tw = models.CharField(max_length=100, null=True)  # twitter post id
-    slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(str(self.time_stamp))
@@ -128,13 +122,13 @@ class PostVideo(models.Model):
 class ProfileEvent(models.Model):
     """Posts indicating changes in the online presence, such as new profile picture or page name"""
     time_stamp = models.IntegerField()
+    slug = models.SlugField(unique=True)
     expires = models.IntegerField(null=True)  # one less than value of next object
     page_name = models.CharField(max_length=60)  # link to profile-event via function
     photo = models.ImageField(default="default.jpg")  # filename of photo, stored in folder
     text = models.TextField()  # free text field, in case it is needed
     link_fb = models.CharField(max_length=100, null=True)  # facebook post id
     link_tw = models.CharField(max_length=100, null=True)  # twitter post id
-    slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(str(self.time_stamp))
@@ -148,11 +142,11 @@ class ProfileEvent(models.Model):
 class Album(models.Model):
     """An album, containing songs"""
     alias = models.CharField(max_length=30)
+    slug = models.SlugField(unique=True)
     photo = models.ImageField(default="default.jpg")  # filename of photo, stored in folder
     title = models.CharField(max_length=100)
     text = models.TextField()  # description
     release_date = models.DateField()
-    artist_name = models.CharField(max_length=60)  # link to profile-event via function
     bc_embed_code = models.CharField(max_length=100)  # code used for bandcamp embeds
     sp_embed_code = models.CharField(max_length=100, null=True)  # code used for spotify embeds
     link_yt = models.CharField(max_length=100, null=True)  # youtube
@@ -160,8 +154,6 @@ class Album(models.Model):
     link_sp = models.CharField(max_length=100, null=True)  # spotify
     link_sc = models.CharField(max_length=100, null=True)  # soundcloud
     link_it = models.CharField(max_length=100, null=True)  # itunes
-    # relationship: songs
-    slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -175,11 +167,12 @@ class Album(models.Model):
 class Song(models.Model):
     """A song. Most belong to an album"""
     alias = models.CharField(max_length=30)
+    slug = models.SlugField(unique=True)
     photo = models.ImageField(default="default.jpg")  # filename of photo, stored in folder
     title = models.CharField(max_length=100)
     track_number = models.IntegerField(null=True)
     text = models.TextField()  # description
-    artist_name = models.CharField(max_length=60)  # link to profile-event via function
+    lyrics = models.TextField()
     bc_embed_code = models.CharField(max_length=100)  # code used for bandcamp embeds
     sp_embed_code = models.CharField(max_length=100, null=True)  # code used for spotify embeds
     link_yt = models.CharField(max_length=100, null=True)  # youtube
@@ -190,8 +183,6 @@ class Song(models.Model):
     appears = models.ManyToManyField(Character, related_name='appears_on_song')
     producer = models.ManyToManyField(Character, related_name='producer')
     album = models.ForeignKey(Album, null=True, on_delete=models.CASCADE)
-    # Add lyrics
-    slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -205,19 +196,14 @@ class Song(models.Model):
 class MusicVideo(models.Model):
     """An album, containing songs"""
     alias = models.CharField(max_length=30)
+    slug = models.SlugField(unique=True)
     title = models.CharField(max_length=100)
     text = models.TextField()  # description
     release_date = models.DateField(null=True)
-    artist_name = models.CharField(max_length=60)  # link to profile-event via function
     embed_url = models.CharField(max_length=100)  # url used embedding item player
     link_yt = models.CharField(max_length=100, null=True)  # youtube
-    link_bc = models.CharField(max_length=100, null=True)  # bandcamp
-    link_sp = models.CharField(max_length=100, null=True)  # spotify
-    link_sc = models.CharField(max_length=100, null=True)  # soundcloud
-    link_it = models.CharField(max_length=100, null=True)  # itunes
     appears = models.ManyToManyField(Character, related_name='appears_in_video')
     song = models.OneToOneField(Song, null=True, on_delete=models.CASCADE)  # The song featured in the music video
-    slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -229,13 +215,13 @@ class MusicVideo(models.Model):
 
 
 class SwgrsPost(models.Model):
+    time_stamp = models.IntegerField()
+    slug = models.SlugField(unique=True)
     text = models.TextField()
     link_yt = models.CharField(max_length=100, null=True)  # If post has a youtube video that should be embedded
-    time_stamp = models.IntegerField()
     profile = models.ImageField(default="swgrs/profile.jpg")
-    layout = models.CharField(max_length=30, default='standard')  # how the post should appear. Select from html presets
     link_fb = models.CharField(max_length=100, null=True)  # facebook post id
-    slug = models.SlugField(unique=True)
+    layout = models.CharField(max_length=30, default='standard')  # how the post should appear. Select from html presets
 
     def save(self, *args, **kwargs):
         self.slug = slugify(str(self.time_stamp))
@@ -248,15 +234,15 @@ class SwgrsPost(models.Model):
 
 class SwgrsMedia(models.Model):
     """Photo or video"""
+    time_stamp = models.IntegerField()
+    slug = models.SlugField(unique=True)
     text = models.TextField()  # photo description
     photo = models.ImageField(default="swgrs/profile.jpg")  # filename of photo, stored in folder
     profile = models.ImageField(default="swgrs/profile.jpg")
     video = models.FileField(null=True)  # filename of video, stored in folder
     video_title = models.CharField(max_length=160, null=True)  # title of video
-    time_stamp = models.IntegerField()
-    layout = models.CharField(max_length=30, default='standard')  # how the post should appear. Select from html presets
     link_fb = models.CharField(max_length=100, null=True)  # facebook post id
-    slug = models.SlugField(unique=True)
+    layout = models.CharField(max_length=30, default='standard')  # how the post should appear. Select from html presets
 
     def save(self, *args, **kwargs):
         self.slug = slugify(str(self.time_stamp))
@@ -275,12 +261,12 @@ class SwgrsMedia(models.Model):
 
 class SwgrsSong(models.Model):
     alias = models.CharField(max_length=30)
+    slug = models.SlugField(unique=True)
     photo = models.ImageField(default="swgrs/profile.jpg")  # filename of photo, stored in folder
     title = models.CharField(max_length=100)
     text = models.TextField()  # description
     sc_embed_code = models.CharField(max_length=100)  # code used for spotify embeds
     link_sc = models.CharField(max_length=100, null=True)  # soundcloud
-    slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(str(self.title))
@@ -307,14 +293,13 @@ class Hashtag(models.Model):
 class ItemEmbed(models.Model):
     """include another type of item, like person or song"""
     time_stamp = models.IntegerField()
+    slug = models.SlugField(unique=True)
     target = models.CharField(max_length=60)  # alias of item to be embedded. Make this relationship instead
     target_character = models.ManyToManyField(Character)
     target_song = models.ManyToManyField(Song)
     target_album = models.ManyToManyField(Album)
     target_musicvideo = models.ManyToManyField(MusicVideo)
     target_swgrssong = models.ManyToManyField(SwgrsSong)
-    # relationship to another item that will be embedded at timecode
-    slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(str(self.time_stamp))
