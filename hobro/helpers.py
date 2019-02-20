@@ -208,10 +208,10 @@ def the_big_retriever(number=None):
 
 def get_layout(lt):
     if 'left' in lt:
-        outer = ""
+        outer = "left"
         inner = "column is-6-desktop is-8-tablet is-offset-1"
     elif 'right' in lt:
-        outer = ""
+        outer = "right"
         inner = "column is-6-desktop is-8-tablet is-offset-5-desktop is-offset-3-tablet"
     else:
         outer = "is-centered"

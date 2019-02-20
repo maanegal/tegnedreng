@@ -33,7 +33,40 @@
     {% endfor %}
     {% if next %}
         <div class="has-background-info" style="text-align: center; padding-bottom:30px;">
-            <a href="{% url 'item_page' number=next %}" class="button is-large is-info is-inverted is-rounded">Videre til kapitel {{next}}</a>
+            <a href="{% url 'item_page' number=next %}" class="button navy-text is-medium is-info is-inverted is-rounded">Videre til kapitel {{next}}</a>
         </div>
     {% endif %}
+<script>
+    const alive = document.querySelectorAll('.alive');
+
+    observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio > 0) {
+          //entry.target.classList.add('fancy');
+          if (entry.target.classList.contains('right')) {
+            Velocity(entry.target, { transform: [ "translateX(0)", "translateX(5%)" ], opacity: [1, 0.3] }, {duration: 400, easing: 'ease-in'} );
+          }
+          else if (entry.target.classList.contains('left')) {
+            Velocity(entry.target, { transform: [ "translateX(0)", "translateX(-5%)" ], opacity: [1, 0.3] }, {duration: 400, easing: 'ease-in'} );
+          }
+          else if (entry.target.classList.contains('slide')) {
+            Velocity(entry.target, { transform: [ "translateY(0)", "translateY(8%)" ], opacity: [1, 0] }, {duration: 500, easing: 'ease-in'} );
+          }
+          else if (entry.target.classList.contains('slide-long')) {
+            Velocity(entry.target, { transform: [ "translateY(0)", "translateY(20%)" ], opacity: [1, 0] }, {duration: 600, easing: 'ease-out'} );
+          }
+          else {
+            Velocity(entry.target, { transform: [ "scale(1)", "scale(0.96)" ], opacity: [1, 0.4] }, {duration: 400, easing: 'ease-in'} );
+          }
+          observer.unobserve(entry.target);
+        } else {
+          //entry.target.classList.remove('fancy');
+        }
+      });
+    });
+
+    alive.forEach(living => {
+      observer.observe(living);
+    });
+</script>
 {% endblock %}

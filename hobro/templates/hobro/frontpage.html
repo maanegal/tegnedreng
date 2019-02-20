@@ -3,22 +3,38 @@
 
 {% block content %}
 <section class="hero is-info is-bold is-fullheight">
+    <div id="konrad" class="hero is-fullheight" style="background-color: #000000;" >
     <div class="hero-body">
         <div class="container is-family-secondary has-text-centered">
-        <h1 class="title is-capitalized is-size-1 txt-shadow">Hobro for livet</h1>
-        <h2 class="subtitle is-2 txt-shadow">Legenden om <em>Tegnedreng Records</em></h2>
-        </div>
+        <h1 class="title is-capitalized is-size-1-desktop is-size-2-tablet is-size-2-mobile txt-shadow" id="kasper" style="opacity:0">Hobro for livet</h1>
+        <h2 class="subtitle is-size-2-desktop is-size-3-tablet is-size-3-mobile txt-shadow" id="jens" style="opacity:0">Legenden om <em>Tegnedreng Records</em></h2>
+            <br>
+
     </div>
-      <div class="hero-foot">
+    </div>
+      <div id="svend" class="hero-foot" style="opacity:0">
           <div style="text-align: center; padding:30px;">
-            <a href="{% url 'item_page' number=1 %}" class="button is-large is-white is-outlined is-rounded do-shadow" style="margin-right:30px">
+            <a href="{% url 'item_page' number=1 %}" class="button navy-text is-medium is-white is-outlined is-rounded do-shadow" style="margin:15px">
                 <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-book-open"></i></span>
                 Læs historien</a>
-            <a href="{% url 'music_list' %}" class="button is-large is-light is-outlined is-rounded do-shadow">
+            <a href="{% url 'music_list' %}" class="button navy-text is-medium is-light is-outlined is-rounded do-shadow" style="margin:15px">
                 <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-music"></i></span>
                 Hør musikken</a>
         </div><br>
       </div>
-
+</div>
 </section>
+<script>
+    window.onload = function(){
+        var konrad = document.getElementById("konrad");
+        var svend = document.getElementById("svend");
+        var kasper = document.getElementById("kasper");
+        var jens = document.getElementById("jens");
+
+        Velocity(konrad, { backgroundColor: 'rgba(200, 200, 192, 0)' }, 8000, 'ease-in' );
+        Velocity(kasper, { transform: [ "scale(1)", "scale(0.96)" ], opacity: [1, 0] }, {duration: 2000, delay: 400, easing: 'ease-in'} );
+        Velocity(jens, { transform: [ "scale(1)", "scale(0.98)" ], opacity: [1, 0] }, {duration: 2000, delay: 800, easing: 'ease-in'} );
+        Velocity(svend, { transform: [ "translateY(0)", "translateY(5%)" ], opacity: [1, 0] }, {duration: 1000, delay: 2000, easing: 'ease-in'} );
+    }
+</script>
 {% endblock %}

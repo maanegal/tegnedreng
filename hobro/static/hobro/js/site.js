@@ -1,15 +1,26 @@
-/*****
- * A DOMContentLoaded event listener for use with Bulma that connects the "click" event of each
- * navbar-burger element with the navbar-menu referred to by ID in the "data-target" attribute.
- *
- * This file is a slightly modified version of the example found in the Bulma documentation for
- * the navbar component. It's been updated for some of the newer Javascript standards, but will
- * otherwise behave in exactly the same way.
- *
- * Bulma documentation page: https://bulma.io/documentation/components/navbar/#navbarJsExample
- *****/
+/*!
+ * Determine if an element is in the viewport
+ * (c) 2017 Chris Ferdinandi, MIT License, https://gomakethings.com
+ * @param  {Node}    elem The element
+ * @return {Boolean}      Returns true if element is in the viewport
+ */
+var isInViewport = function (elem) {
+	var distance = elem.getBoundingClientRect();
+	return (
+		distance.top >= 0 &&
+		distance.left >= 0 &&
+		distance.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+		distance.right <= (window.innerWidth || document.documentElement.clientWidth)
+	);
+};
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    var klaus = document.getElementsByTagName("nav");
+    Velocity(klaus, { opacity: [1, 0] }, {duration: 1000, easing: 'ease-in'} );
+
 
   // Get all "navbar-burger" elements
   const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
@@ -27,7 +38,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Toggle the class on both the "navbar-burger" and the "navbar-menu"
         $el.classList.toggle('is-active');
-        $target.classList.toggle('is-active');
+        //$target.classList.toggle('is-active');
+        var sideMenu = document.getElementById("sideMenu");
+        if (sideMenu.style.display === "none") {
+            Velocity(sideMenu, { transform: [ "translate(0)", "translate(100%)" ], opacity: [ 1, 0 ], display: ['block', 'none'] }, 150, "ease-out")
+          } else {
+            Velocity(sideMenu, { transform: ["translate(100%)", "translate(0)"], opacity: [ 0, 1 ], display: ['none', 'block'] }, 150, "ease-in")
+          }
       });
     });
   }
@@ -41,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 var someLink = document.querySelector('a');
 simulateClick(someLink);
  */
+ /*
 var simulateClick = function (elem) {
 	// Create our event (with options)
 	var evt = new MouseEvent('click', {
@@ -50,5 +68,6 @@ var simulateClick = function (elem) {
 	});
 	// If cancelled, don't dispatch our event
 	var canceled = !elem.dispatchEvent(evt);
-};
+};*/
+
 

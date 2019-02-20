@@ -1,7 +1,8 @@
-<article id="{{ song.slug }}" class="section columns is-tablet is-centered">
+<article id="{{ song.slug }}" class="section alive slide columns is-tablet is-centered">
 <div class="column is-two-thirds"><div class="box">
     <a href="{% url 'song_viewer' slug=song.slug %}">
-        <span class="title">{{ song.title }}</span><span class="icon is-small">&emsp;<i class="fas fa-external-link-alt"></i></span>
+        <span class="title">{{ song.title }}</span>
+        <span style="margin: 10px;" class="icon is-small">&emsp;<i class="fas fa-external-link-alt"></i></span>
     </a>
     <p class="subtitle">Sang</p>
     <p>{{ song.text|safe }}</p><br>

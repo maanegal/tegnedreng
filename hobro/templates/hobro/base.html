@@ -10,14 +10,19 @@
           {% font_awesome %}
         <link href="https://fonts.googleapis.com/css?family=Assistant:400,700,800|Crimson+Text:400,400i,700" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{% static 'hobro/style.css' %}">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="{% static "hobro/js/site.js" %}" type="text/javascript"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.5/velocity.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.5/velocity.ui.min.js"></script>
 
+        <link rel="icon" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-32x32.png" sizes="32x32" />
+        <link rel="icon" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-192x192.png" sizes="192x192" />
+        <link rel="apple-touch-icon-precomposed" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-180x180.png" />
+        <meta name="msapplication-TileImage" content="https://maanegal.dk/wp-content/uploads/cropped-brand-square-270x270.png" />
     </head>
     <body>
 
-<nav class="navbar is-fixed-top is-dark is-transparent trans-bg" role="navigation" aria-label="main navigation">
+<nav class="navbar is-fixed-top is-dark is-transparent trans-bg" style="opacity:0;" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item navy" href="https://maanegal.dk">
       <img src="/media/moon_m.png" alt="Månegal Media">
@@ -30,7 +35,7 @@
     </a>
   </div>
 </nav>
-<div id="sideMenu" class="navbar is-fixed-top navbar-menu is-dark is-transparent side-menu">
+<div id="sideMenu" class="navbar is-fixed-top navbar-menu is-dark is-transparent side-menu" style="display:none;">
     <div class="navbar-start"></div>
 
     <div class="navbar-end">
@@ -54,6 +59,7 @@
       <p class="navbar-item has-text-light has-text-centered">
         Indstillinger
         </p>
+
     </div>
   </div>
 
@@ -67,47 +73,7 @@
 			});
 
 		}());
-        var iframe = document.getElementById('1054350418');
-iframe.contentDocument.body.addEventListener('mouseup', Handler);
 
-function Handler() {
-    alert('works');
-}
 	</script>
-    <script type="text/javascript">
-         var $div = $("#1054350418").contents().find("#player");
-            var observer = new MutationObserver(function(mutations) {
-              mutations.forEach(function(mutation) {
-                if (mutation.attributeName === "class") {
-                  var attributeValue = $(mutation.target).prop(mutation.attributeName);
-                  console.log("Class attribute changed to:", attributeValue);
-                }
-              });
-            });
-            observer.observe($div[0], {
-              attributes: true
-            });
-
-            $div.addClass('red');
-
-        $(document).ready(function() {
-        $('iframe').ready(function(){
-            //here you have the control over the body of the iframe document
-            var iBody = $("#1054350418").contents().find("body");
-            iBody.css("background-color", "#fff");
-
-            //here you have the control over any element (#myContent)
-            var myContent = iBody.find("#big_play_button");
-
-            if(myContent){
-                console.log('abraham');
-            }
-        });
-        });
-
-
-
-
-    </script>
     </body>
 </html>

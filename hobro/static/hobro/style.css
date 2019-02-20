@@ -99,10 +99,16 @@
     padding-top: 50px;
 }
 
+.navy-text {
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
 .navbar-item {
     text-transform: uppercase;
     font-weight: 800;
     padding: 1rem 0.75rem;
+    font-size: 1.1rem;
 }
 
 .side-menu {
@@ -122,14 +128,64 @@ a.tag:hover, a.tag:focus {
     color: lightgray;
 }
 
+/*
 body::after {
   content:'';
   position:fixed; top:0; bottom:0; left:50%;
   z-index:-1;
   width:2px; background: rgba(77, 77, 77, 0.3);
   box-shadow:  0px 0px 25px rgba(77, 77, 77, 0.05);
-}
+}*/
 
+/* When box is used to contain a lot of content, give it some more padding */
 .big-box {
     padding: 3rem;
+}
+
+/* feed item emerges from behind previous item */
+.is-behind {
+    z-index: -1;
+    bottom: -100px;
+    position: sticky;
+    box-shadow: inset 0px -5px 20px rgba(0, 0, 0, 0.2);
+    margin-top: -1.4rem;
+}
+
+.is-before-behind {
+    height: 20px;
+    background-color: black;
+    background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(255,255,255,0) 83%);
+}
+
+
+
+/* Prevents img without src from appearing. From lazy load script */
+img:not([src]) {
+    /*visibility: hidden;*/
+    opacity: 0
+}
+
+@media screen and (max-width: 768px) {
+  .post-img {
+    height: width: 90vw;
+  }
+}
+
+@media screen and (max-width: 1023px) and (min-width: 769px) {
+  .post-img {
+    height: 45vw;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .post-img {
+    height: 30vw;
+  }
+}
+
+
+.post-img img {
+    background-color: rgba(10, 10, 10, 0.25);
+    opacity: 1
+    transition: opacity 1s;
 }
