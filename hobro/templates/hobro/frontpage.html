@@ -30,11 +30,17 @@
         var svend = document.getElementById("svend");
         var kasper = document.getElementById("kasper");
         var jens = document.getElementById("jens");
-
-        Velocity(konrad, { backgroundColor: 'rgba(200, 200, 192, 0)' }, 8000, 'ease-in' );
-        Velocity(kasper, { transform: [ "scale(1)", "scale(0.96)" ], opacity: [1, 0] }, {duration: 2000, delay: 400, easing: 'ease-in'} );
-        Velocity(jens, { transform: [ "scale(1)", "scale(0.98)" ], opacity: [1, 0] }, {duration: 2000, delay: 800, easing: 'ease-in'} );
-        Velocity(svend, { transform: [ "translateY(0)", "translateY(5%)" ], opacity: [1, 0] }, {duration: 1000, delay: 2000, easing: 'ease-in'} );
+        if ( showAnimations() ) {
+            Velocity(konrad, { backgroundColor: 'rgba(200, 200, 192, 0)' }, 8000, 'ease-in' );
+            Velocity(kasper, { transform: [ "scale(1)", "scale(0.96)" ], opacity: [1, 0] }, {duration: 2000, delay: 400, easing: 'ease-in'} );
+            Velocity(jens, { transform: [ "scale(1)", "scale(0.98)" ], opacity: [1, 0] }, {duration: 2000, delay: 800, easing: 'ease-in'} );
+            Velocity(svend, { transform: [ "translateY(0)", "translateY(5%)" ], opacity: [1, 0] }, {duration: 1000, delay: 2000, easing: 'ease-in'} );
+        } else {
+            konrad.style.backgroundColor = "rgba(200, 200, 192, 0)";
+            kasper.style.opacity = "1";
+            jens.style.opacity = "1";
+            svend.style.opacity = "1";
+        }
     }
 </script>
 {% endblock %}

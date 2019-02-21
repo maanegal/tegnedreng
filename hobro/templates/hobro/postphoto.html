@@ -1,6 +1,16 @@
-<article id="{{ post.time_stamp }}" class="section is-medium columns is-tablet is-centered is-gapless">
-  <div class="column alive slide post-img is-one-third-desktop is-half-tablet" style="">
+<div class="modal" id="modal_{{ post.time_stamp }}">
+  <div class="modal-background" onclick="modalClose('modal_{{ post.time_stamp }}')"></div>
+  <div class="modal-content">
+      <img src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}"/>
+  </div>
+  <button class="modal-close is-large" onclick="modalClose('modal_{{ post.time_stamp }}')" aria-label="close"></button>
+</div>
+
+<article id="{{ post.time_stamp }}" class="section is-medium columns is-tablet is-gapless {{ layout_outer }}">
+  <div class="column starts-transparent alive slide post-img is-one-third-desktop is-half-tablet">
+      <a onclick="modalOpen('modal_{{ post.time_stamp }}')">
     <img class="lazy do-shadow" data-src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}"/>
+      </a>
   </div>
   <div class="column alive slide-long is-one-third-desktop is-half-tablet">
     <div class="box">

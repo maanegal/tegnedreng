@@ -1,5 +1,6 @@
 <article id="{{ song.slug }}" class="section columns is-tablet is-centered">
-<div class="column is-two-thirds"><div class="box has-text-light has-background-dark darkmode">
+<div class="column is-two-thirds starts-transparent alive fade">
+    <div class="box has-text-light has-background-dark darkmode">
     <a href="{% url 'song_viewer' slug=song.slug %}">
         <span class="title has-text-light">{{ song.title }}</span><span class="icon is-small">&emsp;<i class="fas fa-external-link-alt"></i></span>
     </a>

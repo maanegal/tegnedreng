@@ -19,14 +19,18 @@ def show_post(post):
 def show_postphoto(postphoto):
     info = get_current_info(postphoto.time_stamp)
     dt = datetime.fromtimestamp(postphoto.time_stamp)
-    return {'post': postphoto, 'name': info.get('name', ''), 'profilepic': info.get('photo', ''), 'post_time': dt}
+    outer, inner = get_layout(postphoto.layout)
+    return {'post': postphoto, 'name': info.get('name', ''), 'profilepic': info.get('photo', ''), 'post_time': dt,
+            'layout_outer': outer, 'layout_inner': inner}
 
 
 @register.inclusion_tag('hobro/postvideo.html')
 def show_postvideo(postvideo):
     info = get_current_info(postvideo.time_stamp)
     dt = datetime.fromtimestamp(postvideo.time_stamp)
-    return {'post': postvideo, 'name': info.get('name', ''), 'profilepic': info.get('photo', ''), 'post_time': dt}
+    outer, inner = get_layout(postvideo.layout)
+    return {'post': postvideo, 'name': info.get('name', ''), 'profilepic': info.get('photo', ''), 'post_time': dt,
+            'layout_outer': outer, 'layout_inner': inner}
 
 
 @register.inclusion_tag('hobro/section.html')
@@ -42,14 +46,17 @@ def show_story(story):
 @register.inclusion_tag('hobro/profileevent.html')
 def show_profileevent(profileevent):
     dt = datetime.fromtimestamp(profileevent.time_stamp)
-    return {'profileevent': profileevent, 'post_time': dt}
+    layout = ''  # profileevent.layout
+    outer, inner = get_layout(layout)
+    return {'profileevent': profileevent, 'post_time': dt, 'layout_outer': outer, 'layout_inner': inner}
 
 
 @register.inclusion_tag('hobro/itemembed.html')
 def show_itemembed(itemembed):
     dt = datetime.fromtimestamp(itemembed.time_stamp)
     kind = itemembed.what_kind()
-    return {'itemembed': itemembed, 'post_time': dt, 'kind': kind}
+    outer, inner = get_layout("")
+    return {'itemembed': itemembed, 'post_time': dt, 'kind': kind, 'layout_outer': outer}
 
 
 @register.inclusion_tag('hobro/embed_song.html')
@@ -95,13 +102,15 @@ def show_swgrspost(swgrspost):
 @register.inclusion_tag('hobro/swgrsmedia.html')
 def show_swgrsmedia(swgrsmedia):
     dt = datetime.fromtimestamp(swgrsmedia.time_stamp)
+    outer, inner = get_layout(swgrsmedia.layout)
     if swgrsmedia.video:
         video = swgrsmedia.video.url
         video_title = swgrsmedia.video_title
     else:
         video = ""
         video_title = ""
-    return {'post': swgrsmedia, 'post_time': dt, 'video': video, 'video_title': video_title}
+    return {'post': swgrsmedia, 'post_time': dt, 'video': video, 'video_title': video_title, 'layout_outer': outer,
+            'layout_inner': inner}
 
 
 @register.inclusion_tag('hobro/embed_swgrssong.html')

@@ -1,5 +1,5 @@
 <article id="{{ musicvideo.slug }}" class="section columns is-mobile is-centered">
-<div class="column is-one-third"><div class="box">
+<div class="column is-6-desktop is-8-tablet starts-transparent alive fade"><div class="box">
     <a href="{% url 'musicvideo_viewer' slug=musicvideo.slug %}">
         <span class="title">{{ musicvideo.title }}</span>
         <span style="margin: 10px;" class="icon is-small">&emsp;<i class="fas fa-external-link-alt"></i></span>
@@ -13,6 +13,7 @@
         {% for c in musicvideo.appears.all %} <span class="tag is-uppercase has-text-grey"><a href="{% url 'character_viewer' slug=c.slug %}">{{ c.name|linebreaksbr }}</a></span> {% endfor %}
         </p><br>
     {% endif %}
-    {{ embed_code|safe }}
+    <div style="text-align: center;">
+    {{ embed_code|safe }}</div>
 </div></div>
 </article>

@@ -1,5 +1,6 @@
-<section id="{{ profileevent.time_stamp }}" class="section alive slide columns is-desktop is-centered">
-<div class="column is-half has-text-centered has-image-centered"><div class="box">
+<section id="{{ profileevent.time_stamp }}" class="section columns is-tablet {{ layout_outer }}">
+<div class="column has-text-centered has-image-centered alive slide {{ layout_inner }}">
+    <div class="box">
     <p class="subtitle">Profilen skiftede navn og billede</p>
     <h3 class="title">{{ profileevent.page_name }}</h3>
     <p class="subtitle is-6 has-text-grey">{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>

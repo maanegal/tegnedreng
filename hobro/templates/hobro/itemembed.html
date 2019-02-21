@@ -1,6 +1,6 @@
 {% load itemviews %}
 
-<div id="{{ itemembed.time_stamp }}">
+<div id="{{ itemembed.time_stamp }}" class="{{ layout_outer }}">
     {% if kind == "character" %}
         {% embed_character itemembed.target_character.all %}
     {% elif kind == "song" %}
@@ -12,7 +12,7 @@
     {% elif kind == "swgrs_song" %}
         {% embed_swgrssong itemembed.target_swgrssong.all %}
     {% else %}
-        <div class="post">
+        <div class="box">
             <h2>Kunne ikke findes...</h2>
             <p>Embed det her: {{ itemembed.target }}</p>
             {{ itemembed.pk }}{{ itemembed.what_kind }}

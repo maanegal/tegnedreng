@@ -139,6 +139,7 @@ MEDIA_URL = '/media/'
 BULMA_SETTINGS = {
     "extensions": [
         "bulma-divider",
+        "bulma-switch",
     ],
     "variables": {
         "primary": "#00d169",

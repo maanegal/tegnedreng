@@ -10,11 +10,11 @@
           {% font_awesome %}
         <link href="https://fonts.googleapis.com/css?family=Assistant:400,700,800|Crimson+Text:400,400i,700" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{% static 'hobro/style.css' %}">
+        {% if request.COOKIES.show_animations != "false" %}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.5/velocity.min.js"></script>
+        {% endif %}
+        <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@10.20.1/dist/lazyload.min.js"></script>
         <script src="{% static "hobro/js/site.js" %}" type="text/javascript"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.5/velocity.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.5/velocity.ui.min.js"></script>
-
         <link rel="icon" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-32x32.png" sizes="32x32" />
         <link rel="icon" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-192x192.png" sizes="192x192" />
         <link rel="apple-touch-icon-precomposed" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-180x180.png" />
@@ -22,7 +22,7 @@
     </head>
     <body>
 
-<nav class="navbar is-fixed-top is-dark is-transparent trans-bg" style="opacity:0;" role="navigation" aria-label="main navigation">
+<nav class="navbar is-fixed-top is-dark is-transparent trans-bg" {% if request.COOKIES.show_animations != "false" %}style="opacity:0;"{% endif %} role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item navy" href="https://maanegal.dk">
       <img src="/media/moon_m.png" alt="Månegal Media">
@@ -56,23 +56,26 @@
         Personerne
       </a>
       <hr>
-      <p class="navbar-item has-text-light has-text-centered">
+      <p id="headset" class="navbar-item has-text-light has-text-centered">
         Indstillinger
         </p>
-
+        <div class=" has-text-light has-text-centered field">
+          <input id="switchAnim" type="checkbox" name="switchAnim" class="switch is-rounded is-info"
+                {% if request.COOKIES.show_animations != "false" %}checked{% endif %}>
+          <label for="switchAnim" class="navbar-setting">Vis smarte animationer</label>
+        </div>
     </div>
   </div>
 
     {% block content %}
     {% endblock %}
-    <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@10.20.1/dist/lazyload.min.js"></script>
-    <script>
-		(function () {
-			ll = new LazyLoad({
-				elements_selector: '.lazy',
-			});
 
+
+    <script>
+		(function () { ll = new LazyLoad({ elements_selector: '.lazy', });
 		}());
+
+    document.getElementById("switchAnim").addEventListener("click", setAnimPref);
 
 	</script>
     </body>

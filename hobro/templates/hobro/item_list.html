@@ -32,8 +32,8 @@
         {% endwith %}
     {% endfor %}
     {% if next %}
-        <div class="has-background-info" style="text-align: center; padding-bottom:30px;">
-            <a href="{% url 'item_page' number=next %}" class="button navy-text is-medium is-info is-inverted is-rounded">Videre til kapitel {{next}}</a>
+        <div class="section is-medium has-background-dark is-raised has-text-centered">
+            <a href="{% url 'item_page' number=next %}" class="button alive fade navy-text is-medium is-dark is-inverted is-rounded">Videre til kapitel {{next}}</a>
         </div>
     {% endif %}
 <script>
@@ -49,6 +49,9 @@
           else if (entry.target.classList.contains('left')) {
             Velocity(entry.target, { transform: [ "translateX(0)", "translateX(-5%)" ], opacity: [1, 0.3] }, {duration: 400, easing: 'ease-in'} );
           }
+          else if (entry.target.classList.contains('fade')) {
+            Velocity(entry.target, { opacity: [1, 0] }, {duration: 500, easing: 'ease-out'} );
+          }
           else if (entry.target.classList.contains('slide')) {
             Velocity(entry.target, { transform: [ "translateY(0)", "translateY(8%)" ], opacity: [1, 0] }, {duration: 500, easing: 'ease-in'} );
           }
@@ -56,7 +59,7 @@
             Velocity(entry.target, { transform: [ "translateY(0)", "translateY(20%)" ], opacity: [1, 0] }, {duration: 600, easing: 'ease-out'} );
           }
           else {
-            Velocity(entry.target, { transform: [ "scale(1)", "scale(0.96)" ], opacity: [1, 0.4] }, {duration: 400, easing: 'ease-in'} );
+            Velocity(entry.target, { transform: [ "scale(1)", "scale(0.96)" ], opacity: [1, 0.5] }, {duration: 400, easing: 'ease-in'} );
           }
           observer.unobserve(entry.target);
         } else {
@@ -64,9 +67,11 @@
         }
       });
     });
-
-    alive.forEach(living => {
-      observer.observe(living);
-    });
+    var anim = showAnimations();
+    if (anim) {
+        alive.forEach(living => {
+          observer.observe(living);
+        });
+    }
 </script>
 {% endblock %}

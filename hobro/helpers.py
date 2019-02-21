@@ -206,16 +206,30 @@ def the_big_retriever(number=None):
     return output
 
 
-def get_layout(lt):
+def get_layout(lt=""):
     if 'left' in lt:
-        outer = "left"
-        inner = "column is-6-desktop is-8-tablet is-offset-1"
+        outer = ""
+        inner = "left is-6-desktop is-8-tablet is-offset-1"
     elif 'right' in lt:
-        outer = "right"
-        inner = "column is-6-desktop is-8-tablet is-offset-5-desktop is-offset-3-tablet"
+        outer = ""
+        inner = "right is-6-desktop is-8-tablet is-offset-5-desktop is-offset-3-tablet"
     else:
         outer = "is-centered"
-        inner = "column is-6-desktop is-8-tablet"
+        inner = "is-6-desktop is-8-tablet"
+    if 'color-b' in lt:
+        outer += " background-b"
+    if 'color-c' in lt:
+        outer += " background-c"
+    else:
+        outer += " background-main"
+    if 'raised' in lt:
+        outer += " is-raised"
+    elif 'sunk' in lt:
+        outer += " is-sunk"
+    elif 'stacked' in lt:
+        outer += " is-stacked"
+    if 'big' in lt:
+        outer += " is-medium"
     return outer, inner
 
 
@@ -260,7 +274,7 @@ def make_spotify_embed(album=None, song=None):
 
 
 def make_youtube_embed(obj):
-    a = '<iframe width="560" height="315" class="lazy" data-src="https://www.youtube.com/embed/'
+    a = '<iframe class="lazy" width="560" height="315" class="lazy" data-src="https://www.youtube.com/embed/'
     b = '" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
     c = obj.link_yt.split('=')[-1]
     e = a + c + b
@@ -268,7 +282,7 @@ def make_youtube_embed(obj):
 
 
 def make_soundcloud_embed(obj):
-    a = '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" class="lazy" data-src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/'
+    a = '<iframe class="lazy" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" class="lazy" data-src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/'
     b = '&color=%231a1a1a&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
     e = None
     if obj.sc_embed_code:

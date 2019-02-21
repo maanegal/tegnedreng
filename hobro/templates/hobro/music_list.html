@@ -9,7 +9,7 @@
 
     <div class="tile is-ancestor" style="flex-wrap: wrap;">
     {% for album in albums %}
-        <div class="tile is-parent is-3 has-image-centered" style="max-width: 70%;">
+        <div class="tile is-parent is-3-widescreen is-4-desktop is-6-tablet mobile-fix has-image-centered">
             <div class="tile is-child card has-background-light">
               <div class="card-image">
                 <figure class="image">
@@ -18,7 +18,7 @@
                 </figure>
               </div>
                 <div class="card-content">
-                <a class="title is-4" href="{% url 'album_viewer' slug=album.slug %}">{{ album.title }}</a>
+                <a class="title is-size-4-desktop is-size-5-tablet is-size-4-mobile" href="{% url 'album_viewer' slug=album.slug %}">{{ album.title }}</a>
                     <p>{{ album.release_date|date:"F j Y" }}</p>
                 </div>
             </div>

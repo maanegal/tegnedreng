@@ -8,7 +8,7 @@
 <div class="is-divider" data-content="&#xf007"></div>
     <div class="tile is-ancestor" style="flex-wrap: wrap;">
     {% for character in characters %}
-        <div class="tile is-parent is-4 has-image-centered" style="max-width: 70%; padding: 3rem;">
+        <div class="tile is-parent is-4-widescreen is-6-desktop is-6-tablet mobile-fix has-image-centered">
             <div class="tile is-child card has-background-light">
               <div class="card-image">
                 <figure class="image">
@@ -17,7 +17,7 @@
                 </figure>
               </div>
                 <div class="card-content has-text-centered">
-                <a class="title is-4 is-uppercase" href="{% url 'character_viewer' slug=character.slug %}">{{ character.name }}</a>
+                <a class="title is-size-4-desktop is-size-5-tablet is-size-4-mobile is-uppercase" href="{% url 'character_viewer' slug=character.slug %}">{{ character.name }}</a>
                 </div>
             </div>
         </div>

@@ -111,6 +111,11 @@
     font-size: 1.1rem;
 }
 
+.navbar-setting {
+    font-weight: 700;
+    padding: 1rem 0rem;
+}
+
 .side-menu {
     left: unset !important;
     z-index: 29 !important;
@@ -158,6 +163,18 @@ body::after {
 }
 
 
+.is-behind-top {
+    z-index: -1;
+    position: sticky;
+    top: 0;
+}
+
+.is-after-behind {
+    height: 40px;
+    background: linear-gradient(360deg, rgba(20, 20, 20, 0.5) 0%, rgba(255,255,255,0) 83%);
+}
+
+
 
 /* Prevents img without src from appearing. From lazy load script */
 img:not([src]) {
@@ -188,4 +205,134 @@ img:not([src]) {
     background-color: rgba(10, 10, 10, 0.25);
     opacity: 1
     transition: opacity 1s;
+}
+
+
+.modal-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: unset;
+    text-align: center;
+    background-color: black;
+}
+
+.modal-content img {
+    height: auto;
+    max-width: 100%;
+    width: auto;
+    max-height: 100%;
+}
+
+.stop-scrolling {
+  height: 100%;
+
+  overflow-x: hidden;
+}
+
+/* When setting background per item in feed, some  items had a gap after  */
+.columns {
+    margin-bottom: 0 !important;
+}
+
+starts-transparent {
+    opacity: 0;
+}
+
+
+/* feed backgrounds */
+.background-main {
+    background-color: #209cee;
+    background-image: linear-gradient(270deg, rgb(32, 156, 238), rgb(31,145,219));
+}
+
+.background-b {
+    background-color: #00d169;
+    background-image: radial-gradient(circle, rgb(0, 207, 104) 0%, rgb(0, 175, 88) 100%);
+}
+
+.background-c {
+    background-color: #600080;
+    background-image: url("/media/patterns/transparent-square-tiles.png");
+}
+
+.is-sunk {
+    box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.3);
+}
+
+.is-raised {
+    box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.4);
+}
+
+.is-stacked {
+    box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.2), inset 0px -10px 30px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+/* TILE MOD */
+@media screen and (max-width: 1023px) and (min-width: 769px) {
+    .tile.is-3-tablet {
+      flex-basis: 25%;
+      max-width: 25%; }
+    .tile.is-4-tablet {
+      flex-basis: 33.33333%;
+      max-width: 33.333333%; }
+    .tile.is-6-tablet {
+      flex-basis: 50%;
+      max-width: 50%; }
+    .tile.is-8-tablet {
+      flex-basis: 66.66667%;
+      max-width: 66.666667%; }
+}
+
+@media screen and (max-width: 1215px) and (min-width: 1024px) {
+    .tile.is-3-desktop {
+      flex-basis: 25%;
+       max-width: 25%;}
+    .tile.is-4-desktop {
+      flex-basis: 33.33333%;
+      max-width: 33.33333%; }
+    .tile.is-6-desktop {
+      flex-basis: 50%;
+       max-width: 50%; }
+    .tile.is-8-desktop {
+      flex-basis: 66.66667%;
+      max-width: 66.6667%; }
+}
+
+@media screen and (min-width: 1216px) {
+    .tile.is-3-widescreen {
+      flex-basis: 25%;
+       max-width: 25%;}
+    .tile.is-4-widescreen {
+      flex-basis: 33.33333%;
+      max-width: 33.33333%; }
+    .tile.is-6-widescreen {
+      flex-basis: 50%;
+       max-width: 50%; }
+    .tile.is-8-widescreen {
+      flex-basis: 66.66667%;
+      max-width: 66.6667%; }
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .tile.mobile-fix {
+        max-width: 70%;
+    }
+}
+
+.tile.is-parent {
+    padding: 1.5rem;
+}
+
+/* HOVER IMAGE LINK EFFECT */
+a img {
+    transition: filter .5s ease-out;
+}
+
+a img:hover {
+  -webkit-filter: hue-rotate(180deg) contrast(120%) brightness(120%);  /* Safari */
+  filter: hue-rotate(180deg) contrast(120%) brightness(120%);
 }

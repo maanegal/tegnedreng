@@ -1,15 +1,14 @@
-
-<article id="{{ post.time_stamp }}" class="section is-medium columns is-tablet is-centered is-gapless">
-  <div class="column is-one-third-desktop is-half-tablet do-shadow">
+<article id="{{ post.time_stamp }}" class="section is-medium columns is-tablet is-gapless {{ layout_outer }}">
+  <div class="column is-one-third-desktop is-half-tablet starts-transparent alive slide post-img">
     {% if video %}
-        <video class="lazy" data-src="{{ video }}" controls="1">
+        <video class="lazy do-shadow" data-src="{{ video }}" controls="1"  height="{{ post.photo.height }}" width="{{ post.photo.width }}">
             <a href="{{ video }}"> <img class="lazy" data-src="{{ post.photo.url }}"></a>
         </video>
     {% else %}
-        <img class="lazy" data-src="{{ post.photo.url }}" style="width: 100%"/>
+        <img class="lazy do-shadow" data-src="{{ post.photo.url }}" style="width: 100%;" height="{{ post.photo.height }}" width="{{ post.photo.width }}"/>
     {% endif %}
   </div>
-  <div class="column is-one-third-desktop is-half-tablet">
+  <div class="column alive slide-long  is-one-third-desktop is-half-tablet">
     <div class="box has-text-light has-background-dark darkmode">
     <div class="media">
       <figure class="media-left">
