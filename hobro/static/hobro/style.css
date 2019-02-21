@@ -94,7 +94,7 @@
 .navbar-menu {
     height: 100vh;
     overflow: auto;
-    width: 250px;
+    width: 285px;
     float: right;
     padding-top: 50px;
 }
@@ -119,7 +119,7 @@
 .side-menu {
     left: unset !important;
     z-index: 29 !important;
-    background-color: rgba(38, 38, 38, 0.8) !important;
+    background-color: rgba(38, 38, 38, 0.9) !important;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
 }

@@ -27,12 +27,47 @@ function showAnimations() {
   } else { return true; }
 }
 
+function usePlayer() {
+  var player = getCookie("use_player");
+  if (player == "spotify") { return false;
+  } else { return true; }
+}
+
+function showComments() {
+  var player = getCookie("show_comments");
+  if (player == "on") { return 1;
+  } else if (player == "off") { return 2;
+  } else { return 0; }
+}
+
 
 function setAnimPref() {
     var pref = document.getElementById("switchAnim");
     setCookie('show_animations', pref.checked, 14);
 }
 
+function setPlayerPref() {
+    var bc = document.getElementById('playerBC');
+    var sp = document.getElementById('playerSP');
+    if (sp.checked) {
+        setCookie('use_player', 'spotify', 30);
+    } else {
+        setCookie('use_player', 'bandcamp', 30);
+    }
+}
+
+function setCommentPref() {
+    var comOn = document.getElementById('commentOn');
+    var comOff = document.getElementById('commentOff');
+    var comTog = document.getElementById('commentToggle');
+    if (comOn.checked) {
+        setCookie('show_comments', 'on', 30);
+    } else if (comOff.checked) {
+        setCookie('show_comments', 'off', 30);
+    } else {
+        setCookie('show_comments', 'toggle', 30);
+    }
+}
 
 
 document.addEventListener('DOMContentLoaded', () => {

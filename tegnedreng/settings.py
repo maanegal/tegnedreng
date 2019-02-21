@@ -140,6 +140,7 @@ BULMA_SETTINGS = {
     "extensions": [
         "bulma-divider",
         "bulma-switch",
+        "bulma-checkradio",
     ],
     "variables": {
         "primary": "#00d169",

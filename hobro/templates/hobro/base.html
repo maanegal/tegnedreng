@@ -57,12 +57,38 @@
       </a>
       <hr>
       <p id="headset" class="navbar-item has-text-light has-text-centered">
-        Indstillinger
-        </p>
-        <div class=" has-text-light has-text-centered field">
+        Indstillinger:
+        </p><br>
+        <div class="has-text-light has-text-centered field">
           <input id="switchAnim" type="checkbox" name="switchAnim" class="switch is-rounded is-info"
                 {% if request.COOKIES.show_animations != "false" %}checked{% endif %}>
           <label for="switchAnim" class="navbar-setting">Vis smarte animationer</label>
+        </div><br>
+         <p class="navbar-setting has-text-light has-text-centered">
+        Foretrukken musikafspiller:
+        </p>
+        <div class="has-text-light has-text-centered field">
+          <input class="is-checkradio is-info has-background-color" id="playerBC" type="radio" name="player"
+                {% if request.COOKIES.use_player != "spotify" %}checked{% endif %}>
+          <label for="playerBC" class="navbar-setting">Bandcamp</label>
+          <input class="is-checkradio is-info has-background-color" id="playerSP" type="radio" name="player"
+                {% if request.COOKIES.use_player == "spotify" %}checked{% endif %}>
+          <label for="playerSP" class="navbar-setting">Spotify</label>
+        </div><br>
+         <p class="navbar-setting has-text-light has-text-centered">
+        Kommentarerspor:
+        </p>
+        <div class="has-text-light has-text-centered field">
+          <input class="is-checkradio is-info has-background-color" id="commentToggle" type="radio" name="comments"
+                {% if request.COOKIES.show_comments == "toggle" %}checked
+                {% elif not request.COOKIES.show_comments %}checked{% endif %}>
+          <label for="commentToggle" class="navbar-setting">Vælg</label>
+          <input class="is-checkradio is-info has-background-color" id="commentOff" type="radio" name="comments"
+                {% if request.COOKIES.show_comments == "off" %}checked{% endif %}>
+          <label for="commentOff" class="navbar-setting">Skjul</label>
+          <input class="is-checkradio is-info has-background-color" id="commentOn" type="radio" name="comments"
+                {% if request.COOKIES.show_comments == "on" %}checked{% endif %}>
+          <label for="commentOn" class="navbar-setting">Vis</label>
         </div>
     </div>
   </div>
@@ -76,6 +102,11 @@
 		}());
 
     document.getElementById("switchAnim").addEventListener("click", setAnimPref);
+    document.getElementById("playerSP").addEventListener("click", setPlayerPref);
+    document.getElementById("playerBC").addEventListener("click", setPlayerPref);
+    document.getElementById("commentOff").addEventListener("click", setCommentPref);
+    document.getElementById("commentOn").addEventListener("click", setCommentPref);
+    document.getElementById("commentToggle").addEventListener("click", setCommentPref);
 
 	</script>
     </body>
