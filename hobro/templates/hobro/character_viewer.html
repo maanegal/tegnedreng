@@ -2,13 +2,20 @@
 {% load itemviews %}
 
 {% block content %}
-    <section id="{{ musicvideo.alias }}" class="section columns is-tablet is-centered">
+<div class="modal" id="modal_{{ character.slug }}">
+  <div class="modal-background" onclick="modalClose('modal_{{ character.slug }}')"></div>
+  <div class="modal-content">
+      <img src="{{ character.photo.url }}" height="{{ character.photo.height }}" width="{{ character.photo.width }}"/>
+  </div>
+  <button class="modal-close is-large" onclick="modalClose('modal_{{ character.slug }}')" aria-label="close"></button>
+</div>
+
+    <section id="{{ character.slug }}" class="section columns is-tablet is-centered">
     <div class="column is-two-thirds"><div class="box big-box">
         <div class="columns is-tablet is-vcentered">
           <div class="column is-one-quarter is-half-mobile has-image-centered">
-
-                <figure class="image"><img class="is-rounded" src="{{ character.photo.url }}"></figure>
-
+                <figure class="image"><a onclick="modalOpen('modal_{{ character.slug }}')">
+                    <img class="is-rounded" src="{{ character.photo.url }}"></a></figure>
           </div>
           <div class="column has-text-centered-mobile">
               <div class="content">

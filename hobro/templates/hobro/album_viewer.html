@@ -1,19 +1,41 @@
 {% extends 'hobro/base.html' %}
 
 {% block content %}
+<div class="modal" id="modal_{{ album.slug }}">
+  <div class="modal-background" onclick="modalClose('modal_{{ album.slug }}')"></div>
+  <div class="modal-content">
+      <img src="{{ album.photo.url }}" height="{{ album.photo.height }}" width="{{ album.photo.width }}"/>
+  </div>
+  <button class="modal-close is-large" onclick="modalClose('modal_{{ album.slug }}')" aria-label="close"></button>
+</div>
+
     <section id="{{ album.slug }}" class="section columns is-tablet is-centered">
-    <div class="column is-two-thirds"><div class="box big-box">
+    <div class="column is-8-desktop is-10-tablet"><div class="box big-box">
         <div class="columns is-desktop is-vcentered">
           <div class="column is-one-third is-half-mobile has-image-centered">
-            <figure class="image"><img src="{{ album.photo.url }}" alt="{{ album.title }}"></figure>
+              <figure class="image"><a onclick="modalOpen('modal_{{ album.slug }}')">
+                <img src="{{ album.photo.url }}" alt="{{ album.title }}"></a></figure>
           </div>
               <div class="column has-text-centered-mobile">
                   <div class="content">
-                      <h2 class="title">{{ album.title }}</h2>
-                      <p>Udgivet {{ album.release_date|date:"F j Y" }}</p>
+                      <h1 class="title is-size-3 is-size-2-desktop">{{ album.title }}</h1>
+                      <h1 class="subtitle is-size-4 is-size-3-desktop">{{ album.title }}</h1>
+                      <p class="subtitle is-6 has-text-grey">{{ album.release_date|date }}</p>
                       <p>{{ album.text|safe }}</p>
+            {% if album.link_bc %}
+                  <a class="tag is-dark is-medium" href="{{album.link_bc}}"><span class="icon is-small"><i class="fab fa-bandcamp"></i></span>&emsp;Bandcamp</a>
+            {% endif %}
+             {% if album.sp_embed_code %}
+                  <a class="tag is-dark is-medium" href="https://open.spotify.com/embed/album/{{album.sp_embed_code}}"><span class="icon is-small"><i class="fab fa-spotify"></i></span>&emsp;Spotify</a>
+            {% endif %}
+            {% if album.link_yt %}
+                  <a class="tag is-dark is-medium" href="{{album.link_yt}}"><span class="icon is-small"><i class="fab fa-youtube"></i></span>&emsp;YouTube</a>
+            {% endif %}
+            {% if album.link_sc %}
+                  <a class="tag is-dark is-medium" href="{{album.link_sc}}"><span class="icon is-small"><i class="fab fa-soundcloud"></i></span>&emsp;Soundcloud</a>
+            {% endif %}
                     </div>
-                <br>
+                  <br>
                 <p>Sange på dette album:</p>
                 <ul>
                     {% for s in album.song_set.all %}
@@ -21,13 +43,13 @@
                     {% endfor %}
                 </ul>
         </div></div>
-
         <div class="is-divider" data-content="&#xf001"></div>
-        {% if embed_code_sp %}
-            <div>{{ embed_code_sp|safe }}</div><br>
-        {% endif %}
-        {% if embed_code_bc %}
-            <div>{{ embed_code_bc|safe }}</div><br>
+        {% if request.COOKIES.use_player == "spotify" and embed_code_sp%}
+            <div>{{ embed_code_sp|safe }}</div>
+        {% else %}
+            {% if embed_code_bc %}
+                <div>{{ embed_code_bc|safe }}</div>
+            {% endif %}
         {% endif %}
     </div>
     </section>

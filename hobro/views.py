@@ -68,19 +68,32 @@ def character_viewer(request, slug):
     return render(request, 'hobro/character_viewer.html', {'character': character, 'posts': posts})
 
 
+def hashtag_list(request):
+    hashtags = Hashtag.objects.order_by('name')
+    return render(request, 'hobro/hashtag_list.html', {'hashtags': hashtags})
+
+
 def hashtag_viewer(request, slug):
     hashtag = get_object_or_404(Hashtag, slug=slug)
     return render(request, 'hobro/hashtag_viewer.html', {'hashtag': hashtag})
+
 
 # REDIRECTS
 def redirect_music(request):
     response = redirect('/musik/')
     return response
 
+
 def redirect_chapter(request):
     response = redirect('/kapitel/1/')
     return response
 
+
 def redirect_character(request):
-    response = redirect('/character/')
+    response = redirect('/medlemmer/')
+    return response
+
+
+def redirect_hashtag(request):
+    response = redirect('/hashtags/')
     return response

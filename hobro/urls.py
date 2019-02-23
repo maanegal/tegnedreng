@@ -19,6 +19,8 @@ urlpatterns = [
     path('medlem/', views.redirect_character, name='redirect_character'),
     path('medlem/<slug:slug>/', views.character_viewer, name='character_viewer'),
     path('hashtag/<slug:slug>/', views.hashtag_viewer, name='hashtag_viewer'),
+    path('hashtags/', views.hashtag_list, name='hashtag_list'),
+    path('hashtag/', views.redirect_character, name='redirect_hashtag'),
     path('<str:tp>/<int:pk>/', views.item_detail, name='item_detail'),
 
 ]

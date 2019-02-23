@@ -1,13 +1,3 @@
-<div class="modal" id="frans">
-  <div class="modal-background" onclick="modalClose('frans')"></div>
-  <div class="modal-content">
-    <div class="box">
-      <p>test</p>
-    </div>
-  </div>
-  <button class="modal-close is-large" onclick="modalClose('frans')" aria-label="close"></button>
-</div>
-
 <article id="{{ song.slug }}" class="section columns is-tablet is-centered">
 <div class="column is-two-thirds starts-transparent alive fade "><div class="box">
     <a href="{% url 'song_viewer' slug=song.slug %}">
@@ -15,14 +5,14 @@
         <span style="margin: 10px;" class="icon is-small">&emsp;<i class="fas fa-external-link-alt"></i></span>
     </a>
     <p class="subtitle">Sang</p>
-    <button class="button is-warning is-pulled-right" onclick="modalOpen('frans')">Halløj Frans</button>
+
     <p>{{ song.text|safe }}</p><br>
-    {% if embed_code_sp %}
-    <div>{{ embed_code_sp|safe }}</div>
-    <br>
-    {% endif %}
-    {% if embed_code_bc %}
-    <div>{{ embed_code_bc|safe }}</div>
+    {% if request.COOKIES.use_player == "spotify" and embed_code_sp%}
+        <div>{{ embed_code_sp|safe }}</div>
+    {% else %}
+        {% if embed_code_bc %}
+            <div>{{ embed_code_bc|safe }}</div>
+        {% endif %}
     {% endif %}
 </div></div>
 </article>

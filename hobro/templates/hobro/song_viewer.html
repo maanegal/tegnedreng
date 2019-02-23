@@ -1,13 +1,23 @@
 {% extends 'hobro/base.html' %}
 
 {% block content %}
+<div class="modal" id="modal_{{ song.slug }}">
+  <div class="modal-background" onclick="modalClose('modal_{{ song.slug }}')"></div>
+  <div class="modal-content">
+      <img src="{{ song.album.photo.url }}" height="{{ song.album.photo.height }}" width="{{ song.album.photo.width }}"/>
+  </div>
+  <button class="modal-close is-large" onclick="modalClose('modal_{{ song.slug }}')" aria-label="close"></button>
+</div>
+
     <section id="{{ song.slug }}" class="section columns is-tablet is-centered">
     <div class="column is-two-thirds"><div class="box big-box">
         <div class="media">
               <figure class="media-left flex-20">
                 <p class="image">
                     {% if song.album %}
+                    <a onclick="modalOpen('modal_{{ song.slug }}')">
                       <img src="{{ song.album.photo.url }}" alt="{{ song.album.title }}">
+                    </a>
                     {% endif %}
                 </p>
               </figure>
@@ -24,6 +34,9 @@
              <p is-uppercase>
             {% if song.link_bc %}
                   <a class="tag is-dark is-medium" href="{{song.link_bc}}"><span class="icon is-small"><i class="fab fa-bandcamp"></i></span>&emsp;Bandcamp</a>
+            {% endif %}
+             {% if song.sp_embed_code %}
+                  <a class="tag is-dark is-medium" href="https://open.spotify.com/embed/track/{{song.sp_embed_code}}"><span class="icon is-small"><i class="fab fa-spotify"></i></span>&emsp;Spotify</a>
             {% endif %}
             {% if song.link_yt %}
                   <a class="tag is-dark is-medium" href="{{song.link_yt}}"><span class="icon is-small"><i class="fab fa-youtube"></i></span>&emsp;YouTube</a>
@@ -45,11 +58,12 @@
             {% endif %}
         </div></div></div>
         <div class="is-divider" data-content="&#xf001"></div>
-        {% if embed_code_sp %}
-        <div>{{ embed_code_sp|safe }}</div><br>
-        {% endif %}
-        {% if embed_code_bc %}
-        <div>{{ embed_code_bc|safe }}</div><br>
+        {% if request.COOKIES.use_player == "spotify" and embed_code_sp%}
+            <div>{{ embed_code_sp|safe }}</div>
+        {% else %}
+            {% if embed_code_bc %}
+                <div>{{ embed_code_bc|safe }}</div>
+            {% endif %}
         {% endif %}
         {% if song.lyrics %}
             <div class="is-divider" data-content="&#xf001"></div>

@@ -4,13 +4,14 @@
         <span class="title">{{ album.title }}</span>
         <span style="margin: 10px;" class="icon is-small">&emsp;<i class="fas fa-external-link-alt"></i></span>
     </a>
-    <p class="subtitle">Album</p>
+    <p class="subtitle">Album {{player_pref}}</p>
     <p>{{ album.text|safe }}</p><br>
-    <div>{{ embed_code_sp|safe }}</div>
-    <br>
-    <div>
-        {{ embed_code_bc|safe }}
+    {% if player_pref == "spotify" %}
+        <div>{{ embed_code_sp|safe }}</div><br>
+    {% else %}
+        <div>{{ embed_code_bc|safe }}
         <a class="close-player delete is-medium" style="float: right; display: none;"></a>
-    </div>
+        </div>
+    {% endif %}
 </div></div>
 </section>

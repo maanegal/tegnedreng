@@ -269,7 +269,8 @@ def process_tree(item={}):
         if link_tw:
             link_tw = link_tw[0]
         relations.extend(parse_relation('appears', item.get('appears', None)))
-        obj = Post(text=html, time_stamp=int(alias), link_fb=link_fb, link_tw=link_tw)
+        layout = item.get('layout', '')
+        obj = Post(text=html, time_stamp=int(alias), link_fb=link_fb, link_tw=link_tw, layout=layout)
     elif element == 'post-photo':
         if not text:
             return None
@@ -278,6 +279,7 @@ def process_tree(item={}):
         html = make_hashtags(html, alias, element)
         html = make_mentions(html)
         photo = 'posts/' + item.get('photo')[0]
+        layout = item.get('layout', '')
         link_fb = item.get('link-fb', '')
         if link_fb:
             link_fb = 'https://facebook.com'+link_fb[0]
@@ -288,7 +290,7 @@ def process_tree(item={}):
         if link_ig:
             link_ig = link_ig[0]
         relations.extend(parse_relation('appears', item.get('appears', None)))
-        obj = PostPhoto(text=html, time_stamp=int(alias), photo=photo,
+        obj = PostPhoto(text=html, time_stamp=int(alias), photo=photo, layout=layout,
                         link_fb=link_fb, link_tw=link_tw, link_ig=link_ig)
     elif element == 'post-video':
         if not text:
@@ -314,7 +316,8 @@ def process_tree(item={}):
         else:
             title = None
         relations.extend(parse_relation('appears', item.get('appears', None)))
-        obj = PostVideo(text=html, time_stamp=int(alias), title=title, video=video,
+        layout = item.get('layout', '')
+        obj = PostVideo(text=html, time_stamp=int(alias), title=title, video=video, layout=layout,
                         photo=photo, link_fb=link_fb, link_tw=link_tw, link_ig=link_ig)
     elif element == 'profile-event':
         if not text:

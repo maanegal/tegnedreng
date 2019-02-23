@@ -9,7 +9,7 @@
       </figure>
       <div class="media-content">
         <div class="content">
-          <h2 class="title is-4 has-text-light">SWGRS</h2>
+          <h2 class="title is-4 has-text-light">SWGRS (id: {{swgrspost.get_type}} {{ swgrspost.time_stamp }}) {% if not swgrspost.link_fb%}FB mangler{%endif%}</h2>
             <p class="subtitle is-6 has-text-grey">{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>
             <p>{{ swgrspost.text|safe }}</p>
             {% if yt_embed %}

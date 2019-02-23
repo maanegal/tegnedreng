@@ -336,3 +336,12 @@ a img:hover {
   -webkit-filter: hue-rotate(180deg) contrast(120%) brightness(120%);  /* Safari */
   filter: hue-rotate(180deg) contrast(120%) brightness(120%);
 }
+
+.paper {
+    background-color: #fff;
+    background-image: url("/media/patterns/groovepaper.png");
+}
+
+.paper p {
+    margin-bottom: 1.2rem;
+}

@@ -1,0 +1,17 @@
+{% extends 'hobro/base.html' %}
+
+{% block content %}
+    <section class="section columns is-tablet is-centered">
+    <div class="column is-two-thirds is-centered"><div class="box">
+        <br>
+        <h1 class="title is-size-2-desktop is-size-3-tablet has-text-centered">Hashtags</h1>
+<div class="is-divider" data-content="&#xf007"></div>
+    <div class="multicol-3"><ul>
+    {% for hashtag in hashtags %}
+        <li><a href="/hashtag/{{hashtag.slug}}">{{hashtag.name}}</a></li>
+    {% endfor %}
+    </ul></div>
+
+        <div class="is-divider" data-content="&#xf007"></div>
+</div></section>
+{% endblock %}
