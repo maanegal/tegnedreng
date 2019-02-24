@@ -1,10 +1,14 @@
 {% if request.COOKIES.show_comments != "off" %}
-
 <div class="is-before-behind"></div>
-<section id="{{ comment.time_stamp }}" class="section is-medium is-behind is-family-secondary is-size-5 has-background-dark has-text-light columns is-mobile is-centered">
-<div class="column is-6-desktop is-8-tablet">
-    {{comment.text|safe}}
+<div><div class="has-background-dark comment-bg"></div>
+    <section id="{{ comment.time_stamp }}" class="section comment-block {% if request.COOKIES.show_comments != "on" %}collapsed {% endif %}is-medium is-behind is-family-secondary
+            is-size-5 has-background-dark has-text-light columns is-mobile is-centered" {% if request.COOKIES.show_comments != "on" %} style="display:none;"{% endif %}>
+    <div class="column is-6-desktop is-8-tablet">{{comment.text|safe}}</div>
+    </section>
+    {% if request.COOKIES.show_comments != "on" %}
+        <div class="comment-toggle">
+            <p class="button navy-text is-dark is-rounded" id="btn_{{ story.time_stamp }}" onclick="commentToggle('{{ story.time_stamp }}', 'btn_{{ story.time_stamp }}')">&or;&nbsp;&nbsp;Vis kommentarspor</p>
+        </div>
+    {% endif %}
 </div>
-</section>
-
 {% endif %}>

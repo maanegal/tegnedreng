@@ -153,12 +153,12 @@ function modalOpen(modalId) {
     var modal = document.getElementById(modalId);
     modal.classList.add('activated');
     var anim = showAnimations();
-        if (anim) {
-            Velocity(modal, { opacity: [1, 0], display: 'flex' }, {duration: 300, easing: 'ease-in'} );
-        } else {
-            modal.style.opacity = "1";
-            modal.style.display = "flex";
-        }
+    if (anim) {
+        Velocity(modal, { opacity: [1, 0], display: 'flex' }, {duration: 300, easing: 'ease-in'} );
+    } else {
+        modal.style.opacity = "1";
+        modal.style.display = "flex";
+    }
     disableScroll();
     document.onkeyup = function(evt) {
         evt = evt || window.event;
@@ -187,5 +187,42 @@ function modalClose(modalId) {
     document.onkeyup = null;
 }
 
+function commentToggle(comId, btnId) {
+    var comment = document.getElementById(comId);
+    var button = document.getElementById(btnId);
+    var anim = showAnimations();
+    if ( comment.classList.contains('collapsed') ) {
+        if (anim) {
+            Velocity(comment, { transform: [ "translateY(0)", "translateY(-30%)" ], opacity: [1, 0], display: 'flex' }, {duration: 400, easing: 'ease-out'} );
+        } else {
+            comment.style.opacity = "1";
+            comment.style.display = "flex";
+        }
+        comment.classList.remove('collapsed');
+        button.innerHTML = '&and;&nbsp;&nbsp;Skjul kommentarspor';
+    } else {
+        if (anim) {
+            Velocity(comment, { transform: [ "translateY(-30%)", "translateY(0%)" ], opacity: [0, 1], display: 'none' }, {duration: 300, easing: 'ease-in'} );
+        } else {
+            comment.style.opacity = "0";
+            comment.style.display = "none";
+        }
+        comment.classList.add('collapsed');
+        button.innerHTML = '&or;&nbsp;&nbsp;Vis kommentarspor';
+    }
 
+}
 
+window.onload = function() {
+    var h = document.documentElement,
+      b = document.body,
+      st = 'scrollTop',
+      sh = 'scrollHeight',
+      progress = document.querySelector('.progress-bar'),
+      scroll;
+
+    document.addEventListener('scroll', function() {
+      scroll = (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
+      progress.style.setProperty('--scroll', scroll + '%');
+    });
+}

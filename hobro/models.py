@@ -25,6 +25,7 @@ class Story(models.Model):
     time_stamp = models.IntegerField()
     slug = models.SlugField(unique=True)
     text = models.TextField()
+    #layout = models.CharField(max_length=30, default='sunk paper justified')  # how the post should appear. Select from html presets
 
     def save(self, *args, **kwargs):
         self.slug = slugify(str(self.time_stamp))
@@ -294,6 +295,7 @@ class ItemEmbed(models.Model):
     """include another type of item, like person or song"""
     time_stamp = models.IntegerField()
     slug = models.SlugField(unique=True)
+    #layout = models.CharField(max_length=30, default='standard')  # how the post should appear. Select from html presets
     target = models.CharField(max_length=60)  # alias of item to be embedded. Make this relationship instead
     target_character = models.ManyToManyField(Character)
     target_song = models.ManyToManyField(Song)

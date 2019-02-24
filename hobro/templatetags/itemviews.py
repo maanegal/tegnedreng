@@ -40,7 +40,8 @@ def show_section(section):
 
 @register.inclusion_tag('hobro/story.html')
 def show_story(story):
-    return {'story': story}
+    outer, inner = get_layout("")
+    return {'story': story, 'layout_outer': outer, 'layout_inner': inner}
 
 
 @register.inclusion_tag('hobro/profileevent.html')
@@ -49,6 +50,30 @@ def show_profileevent(profileevent):
     layout = ''  # profileevent.layout
     outer, inner = get_layout(layout)
     return {'profileevent': profileevent, 'post_time': dt, 'layout_outer': outer, 'layout_inner': inner}
+
+
+@register.inclusion_tag('hobro/swgrspost.html')
+def show_swgrspost(swgrspost):
+    dt = datetime.fromtimestamp(swgrspost.time_stamp)
+    outer, inner = get_layout(swgrspost.layout)
+    yt = ""
+    if swgrspost.link_yt:
+        yt = make_youtube_embed(swgrspost)
+    return {'swgrspost': swgrspost, 'post_time': dt, 'yt_embed': yt, 'layout_outer': outer, 'layout_inner': inner}
+
+
+@register.inclusion_tag('hobro/swgrsmedia.html')
+def show_swgrsmedia(swgrsmedia):
+    dt = datetime.fromtimestamp(swgrsmedia.time_stamp)
+    outer, inner = get_layout(swgrsmedia.layout)
+    if swgrsmedia.video:
+        video = swgrsmedia.video.url
+        video_title = swgrsmedia.video_title
+    else:
+        video = ""
+        video_title = ""
+    return {'post': swgrsmedia, 'post_time': dt, 'video': video, 'video_title': video_title, 'layout_outer': outer,
+            'layout_inner': inner}
 
 
 @register.inclusion_tag('hobro/itemembed.html')
@@ -87,30 +112,6 @@ def embed_musicvideo(musicvideo):
 @register.inclusion_tag('hobro/embed_character.html')
 def embed_character(character):
     return {'character': character.first()}
-
-
-@register.inclusion_tag('hobro/swgrspost.html')
-def show_swgrspost(swgrspost):
-    dt = datetime.fromtimestamp(swgrspost.time_stamp)
-    outer, inner = get_layout(swgrspost.layout)
-    yt = ""
-    if swgrspost.link_yt:
-        yt = make_youtube_embed(swgrspost)
-    return {'swgrspost': swgrspost, 'post_time': dt, 'yt_embed': yt, 'layout_outer': outer, 'layout_inner': inner}
-
-
-@register.inclusion_tag('hobro/swgrsmedia.html')
-def show_swgrsmedia(swgrsmedia):
-    dt = datetime.fromtimestamp(swgrsmedia.time_stamp)
-    outer, inner = get_layout(swgrsmedia.layout)
-    if swgrsmedia.video:
-        video = swgrsmedia.video.url
-        video_title = swgrsmedia.video_title
-    else:
-        video = ""
-        video_title = ""
-    return {'post': swgrsmedia, 'post_time': dt, 'video': video, 'video_title': video_title, 'layout_outer': outer,
-            'layout_inner': inner}
 
 
 @register.inclusion_tag('hobro/embed_swgrssong.html')

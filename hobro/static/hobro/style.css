@@ -111,9 +111,27 @@
     font-size: 1.1rem;
 }
 
+.navbar-items {
+    display:flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+.navbar-last {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    height: 100%;
+}
+
 .navbar-setting {
     font-weight: 700;
     padding: 1rem 0rem;
+}
+
+.navbar-section {
+    padding: 10px 0px;
 }
 
 .side-menu {
@@ -147,6 +165,12 @@ body::after {
     padding: 3rem;
 }
 
+
+.content h2 {
+    font-weight: unset;
+}
+
+
 /* feed item emerges from behind previous item */
 .is-behind {
     z-index: -1;
@@ -164,7 +188,7 @@ body::after {
 
 
 .is-behind-top {
-    z-index: -1;
+    z-index: -3;
     position: sticky;
     top: 0;
 }
@@ -240,33 +264,6 @@ starts-transparent {
 }
 
 
-/* feed backgrounds */
-.background-main {
-    background-color: #209cee;
-    background-image: linear-gradient(270deg, rgb(32, 156, 238), rgb(31,145,219));
-}
-
-.background-b {
-    background-color: #00d169;
-    background-image: radial-gradient(circle, rgb(0, 207, 104) 0%, rgb(0, 175, 88) 100%);
-}
-
-.background-c {
-    background-color: #600080;
-    background-image: url("/media/patterns/transparent-square-tiles.png");
-}
-
-.is-sunk {
-    box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.3);
-}
-
-.is-raised {
-    box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.4);
-}
-
-.is-stacked {
-    box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.2), inset 0px -10px 30px 5px rgba(0, 0, 0, 0.2);
-}
 
 
 /* TILE MOD */
@@ -337,11 +334,122 @@ a img:hover {
   filter: hue-rotate(180deg) contrast(120%) brightness(120%);
 }
 
+/* CSS auto hyphenate. Browser support is limited */
+.justified {
+  text-align: justify;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -ms-hyphenate-limit-chars: 10 4 4;
+}
+
+
+/* feed backgrounds */
+.background-main {
+    background-color: #209cee;
+    background-image: linear-gradient(270deg, rgb(32, 156, 238), rgb(31,145,219));
+}
+
+.background-b {
+    background-color: #00d169;
+    background-image: radial-gradient(circle, rgb(0, 207, 104) 0%, rgb(0, 175, 88) 100%);
+}
+
+.background-c {
+    background-color: #600080;
+    background-image: url("/media/patterns/transparent-square-tiles.png");
+}
+
+.is-sunk {
+    box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.3);
+}
+
+.is-raised {
+    box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.4);
+}
+
+.is-stacked {
+    box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.2), inset 0px -10px 30px 5px rgba(0, 0, 0, 0.2);
+}
+
 .paper {
     background-color: #fff;
     background-image: url("/media/patterns/groovepaper.png");
 }
 
-.paper p {
+.story {
+    padding: 0rem 3rem;
+}
+
+@media screen and (max-width: 768px) {
+    .story {
+        padding: 0rem 1.5rem;
+    }
+}
+
+.story p {
     margin-bottom: 1.2rem;
 }
+
+/* a raised centered piece of paper. Use with faded-paper or other backgrounds. Looks good with is-medium*/
+.notecard {
+    background-color: #fff;
+    background-image: url("/media/patterns/groovepaper.png");
+    box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.4);
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.faded-paper {
+    background-color: #fff;
+    background-image: url("/media/patterns/exclusive-paper.png");
+}
+
+
+
+
+.comment-block {
+    padding-top: 70px;
+    margin-top: 0;
+    z-index: -1;
+}
+
+.comment-bg {
+    height: 100%;
+    z-index: -2;
+    position: absolute;
+    width: 100%;
+}
+
+.comment-toggle {
+    z-index: 20;
+    position: absolute;
+    width: 100%;
+    border-top: 6px solid #363636;
+    text-align: center;
+    margin-top: -1rem;
+}
+
+.comment-toggle .button {
+    border-radius: 0px 0px 20px 20px;
+    box-shadow: 0px 5px 10px 0px rgba(20, 20, 20, 0.2);
+}
+
+
+.tooltip:hover::before, .tooltip.is-tooltip-active::before {
+    font-size: 0.85rem;
+}
+
+
+.progress-bar {
+  background: linear-gradient(to right, #F9EC31 var(--scroll), transparent 0);
+  background-repeat: no-repeat;
+  position: fixed;
+  width: 100%;
+  height: 4px;
+  z-index: 1;
+}
+

@@ -207,29 +207,44 @@ def the_big_retriever(number=None):
 
 
 def get_layout(lt=""):
+    # basic placement:
     if 'left' in lt:
         outer = ""
         inner = "left is-6-desktop is-8-tablet is-offset-1"
     elif 'right' in lt:
         outer = ""
         inner = "right is-6-desktop is-8-tablet is-offset-5-desktop is-offset-3-tablet"
+    elif 'notecard' in lt:  # for story elements
+        outer = "is-centered"
+        inner = "is-6-desktop is-8-tablet notecard"
     else:
         outer = "is-centered"
         inner = "is-6-desktop is-8-tablet"
+    # background type:
     if 'color-b' in lt:
         outer += " background-b"
-    if 'color-c' in lt:
+    elif 'color-c' in lt:
         outer += " background-c"
+    elif 'paper' in lt:
+        outer += " paper"
+    elif 'faded-paper' in lt:
+        outer += " faded-paper"
     else:
         outer += " background-main"
+    # dimensional effect:
     if 'raised' in lt:
         outer += " is-raised"
     elif 'sunk' in lt:
         outer += " is-sunk"
     elif 'stacked' in lt:
         outer += " is-stacked"
+    # section size:
     if 'big' in lt:
         outer += " is-medium"
+    elif 'bigger' in lt:
+        outer += " is-large"
+    if 'justified' in lt:
+        inner += " justified"
     return outer, inner
 
 

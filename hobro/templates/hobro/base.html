@@ -1,6 +1,6 @@
 {% load static %}
 
-<html class="has-background-info">
+<html class="has-background-info" lang="da">
     <head>
         <title>Tegnedreng Records</title>
         <meta charset="utf-8">
@@ -36,9 +36,9 @@
   </div>
 </nav>
 <div id="sideMenu" class="navbar is-fixed-top navbar-menu is-dark is-transparent side-menu" style="display:none;">
-    <div class="navbar-start"></div>
 
-    <div class="navbar-end">
+
+    <div class="navbar-items">
           <a class="navbar-item has-text-light has-text-centered" href="/">
             <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-home"></i></span>
             Forsiden
@@ -58,38 +58,59 @@
       <hr>
       <p id="headset" class="navbar-item has-text-light has-text-centered">
         Indstillinger:
-        </p><br>
-        <div class="has-text-light has-text-centered field">
-          <input id="switchAnim" type="checkbox" name="switchAnim" class="switch is-rounded is-info"
-                {% if request.COOKIES.show_animations != "false" %}checked{% endif %}>
-          <label for="switchAnim" class="navbar-setting">Vis smarte animationer</label>
-        </div><br>
-         <p class="navbar-setting has-text-light has-text-centered">
-        Foretrukken musikafspiller:
         </p>
-        <div class="has-text-light has-text-centered field">
-          <input class="is-checkradio is-info has-background-color" id="playerBC" type="radio" name="player"
-                {% if request.COOKIES.use_player != "spotify" %}checked{% endif %}>
-          <label for="playerBC" class="navbar-setting">Bandcamp</label>
-          <input class="is-checkradio is-info has-background-color" id="playerSP" type="radio" name="player"
-                {% if request.COOKIES.use_player == "spotify" %}checked{% endif %}>
-          <label for="playerSP" class="navbar-setting">Spotify</label>
-        </div><br>
-         <p class="navbar-setting has-text-light has-text-centered">
-        Kommentarerspor:
-        </p>
-        <div class="has-text-light has-text-centered field">
-          <input class="is-checkradio is-info has-background-color" id="commentToggle" type="radio" name="comments"
-                {% if request.COOKIES.show_comments == "toggle" %}checked
-                {% elif not request.COOKIES.show_comments %}checked{% endif %}>
-          <label for="commentToggle" class="navbar-setting">Vælg</label>
-          <input class="is-checkradio is-info has-background-color" id="commentOff" type="radio" name="comments"
-                {% if request.COOKIES.show_comments == "off" %}checked{% endif %}>
-          <label for="commentOff" class="navbar-setting">Skjul</label>
-          <input class="is-checkradio is-info has-background-color" id="commentOn" type="radio" name="comments"
-                {% if request.COOKIES.show_comments == "on" %}checked{% endif %}>
-          <label for="commentOn" class="navbar-setting">Vis</label>
+        <div class="navbar-section">
+            <div class="has-text-light has-text-centered field">
+              <input id="switchAnim" type="checkbox" name="switchAnim" class="switch is-rounded is-info"
+                    {% if request.COOKIES.show_animations != "false" %}checked{% endif %}>
+              <label for="switchAnim" class="navbar-setting">Vis smarte animationer</label>
+            </div>
+            <div class="has-text-light has-text-centered">
+                <button class="button is-small is-rounded is-light is-outlined tooltip is-tooltip-multiline is-tooltip-bottom" data-tooltip="
+                Animerede elementer kan slåes fra, til brug på ældre systemer (eller hvis man synes de er irriterende)
+                "><span class="icon"><i class="fas fa-info"></i></span></button>
+            </div>
         </div>
+        <div class="navbar-section">
+             <p class="navbar-setting has-text-light has-text-centered">Foretrukken musikafspiller:</p>
+            <div class="has-text-light has-text-centered field">
+              <input class="is-checkradio is-info has-background-color" id="playerBC" type="radio" name="player"
+                    {% if request.COOKIES.use_player != "spotify" %}checked{% endif %}>
+              <label for="playerBC" class="navbar-setting">Bandcamp</label>
+              <input class="is-checkradio is-info has-background-color" id="playerSP" type="radio" name="player"
+                    {% if request.COOKIES.use_player == "spotify" %}checked{% endif %}>
+              <label for="playerSP" class="navbar-setting">Spotify</label>
+            </div>
+            <div class="has-text-light has-text-centered">
+                <button class="button is-small is-rounded is-light is-outlined tooltip is-tooltip-multiline is-tooltip-bottom" data-tooltip="
+                Vælg hvilken tjeneste der skal bruges til afspillere på siden. Spotify kræver login, men hjælper med at dække sidens driftsomkostninger
+                "><span class="icon"><i class="fas fa-info"></i></span></button>
+            </div>
+        </div>
+        <div class="navbar-section">
+             <p class="navbar-setting has-text-light has-text-centered">Kommentarspor:</p>
+            <div class="has-text-light has-text-centered field">
+              <input class="is-checkradio is-info has-background-color" id="commentToggle" type="radio" name="comments"
+                    {% if request.COOKIES.show_comments == "toggle" %}checked
+                    {% elif not request.COOKIES.show_comments %}checked{% endif %}>
+              <label for="commentToggle" class="navbar-setting">Vælg</label>
+              <input class="is-checkradio is-info has-background-color" id="commentOff" type="radio" name="comments"
+                    {% if request.COOKIES.show_comments == "off" %}checked{% endif %}>
+              <label for="commentOff" class="navbar-setting">Skjul</label>
+              <input class="is-checkradio is-info has-background-color" id="commentOn" type="radio" name="comments"
+                    {% if request.COOKIES.show_comments == "on" %}checked{% endif %}>
+              <label for="commentOn" class="navbar-setting">Vis</label>
+            </div>
+            <div class="has-text-light has-text-centered">
+                <button class="button is-small is-rounded is-light is-outlined tooltip is-tooltip-multiline is-tooltip-top is-tooltip-bottom-desktop" data-tooltip="
+                Siden har et kommentarspor med bag-scenerne-observationer. Det kan vises eller skjules helt — som standard åbnes hver kommentar manuelt
+                "><span class="icon"><i class="fas fa-info"></i></span></button>
+            </div>
+        </div>
+        <div class="navbar-section navbar-last">
+        <a class="navbar-item has-text-centered has-text-light has-image-centered" href="https://maanegal.dk">Et projekt fra
+            <img src="/media/moon_full.png" alt="Månegal Media"></a>
+    </div>
     </div>
   </div>
 
