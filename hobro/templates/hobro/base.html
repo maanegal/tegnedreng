@@ -1,6 +1,6 @@
 {% load static %}
 
-<html class="has-background-info" lang="da">
+<html class="has-background-dark" lang="da">
     <head>
         <title>Tegnedreng Records</title>
         <meta charset="utf-8">
@@ -8,7 +8,7 @@
           {% load django_simple_bulma %}
           {% bulma %}
           {% font_awesome %}
-        <link href="https://fonts.googleapis.com/css?family=Assistant:400,700,800|Crimson+Text:400,400i,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Assistant:400,700,800|Crimson+Text:400,400i,700|Cousine" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{% static 'hobro/style.css' %}">
         {% if request.COOKIES.show_animations != "false" %}
             <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.5/velocity.min.js"></script>
@@ -20,7 +20,7 @@
         <link rel="apple-touch-icon-precomposed" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-180x180.png" />
         <meta name="msapplication-TileImage" content="https://maanegal.dk/wp-content/uploads/cropped-brand-square-270x270.png" />
     </head>
-    <body>
+<body>
 
 <nav class="navbar is-fixed-top is-dark is-transparent trans-bg" {% if request.COOKIES.show_animations != "false" %}style="opacity:0;"{% endif %} role="navigation" aria-label="main navigation">
   <div class="navbar-brand">

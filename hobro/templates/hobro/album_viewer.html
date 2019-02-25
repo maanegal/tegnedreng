@@ -10,47 +10,61 @@
 </div>
 
     <section id="{{ album.slug }}" class="section columns is-tablet is-centered">
-    <div class="column is-8-desktop is-10-tablet"><div class="box big-box">
-        <div class="columns is-desktop is-vcentered">
-          <div class="column is-one-third is-half-mobile has-image-centered">
+    <div class="column is-8-widescreen is-10-desktop"><div class="box big-box">
+        <a class="button is-dark is-outlined is-small navy-text backlink" href="/musik/">
+            <span class="icon is-small"><i class="fas fa-long-arrow-alt-left"></i></span>
+              <span>Al musikken</span></a>
+        <div class="columns is-tablet is-vcentered">
+          <div class="column is-half is-half-mobile is-half-tablet is-one-third-widescreen has-image-centered">
               <figure class="image"><a onclick="modalOpen('modal_{{ album.slug }}')">
                 <img src="{{ album.photo.url }}" alt="{{ album.title }}"></a></figure>
           </div>
-              <div class="column has-text-centered-mobile">
-                  <div class="content">
-                      <h1 class="title is-size-3 is-size-2-desktop">{{ album.title }}</h1>
-                      <h1 class="subtitle is-size-4 is-size-3-desktop">{{ album.title }}</h1>
-                      <p class="subtitle is-6 has-text-grey">{{ album.release_date|date }}</p>
-                      <p>{{ album.text|safe }}</p>
-            {% if album.link_bc %}
-                  <a class="tag is-dark is-medium" href="{{album.link_bc}}"><span class="icon is-small"><i class="fab fa-bandcamp"></i></span>&emsp;Bandcamp</a>
-            {% endif %}
-             {% if album.sp_embed_code %}
-                  <a class="tag is-dark is-medium" href="https://open.spotify.com/embed/album/{{album.sp_embed_code}}"><span class="icon is-small"><i class="fab fa-spotify"></i></span>&emsp;Spotify</a>
-            {% endif %}
-            {% if album.link_yt %}
-                  <a class="tag is-dark is-medium" href="{{album.link_yt}}"><span class="icon is-small"><i class="fab fa-youtube"></i></span>&emsp;YouTube</a>
-            {% endif %}
-            {% if album.link_sc %}
-                  <a class="tag is-dark is-medium" href="{{album.link_sc}}"><span class="icon is-small"><i class="fab fa-soundcloud"></i></span>&emsp;Soundcloud</a>
-            {% endif %}
-                    </div>
-                  <br>
-                <p>Sange på dette album:</p>
-                <ul>
-                    {% for s in album.song_set.all %}
-                        <li>{{ s.track_number }}. <a href="{% url 'song_viewer' slug=s.slug %}">{{ s.title }}</a></li>
-                    {% endfor %}
-                </ul>
-        </div></div>
-        <div class="is-divider" data-content="&#xf001"></div>
-        {% if request.COOKIES.use_player == "spotify" and embed_code_sp%}
-            <div>{{ embed_code_sp|safe }}</div>
-        {% else %}
-            {% if embed_code_bc %}
-                <div>{{ embed_code_bc|safe }}</div>
-            {% endif %}
-        {% endif %}
-    </div>
+          <div class="column is-half is-one-half-tablet is-two-thirds-widescreen has-text-centered-mobile">
+              <div class="content">
+                  <h1 class="title is-size-3 is-size-2-widescreen">{{ album.title }}</h1>
+                  <h2 class="subtitle is-size-5 is-size-4-widescreen">Udgivet under navnet <strong>{{ name }}</strong></h2>
+                  <p class="subtitle is-size-6 is-size-5-widescreen has-text-grey">{{ album.release_date|date }}</p>
+                  {% if album.text %}<p class="quoted">{{ album.text|safe }}</p>{% endif %}
+                    {% if album.link_bc %}
+                      <a class="tag is-dark is-medium" href="{{album.link_bc}}" target="_blank">
+                          <span class="icon is-small"><i class="fab fa-bandcamp"></i></span>&emsp;Bandcamp</a>
+                    {% endif %}
+                     {% if album.sp_embed_code %}
+                      <a class="tag is-dark is-medium" href="https://open.spotify.com/album/{{album.sp_embed_code}}" target="_blank">
+                          <span class="icon is-small"><i class="fab fa-spotify"></i></span>&emsp;Spotify</a>
+                    {% endif %}
+                    {% if album.link_yt %}
+                      <a class="tag is-dark is-medium" href="{{album.link_yt}}" target="_blank">
+                          <span class="icon is-small"><i class="fab fa-youtube"></i></span>&emsp;YouTube</a>
+                    {% endif %}
+                    {% if album.link_sc %}
+                      <a class="tag is-dark is-medium" href="{{album.link_sc}}" target="_blank">
+                          <span class="icon is-small"><i class="fab fa-soundcloud"></i></span>&emsp;Soundcloud</a>
+                    {% endif %}
+              </div></div></div>
+              <div class="is-divider" data-content="&#xf001"></div>
+              <div class="columns is-desktop"><div class="column is-half-desktop">
+                  <h3 class="subtitle is-5">Sange på dette album:</h3>
+                <ul>{% for s in album.song_set.all %}
+                    <li>{{ s.track_number }}. <a href="{% url 'song_viewer' slug=s.slug %}"><strong>{{ s.title }}</strong></a>
+                        {% if s.appears.all %}<ul><li>Med
+                            {% for c in s.appears.all %}
+                                {% if not forloop.first and not forloop.last %}{% spaceless %}, {% endspaceless %}{%endif%}
+                                {% if forloop.last and not forloop.first %} & {%endif%}
+                                 <a href="{% url 'character_viewer' slug=c.slug %}">{{c.name}}</a>
+                            {% endfor %}
+                        </ul></li>{%endif%}
+                    </li>
+                {% endfor %} </ul> </div>
+
+                <div class="column is-half-desktop"><br>
+                {% if request.COOKIES.use_player == "spotify" and embed_code_sp%}
+                    <div>{{ embed_code_sp|safe }}</div>
+                {% else %}
+                    {% if embed_code_bc %}
+                        <div>{{ embed_code_bc|safe }}</div>
+                    {% endif %}
+                {% endif %}
+            </div></div>
     </section>
 {% endblock %}

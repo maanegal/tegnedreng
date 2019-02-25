@@ -2,10 +2,13 @@
 
 {% block content %}
 <section id="{{ musicvideo.slug }}" class="section columns is-tablet is-centered">
-    <div class="column is-two-thirds  has-image-centered"><div class="box big-box">
-    <h2 class="title">{{ musicvideo.title }}</h2>
-    <p>Musikvideo til sangen <a href="{% url 'song_viewer' slug=musicvideo.song.slug %}">{{ musicvideo.song.title }}</a></p>
-    <br>
+    <div class="column is-8-widescreen is-10-desktop has-image-centered"><div class="box big-box">
+       <a class="button is-dark is-outlined is-small navy-text backlink" href="/musik/">
+        <span class="icon is-small"><i class="fas fa-long-arrow-alt-left"></i></span>
+          <span>Al musikken</span></a>
+    <div class="has-text-centered">
+    <h1 class="title is-size-3 is-size-2-desktop">{{ musicvideo.title }}</h1><br>
+    <h2 class="subtitle is-size-6 is-size-5-widescreen">Musikvideo til <a href="{% url 'song_viewer' slug=musicvideo.song.slug %}">sangen</a> fra albummet <a href="{% url 'album_viewer' slug=musicvideo.song.album.slug %}">{{ musicvideo.song.album.title }}</a></h2>
     {% if musicvideo.appears.all %}
         <p class="has-text-grey is-size-7">I denne video:
         {% for c in musicvideo.appears.all %} <span class="tag is-uppercase has-text-grey"><a href="{% url 'character_viewer' slug=c.slug %}">{{ c.name|linebreaksbr }}</a></span> {% endfor %}
@@ -14,6 +17,6 @@
     <div class="is-divider" data-content="&#xf001"></div>
         <div></div>
         {{ embed_code|safe }}
-    </div></div></section>
+    </div></div></div></section>
 
 {% endblock %}

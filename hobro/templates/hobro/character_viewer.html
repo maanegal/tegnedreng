@@ -11,16 +11,20 @@
 </div>
 
     <section id="{{ character.slug }}" class="section columns is-tablet is-centered">
-    <div class="column is-two-thirds"><div class="box big-box">
-        <div class="columns is-tablet is-vcentered">
-          <div class="column is-one-quarter is-half-mobile has-image-centered">
+    <div class="column is-8-widescreen is-10-desktop"><div class="box big-box">
+        <a class="button is-dark is-outlined is-small navy-text" href="/medlemmer/">
+            <span class="icon is-small"><i class="fas fa-long-arrow-alt-left"></i></span>
+              <span>Alle medlemmer</span></a>
+        <div class="columns is-desktop is-vcentered">
+            <div class="column is-2-desktop"></div>
+          <div class="column is-4 is-6-mobile is-4-desktop has-image-centered has-text-centered">
                 <figure class="image"><a onclick="modalOpen('modal_{{ character.slug }}')">
                     <img class="is-rounded" src="{{ character.photo.url }}"></a></figure>
           </div>
-          <div class="column has-text-centered-mobile">
+          <div class="column has-text-centered-mobile has-text-centered-tablet-only">
               <div class="content">
-                <h2 class="title">{{ character.name }}</h2>
-                <p>{{ character.text }}</p>
+                <h1 class="title is-size-3 is-size-2-widescreen">{{ character.name }}</h1>
+                <p class="subtitle is-size-6 is-size-5-widescreen">{{ character.text|safe }}</p>
         </div></div>
         </div>
         <div class="is-divider" data-content="&#xf007"></div>

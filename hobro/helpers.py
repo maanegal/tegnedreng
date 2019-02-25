@@ -41,6 +41,10 @@ def class_from_str(name):
         return SwgrsPost
     elif name == 'swgrs_media':
         return SwgrsMedia
+    elif name == 'comment':
+        return Comment
+    elif name == 'motif':
+        return Motif
     else:
         print('unknown class:', name)
         return None
@@ -91,6 +95,12 @@ def object_from_alias(alias):
     if o:
         return o
     o = SwgrsSong.objects.filter(alias=str(alias)).first()
+    if o:
+        return o
+    o = Comment.objects.filter(alias=str(alias)).first()
+    if o:
+        return o
+    o = Motif.objects.filter(alias=str(alias)).first()
     if o:
         return o
     if not o:
@@ -165,7 +175,7 @@ def make_relations(data):
                         print(e, rel, parent, target, r, k)
             parent.save()
         except:
-            print(rel, parent, target, r, k, v)
+            print('Error making relation. Relation:', rel, 'Parent:', parent, 'alias:', k, 'Target:', target, r, v)
 
 
 def the_big_retriever(number=None):

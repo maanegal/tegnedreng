@@ -10,7 +10,10 @@
 </div>
 
     <section id="{{ song.slug }}" class="section columns is-tablet is-centered">
-    <div class="column is-two-thirds"><div class="box big-box">
+    <div class="column is-8-widescreen is-10-desktop"><div class="box big-box">
+       <a class="button is-dark is-outlined is-small navy-text backlink" href="/musik/">
+        <span class="icon is-small"><i class="fas fa-long-arrow-alt-left"></i></span>
+          <span>Al musikken</span></a>
         <div class="media">
               <figure class="media-left flex-20">
                 <p class="image">
@@ -22,27 +25,27 @@
                 </p>
               </figure>
               <div class="media-content">
+                  <h1 class="title is-size-3 is-size-2-widescreen">{{ song.title }}</h1>
+                  {% if song.album %}
+                  <h2 class="subtitle is-size-6 is-size-5-tablet">Nummer {{ song.track_number }} på albummet <a href="{% url 'album_viewer' slug=song.album.slug %}">{{ song.album.title }}</a></h2>
+                  {% endif %}
                   <div class="content">
-                      <h1 class="title">{{ song.title }}</h1>
-                      {% if song.album %}
-                      <p>Nummer {{ song.track_number }} på albummet <a href="{% url 'album_viewer' slug=song.album.slug %}">{{ song.album.title }}</a></p>
-                      {% endif %}
-            <p>{{ song.text|safe }}</p>
+            {% if song.text %}<p class="quoted">{{ song.text|safe }}</p>{% endif %}
             {% if song.musicvideo %}
             <p>Denne sang har en <a href="{% url 'musicvideo_viewer' slug=song.musicvideo.slug %}">musikvideo</a></p>
             {% endif %}
-             <p is-uppercase>
+             <p>
             {% if song.link_bc %}
-                  <a class="tag is-dark is-medium" href="{{song.link_bc}}"><span class="icon is-small"><i class="fab fa-bandcamp"></i></span>&emsp;Bandcamp</a>
+                  <a class="tag is-dark is-medium" href="{{song.link_bc}}" target="_blank"><span class="icon is-small"><i class="fab fa-bandcamp"></i></span>&emsp;Bandcamp</a>
             {% endif %}
              {% if song.sp_embed_code %}
-                  <a class="tag is-dark is-medium" href="https://open.spotify.com/embed/track/{{song.sp_embed_code}}"><span class="icon is-small"><i class="fab fa-spotify"></i></span>&emsp;Spotify</a>
+                  <a class="tag is-dark is-medium" href="https://open.spotify.com/track/{{song.sp_embed_code}}" target="_blank"><span class="icon is-small"><i class="fab fa-spotify"></i></span>&emsp;Spotify</a>
             {% endif %}
             {% if song.link_yt %}
-                  <a class="tag is-dark is-medium" href="{{song.link_yt}}"><span class="icon is-small"><i class="fab fa-youtube"></i></span>&emsp;YouTube</a>
+                  <a class="tag is-dark is-medium" href="{{song.link_yt}}" target="_blank"><span class="icon is-small"><i class="fab fa-youtube"></i></span>&emsp;YouTube</a>
             {% endif %}
             {% if song.link_sc %}
-                  <a class="tag is-dark is-medium" href="{{song.link_sc}}"><span class="icon is-small"><i class="fab fa-soundcloud"></i></span>&emsp;Soundcloud</a>
+                  <a class="tag is-dark is-medium" href="{{song.link_sc}}" target="_blank"><span class="icon is-small"><i class="fab fa-soundcloud"></i></span>&emsp;Soundcloud</a>
             {% endif %}
               </p>
 
@@ -71,7 +74,6 @@
             <p class="subtitle is-6 has-text-grey">Sandsynligvis ikke 100% korrekt. Indsend gerne rettelser</p>
             <div class="content">{{ song.lyrics|safe }}</div>
         {% endif %}
-        <div class="is-divider" data-content="&#xf001"></div>
     </div></div>
     </section>
 {% endblock %}

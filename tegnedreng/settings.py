@@ -141,6 +141,7 @@ BULMA_SETTINGS = {
         "bulma-divider",
         "bulma-switch",
         "bulma-checkradio",
+        "bulma-tooltip",
     ],
     "variables": {
         "primary": "#00d169",
@@ -151,5 +152,6 @@ BULMA_SETTINGS = {
         "link": "hsl(217, 71%, 40%)",
         "size-1": "6rem",
         "size-2": "3.5rem",
+        "tooltip-max-width": "14rem",
     }
 }

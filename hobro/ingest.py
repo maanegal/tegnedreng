@@ -34,7 +34,7 @@ def loader(files=[]):
             try:
                 obj.save()
             except:
-                print(obj.__dict__)
+                print('Failed to save', obj.__dict__)
                 raise
             try:
                 val = obj.alias
@@ -270,6 +270,8 @@ def process_tree(item={}):
             link_tw = link_tw[0]
         relations.extend(parse_relation('appears', item.get('appears', None)))
         layout = item.get('layout', '')
+        if layout:
+            layout = layout[0]
         obj = Post(text=html, time_stamp=int(alias), link_fb=link_fb, link_tw=link_tw, layout=layout)
     elif element == 'post-photo':
         if not text:
@@ -280,6 +282,8 @@ def process_tree(item={}):
         html = make_mentions(html)
         photo = 'posts/' + item.get('photo')[0]
         layout = item.get('layout', '')
+        if layout:
+            layout = layout[0]
         link_fb = item.get('link-fb', '')
         if link_fb:
             link_fb = 'https://facebook.com'+link_fb[0]
@@ -317,6 +321,8 @@ def process_tree(item={}):
             title = None
         relations.extend(parse_relation('appears', item.get('appears', None)))
         layout = item.get('layout', '')
+        if layout:
+            layout = layout[0]
         obj = PostVideo(text=html, time_stamp=int(alias), title=title, video=video, layout=layout,
                         photo=photo, link_fb=link_fb, link_tw=link_tw, link_ig=link_ig)
     elif element == 'profile-event':
@@ -335,12 +341,18 @@ def process_tree(item={}):
         # set alias (timestamp)
         # expect embed prop with the alias of another element
         #print(item)
+        layout = item.get('layout', '')
+        if layout:
+            layout = layout[0]
+        tip = item.get('type', '')
+        if tip:
+            tip = tip[0]
+        else:
+            print('Did not get type', item)
         if '§§' not in item.get('embed', [])[0]:
-            relations.extend(parse_relation('target_'+item.get('type')[0], item.get('embed', None)))
-        obj = ItemEmbed(time_stamp=int(alias), target=item.get('embed')[0])
+            relations.extend(parse_relation('target_'+tip, item.get('embed', None)))
+        obj = ItemEmbed(time_stamp=int(alias), target=item.get('embed')[0], layout=layout)
     elif element == 'section':
-        # set alias (timestamp)
-        # expect a text element with two values -- chapter number and title. Render to HTML as h2, split up somehow
         if not text:
             return None
         number = item.get('number', '')
@@ -361,7 +373,10 @@ def process_tree(item={}):
         html = make_links(html)
         html = make_hashtags(html, alias, element)
         html = make_mentions(html)
-        obj = Story(text=html, time_stamp=int(alias))
+        layout = item.get('layout', '')
+        if layout:
+            layout = layout[0]
+        obj = Story(text=html, time_stamp=int(alias), layout=layout)
     elif element == 'character':
         if not text:
             text = ''
@@ -460,7 +475,10 @@ def process_tree(item={}):
         link_fb = item.get('link-fb', '')
         if link_fb:
             link_fb = 'https://facebook.com'+link_fb[0]
-        obj = SwgrsPost(text=html, time_stamp=int(alias), link_fb=link_fb, link_yt=yt_embed)
+        layout = item.get('layout', '')
+        if layout:
+            layout = layout[0]
+        obj = SwgrsPost(text=html, time_stamp=int(alias), link_fb=link_fb, link_yt=yt_embed, layout=layout)
     elif element == 'swgrs_media':
         if not text:
             text = ""
@@ -480,10 +498,50 @@ def process_tree(item={}):
             video_title = video_title[0]
         else:
             video_title = ''
+        layout = item.get('layout', '')
+        if layout:
+            layout = layout[0]
         obj = SwgrsMedia(text=html, time_stamp=int(alias), video_title=video_title, video=video,
-                         photo=photo, link_fb=link_fb)
+                         photo=photo, link_fb=link_fb, layout=layout)
+    elif element == 'comment':
+        if not text:
+            if body:
+                text = body
+            else:
+                text = ""
+        html = markdown(text)
+        html = make_links(html)
+        html = make_hashtags(html, alias, element)
+        html = make_mentions(html)
+        t = alias.split(':', 1)
+        t_type = t[0]
+        t_alias = t[1]
+        # save relations
+        # register motifs
+        author = item.get('author', '')
+        if author:
+            author = author[0]
+        layout = item.get('layout', '')
+        if layout:
+            layout = layout[0]
+        relations.extend(parse_relation('has_motif', item.get('motif', None)))
+        obj = Comment(text=html, alias=alias, author=author, layout=layout)
+    elif element == 'motif':
+        if not text:
+            if body:
+                text = body
+            else:
+                return None
+        html = markdown(text)
+        html = make_links(html)
+        html = make_hashtags(html, alias, element)
+        html = make_mentions(html)
+        title = item.get('title', '')
+        if title:
+            title = title[0]
+        obj = Motif(text=html, alias=alias, title=title)
     if not obj:
-        print('No object passes to process tree.', element, alias)
+        print('No object passed to process tree.', element, alias)
     return obj, relations
 
 

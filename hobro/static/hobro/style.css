@@ -391,7 +391,9 @@ a img:hover {
 }
 
 .story p {
-    margin-bottom: 1.2rem;
+    /* Decide on a paragraph style */
+    /*margin-bottom: 1.2rem;*/
+    text-indent: 1em;
 }
 
 /* a raised centered piece of paper. Use with faded-paper or other backgrounds. Looks good with is-medium*/
@@ -453,3 +455,41 @@ a img:hover {
   z-index: 1;
 }
 
+.screenplay {
+    font-family: 'Cousine', "Courier New", Courier, monospace;
+}
+
+ul ul {
+    list-style: square;
+    margin-left: 3em;
+    margin-bottom: 0.75em;
+}
+
+.tag {
+    margin: 5px;
+}
+
+.backlink {
+    margin-bottom: 10px;
+}
+
+
+.quoted {
+    position: relative;
+    display:block;
+    margin-left: 30px;
+}
+
+.quoted::before{
+  content: "\201C"; /*Unicode for Left Double Quote*/
+
+  /*Font*/
+  font-size: 60px;
+  font-weight: bold;
+  color: #999;
+
+  /*Positioning*/
+  position: absolute;
+    left: -35px;
+    top: -30px;
+}
