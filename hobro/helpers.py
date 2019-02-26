@@ -159,7 +159,9 @@ def set_expirations():
 def make_relations(data):
     """Put relationships into db once the objects have been saved.
     Takes dict with object alias as key, and list of tuples as values. Tuples are field and target object alias"""
-    one_to_ones = ['album', 'song']
+    one_to_ones = ['album', 'song', 'on_story', 'on_profileevent', 'on_post', 'on_postphoto', 'on_postvideo',
+                   'on_swgrspost', 'on_swgrsmedia', 'on_character', 'on_song', 'on_album', 'on_musicvideo',
+                   'on_swgrssong', 'on_itemembed']
     for k, v in data.items():
         try:
             parent = object_from_alias(k)

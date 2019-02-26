@@ -6,7 +6,7 @@ import re
 from datetime import datetime
 from markdown import markdown
 from .helpers import set_expirations, make_relations, str_to_int, class_from_str
-
+import json
 
 # This is the master list of hashtags. Commit it to database after ingest. Key is hashtag, value is a list of aliases
 hashtags = {}
@@ -52,6 +52,13 @@ def loader(files=[]):
     relations.update(hashtags)
     print('total:', len(relations))
     make_relations(relations)
+    j_o = json.dumps(items, indent=4, sort_keys=True)
+    j_r = json.dumps(relations, indent=4, sort_keys=True)
+    folder = Path(temp_pathpath)
+    with open(os.path.join(folder, 'ingest_objects'), 'w', encoding='utf8') as filehandle:
+        filehandle.write(j_o)
+    with open(os.path.join(folder, 'ingest_relations'), 'w', encoding='utf8') as filehandle:
+        filehandle.write(j_r)
     print('relations done\nAll done!')
 
 
@@ -513,18 +520,17 @@ def process_tree(item={}):
         html = make_links(html)
         html = make_hashtags(html, alias, element)
         html = make_mentions(html)
-        t = alias.split(':', 1)
-        t_type = t[0]
-        t_alias = t[1]
-        # save relations
-        # register motifs
         author = item.get('author', '')
         if author:
             author = author[0]
         layout = item.get('layout', '')
         if layout:
             layout = layout[0]
+        t = alias.split(':', 1)
+        t_type = t[0]
+        t_alias = t[1]
         relations.extend(parse_relation('has_motif', item.get('motif', None)))
+        relations.extend([('on_' + t_type, t_alias)])
         obj = Comment(text=html, alias=alias, author=author, layout=layout)
     elif element == 'motif':
         if not text:

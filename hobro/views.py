@@ -2,12 +2,15 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from .helpers import the_big_retriever, class_from_str, make_bandcamp_embed, make_spotify_embed, make_youtube_embed
 
+
 def frontpage(request):
     return render(request, 'hobro/frontpage.html')
 
+
 def item_list(request):
     data = the_big_retriever()
-    return render(request, 'hobro/item_list.html', {'items': data})
+    comment_pref = request.COOKIES['show_comments']
+    return render(request, 'hobro/item_list.html', {'items': data, 'comment_pref': comment_pref})
 
 
 def item_page(request, number=1):
@@ -15,7 +18,8 @@ def item_page(request, number=1):
     next_page = None
     if not number == 8:
         next_page = number + 1
-    return render(request, 'hobro/item_list.html', {'items': data, 'next': next_page})
+    comment_pref = request.COOKIES['show_comments']
+    return render(request, 'hobro/item_list.html', {'items': data, 'next': next_page, 'comment_pref': comment_pref})
 
 
 def item_detail(request, pk, tp):

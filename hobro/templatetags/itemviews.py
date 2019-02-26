@@ -119,3 +119,8 @@ def embed_swgrssong(swgrssong):
     swgrssong = swgrssong.first()
     embed_sc = make_soundcloud_embed(swgrssong)
     return {'song': swgrssong, 'embed_code_sc': embed_sc}
+
+
+@register.inclusion_tag('hobro/comment.html')
+def show_comment(comment, pref):
+    return {'comment': comment, 'pref': pref}

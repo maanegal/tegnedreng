@@ -30,6 +30,9 @@
                 </div>
             {% endif %}
         {% endwith %}
+        {% if item.comment %}
+            {% show_comment item.comment comment_pref %}
+        {% endif %}
     {% endfor %}
     {% if next %}
         <div class="section is-medium has-background-dark is-raised has-text-centered">
@@ -90,7 +93,7 @@
         });
     }
 
-
+    const alive = document.querySelectorAll('.hero-body');
 
 </script>
 
