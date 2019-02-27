@@ -7,6 +7,10 @@ def frontpage(request):
     return render(request, 'hobro/frontpage.html')
 
 
+def teaser(request):
+    return render(request, 'hobro/teaser.html')
+
+
 def item_list(request):
     data = the_big_retriever()
     comment_pref = request.COOKIES['show_comments']

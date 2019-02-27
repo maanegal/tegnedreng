@@ -1,0 +1,88 @@
+{% load static %}
+
+<html class="has-background-dark" lang="da">
+    <head>
+        <title>Tegnedreng Records</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+          {% load django_simple_bulma %}
+          {% bulma %}
+          {% font_awesome %}
+        <link href="https://fonts.googleapis.com/css?family=Assistant:400,700,800|Crimson+Text:400,400i,700|Cousine" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static 'hobro/style.css' %}">
+        {% if request.COOKIES.show_animations != "false" %}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.5/velocity.min.js"></script>
+        {% endif %}
+        <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@10.20.1/dist/lazyload.min.js"></script>
+        <script src="{% static "hobro/js/site.js" %}" type="text/javascript"></script>
+        <link rel="icon" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-32x32.png" sizes="32x32" />
+        <link rel="icon" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-192x192.png" sizes="192x192" />
+        <link rel="apple-touch-icon-precomposed" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-180x180.png" />
+        <meta name="msapplication-TileImage" content="https://maanegal.dk/wp-content/uploads/cropped-brand-square-270x270.png" />
+    </head>
+<body>
+
+<nav class="navbar is-fixed-top is-dark is-transparent trans-bg" {% if request.COOKIES.show_animations != "false" %}style="opacity:0;"{% endif %} role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item navy" href="https://maanegal.dk">
+      <img src="{% get_media_prefix %}/moon_m.png" alt="Månegal Media">
+    </a>
+
+  </div>
+</nav>
+
+
+<section class="hero is-info is-bold is-fullheight">
+    <div id="konrad" class="hero is-fullheight" style="background-color: #000000;" >
+    <div class="hero-body">
+        <div class="container is-family-secondary has-text-centered">
+        <h1 class="title is-capitalized is-size-1-desktop is-size-2-tablet is-size-2-mobile txt-shadow" id="kasper" style="opacity:0">Hobro for livet</h1>
+        <h2 class="subtitle is-size-2-desktop is-size-3-tablet is-size-3-mobile txt-shadow" id="jens" style="opacity:0">Legenden om <em>Tegnedreng Records</em></h2>
+            <br>
+
+    </div>
+    </div>
+      <div id="svend" class="hero-foot" style="opacity:0">
+          <div style="text-align: center; padding:30px;">
+            <p href="{% url 'item_page' number=1 %}" class="button navy-text is-medium is-white is-outlined is-rounded do-shadow" style="margin:15px">
+                <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-book-open"></i></span>
+                Rammer nettet d. 1. april 2019...</p>
+        </div><br>
+      </div>
+</div>
+</section>
+<script>
+    window.onload = function(){
+        var konrad = document.getElementById("konrad");
+        var svend = document.getElementById("svend");
+        var kasper = document.getElementById("kasper");
+        var jens = document.getElementById("jens");
+        if ( showAnimations() ) {
+            Velocity(konrad, { backgroundColor: 'rgba(200, 200, 192, 0)' }, 8000, 'ease-in' );
+            Velocity(kasper, { transform: [ "scale(1)", "scale(0.96)" ], opacity: [1, 0] }, {duration: 2000, delay: 400, easing: 'ease-in'} );
+            Velocity(jens, { transform: [ "scale(1)", "scale(0.98)" ], opacity: [1, 0] }, {duration: 2000, delay: 800, easing: 'ease-in'} );
+            Velocity(svend, { transform: [ "translateY(0)", "translateY(5%)" ], opacity: [1, 0] }, {duration: 1000, delay: 2000, easing: 'ease-in'} );
+        } else {
+            konrad.style.backgroundColor = "rgba(200, 200, 192, 0)";
+            kasper.style.opacity = "1";
+            jens.style.opacity = "1";
+            svend.style.opacity = "1";
+        }
+    }
+</script>
+
+
+    <script>
+		(function () { ll = new LazyLoad({ elements_selector: '.lazy', });
+		}());
+
+    document.getElementById("switchAnim").addEventListener("click", setAnimPref);
+    document.getElementById("playerSP").addEventListener("click", setPlayerPref);
+    document.getElementById("playerBC").addEventListener("click", setPlayerPref);
+    document.getElementById("commentOff").addEventListener("click", setCommentPref);
+    document.getElementById("commentOn").addEventListener("click", setCommentPref);
+    document.getElementById("commentToggle").addEventListener("click", setCommentPref);
+
+	</script>
+    </body>
+</html>
