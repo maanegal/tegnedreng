@@ -187,28 +187,32 @@ function modalClose(modalId) {
     document.onkeyup = null;
 }
 
-function commentToggle(comId, btnId) {
+function commentToggle(comId, btnId, closerId) {
     var comment = document.getElementById(comId);
     var button = document.getElementById(btnId);
+    var closer = document.getElementById(closerId);
     var anim = showAnimations();
+    button.style.visibility = "visible";
     if ( comment.classList.contains('collapsed') ) {
         if (anim) {
-            Velocity(comment, { transform: [ "translateY(0)", "translateY(-30%)" ], opacity: [1, 0], display: 'flex' }, {duration: 400, easing: 'ease-out'} );
+            Velocity(comment, { transform: [ "translateY(0)", "translateY(-20%)" ], opacity: [1, 0], display: 'flex' }, {duration: 400, easing: 'ease-out'} );
         } else {
             comment.style.opacity = "1";
             comment.style.display = "flex";
         }
         comment.classList.remove('collapsed');
-        button.innerHTML = '&and;&nbsp;&nbsp;Skjul kommentarspor';
+        closer.style.display = "block";
+        button.innerHTML = '<i class="fas fa-angle-double-up"></i>&nbsp;&nbsp;Skjul kommentar';
     } else {
         if (anim) {
-            Velocity(comment, { transform: [ "translateY(-30%)", "translateY(0%)" ], opacity: [0, 1], display: 'none' }, {duration: 300, easing: 'ease-in'} );
+            Velocity(comment, { transform: [ "translateY(-20%)", "translateY(0%)" ], opacity: [0, 1], display: 'none' }, {duration: 300, easing: 'ease-in'} );
         } else {
             comment.style.opacity = "0";
             comment.style.display = "none";
         }
         comment.classList.add('collapsed');
-        button.innerHTML = '&or;&nbsp;&nbsp;Vis kommentarspor';
+        closer.style.display = "none";
+        button.innerHTML = '<i class="fas fa-angle-double-down"></i>&nbsp;&nbsp;Vis kommentar';
     }
 
 }

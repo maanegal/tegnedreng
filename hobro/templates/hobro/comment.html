@@ -1,20 +1,24 @@
 {% if pref != "off" %}
-    {% if pref == "on" %}<div class="is-before-behind"></div>{% endif %}
-<div>
-<div class="has-background-dark comment-bg"></div>
-    <section id="{{ comment.alias }}" class="section comment-block {% if pref == "on" %}is-behind {% endif %}
-        {% if pref != "on" %}collapsed {% endif %}is-medium story is-family-secondary is-size-5 has-background-dark has-text-light columns is-mobile is-centered"
-        {% if pref != "on" %} style="display:none;"{% endif %}>
-    <div class="column is-6-desktop is-8-tablet">{{comment.text|safe}}
-        {% for motif in comment.has_motif.all %}
-        <h2 class="title has-text-light has-text-centered">{{motif.title}}</h2>
-        {{motif.text|safe}}
-        {% endfor %}
+    {% if pref == "yellow" %}<div class="is-before-behind"></div>{% endif %}
+<div class="comment-container">
+    <div id="closer_{{comment.alias}}" class="comment-closer" {% if pref != "on" %}style="display: none;"{% endif %}>
+        <a class="delete" onclick="commentToggle('{{comment.alias}}', 'btn_{{comment.alias}}', 'closer_{{comment.alias}}')"></a>
     </div>
-    </section>
-    {% if pref != "on" %}
-        <div class="comment-toggle">
-            <p class="button navy-text is-dark is-rounded" id="btn_{{ comment.alias }}" onclick="commentToggle('{{ comment.alias }}', 'btn_{{ comment.alias }}')">&or;&nbsp;&nbsp;Vis kommentarspor</p>
-        </div></div>
-    {% endif %}
+<div class="has-background-dark comment-bg"></div>
+<section id="{{comment.alias}}" class="section comment-block {% if pref == "on" %}is-behind alive slide-down{% endif %}
+    {% if pref != "on" %}collapsed {% endif %}is-medium story is-family-secondary is-size-5 has-background-dark has-text-light columns is-mobile is-centered"
+    {% if pref != "on" %} style="display:none;"{% endif %}>
+
+<div class="column is-6-desktop is-8-tablet">
+    {{comment.text|safe}}
+    {% for motif in comment.has_motif.all %}
+        <h2 class="title has-text-light has-text-centered">{{motif.title}}</h2>
+    {{motif.text|safe}}
+    {% endfor %}
+</div>
+</section>
+<div class="comment-toggle">
+    <p class="button navy-text is-dark is-rounded" id="btn_{{comment.alias}}" {% if pref == "on" %}style="visibility: collapse;"{% endif %}
+       onclick="commentToggle('{{comment.alias}}', 'btn_{{comment.alias}}', 'closer_{{comment.alias}}')"><i class="fas fa-angle-double-down"></i>&nbsp;&nbsp;Vis kommentar</p>
+</div></div>
 {% endif %}

@@ -364,7 +364,7 @@ a img:hover {
     }
 }
 
-.story p {
+.story p + p {
     /* Decide on a paragraph style */
     /*margin-bottom: 1.2rem;*/
     text-indent: 1em;
@@ -391,7 +391,7 @@ a img:hover {
     /*z-index: -1;
     bottom: -120%;
     position: sticky;*/
-    box-shadow: inset 0px -5px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0px 15px 40px rgba(0, 0, 0, 0.3);
     margin-top: -1.4rem;
 }
 
@@ -413,6 +413,17 @@ a img:hover {
     background: linear-gradient(360deg, rgba(20, 20, 20, 0.5) 0%, rgba(255,255,255,0) 83%);
 }
 
+
+.comment-container {
+    position: relative;
+}
+
+.comment-closer {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    margin-left: -25px;
+}
 
 .comment-block {
     padding-top: 70px;

@@ -61,7 +61,6 @@
     observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.intersectionRatio > 0) {
-          //entry.target.classList.add('fancy');
           if (entry.target.classList.contains('right')) {
             Velocity(entry.target, { transform: [ "translateX(0)", "translateX(5%)" ], opacity: [1, 0.3] }, {duration: 400, easing: 'ease-in'} );
           }
@@ -77,12 +76,13 @@
           else if (entry.target.classList.contains('slide-long')) {
             Velocity(entry.target, { transform: [ "translateY(0)", "translateY(20%)" ], opacity: [1, 0] }, {duration: 600, easing: 'ease-out'} );
           }
+          else if (entry.target.classList.contains('slide-down')) {
+            Velocity(entry.target, { transform: [  "translateY(0)", "translateY(-10%)" ], opacity: [1, 0] }, {duration: 1000, easing: 'ease-out'} );
+          }
           else {
             Velocity(entry.target, { transform: [ "scale(1)", "scale(0.96)" ], opacity: [1, 0.5] }, {duration: 400, easing: 'ease-in'} );
           }
           observer.unobserve(entry.target);
-        } else {
-          //entry.target.classList.remove('fancy');
         }
       });
     });
