@@ -20,11 +20,11 @@
                 <img src="{{ album.photo.url }}" alt="{{ album.title }}"></a></figure>
           </div>
           <div class="column is-half is-one-half-tablet is-two-thirds-widescreen has-text-centered-mobile">
-              <div class="content">
+
                   <h1 class="title is-size-3 is-size-2-widescreen">{{ album.title }}</h1>
-                  <h2 class="subtitle is-size-5 is-size-4-widescreen">Udgivet under navnet <strong>{{ name }}</strong></h2>
+                  <h2 class="subtitle is-size-5 is-size-4-widescreen">Udgivet under navnet <strong>{{ album.name }}</strong></h2>
                   <p class="subtitle is-size-6 is-size-5-widescreen has-text-grey">{{ album.release_date|date }}</p>
-                  {% if album.text %}<p class="quoted">{{ album.text|safe }}</p>{% endif %}
+                  {% if album.text %}<blockquote>{{ album.text|safe }}</blockquote>{% endif %}
                     {% if album.link_bc %}
                       <a class="tag is-dark is-medium" href="{{album.link_bc}}" target="_blank">
                           <span class="icon is-small"><i class="fab fa-bandcamp"></i></span>&emsp;Bandcamp</a>
@@ -41,7 +41,7 @@
                       <a class="tag is-dark is-medium" href="{{album.link_sc}}" target="_blank">
                           <span class="icon is-small"><i class="fab fa-soundcloud"></i></span>&emsp;Soundcloud</a>
                     {% endif %}
-              </div></div></div>
+              </div></div>
               <div class="is-divider" data-content="&#xf001"></div>
               <div class="columns is-desktop"><div class="column is-half-desktop">
                   <h3 class="subtitle is-5">Sange på dette album:</h3>

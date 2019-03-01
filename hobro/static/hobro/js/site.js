@@ -214,7 +214,32 @@ function commentToggle(comId, btnId, closerId) {
         closer.style.display = "none";
         button.innerHTML = '<i class="fas fa-angle-double-down"></i>&nbsp;&nbsp;Vis kommentar';
     }
+}
 
+function motifToggle(motifId, commentId) {
+    var motif = document.getElementById(motifId+'-'+commentId);
+    var button = document.getElementById('head-'+motifId+'-'+commentId);
+    var anim = showAnimations();
+    if ( motif.classList.contains('collapsed') ) {
+        if (anim) {
+            Velocity(motif, { transform: [ "translateY(0)", "translateY(-20%)" ], opacity: [1, 0], display: 'block' }, {duration: 400, easing: 'ease-out'} );
+        } else {
+            motif.style.opacity = "1";
+            motif.style.display = "block";
+        }
+        motif.classList.remove('collapsed');
+    } else {
+        if (anim) {
+            Velocity(motif, { transform: [ "translateY(-20%)", "translateY(0%)" ], opacity: [0, 1], display: 'none' }, {duration: 300, easing: 'ease-in'} );
+        } else {
+            motif.style.opacity = "0";
+            motif.style.display = "none";
+        }
+        motif.classList.add('collapsed');
+    }
+    var cook = getCookie("motifs_seen");
+    cook += motifId + '/';
+    setCookie("motifs_seen", cook, 14);
 }
 
 window.onload = function() {

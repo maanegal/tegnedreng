@@ -13,8 +13,9 @@ def teaser(request):
 
 def item_list(request):
     data = the_big_retriever()
-    comment_pref = request.COOKIES['show_comments']
-    return render(request, 'hobro/item_list.html', {'items': data, 'comment_pref': comment_pref})
+    comment_pref = request.COOKIES.get('show_comments')
+    motifs_seen = request.COOKIES.get('motifs_seen')
+    return render(request, 'hobro/item_list.html', {'items': data, 'comment_pref': comment_pref, 'motifs_seen':motifs_seen})
 
 
 def item_page(request, number=1):
@@ -22,8 +23,13 @@ def item_page(request, number=1):
     next_page = None
     if not number == 8:
         next_page = number + 1
-    comment_pref = request.COOKIES['show_comments']
-    return render(request, 'hobro/item_list.html', {'items': data, 'next': next_page, 'comment_pref': comment_pref})
+    comment_pref = request.COOKIES.get('show_comments')
+    motifs = request.COOKIES.get('motifs_seen')
+    if motifs:
+        motifs_seen = motifs.split('/')
+    else:
+        motifs_seen = []
+    return render(request, 'hobro/item_list.html', {'items': data, 'next': next_page, 'comment_pref': comment_pref, 'motifs_seen':motifs_seen})
 
 
 def item_detail(request, pk, tp):

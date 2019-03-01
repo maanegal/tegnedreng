@@ -31,7 +31,7 @@
             {% endif %}
         {% endwith %}
         {% if item.comment %}
-            {% show_comment item.comment comment_pref %}
+            {% show_comment item.comment comment_pref motifs_seen %}
         {% endif %}
     {% endfor %}
     {% if next %}

@@ -279,19 +279,6 @@ class SwgrsSong(models.Model):
         return class_name
 
 
-class Hashtag(models.Model):
-    name = models.CharField(max_length=200)
-    slug = models.CharField(max_length=200)
-    tagged_in_post = models.ManyToManyField(Post, related_name='post_hashtag')
-    tagged_in_postphoto = models.ManyToManyField(PostPhoto, related_name='photo_hashtag')
-    tagged_in_postvideo = models.ManyToManyField(PostVideo, related_name='video_hashtag')
-    tagged_in_song = models.ManyToManyField(Song, related_name='song_hashtag')
-    tagged_in_album = models.ManyToManyField(Album, related_name='album_hashtag')
-    tagged_in_swgrs_song = models.ManyToManyField(SwgrsSong, related_name='swgrs_song_hashtag')
-    tagged_in_swgrs_post = models.ManyToManyField(SwgrsPost, related_name='swgrs_post_hashtag')
-    tagged_in_swgrs_media = models.ManyToManyField(SwgrsMedia, related_name='swgrs_media_hashtag')
-
-
 class ItemEmbed(models.Model):
     """include another type of item, like person or song"""
     time_stamp = models.IntegerField()
@@ -421,3 +408,17 @@ class Comment(models.Model):
             return 'swgrs_song'
         else:
             return None
+
+
+class Hashtag(models.Model):
+    name = models.CharField(max_length=200)
+    slug = models.CharField(max_length=200)
+    tagged_in_post = models.ManyToManyField(Post, related_name='post_hashtag')
+    tagged_in_postphoto = models.ManyToManyField(PostPhoto, related_name='photo_hashtag')
+    tagged_in_postvideo = models.ManyToManyField(PostVideo, related_name='video_hashtag')
+    tagged_in_song = models.ManyToManyField(Song, related_name='song_hashtag')
+    tagged_in_album = models.ManyToManyField(Album, related_name='album_hashtag')
+    tagged_in_swgrs_song = models.ManyToManyField(SwgrsSong, related_name='swgrs_song_hashtag')
+    tagged_in_swgrs_post = models.ManyToManyField(SwgrsPost, related_name='swgrs_post_hashtag')
+    tagged_in_swgrs_media = models.ManyToManyField(SwgrsMedia, related_name='swgrs_media_hashtag')
+    tagged_in_motif = models.ManyToManyField(Motif, related_name='motif_hashtag')

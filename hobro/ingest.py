@@ -52,9 +52,9 @@ def loader(files=[]):
     relations.update(hashtags)
     print('total:', len(relations))
     make_relations(relations)
-    j_o = json.dumps(items, indent=4, sort_keys=True)
-    j_r = json.dumps(relations, indent=4, sort_keys=True)
-    folder = Path(temp_pathpath)
+    j_o = json.dumps(items, indent=4)
+    j_r = json.dumps(relations, indent=4)
+    folder = Path(temp_path)
     with open(os.path.join(folder, 'ingest_objects'), 'w', encoding='utf8') as filehandle:
         filehandle.write(j_o)
     with open(os.path.join(folder, 'ingest_relations'), 'w', encoding='utf8') as filehandle:
@@ -221,6 +221,8 @@ def make_hashtags(text, alias, element):
             rel = 'tagged_in_swgrs_song'
         elif element == 'swgrs_media':
             rel = 'tagged_in_swgrs_media'
+        elif element == 'motif':
+            rel = 'tagged_in_motif'
         else:
             print('unknown tag type', tag, element, alias)
         if hashtags.get(slug):  # save relationship with other item in list
@@ -241,6 +243,14 @@ def make_mentions(text):
         new_words.append(word)
     new_text = " ".join(new_words)
     return new_text
+
+
+def make_screenplay(text):
+    text = text.replace("&manus_start", '<div class="manus is-family-monospace is-size-6">')
+    text = text.replace("<p>&amp;manus_start</p>", '<div class="manus is-family-monospace is-size-6">')
+    text = text.replace("&manus_slut", '</div>')
+    text = text.replace("<p>&amp;manus_slut</p>", '</div>')
+    return text
 
 
 def parse_relation(field, r):
@@ -517,7 +527,7 @@ def process_tree(item={}):
             else:
                 text = ""
         html = markdown(text)
-        html = make_links(html)
+        html = make_screenplay(html)
         html = make_hashtags(html, alias, element)
         html = make_mentions(html)
         author = item.get('author', '')
@@ -539,7 +549,7 @@ def process_tree(item={}):
             else:
                 return None
         html = markdown(text)
-        html = make_links(html)
+        html = make_screenplay(html)
         html = make_hashtags(html, alias, element)
         html = make_mentions(html)
         title = item.get('title', '')

@@ -337,6 +337,12 @@ a img:hover {
     background-image: url("/media/patterns/transparent-square-tiles.png");
 }
 
+.background-dark {
+    background-color: #363636;
+    background-image: url("/media/patterns/dark-mosaic.png");
+}
+
+
 .is-sunk {
     box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.3);
 }
@@ -426,7 +432,7 @@ a img:hover {
 }
 
 .comment-block {
-    padding-top: 70px;
+    padding: 4rem;
     margin-top: 0;
     z-index: -1;
 }
@@ -437,6 +443,15 @@ a img:hover {
     position: absolute;
     width: 100%;
 }
+
+.comment-block ul {
+    list-style: square;
+}
+
+.comment-block ul ul {
+    margin-bottom: unset;
+}
+
 
 .comment-toggle {
     z-index: 20;
@@ -450,6 +465,32 @@ a img:hover {
 .comment-toggle .button {
     border-radius: 0px 0px 20px 20px;
     box-shadow: 0px 5px 10px 0px rgba(20, 20, 20, 0.2);
+}
+
+
+.motif-head {
+    background-color: #666;
+    transition: all .3s;
+    padding: 1em;
+    margin-bottom: 0rem !important;
+    margin-top: 2rem !important;
+    z-index: 10;
+}
+
+.motif-head {
+    font-weight: normal;
+    font-style: italic;
+    text-transform: uppercase;
+}
+
+.motif-head:hover, .motif-head:focus {
+    background-color: #333;
+}
+
+.motif-view {
+    background-color: #444;
+    padding: 3em;
+    z-index: 9;
 }
 
 
@@ -504,4 +545,79 @@ ul ul {
   position: absolute;
     left: -35px;
     top: -30px;
+}
+
+blockquote {
+    position: relative;
+    display:block;
+    /*margin-left: 30px;*/
+    margin:30px;
+}
+
+blockquote::before{
+  content: "\201C"; /*Unicode for Left Double Quote*/
+
+  /*Font*/
+  font-size: 60px;
+  font-weight: bold;
+  color: #999;
+
+  /*Positioning*/
+  position: absolute;
+    left: -35px;
+    top: -30px;
+}
+
+
+.lyrics ul {
+    font-weight: bold;
+}
+
+.lyrics ul ul {
+    font-weight: normal;
+    list-style: none;
+    margin-left: 0em;
+    margin-bottom: 1em;
+}
+
+.manus {
+    padding: 2em;
+}
+
+.manus h4 {
+    text-align: center;
+    text-decoration: underline;
+    text-transform: uppercase;
+    margin-bottom: 1em;
+}
+
+.manus h5 {
+    text-align: left;
+    margin-bottom: 1em;
+    text-transform: uppercase;
+}
+
+.manus p, .manus p + p {
+    text-align: left;
+    text-indent: 0em;
+    margin-bottom: 1em;
+}
+
+.manus ul {
+    text-align: center;
+    text-transform: uppercase;
+    list-style: none;
+}
+
+.manus ul ul {
+    text-align: left;
+    text-transform: none;
+    max-width: 550px;
+    list-style: none;
+    margin-left: calc(50% - 225px);
+    margin-right: calc(50% - 225px);
+}
+
+.manus ul ul li {
+    margin-bottom: 1em;
 }

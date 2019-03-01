@@ -1,4 +1,5 @@
 {% extends 'hobro/base.html' %}
+{% load itemviews %}
 
 {% block content %}
 <div class="modal" id="modal_{{ song.slug }}">
@@ -29,8 +30,8 @@
                   {% if song.album %}
                   <h2 class="subtitle is-size-6 is-size-5-tablet">Nummer {{ song.track_number }} på albummet <a href="{% url 'album_viewer' slug=song.album.slug %}">{{ song.album.title }}</a></h2>
                   {% endif %}
-                  <div class="content">
-            {% if song.text %}<p class="quoted">{{ song.text|safe }}</p>{% endif %}
+
+            {% if song.text %}<blockquote>{{ song.text|safe }}</blockquote>{% endif %}
             {% if song.musicvideo %}
             <p>Denne sang har en <a href="{% url 'musicvideo_viewer' slug=song.musicvideo.slug %}">musikvideo</a></p>
             {% endif %}
@@ -59,7 +60,7 @@
                 {% for c in song.producer.all %} <span class="tag is-uppercase has-text-grey"><a href="{% url 'character_viewer' slug=c.slug %}">{{ c.name|linebreaksbr }}</a></span> {% endfor %}
                 </p>
             {% endif %}
-        </div></div></div>
+        </div></div>
         <div class="is-divider" data-content="&#xf001"></div>
         {% if request.COOKIES.use_player == "spotify" and embed_code_sp%}
             <div>{{ embed_code_sp|safe }}</div>
@@ -68,12 +69,21 @@
                 <div>{{ embed_code_bc|safe }}</div>
             {% endif %}
         {% endif %}
+        <div class="is-divider" data-content="&#xf001"></div>
+        <div class="columns is-tablet">
         {% if song.lyrics %}
-            <div class="is-divider" data-content="&#xf001"></div>
+            <div class="column">
             <h2 class="title is-4">Sangtekst</h2>
             <p class="subtitle is-6 has-text-grey">Sandsynligvis ikke 100% korrekt. Indsend gerne rettelser</p>
-            <div class="content">{{ song.lyrics|safe }}</div>
+            <div class="lyrics">{{ song.lyrics|safe }}</div></div>
         {% endif %}
+        {% if song.comment %}
+            <div class="column">
+            {% show_comment song.comment request.COOKIES.show_comments  %}
+            </div>
+        {% endif %}
+            </div>
     </div></div>
     </section>
+
 {% endblock %}
