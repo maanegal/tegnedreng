@@ -14,17 +14,34 @@
     font-weight: bold;
 }
 
-.multicol-3 {
+
+
+.multicols {
     column-count: 3;
 }
 
-.multicol-3 li {
+
+@media screen and (max-width: 768px) {
+    .multicols {
+        column-count: 2;
+    }
+}
+
+@media screen and (max-width: 384px) {
+    .multicols {
+        column-count: 1;
+    }
+}
+
+.multicols li {
     padding-bottom: 10px;
 }
+
 
 .flex-20 {
     flex-basis: 20%;
 }
+
 
 
 .has-image-centered {
@@ -60,6 +77,12 @@
 .darkmode strong {
     color: inherit !important;
 }
+
+
+.navbar.is-fixed-top {
+    left: unset;
+}
+
 
 .navbar-item img {
     max-height: 3rem;
@@ -146,6 +169,16 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
     background-color: rgba(102, 102, 102, 0.2);
 }
 
+#settings-modal .modal-content {
+    padding: 3em;
+    background-color: rgba(8, 8, 8, 0.6) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px;
+}
+
+
+
 a.tag:hover, a.tag:focus {
     text-decoration: none;
     color: lightgray;
@@ -161,10 +194,11 @@ body::after {
 }*/
 
 /* When box is used to contain a lot of content, give it some more padding */
-.big-box {
-    padding: 3rem;
+@media screen and (min-width: 769px) {
+    .big-box {
+        padding: 3rem;
+    }
 }
-
 
 .content h2 {
     font-weight: unset;
@@ -240,6 +274,12 @@ starts-transparent {
 
 
 
+@media screen and (min-width: 384px) and (max-width: 768px) {
+    .mobile-fix {
+        max-width: 60%;
+    }
+}
+
 /* TILE MOD */
 @media screen and (max-width: 1023px) and (min-width: 769px) {
     .tile.is-3-tablet {
@@ -286,12 +326,24 @@ starts-transparent {
       max-width: 66.6667%; }
 }
 
+@media screen and (min-width: 1408px) {
+    .tile.is-3-fullhd {
+      flex-basis: 25%;
+       max-width: 25%;}
+    .tile.is-4-fullhd {
+      flex-basis: 33.33333%;
+      max-width: 33.33333%; }
+    .tile.is-6-fullhd {
+      flex-basis: 50%;
+       max-width: 50%; }
+    .tile.is-8-fullhd {
+      flex-basis: 66.66667%;
+      max-width: 66.6667%; }
+}
 
 
-@media screen and (max-width: 768px) {
-    .tile.mobile-fix {
-        max-width: 70%;
-    }
+.tile.is-ancestor {
+    flex-wrap: wrap;
 }
 
 .tile.is-parent {
@@ -523,7 +575,7 @@ ul ul {
 }
 
 .backlink {
-    margin-bottom: 10px;
+    margin-bottom: 1em;
 }
 
 

@@ -12,12 +12,12 @@
 
     <section id="{{ character.slug }}" class="section columns is-tablet is-centered">
     <div class="column is-8-widescreen is-10-desktop"><div class="box big-box">
-        <a class="button is-dark is-outlined is-small navy-text" href="/medlemmer/">
+        <a class="button is-dark is-outlined is-small navy-text backlink" href="/medlemmer/">
             <span class="icon is-small"><i class="fas fa-long-arrow-alt-left"></i></span>
               <span>Alle medlemmer</span></a>
         <div class="columns is-desktop is-vcentered">
             <div class="column is-2-desktop"></div>
-          <div class="column is-4 is-6-mobile is-4-desktop has-image-centered has-text-centered">
+          <div class="column is-4 is-10-mobile is-4-desktop has-image-centered has-text-centered mobile-fix">
                 <figure class="image"><a onclick="modalOpen('modal_{{ character.slug }}')">
                     <img class="is-rounded" src="{{ character.photo.url }}"></a></figure>
           </div>
@@ -29,7 +29,7 @@
         </div>
         <div class="is-divider" data-content="&#xf007"></div>
         <h3 class="subtitle has-text-centered">Optræder på disse sange:</h3>
-        <div class="multicol-3"><ul>
+        <div class="multicols"><ul>
             {% for s in character.appears_on_song.all %}
                 <li> <a href="{% url 'song_viewer' slug=s.slug %}">{{ s.title }}</a></li>
             {% endfor %} </ul>
@@ -37,7 +37,7 @@
         {% if character.producer.all %}
             <div class="is-divider" data-content="&#xf007"></div>
             <h3 class="subtitle has-text-centered">Producer på disse sange:</h3>
-            <div class="multicol-3"><ul>
+            <div class="multicols"><ul>
             {% for s in character.producer.all %}
                 <li> <a href="{% url 'song_viewer' slug=s.slug %}">{{ s.title }}</a></li>
             {% endfor %} </ul>
@@ -46,10 +46,15 @@
         {% if character.appears_in_video.all %}
             <div class="is-divider" data-content="&#xf007"></div>
             <h3 class="subtitle has-text-centered">Medvirker i disse musikvideoer:</h3>
-            <div class="multicol-3"><ul>
+            <div class="tile is-ancestor">
             {% for v in character.appears_in_video.all %}
-                <li><a href="{% url 'musicvideo_viewer' slug=v.slug %}">{{ v.title }}</a></li>
-            {% endfor %} </ul>
+                <div class="tile is-parent is-3-fullhd is-4-widescreen is-4-desktop is-6-tablet mobile-fix has-image-centered">
+                    <div class="tile is-child card has-background-light">
+                <a href="{% url 'musicvideo_viewer' slug=v.slug %}">
+                    <div class="card-content has-text-centered has-text-dark is-size-5">
+                    {{ v.title }}
+                </div></a></div></div>
+            {% endfor %}
             </div><br>
         {% endif %}
         <div class="is-divider" data-content="&#xf007"></div>

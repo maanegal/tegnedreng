@@ -7,9 +7,9 @@
     <div class="is-divider" data-content="&#xf001"></div>
     <h2 class="subtitle is-3 has-text-centered">Albums</h2>
 
-    <div class="tile is-ancestor" style="flex-wrap: wrap;">
+    <div class="tile is-ancestor">
     {% for album in albums %}
-        <div class="tile is-parent is-3-widescreen is-4-desktop is-6-tablet mobile-fix has-image-centered">
+        <div class="tile is-parent is-3-fullhd is-4-widescreen is-4-desktop is-6-tablet mobile-fix has-image-centered">
             <div class="tile is-child card has-background-light">
               <div class="card-image">
                 <figure class="image">
@@ -19,7 +19,7 @@
               </div>
                 <div class="card-content">
                 <a class="title is-size-4-desktop is-size-5-tablet is-size-4-mobile" href="{% url 'album_viewer' slug=album.slug %}">{{ album.title }}</a>
-                    <p>{{ album.release_date|date:"F j Y" }}</p>
+                    <p>{{ album.release_date|date }}</p>
                 </div>
             </div>
         </div>
@@ -29,15 +29,20 @@
     <br>
     <div class="is-divider" data-content="&#xf001"></div>
     <h2 class="subtitle is-3 has-text-centered">Musikvideoer</h2>
-    <div class="multicol-3"><ul>
+    <div class="tile is-ancestor">
     {% for musicvideo in musicvideos %}
-        <li><a href="{% url 'musicvideo_viewer' slug=musicvideo.slug %}">{{ musicvideo.title }}</a></li>
+        <div class="tile is-parent is-3-fullhd is-4-widescreen is-4-desktop is-6-tablet mobile-fix has-image-centered">
+            <div class="tile is-child card has-background-light">
+        <a href="{% url 'musicvideo_viewer' slug=musicvideo.slug %}">
+            <div class="card-content has-text-centered has-text-dark is-size-5">
+            {{ musicvideo.title }}
+        </div></a></div></div>
     {% endfor %}
-    </ul></div>
+    </div>
     <br>
     <div class="is-divider" data-content="&#xf001"></div>
     <h2 class="subtitle is-3 has-text-centered">Sange</h2>
-    <div class="multicol-3"><ul>
+    <div class="multicols"><ul>
     {% for song in songs %}
         <li><a href="{% url 'song_viewer' slug=song.slug %}">{{ song.title }}</a></li>
     {% endfor %}

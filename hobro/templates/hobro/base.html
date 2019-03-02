@@ -23,18 +23,71 @@
 <body>
 
 <nav class="navbar is-fixed-top is-dark is-transparent trans-bg" {% if request.COOKIES.show_animations != "false" %}style="opacity:0;"{% endif %} role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item navy" href="https://maanegal.dk">
-      <img src="{% get_media_prefix %}/moon_m.png" alt="Månegal Media">
-    </a>
-
     <a role="button" class="navbar-burger burger navy" aria-label="menu" aria-expanded="false" data-target="sideMenu">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
-  </div>
 </nav>
+
+<div class="modal" id="settings-modal">
+  <div class="modal-background" onclick="modalClose('settings-modal')"></div>
+  <div class="modal-content">
+        <h2 class="navbar-item has-text-light has-text-centered">Indstillinger:</h2>
+        <div class="columns is-tablet">
+            <div class="column is-one-third">
+                <div class="has-text-light has-text-centered field">
+                  <input id="switchAnim" type="checkbox" name="switchAnim" class="switch is-rounded is-info"
+                        {% if request.COOKIES.show_animations != "false" %}checked{% endif %}>
+                  <label for="switchAnim" class="navbar-setting">Vis smarte animationer</label>
+                </div>
+                <div class="has-text-light has-text-centered">
+                    <button class="button is-small is-rounded is-light is-outlined tooltip is-tooltip-multiline is-tooltip-bottom" data-tooltip="
+                    Animerede elementer kan slåes fra, til brug på ældre systemer (eller hvis man synes de er irriterende)
+                    "><span class="icon"><i class="fas fa-info"></i></span></button>
+                </div>
+            </div>
+            <div class="column is-one-third">
+                 <p class="navbar-setting has-text-light has-text-centered">Foretrukken musikafspiller:</p>
+                <div class="has-text-light has-text-centered field">
+                  <input class="is-checkradio is-info has-background-color" id="playerBC" type="radio" name="player"
+                        {% if request.COOKIES.use_player != "spotify" %}checked{% endif %}>
+                  <label for="playerBC" class="navbar-setting">Bandcamp</label>
+                  <input class="is-checkradio is-info has-background-color" id="playerSP" type="radio" name="player"
+                        {% if request.COOKIES.use_player == "spotify" %}checked{% endif %}>
+                  <label for="playerSP" class="navbar-setting">Spotify</label>
+                </div>
+                <div class="has-text-light has-text-centered">
+                    <button class="button is-small is-rounded is-light is-outlined tooltip is-tooltip-multiline is-tooltip-bottom" data-tooltip="
+                    Vælg hvilken tjeneste der skal bruges til afspillere på siden. Spotify kræver login, men hjælper med at dække sidens driftsomkostninger
+                    "><span class="icon"><i class="fas fa-info"></i></span></button>
+                </div>
+            </div>
+            <div class="column is-one-third">
+                 <p class="navbar-setting has-text-light has-text-centered">Kommentarspor:</p>
+                <div class="has-text-light has-text-centered field">
+                  <input class="is-checkradio is-info has-background-color" id="commentToggle" type="radio" name="comments"
+                        {% if request.COOKIES.show_comments == "toggle" %}checked
+                        {% elif not request.COOKIES.show_comments %}checked{% endif %}>
+                  <label for="commentToggle" class="navbar-setting">Vælg</label>
+                  <input class="is-checkradio is-info has-background-color" id="commentOff" type="radio" name="comments"
+                        {% if request.COOKIES.show_comments == "off" %}checked{% endif %}>
+                  <label for="commentOff" class="navbar-setting">Skjul</label>
+                  <input class="is-checkradio is-info has-background-color" id="commentOn" type="radio" name="comments"
+                        {% if request.COOKIES.show_comments == "on" %}checked{% endif %}>
+                  <label for="commentOn" class="navbar-setting">Vis</label>
+                </div>
+                <div class="has-text-light has-text-centered">
+                    <button class="button is-small is-rounded is-light is-outlined tooltip is-tooltip-multiline is-tooltip-top is-tooltip-bottom-desktop" data-tooltip="
+                    Siden har et kommentarspor med bag-scenerne-observationer. Det kan vises eller skjules helt — som standard åbnes hver kommentar manuelt
+                    "><span class="icon"><i class="fas fa-info"></i></span></button>
+                </div>
+            </div>
+        </div>
+  </div>
+  <button class="modal-close is-large" onclick="modalClose('settings-modal')" aria-label="close"></button>
+</div>
+
 <div id="sideMenu" class="navbar is-fixed-top navbar-menu is-dark is-transparent side-menu" style="display:none;">
 
 
@@ -56,9 +109,9 @@
         Personerne
       </a>
       <hr>
-      <p id="headset" class="navbar-item has-text-light has-text-centered">
+      <a onclick="modalOpen('settings-modal')" id="headset" class="navbar-item has-text-light has-text-centered">
         Indstillinger:
-        </p>
+        </a>
         <div class="navbar-section">
             <div class="has-text-light has-text-centered field">
               <input id="switchAnim" type="checkbox" name="switchAnim" class="switch is-rounded is-info"

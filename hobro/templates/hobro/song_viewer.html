@@ -79,7 +79,7 @@
         {% endif %}
         {% if song.comment %}
             <div class="column">
-            {% show_comment song.comment request.COOKIES.show_comments  %}
+            {% show_comment song.comment request.COOKIES.show_comments request.COOKIES.motifs_seen  %}
             </div>
         {% endif %}
             </div>
