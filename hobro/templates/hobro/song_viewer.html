@@ -1,6 +1,7 @@
 {% extends 'hobro/base.html' %}
 {% load itemviews %}
 
+{% block title %}{{ song.title }}{% endblock %}
 {% block content %}
 <div class="modal" id="modal_{{ song.slug }}">
   <div class="modal-background" onclick="modalClose('modal_{{ song.slug }}')"></div>

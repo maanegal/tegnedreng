@@ -1,37 +1,41 @@
 {% if pref != "off" %}
     {% if pref == "yellow" %}<div class="is-before-behind"></div>{% endif %}
+
 <div class="comment-container">
-    <div id="closer_{{comment.alias}}" class="comment-closer" {% if pref != "on" %}style="display: none;"{% endif %}>
-        <a class="delete" onclick="commentToggle('{{comment.alias}}', 'btn_{{comment.alias}}', 'closer_{{comment.alias}}')"></a>
-    </div>
+<div id="closer_{{comment.alias}}" class="comment-closer" {% if pref != "on" %}style="display: none;"{% endif %}>
+    <a class="delete" onclick="commentToggle('{{comment.alias}}', 'btn_{{comment.alias}}', 'closer_{{comment.alias}}')"></a>
+</div>
 <div class="background-dark comment-bg"></div>
+
 <section id="{{comment.alias}}" class="section comment-block {% if pref == "on" %}is-behind alive slide-down{% endif %}
-    {% if pref != "on" %}collapsed {% endif %} story is-family-secondary is-size-5 background-dark has-text-light columns is-table is-centered"
+    {% if pref != "on" %}collapsed {% endif %} story is-family-secondary is-size-5 background-dark has-text-light columns is-tablet is-centered"
     {% if pref != "on" %} style="display:none;"{% endif %}>
 
-<div class="column is-6-desktop is-10-tablet darkmode">
-    {{comment.text|safe}}
-    {% for motif in comment.has_motif.all %}
-    <div>
-        <a id="head-{{comment.slug}}-{{motif.slug}}" class="level motif-head" onclick="motifToggle('{{comment.slug}}', '{{motif.slug}}')">
-          <div class="level-left">
-            <div class="level-item">
-              <h2 class="subtitle is-size-4-desktop is-size-5-tablet has-text-light has-text-centered">Gennemgående motiv: {{motif.title}}</h2>
+    <div class="column is-10-tablet is-8-desktop is-6-full-hd darkmode">
+        {{comment.text|safe}}
+        {% for motif in comment.has_motif.all %}
+        <div>
+            <a id="head-{{comment.slug}}-{{motif.slug}}" class="motif-head" onclick="motifToggle('{{comment.slug}}', '{{motif.slug}}')">
+              <div class="motif-head-left">
+                <div class="level-item">
+                  <h2 class="subtitle is-size-4-desktop is-size-5-tablet has-text-light has-text-centered">Gennemgående motiv: {{motif.title}}</h2>
+                </div>
+              </div>
+              <div class="motif-head-right">
+                <span><i class="fas fa-angle-double-up"></i></span>
+              </div>
+            </a>
+            <div class="motif-view {% if motif.slug in motifs_seen %}collapsed{% endif %}" {% if motif in motifs_seen %}style="display:none;"{% endif %} id="{{comment.slug}}-{{motif.slug}}">
+                {{motif.text|safe}}
             </div>
-          </div>
-          <div class="level-right">
-            <span><i class="fas fa-angle-double-down"></i></span>
-          </div>
-        </a>
-        <div class="motif-view {% if motif.slug in motifs_seen %}collapsed{% endif %}" {% if motif in motifs_seen %}style="display:none;"{% endif %} id="{{comment.slug}}-{{motif.slug}}">
-            {{motif.text|safe}}
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 </section>
+
 <div class="comment-toggle">
     <p class="button navy-text is-dark is-rounded" id="btn_{{comment.alias}}" {% if pref == "on" %}style="visibility: collapse;"{% endif %}
        onclick="commentToggle('{{comment.alias}}', 'btn_{{comment.alias}}', 'closer_{{comment.alias}}')"><i class="fas fa-angle-double-down"></i>&nbsp;&nbsp;Vis kommentar</p>
 </div></div>
+
 {% endif %}

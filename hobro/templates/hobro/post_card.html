@@ -1,0 +1,70 @@
+{% if post.photo %}
+<div class="modal" id="modal_{{ post.time_stamp }}">
+  <div class="modal-background" onclick="modalClose('modal_{{ post.time_stamp }}')"></div>
+  <div class="modal-content">
+      <img src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}"/>
+  </div>
+  <button class="modal-close is-large" onclick="modalClose('modal_{{ post.time_stamp }}')" aria-label="close"></button>
+</div>
+{% endif %}
+
+<div class="card">
+    {% if post.photo %}
+      <div class="card-image">
+        <figure class="image">
+          <a onclick="modalOpen('modal_{{ post.time_stamp }}')">
+            <img class="lazy do-shadow" data-src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}"/>
+          </a>
+        </figure>
+      </div>
+    {% endif %}
+    {% if post.video %}
+    <div class="card-image">
+    <video data-src="{{ post.video.url }}" controls="1" height="{{ post.photo.height }}" width="{{ post.photo.width }}">
+        <a href="{{ post.video.url }}"> <img class="lazy" data-src="{{ post.photo.url }}"></a>
+    </video></div>
+    {% endif %}
+  <div class="card-content">
+    <div class="media">
+      <div class="media-left">
+        <figure class="image is-48x48">
+            {% if is_swgrs %}
+                <img src="{{ post.profile.url }}" alt="SWGRS">
+            {% else %}
+                <img src="{{ profilepic.url }}" alt="{{ name }}">
+            {% endif %}
+        </figure>
+      </div>
+      <div class="media-content">
+          <p class="title is-size-5">
+              {% if is_swgrs %}SWGRS{% else %}{{ name }}{% endif %}
+              (id: {{post.get_type}} {{ post.time_stamp }}) {% if not post.link_fb%}FB mangler{%endif%}</p>
+        <p class="subtitle is-size-6 has-text-grey">{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>
+      </div>
+    </div>
+
+    <div class="content">
+      <p>{{ post.text|safe }}</p>
+        {% if post.appears.all %}
+            <p class="has-text-grey is-size-7">I dette opslag:
+            {% for c in post.appears.all %} <span class="tag is-uppercase has-text-grey"><a href="{% url 'character_viewer' slug=c.slug %}">{{ c.name|linebreaksbr }}</a></span> {% endfor %}
+            </p>
+        {% endif %}
+        <p class="lightmode icon-list">
+          <span><a href="{% url 'item_detail' pk=post.pk tp=post.get_type %}">
+            <span class="icon is-small"><i class="fas fa-external-link-alt"></i></span>
+          </a></span>
+          {% if post.link_fb %}
+              <span><a href="{{ post.link_fb }}" target="_blank">
+                <span class="icon is-small"><i class="fab fa-facebook"></i></span>
+              </a></span>
+          {% endif %}
+          {% if post.link_tw %}
+              <span><a href="{{ post.link_tw }}" target="_blank">
+                <span class="icon is-small"><i class="fab fa-twitter"></i></span>
+              </a></span>
+          {% endif %}
+          </p>
+    </div>
+  </div>
+</div>

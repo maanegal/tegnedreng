@@ -1,6 +1,11 @@
 {% extends 'hobro/base.html' %}
 {% load itemviews %}
 
+{% block title %}
+{% if number %}Kapitel {{ number }}
+{% else %}Alle kapitler{% endif %}
+{% endblock %}
+
 {% block content %}
 
     {% for item in items %}

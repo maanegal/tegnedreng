@@ -1,5 +1,7 @@
 {% extends 'hobro/base.html' %}
 
+{% block title %}{{ album.title }}{% endblock %}
+
 {% block content %}
 <div class="modal" id="modal_{{ album.slug }}">
   <div class="modal-background" onclick="modalClose('modal_{{ album.slug }}')"></div>

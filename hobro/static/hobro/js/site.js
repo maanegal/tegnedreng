@@ -219,6 +219,7 @@ function commentToggle(comId, btnId, closerId) {
 function motifToggle(motifId, commentId) {
     var motif = document.getElementById(motifId+'-'+commentId);
     var button = document.getElementById('head-'+motifId+'-'+commentId);
+    var head = button.querySelector('.motif-head-right');
     var anim = showAnimations();
     if ( motif.classList.contains('collapsed') ) {
         if (anim) {
@@ -228,6 +229,7 @@ function motifToggle(motifId, commentId) {
             motif.style.display = "block";
         }
         motif.classList.remove('collapsed');
+        head.innerHTML = '<span><i class="fas fa-angle-double-up"></i></span>';
     } else {
         if (anim) {
             Velocity(motif, { transform: [ "translateY(-20%)", "translateY(0%)" ], opacity: [0, 1], display: 'none' }, {duration: 300, easing: 'ease-in'} );
@@ -236,9 +238,12 @@ function motifToggle(motifId, commentId) {
             motif.style.display = "none";
         }
         motif.classList.add('collapsed');
+        head.innerHTML = '<span><i class="fas fa-angle-double-down"></i></span>';
     }
     var cook = getCookie("motifs_seen");
-    cook += motifId + '/';
+    if(!cook.includes(motifId)){
+        cook += motifId + '/';
+    }
     setCookie("motifs_seen", cook, 14);
 }
 
@@ -254,4 +259,36 @@ window.onload = function() {
       scroll = (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
       progress.style.setProperty('--scroll', scroll + '%');
     });
+}
+
+
+function filterList(queryField, queryList) {
+  // from w3schools
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById(queryField);
+  filter = input.value.toUpperCase();
+  ul = document.getElementById(queryList);
+  li = ul.getElementsByTagName('li');
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+
+function clearText(queryField, queryList)
+{
+    document.getElementById(queryField).value = "";
+      ul = document.getElementById(queryList);
+      li = ul.getElementsByTagName('li');
+    for (i = 0; i < li.length; i++) {
+        li[i].style.display = "";
+      }
 }

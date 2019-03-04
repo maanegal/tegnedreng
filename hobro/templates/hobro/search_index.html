@@ -1,0 +1,40 @@
+{% extends 'hobro/base.html' %}
+
+{% block title %}Søgning og indeks{% endblock %}
+{% block content %}
+    <section class="section columns is-tablet is-centered">
+    <div class="column is-two-thirds is-centered"><div class="box big-box">
+        <div class="tabs is-centered is-large is-boxed">
+          <ul>
+            <li class="is-active"><a href="/indeks/">
+                <span class="icon is-small"><i class="fas fa-search" aria-hidden="true"></i></span>
+                <span>Søg</span></a></li>
+            <li><a href="/hashtags/">
+                <span class="icon is-small"><i class="fas fa-hashtag" aria-hidden="true"></i></span>
+                <span>Hashtags</span></a></li>
+            <li><a>
+                <span class="icon is-small"><i class="fas fa-image" aria-hidden="true"></i></span>
+                <span>Galleri</span></a></li>
+          </ul>
+        </div>
+        <br>
+        <div class="columns is-centered">
+            <div class="column is-half">
+                <div class="field has-addons">
+                  <div class="control is-expanded">
+                    <input class="input" type="text" id="tag-input" onkeyup="filterList('tag-input', 'tag-list')" placeholder="Søg...">
+                      <span class="clear-input"><span class="control"><a class="delete" onclick="clearText('tag-input', 'tag-list')"></a></span></span>
+                  </div>
+                  <div class="control">
+                      <button class="button is-info" type="submit">
+                          <span class="icon"><i class="fas fa-search"></i></span>
+                      </button>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="is-divider" data-content="&#xf002"></div>
+    </div>
+</section>
+{% endblock %}

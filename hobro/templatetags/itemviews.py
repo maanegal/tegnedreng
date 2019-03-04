@@ -33,6 +33,13 @@ def show_postvideo(postvideo):
             'layout_outer': outer, 'layout_inner': inner}
 
 
+@register.inclusion_tag('hobro/post_card.html')
+def show_post_card(post, swgrs=False):
+    info = get_current_info(post.time_stamp)
+    dt = datetime.fromtimestamp(post.time_stamp)
+    return {'post': post, 'name': info.get('name', ''), 'profilepic': info.get('photo', ''), 'post_time': dt, 'is_swgrs': swgrs}
+
+
 @register.inclusion_tag('hobro/section.html')
 def show_section(section):
     return {'section': section}
@@ -57,8 +64,11 @@ def show_swgrspost(swgrspost):
     dt = datetime.fromtimestamp(swgrspost.time_stamp)
     outer, inner = get_layout(swgrspost.layout)
     yt = ""
-    if swgrspost.link_yt:
-        yt = make_youtube_embed(swgrspost)
+    try:
+        if swgrspost.link_yt:
+            yt = make_youtube_embed(swgrspost)
+    except:
+        yt = ""
     return {'swgrspost': swgrspost, 'post_time': dt, 'yt_embed': yt, 'layout_outer': outer, 'layout_inner': inner}
 
 

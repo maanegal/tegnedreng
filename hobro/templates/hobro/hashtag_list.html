@@ -1,17 +1,38 @@
 {% extends 'hobro/base.html' %}
 
+{% block title %}Søgning og indeks{% endblock %}
 {% block content %}
     <section class="section columns is-tablet is-centered">
-    <div class="column is-two-thirds is-centered"><div class="box">
+    <div class="column is-two-thirds is-centered"><div class="box big-box">
+        <div class="tabs is-centered is-large is-boxed">
+          <ul>
+            <li><a href="/indeks/">
+                <span class="icon is-small"><i class="fas fa-search" aria-hidden="true"></i></span>
+                <span>Søg</span></a></li>
+            <li class="is-active"><a href="/hashtags/">
+                <span class="icon is-small"><i class="fas fa-hashtag" aria-hidden="true"></i></span>
+                <span>Hashtags</span></a></li>
+            <li><a>
+                <span class="icon is-small"><i class="fas fa-image" aria-hidden="true"></i></span>
+                <span>Galleri</span></a></li>
+          </ul>
+        </div>
         <br>
-        <h1 class="title is-size-2-desktop is-size-3-tablet has-text-centered">Hashtags</h1>
-<div class="is-divider" data-content="&#xf007"></div>
-    <div class="multicol-3"><ul>
+        <div class="columns is-centered"><div class="column is-half">
+        <div class="field "><div class="control has-icons-left">
+            <input class="input" type="text" id="tag-input" onkeyup="filterList('tag-input', 'tag-list')" placeholder="Søg...">
+            <span class="icon is-small is-left"><i class="fas fa-search"></i></span>
+            <span class="clear-input"><span class="control"><a class="delete" onclick="clearText('tag-input', 'tag-list')"></a></span></span>
+        </div>
+        </div>
+        </div></div>
+        <br>
+    <div class="multicols" id="tag-list"><ul>
     {% for hashtag in hashtags %}
         <li><a href="/hashtag/{{hashtag.slug}}">{{hashtag.name}}</a></li>
     {% endfor %}
     </ul></div>
 
-        <div class="is-divider" data-content="&#xf007"></div>
+        <div class="is-divider" data-content="&#xf292"></div>
 </div></section>
 {% endblock %}

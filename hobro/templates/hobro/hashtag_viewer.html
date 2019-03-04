@@ -1,44 +1,68 @@
 {% extends 'hobro/base.html' %}
 {% load itemviews %}
 
+{% block title %}Hashtag {{hashtag.name}}{% endblock %}
 {% block content %}
 <section class="hero">
   <div class="hero-body">
-    <div class="container has-text-centered">
+      <div class="container has-text-centered">
+      <a class="button is-dark is-small navy-text backlink" href="/hashtags/">
+            <span class="icon is-small"><i class="fas fa-long-arrow-alt-left"></i></span>
+              <span>Alle hashtags</span></a>
       <h1 class="title is-2 has-text-light">Ting tagget med {{ hashtag.name }}</h1>
     </div>
   </div>
 </section>
-
-        {% if hashtag.tagged_in_post.all %}
-            <h2 class="subtitle is-3 has-text-centered has-text-light">Opslag:</h2>
-            {% for post in hashtag.tagged_in_post.all %}
-                {% show_post post %}
-            {% endfor %}
-        {% endif %}
-        {% if hashtag.tagged_in_postphoto.all %}
-            <h2 class="subtitle is-3 has-text-centered has-text-light">Billeder:</h2>
-            {% for post in hashtag.tagged_in_postphoto.all %}
-                {% show_post post %}
-            {% endfor %}
-        {% endif %}
-        {% if hashtag.tagged_in_postvideo.all %}
-            <h2 class="subtitle is-3 has-text-centered has-text-light">Videoer:</h2>
-            {% for post in hashtag.tagged_in_postvideo.all %}
-                {% show_post post %}
-            {% endfor %}
-        {% endif %}
-        {% if hashtag.tagged_in_swgrs_post.all %}
-            <h2 class="subtitle is-3 has-text-centered has-text-light">Opslag fra SWGRS:</h2>
-            {% for post in hashtag.tagged_in_swgrs_post.all %}
-                {% show_swgrspost post %}
-            {% endfor %}
-        {% endif %}
-        {% if hashtag.tagged_in_swgrs_media.all %}
-            <h2 class="subtitle is-3 has-text-centered has-text-light">Billeder fra SWGRS:</h2>
-            {% for post in hashtag.tagged_in_swgrs_media.all %}
-                {% show_swgrspost post %}
-            {% endfor %}
-        {% endif %}
-    </div>
+<div class="columns is-tablet is-centered"><div class="column is-8-widescreen is-10-desktop">
+{% if hashtag.tagged_in_post.all %}
+    <h2 class="subtitle is-3 has-text-centered has-text-light">Opslag:</h2>
+    <div class="tile is-ancestor">
+    {% for post in hashtag.tagged_in_post.all %}
+        <div class="tile is-parent is-4-fullhd is-6-widescreen is-6-desktop is-6-tablet mobile-fix has-image-centered">
+        <div class="tile is-child">
+        {% show_post_card post %}
+        </div></div>
+    {% endfor %}</div>
+{% endif %}
+{% if hashtag.tagged_in_postphoto.all %}
+    <h2 class="subtitle is-3 has-text-centered has-text-light">Billeder:</h2>
+    <div class="tile is-ancestor">
+    {% for post in hashtag.tagged_in_postphoto.all %}
+        <div class="tile is-parent is-4-fullhd is-6-widescreen is-6-desktop is-6-tablet mobile-fix has-image-centered">
+        <div class="tile is-child">
+        {% show_post_card post %}
+        </div></div>
+    {% endfor %}</div>
+{% endif %}
+{% if hashtag.tagged_in_postvideo.all %}
+    <h2 class="subtitle is-3 has-text-centered has-text-light">Videoer:</h2>
+    <div class="tile is-ancestor">
+    {% for post in hashtag.tagged_in_postvideo.all %}
+        <div class="tile is-parent is-4-fullhd is-6-widescreen is-6-desktop is-6-tablet mobile-fix has-image-centered">
+        <div class="tile is-child">
+        {% show_post_card post %}
+        </div></div>
+    {% endfor %}</div>
+{% endif %}
+{% if hashtag.tagged_in_swgrs_post.all %}
+    <h2 class="subtitle is-3 has-text-centered has-text-light">Opslag fra SWGRS:</h2>
+    <div class="tile is-ancestor">
+    {% for post in hashtag.tagged_in_swgrs_post.all %}
+        <div class="tile is-parent is-4-fullhd is-6-widescreen is-6-desktop is-6-tablet mobile-fix has-image-centered">
+        <div class="tile is-child">
+        {% show_post_card post True %}
+        </div></div>
+    {% endfor %}</div>
+{% endif %}
+{% if hashtag.tagged_in_swgrs_media.all %}
+    <h2 class="subtitle is-3 has-text-centered has-text-light">Billeder fra SWGRS:</h2>
+    <div class="tile is-ancestor">
+    {% for post in hashtag.tagged_in_swgrs_media.all %}
+        <div class="tile is-parent is-4-fullhd is-6-widescreen is-6-desktop is-6-tablet mobile-fix has-image-centered">
+        <div class="tile is-child">
+        {% show_post_card post True %}
+        </div></div>
+    {% endfor %}</div>
+{% endif %}
+</div></div>
 {% endblock %}

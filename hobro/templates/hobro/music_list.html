@@ -1,5 +1,6 @@
 {% extends 'hobro/base.html' %}
 
+{% block title %}Musik{% endblock %}
 {% block content %}
     <section class="section columns is-tablet is-centered">
     <div class="column is-two-thirds is-centered"><div class="box big-box">
@@ -41,8 +42,17 @@
     </div>
     <br>
     <div class="is-divider" data-content="&#xf001"></div>
-    <h2 class="subtitle is-3 has-text-centered">Sange</h2>
-    <div class="multicols"><ul>
+    <div class="columns is-desktop is-centered is-stacked-on-mobile">
+        <div class="column is-one-third empty-column"></div>
+        <div class="column is-one-third has-text-centered"><h2 class="subtitle is-3 has-text-centered">Sange</h2></div>
+        <div class="column is-half is-half-mobile is-one-third-desktop">
+            <div class="field "><div class="control has-icons-left">
+                <input class="input" type="text" id="song-input" onkeyup="filterList('song-input', 'song-list')" placeholder="Søg...">
+                <span class="icon is-small is-left"><i class="fas fa-search"></i></span>
+                <span class="clear-input"><span class="control"><a class="delete" onclick="clearText('song-input', 'song-list')"></a></span></span></div>
+            </div>
+        </div></div>
+    <div class="multicols" id="song-list"><ul>
     {% for song in songs %}
         <li><a href="{% url 'song_viewer' slug=song.slug %}">{{ song.title }}</a></li>
     {% endfor %}

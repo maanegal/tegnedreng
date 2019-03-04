@@ -1,0 +1,26 @@
+{% extends 'hobro/base.html' %}
+{% load itemviews %}
+
+{% block title %}Rulletekster{% endblock %}
+{% block content %}
+<section class="hero is-info is-bold is-fullheight">
+    <div class="hero-body">
+        <div class="container is-family-secondary has-text-centered">
+        <h1 class="title is-capitalized is-size-1-desktop is-size-2-tablet is-size-2-mobile txt-shadow">Om denne side</h1>
+        <h2 class="subtitle is-size-2-desktop is-size-3-tablet is-size-3-mobile txt-shadow">Whatever</h2>
+            <br>
+
+    </div>
+    </div>
+      <div id="svend" class="hero-foot">
+          <div style="text-align: center; padding:30px;">
+            <a href="{% url 'item_page' number=1 %}" class="button navy-text is-medium is-white is-outlined is-rounded do-shadow" style="margin:15px">
+                <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-book-open"></i></span>
+                Læs historien</a>
+            <a href="{% url 'music_list' %}" class="button navy-text is-medium is-light is-outlined is-rounded do-shadow" style="margin:15px">
+                <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-music"></i></span>
+                Hør musikken</a>
+        </div><br>
+      </div>
+</section>
+{% endblock %}
