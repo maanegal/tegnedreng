@@ -386,10 +386,8 @@ def process_tree(item={}):
                 text = body
             else:
                 return None
-        html = markdown(text)
-        html = make_links(html)
-        html = make_hashtags(html, alias, element)
-        html = make_mentions(html)
+        html = markdown(text, extensions=['smarty'])
+        #html = make_links(html)
         layout = item.get('layout', '')
         if layout:
             layout = layout[0]
@@ -526,7 +524,7 @@ def process_tree(item={}):
                 text = body
             else:
                 text = ""
-        html = markdown(text)
+        html = markdown(text, extensions=['smarty'])
         html = make_screenplay(html)
         html = make_hashtags(html, alias, element)
         html = make_mentions(html)
@@ -548,7 +546,7 @@ def process_tree(item={}):
                 text = body
             else:
                 return None
-        html = markdown(text)
+        html = markdown(text, extensions=['smarty'])
         html = make_screenplay(html)
         html = make_hashtags(html, alias, element)
         html = make_mentions(html)

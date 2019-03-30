@@ -1,3 +1,11 @@
+<div class="modal" id="modal_{{ profileevent.time_stamp }}">
+  <div class="modal-background" onclick="modalClose('modal_{{ profileevent.time_stamp }}')"></div>
+  <div class="modal-content">
+      <img src="{{ profileevent.photo.url }}" height="{{ profileevent.photo.height }}" width="{{ profileevent.photo.width }}"/>
+  </div>
+  <button class="modal-close is-large" onclick="modalClose('modal_{{ profileevent.time_stamp }}')" aria-label="close"></button>
+</div>
+
 <section id="{{ profileevent.time_stamp }}" class="section columns is-tablet {{ layout_outer }}">
 <div class="column has-text-centered has-image-centered alive slide {{ layout_inner }}">
     <div class="box">
@@ -5,6 +13,7 @@
     <h3 class="title">{{ profileevent.page_name }} (id: {{profileevent.get_type}} {{ profileevent.time_stamp }})</h3>
     <p class="subtitle is-6 has-text-grey">{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>
     <p>{{ profileevent.text|safe }}</p>
-    <figure class="image"><img src="{{ profileevent.photo.url }}" class="image has-image-centered" style="max-width: 500px;" alt="{{ profileevent.page_name }}"></figure>
+    <figure class="image"><a onclick="modalOpen('modal_{{ profileevent.time_stamp }}')">
+        <img src="{{ profileevent.photo.url }}" class="image has-image-centered" style="max-width: 500px;" alt="{{ profileevent.page_name }}"></a></figure>
 </div></div>
 </section>

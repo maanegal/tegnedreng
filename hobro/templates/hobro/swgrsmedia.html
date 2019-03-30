@@ -1,3 +1,11 @@
+<div class="modal" id="modal_{{ post.time_stamp }}">
+  <div class="modal-background" onclick="modalClose('modal_{{ post.time_stamp }}')"></div>
+  <div class="modal-content">
+      <img src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}"/>
+  </div>
+  <button class="modal-close is-large" onclick="modalClose('modal_{{ post.time_stamp }}')" aria-label="close"></button>
+</div>
+
 <article id="{{ post.time_stamp }}" class="section is-medium columns is-tablet is-gapless {{ layout_outer }}">
   <div class="column is-one-third-desktop is-half-tablet starts-transparent alive slide post-img">
     {% if video %}
@@ -5,7 +13,9 @@
             <a href="{{ video }}"> <img class="lazy" data-src="{{ post.photo.url }}"></a>
         </video>
     {% else %}
+      <a onclick="modalOpen('modal_{{ post.time_stamp }}')">
         <img class="lazy do-shadow" data-src="{{ post.photo.url }}" style="width: 100%;" height="{{ post.photo.height }}" width="{{ post.photo.width }}"/>
+        </a>
     {% endif %}
   </div>
   <div class="column alive slide-long  is-one-third-desktop is-half-tablet">
@@ -26,6 +36,11 @@
           <li><a href="{% url 'item_detail' pk=post.pk tp=post.get_type %}">
             <span class="icon is-small"><i class="fas fa-external-link-alt"></i></span>
           </a></li>
+          {% if post.link_fb %}
+              <li><a href="{{ post.link_fb }}">
+                <span class="icon is-small"><i class="fab fa-facebook"></i></span>
+              </a></li>
+          {% endif %}
           </ul>
       </div>
     </div>

@@ -70,43 +70,70 @@ function setCommentPref() {
 }
 
 
+
+function toggleShowMenu() {
+    var sideMenu = document.getElementById("sideMenu");
+    var menuOverlay = document.getElementById("menuOverlay");
+    var menuButton = document.getElementById("menuButton");
+    menuButton.classList.toggle('is-active');
+    var anim = showAnimations();
+    if (sideMenu.style.display === "none") { // open menu
+        if (anim) {
+            // From right
+            Velocity(sideMenu, { transform: [ "translate(0%)", "translate(100%)" ], opacity: [ 1, 0 ], display: ['block', 'none'] }, 150, "ease-out");
+            // From left
+            //Velocity(sideMenu, { transform: [ "translate(0%)", "translate(-100%)" ], opacity: [ 1, 0 ], display: ['block', 'none'] }, 150, "ease-out");
+            Velocity(menuOverlay, { opacity: [ 1, 0 ], display: ['block', 'none'] }, 250, "ease-in");
+        } else {
+            sideMenu.style.display = "block";
+            menuOverlay.style.display = "block";
+        }
+        disableScroll();
+        document.onkeyup = function(evt) {
+            evt = evt || window.event;
+            var isEscape = false;
+            if ("key" in evt) {
+                isEscape = (evt.key === "Escape" || evt.key === "Esc");
+            } else {
+                isEscape = (evt.keyCode === 27);
+            }
+            if (isEscape) {
+                toggleShowMenu();
+            }
+        };
+    } else { // close menu
+        if (anim) {
+            // From right
+            Velocity(sideMenu, { transform: ["translate(100%)", "translate(0%)"], opacity: [ 0, 1 ], display: ['none', 'block'] }, 150, "ease-in");
+            // From left
+            //Velocity(sideMenu, { transform: ["translate(-100%)", "translate(0%)"], opacity: [ 0, 1 ], display: ['none', 'block'] }, 150, "ease-in");
+            Velocity(menuOverlay, { opacity: [ 0, 1 ], display: ['none', 'block'] }, 250, "ease-out");
+        } else {
+            sideMenu.style.display = "none";
+            menuOverlay.style.display = "none";
+        }
+        enableScroll();
+        document.onkeyup = null;
+    }
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
+    // fading nav in on page load
     var anim = showAnimations();
     var klaus = document.getElementsByTagName("nav");
     if ( anim ) { Velocity(klaus, { opacity: [1, 0] }, {duration: 1000, easing: 'ease-in'} ); }
 //Velocity(klaus, { opacity: [1, 0] }, {duration: 1000, easing: 'ease-in'} );
 
   // Get all "navbar-burger" elements
-  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.nav-toggle'), 0);
 
   // Check if there are any navbar burgers
   if ($navbarBurgers.length > 0) {
 
     // Add a click event on each of them
     $navbarBurgers.forEach($el => {
-      $el.addEventListener('click', function () {
-
-        // Get the target from the "data-target" attribute
-        const target = $el.dataset.target;
-        const $target = document.getElementById(target);
-
-        // Toggle the class on both the "navbar-burger" and the "navbar-menu"
-        $el.classList.toggle('is-active');
-        //$target.classList.toggle('is-active');
-        var sideMenu = document.getElementById("sideMenu");
-        var anim = showAnimations();
-        if (anim) {
-            if (sideMenu.style.display === "none") {
-                Velocity(sideMenu, { transform: [ "translate(0)", "translate(100%)" ], opacity: [ 1, 0 ], display: ['block', 'none'] }, 150, "ease-out")
-            } else {
-                Velocity(sideMenu, { transform: ["translate(100%)", "translate(0)"], opacity: [ 0, 1 ], display: ['none', 'block'] }, 150, "ease-in")
-            }
-         } else {
-            if (sideMenu.style.display === "none") {
-                sideMenu.style.display = "block";
-            } else { sideMenu.style.display = "none"; }
-             $target.classList.add('is-active'); }
-      });
+      $el.addEventListener('click', toggleShowMenu);
     });
   }
 });
@@ -178,7 +205,7 @@ function modalClose(modalId) {
     modal.classList.remove('activated');
     var anim = showAnimations();
     if (anim) {
-        Velocity(modal, { opacity: [0, 1], display: 'none' }, {duration: 300, easing: 'ease-out'} );
+        Velocity(modal, { opacity: [0, 1], display: 'none' }, {duration: 500, easing: 'ease-in'} );
     } else {
         modal.style.opacity = "0";
         modal.style.display = "none";
@@ -245,6 +272,7 @@ function motifToggle(motifId, commentId) {
         cook += motifId + '/';
     }
     setCookie("motifs_seen", cook, 14);
+    console.log("motivation");
 }
 
 window.onload = function() {

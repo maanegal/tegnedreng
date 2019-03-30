@@ -13,7 +13,8 @@
             <p class="subtitle is-6 has-text-grey">{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>
             <p>{{ swgrspost.text|safe }}</p>
             {% if yt_embed %}
-                {{ yt_embed|safe }}
+                <div class="youtube-embed">
+                {{ yt_embed|safe }}</div>
             {% endif %}
         </div>
       </div>

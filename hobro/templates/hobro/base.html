@@ -22,14 +22,6 @@
     </head>
 <body>
 
-<nav class="navbar is-fixed-top is-dark is-transparent trans-bg" {% if request.COOKIES.show_animations != "false" %}style="opacity:0;"{% endif %} role="navigation" aria-label="main navigation">
-    <a role="button" class="navbar-burger burger navy" aria-label="menu" aria-expanded="false" data-target="sideMenu">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-</nav>
-
 <div class="modal" id="settings-modal">
   <div class="modal-background" onclick="modalClose('settings-modal')"></div>
   <div class="modal-content" style="display:block;">
@@ -103,8 +95,15 @@
   <button class="modal-close is-large" onclick="modalClose('settings-modal')" aria-label="close"></button>
 </div>
 
-
-<div id="sideMenu" class="navbar is-fixed-top navbar-menu is-dark is-transparent side-menu" style="display:none;">
+<nav class="navbar is-fixed is-dark is-transparent trans-bg" {% if request.COOKIES.show_animations != "false" %}style="opacity:0;"{% endif %} role="navigation" aria-label="main navigation">
+    <a id="menuButton" role="button" class="navbar-burger nav-toggle burger navy" aria-label="menu" aria-expanded="false" data-target="sideMenu">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+</nav>
+<div id="menuOverlay" class="menu-overlay nav-toggle"></div>
+<div id="sideMenu" class="navbar is-fixed navbar-menu is-dark is-transparent side-menu" style="display:none;">
 <div class="navbar-contents">
     <div class="navbar-top">
           <a class="navbar-item has-text-light has-text-centered" href="/">
@@ -134,7 +133,7 @@
           </div>
     <div class="navbar-bottom">
       <a onclick="modalOpen('settings-modal')" id="headset" class="navbar-item has-text-light has-text-centered">
-        <span class="icon is-small" style="margin-right:7px;"><i class="fa fa-cog"></i></span>Vis indstillinger</a>
+        <span class="icon is-small" style="margin-right:7px;"><i class="fa fa-cog"></i></span>Sideindstillinger</a>
     <a class="navbar-item has-text-centered has-text-light has-image-centered" href="https://maanegal.dk">Et projekt fra
         <img src="{% get_media_prefix %}/moon_full.png" alt="Månegal Media"></a>
     </div>

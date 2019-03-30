@@ -1,3 +1,187 @@
+/*
+** NAVIGATION **
+*/
+
+
+nav {
+    min-height: 3.25rem;
+    z-index: 30 !important;
+}
+
+
+.trans-bg {
+    background-color: rgba(255, 255, 255, 0) !important;
+    color: whitesmoke;
+}
+
+
+.side-menu {
+    left: unset !important;
+    z-index: 29;
+    background-color: rgba(8, 8, 8, 0.5) !important;
+}
+
+
+.menu-overlay {
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 28;
+    display:none;
+    bottom: 0;
+    backdrop-filter: blur(2px) grayscale(80%);
+    -webkit-backdrop-filter: blur(2px) grayscale(80%);
+}
+
+
+.navbar.is-fixed {
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+
+.navy {
+    transition: 0.2s ease-in;
+}
+
+.navy:hover {
+    background-color: rgba(102, 102, 102, 0.2) !important;
+    border-radius: 30px;
+    transition: 0.2s ease-in;
+}
+
+
+
+.navbar-burger span {
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
+}
+
+.navbar-menu {
+    height: 100vh;
+    overflow: auto;
+    width: 285px;
+    float: right;
+    padding-top: 3rem;
+    padding-bottom: 0rem;
+    overflow: hidden;
+}
+
+.navy-text {
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.navbar-contents {
+    display:flex;
+    flex-flow: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.navbar-top, .navbar-bottom {
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.navbar-top {
+    align-content: flex-start;
+}
+
+.navbar-bottom {
+    align-content: flex-end;
+}
+
+.navbar-item {
+    text-transform: uppercase;
+    font-weight: 800;
+    padding: 1rem 0.75rem;
+    font-size: 1.1rem;
+}
+
+.navbar-item img {
+    max-height: 3rem;
+}
+
+@media screen and (max-width: 768px) {
+    .navbar-item {
+        padding: 0.75rem 0.75rem;
+        font-size: 1rem;
+    }
+    .navbar-item img {
+        max-height: 2.5rem;
+    }
+}
+
+
+.navbar-setting {
+    font-weight: 700;
+    padding: 1rem 0rem;
+}
+
+
+.navbar-controls {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: start;
+}
+
+
+.navbar-control {
+    padding: 0.5em 0em;
+}
+
+
+
+
+a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.is-active {
+    background-color: rgba(102, 102, 102, 0.2);
+}
+
+#settings-modal .modal-content {
+    padding: 3em;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px) grayscale(80%);
+    -webkit-backdrop-filter: blur(10px) grayscale(80%);
+    border-radius: 15px;
+}
+
+
+/* MODAL */
+.modal-background {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: unset;
+    text-align: center;
+    background-color: black;
+}
+
+.modal-content img {
+    height: auto;
+    max-width: 100%;
+    width: auto;
+    max-height: 100%;
+}
+
+.stop-scrolling {
+  height: 100%;
+
+  overflow-x: hidden;
+}
+
+
+/*
+** OTHER STUFF **
+*/
+
 .icon-list {
     list-style-type: none;
     margin: 0;
@@ -18,6 +202,7 @@
   overflow: hidden;
   padding-top: 56.25%;
   position: relative;
+  text-align: center;
 }
 
 .youtube-embed iframe {
@@ -98,14 +283,9 @@
 }
 
 
-.navbar.is-fixed-top {
-    left: unset;
-}
 
 
-.trans-bg {
-    background-color: rgba(255, 255, 255, 0) !important;
-}
+
 
 .do-shadow {
     box-shadow: 0 2px 3px rgba(10, 10, 10, 0.3);
@@ -115,115 +295,6 @@
     text-shadow: 0 2px 3px rgba(10, 10, 10, 0.3);
 }
 
-.navy {
-    transition: 0.2s ease-in;
-}
-
-.navy:hover {
-    background-color: rgba(102, 102, 102, 0.2) !important;
-    border-radius: 30px;
-    transition: 0.2s ease-in;
-}
-
-.navbar-burger span {
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
-}
-
-.navbar-menu {
-    height: 100vh;
-    overflow: auto;
-    width: 285px;
-    float: right;
-    padding-top: 3rem;
-    padding-bottom: 0rem;
-    overflow: hidden;
-}
-
-.navy-text {
-    text-transform: uppercase;
-    font-weight: 700;
-}
-
-.navbar-contents {
-    display:flex;
-    flex-flow: column;
-    height: 100%;
-    justify-content: space-between;
-}
-
-.navbar-top, .navbar-bottom {
-    flex-basis: auto;
-    flex-grow: 0;
-    flex-shrink: 0;
-}
-
-.navbar-top {
-    align-content: flex-start;
-}
-
-.navbar-bottom {
-    align-content: flex-end;
-}
-
-.navbar-item {
-    text-transform: uppercase;
-    font-weight: 800;
-    padding: 1rem 0.75rem;
-    font-size: 1.1rem;
-}
-
-.navbar-item img {
-    max-height: 3rem;
-}
-
-@media screen and (max-width: 768px) {
-    .navbar-item {
-        padding: 0.75rem 0.75rem;
-        font-size: 1rem;
-    }
-    .navbar-item img {
-        max-height: 2.5rem;
-    }
-}
-
-
-.navbar-setting {
-    font-weight: 700;
-    padding: 1rem 0rem;
-}
-
-
-.navbar-controls {
-    display: flex;
-    flex-flow: wrap;
-    justify-content: center;
-}
-
-
-.navbar-control {
-    padding: 0.5em 0em;
-}
-
-
-.side-menu {
-    left: unset !important;
-    z-index: 29 !important;
-    background-color: rgba(38, 38, 38, 0.9) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.is-active {
-    background-color: rgba(102, 102, 102, 0.2);
-}
-
-#settings-modal .modal-content {
-    padding: 3em;
-    background-color: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 15px;
-}
 
 
 
@@ -287,32 +358,7 @@ img:not([src]) {
     transition: opacity 1s;
 }
 
-.modal-background {
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-}
 
-.modal-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: unset;
-    text-align: center;
-    background-color: black;
-}
-
-.modal-content img {
-    height: auto;
-    max-width: 100%;
-    width: auto;
-    max-height: 100%;
-}
-
-.stop-scrolling {
-  height: 100%;
-
-  overflow-x: hidden;
-}
 
 /* When setting background per item in feed, some  items had a gap after  */
 .columns {
@@ -543,10 +589,13 @@ a img:hover {
 }
 
 .comment-bg {
-    height: 200%;
     z-index: -2;
-    position: absolute;
     width: 100%;
+    /*height: 200%;
+    position: absolute;*/
+    height: 100vh;
+    position: fixed;
+    bottom: 0;
 }
 
 .comment-block ul {
@@ -700,8 +749,10 @@ blockquote::before{
     margin-bottom: 1em;
 }
 
-.manus {
-    padding: 2em;
+@media screen and (min-width: 768px) {
+    .manus {
+        padding: 2em;
+    }
 }
 
 .manus h4 {
@@ -770,3 +821,4 @@ blockquote::before{
 .empty-column {
     padding: 0;
 }
+

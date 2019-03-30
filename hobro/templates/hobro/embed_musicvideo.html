@@ -13,7 +13,7 @@
         {% for c in musicvideo.appears.all %} <span class="tag is-uppercase has-text-grey"><a href="{% url 'character_viewer' slug=c.slug %}">{{ c.name|linebreaksbr }}</a></span> {% endfor %}
         </p><br>
     {% endif %}
-    <div class="youtube-embed" style="text-align: center;">
+    <div class="youtube-embed">
     {{ embed_code|safe }}</div>
 </div></div>
 </article>
