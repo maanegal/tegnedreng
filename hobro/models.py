@@ -224,6 +224,7 @@ class SwgrsPost(models.Model):
     profile = models.ImageField(default="swgrs/profile.jpg")
     link_fb = models.CharField(max_length=100, null=True)  # facebook post id
     layout = models.CharField(max_length=30, default='')  # how the post should appear. Select from html presets
+    appears = models.ManyToManyField(Character)  # hardcode to swiggers during ingest
 
     def save(self, *args, **kwargs):
         self.slug = slugify(str(self.time_stamp))
@@ -245,6 +246,7 @@ class SwgrsMedia(models.Model):
     video_title = models.CharField(max_length=160, null=True)  # title of video
     link_fb = models.CharField(max_length=100, null=True)  # facebook post id
     layout = models.CharField(max_length=30, default='')  # how the post should appear. Select from html presets
+    appears = models.ManyToManyField(Character)  # hardcode to swiggers during ingest
 
     def save(self, *args, **kwargs):
         self.slug = slugify(str(self.time_stamp))
@@ -269,6 +271,7 @@ class SwgrsSong(models.Model):
     text = models.TextField()  # description
     sc_embed_code = models.CharField(max_length=100)  # code used for spotify embeds
     link_sc = models.CharField(max_length=100, null=True)  # soundcloud
+    appears = models.ManyToManyField(Character, related_name='appears_on_sw_song')  # hardcode to swiggers during ingest
 
     def save(self, *args, **kwargs):
         self.slug = slugify(str(self.title))

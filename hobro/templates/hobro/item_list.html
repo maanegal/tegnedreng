@@ -39,11 +39,14 @@
             {% show_comment item.comment comment_pref motifs_seen %}
         {% endif %}
     {% endfor %}
+    <div class="section is-medium has-background-dark is-raised has-text-centered">
     {% if next %}
-        <div class="section is-medium has-background-dark is-raised has-text-centered">
-            <a href="{% url 'item_page' number=next %}" class="button alive fade navy-text is-medium is-dark is-inverted is-rounded">Videre til kapitel {{next}}</a>
-        </div>
+        <a href="{% url 'item_page' number=next %}" class="button alive fade navy-text is-medium is-dark is-inverted is-rounded">Videre til kapitel {{next}}</a>
+    {% elif %}
+        <h1 class="is-3">Her slutter historien</h1>
+        <a href="{% url 'music_list' %}" class="button alive fade navy-text is-medium is-dark is-inverted is-rounded">Udforsk musikken</a>
     {% endif %}
+    </div>
 
 <script>
     window.onload = function(){

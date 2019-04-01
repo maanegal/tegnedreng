@@ -79,10 +79,11 @@ def musicvideo_viewer(request, slug):
 def music_list(request):
     albums = Album.objects.order_by('release_date')
     songs = Song.objects.order_by('title')
+    swgrs = SwgrsSong.objects.order_by('title')
     musicvideos = MusicVideo.objects.order_by('title')
     characters = Character.objects.order_by('name')
     return render(request, 'hobro/music_list.html', {'albums': albums, 'songs': songs, 'musicvideos': musicvideos,
-                                                     'characters': characters})
+                                                     'characters': characters, 'swgrs': swgrs})
 
 
 def character_list(request):
@@ -92,7 +93,8 @@ def character_list(request):
 
 def character_viewer(request, slug):
     character = get_object_or_404(Character, slug=slug)
-    posts = list(character.post_set.all()) + list(character.postphoto_set.all()) + list(character.postvideo_set.all())
+    posts = list(character.post_set.all()) + list(character.postphoto_set.all()) + list(character.postvideo_set.all()) \
+            + list(character.swgrspost_set.all()) + list(character.swgrsmedia_set.all())
     return render(request, 'hobro/character_viewer.html', {'character': character, 'posts': posts})
 
 

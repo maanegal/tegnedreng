@@ -4,9 +4,9 @@
     {% if kind == "character" %}
         {% embed_character itemembed.target_character.all %}
     {% elif kind == "song" %}
-        {% embed_song itemembed.target_song.all %}
+        {% embed_song itemembed.target_song.all itemembed.layout %}
     {% elif kind == "album" %}
-        {% embed_album itemembed.target_album.all %}
+        {% embed_album itemembed.target_album.all itemembed.layout %}
     {% elif kind == "musicvideo" %}
         {% embed_musicvideo itemembed.target_musicvideo.all %}
     {% elif kind == "swgrs_song" %}

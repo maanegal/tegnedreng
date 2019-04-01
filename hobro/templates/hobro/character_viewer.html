@@ -30,12 +30,22 @@
         </div></div>
         </div>
         <div class="is-divider" data-content="&#xf007"></div>
-        <h3 class="subtitle has-text-centered">Optræder på disse sange:</h3>
-        <div class="multicols"><ul>
-            {% for s in character.appears_on_song.all %}
-                <li> <a href="{% url 'song_viewer' slug=s.slug %}">{{ s.title }}</a></li>
-            {% endfor %} </ul>
-        </div><br>
+        {% if character.appears_on_song.all %}
+            <h3 class="subtitle has-text-centered">Optræder på disse sange:</h3>
+            <div class="multicols"><ul>
+                {% for s in character.appears_on_song.all %}
+                    <li> <a href="{% url 'song_viewer' slug=s.slug %}">{{ s.title }}</a></li>
+                {% endfor %} </ul>
+            </div><br>
+        {% endif %}
+        {% if character.appears_on_sw_song.all %}
+            <h3 class="subtitle has-text-centered">Optræder på disse numre fra SWGRS:</h3>
+            <div class="multicols"><ul>
+                {% for s in character.appears_on_sw_song.all %}
+                    <li> <a href="{% url 'song_viewer' slug=s.slug %}">{{ s.title }}</a></li>
+                {% endfor %} </ul>
+            </div><br>
+        {% endif %}
         {% if character.producer.all %}
             <div class="is-divider" data-content="&#xf007"></div>
             <h3 class="subtitle has-text-centered">Producer på disse sange:</h3>

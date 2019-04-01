@@ -144,7 +144,10 @@ BULMA_SETTINGS = {
         "bulma-tooltip",
     ],
     "variables": {
-        "primary": "#00d169",
+        "primary": "#2da5e5",
+        "success": "#23b255",
+        "danger": "#b71649",
+        "info": "#5947b2",
         "family-sans-serif": "'Assistant', sans-serif;",
         "family-primary": "'Assistant', sans-serif;",
         "family-secondary": "'Crimson Text', serif;",

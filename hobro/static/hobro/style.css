@@ -193,6 +193,11 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
 }
 
 
+.is-smallcaps {
+    font-variant: small-caps;
+}
+
+
 .is-divider {
     font-family: "Font Awesome 5 Free";
     font-weight: bold;
@@ -473,25 +478,31 @@ a img:hover {
 
 /* feed backgrounds */
 .background-main {
-    background-color: #209cee;
-    background-image: linear-gradient(270deg, rgb(32, 156, 238), rgb(31,145,219));
+    background-color: #2da5e5;
+    background-image: linear-gradient( 90deg, rgb(28, 157, 227) 15%, rgb(73, 177, 233) 50% );
 }
 
-.background-b {
-    background-color: #00d169;
-    background-image: radial-gradient(circle, rgb(0, 207, 104) 0%, rgb(0, 175, 88) 100%);
-}
-
-.background-c {
-    background-color: #600080;
+.background-party {
+    background-color: #23b255;
     background-image: url("/media/patterns/transparent-square-tiles.png");
 }
 
-.background-dark {
-    background-color: #363636;
-    background-image: url("/media/patterns/dark-mosaic.png");
+.background-release {
+    background-color: #574ed8;
+    background-image: url("/media/patterns/cartographer.png");
 }
 
+.background-dark {
+    /*background-color: #363636;
+    background-image: url("/media/patterns/dark-mosaic.png");*/
+    background-color: #00263d;
+    background-image: url("/media/patterns/black-thread.png");
+}
+
+.background-swgrs {
+    background-color: #b71649;
+    background-image: url("/media/patterns/diagmonds.png");
+}
 
 .is-sunk {
     box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.3);
@@ -617,7 +628,7 @@ a img:hover {
 }
 
 .comment-toggle .button {
-    /*border-radius: 0px 0px 20px 20px;*/
+    border-radius: 0px 0px 20px 20px;
     box-shadow: 0px 5px 10px 0px rgba(20, 20, 20, 0.2);
 }
 
@@ -735,6 +746,11 @@ blockquote::before{
   position: absolute;
     left: -35px;
     top: -30px;
+}
+
+/* Prevent lyrics blocquotes from unwanted indentation */
+blockquote p {
+    text-indent: unset !important;
 }
 
 

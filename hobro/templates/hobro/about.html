@@ -3,24 +3,45 @@
 
 {% block title %}Rulletekster{% endblock %}
 {% block content %}
-<section class="hero is-info is-bold is-fullheight">
-    <div class="hero-body">
-        <div class="container is-family-secondary has-text-centered">
-        <h1 class="title is-capitalized is-size-1-desktop is-size-2-tablet is-size-2-mobile txt-shadow">Om denne side</h1>
-        <h2 class="subtitle is-size-2-desktop is-size-3-tablet is-size-3-mobile txt-shadow">Whatever</h2>
-            <br>
+<section class="section columns is-tablet is-centered">
+    <div class="column is-half is-centered"><div class="box big-box">
+        <h1 class="title is-size-2-desktop is-size-3-tablet has-text-centered">Rulletekster</h1>
+        <div class="is-divider" data-content="&#xf001"></div>
+        <div class="content">
+        <p>Mit navn er <strong>Sigfred Nielsen</strong>, og jeg er manden bag Tegnedreng Records. Jeg har udviklet konceptet, produceret og mixet al musikken, skrevet størstedelen af teksterne, og opført mange af vokalerne. Med min stemme har jeg (mindst) spillet P Desmet, L Jooken, P Schmitter og M Trokay; derudover har jeg i visuelle materialer spillet P Desmet. Jeg har også designet mange af de grafiske elementer, og klippet musikvideoerne.</p>
+        <h2>Andre deltagere i projektet</h2>
+        <ul>
+        <li><strong>Martin</strong> spiller P Swiggers, både i stemme og ansigt. Han har skrevet og fremført de akustiske numre fra SWGRS-projektet.</li>
+        <li><strong>Henrik  Viking</strong> har designet resten af grafikken, og været bag kameraet på musikvideoerne. Han lægger desuden stemme til J De Clercq.</li>
+        <li><strong>Kaare Olsen</strong>: HM Hoeningwald, og er i mange tilfælde bag L Jooken-masken</li>
+        <li><strong>Mads Storm</strong>: B Lamiroy</li>
+        <li><strong>Heine Gade</strong>: Stoppie K</li>
+        <li><strong>Emil Visti</strong>: L Melis/J Servais</li>
+        <li><strong>Ingo</strong>: R Echt, stemme (de tyske rap-vers)</li>
+        <li><strong>Marcel</strong>: Lægger ansigt til P Schmitter</li>
+        <li><strong>Mathilde</strong>: Unavngivent medlem i musikvideoen til Adelgade Klassisk</li>
 
+        </ul>
+        <p>Derudover er der mange, der har ydet mindre bidrag, og deltaget i samtalen om projektet, som har holdt det kørende og på sporet.</p>
+        <p>En meget stor tak til jer alle!</p>
+        <h2>Teknikken</h2>
+        <p>Jeg har udviklet denne hjemmeside i de første måneder af 2019. Processen har involveret at trække data ud af de forskellige tjenester, som blev brugt under projektet, strukturere dem, skrive tekster, og kode hjemmesiden.</p>
+        <p>Følgende programmer og værktøjer er især blevet brugt til dette:</p>
+        <ul>
+        <li>Programmeringssproget <strong>Python</strong></li>
+        <li>Det Python-baserede web-framework <strong>Django</strong></li>
+        <li>CSS-frameworket <strong>Bulma</strong></li>
+        <li>Python-editoren <strong>PyCharm</strong>, samt den generelle editor <strong>Notepad++</strong></li>
+        <li>Skriveprogrammet <strong>Typora</strong></li>
+
+        </ul>
+        <h2>Sidens historik</h2>
+        <p>Løbende ændringer og opdateringer vil fremgå her.</p>
+        <ul>
+        <li>2019-4-2: Første version af siden offentliggøres. </li>
+
+        </ul>
+        </div>
     </div>
-    </div>
-      <div id="svend" class="hero-foot">
-          <div style="text-align: center; padding:30px;">
-            <a href="{% url 'item_page' number=1 %}" class="button navy-text is-medium is-white is-outlined is-rounded do-shadow" style="margin:15px">
-                <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-book-open"></i></span>
-                Læs historien</a>
-            <a href="{% url 'music_list' %}" class="button navy-text is-medium is-light is-outlined is-rounded do-shadow" style="margin:15px">
-                <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-music"></i></span>
-                Hør musikken</a>
-        </div><br>
-      </div>
 </section>
 {% endblock %}

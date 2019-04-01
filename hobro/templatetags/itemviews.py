@@ -47,14 +47,21 @@ def show_section(section):
 
 @register.inclusion_tag('hobro/story.html')
 def show_story(story):
-    outer, inner = get_layout("")
+    if story.layout:
+        layout = story.layout
+    else:
+        layout = "sunk paper"
+    outer, inner = get_layout(layout)
     return {'story': story, 'layout_outer': outer, 'layout_inner': inner}
 
 
 @register.inclusion_tag('hobro/profileevent.html')
 def show_profileevent(profileevent):
     dt = datetime.fromtimestamp(profileevent.time_stamp)
-    layout = ''  # profileevent.layout
+    #if profileevent.layout:
+     #   layout = profileevent.layout
+    #else:
+    layout = "color-c"
     outer, inner = get_layout(layout)
     return {'profileevent': profileevent, 'post_time': dt, 'layout_outer': outer, 'layout_inner': inner}
 
@@ -62,7 +69,11 @@ def show_profileevent(profileevent):
 @register.inclusion_tag('hobro/swgrspost.html')
 def show_swgrspost(swgrspost):
     dt = datetime.fromtimestamp(swgrspost.time_stamp)
-    outer, inner = get_layout(swgrspost.layout)
+    if swgrspost.layout:
+        layout = swgrspost.layout
+    else:
+        layout = "bg-swgrs"
+    outer, inner = get_layout(layout)
     yt = ""
     try:
         if swgrspost.link_yt:
@@ -75,7 +86,11 @@ def show_swgrspost(swgrspost):
 @register.inclusion_tag('hobro/swgrsmedia.html')
 def show_swgrsmedia(swgrsmedia):
     dt = datetime.fromtimestamp(swgrsmedia.time_stamp)
-    outer, inner = get_layout(swgrsmedia.layout)
+    if swgrsmedia.layout:
+        layout = swgrsmedia.layout
+    else:
+        layout = "bg-swgrs"
+    outer, inner = get_layout(layout)
     if swgrsmedia.video:
         video = swgrsmedia.video.url
         video_title = swgrsmedia.video_title
@@ -95,22 +110,26 @@ def show_itemembed(itemembed):
 
 
 @register.inclusion_tag('hobro/embed_song.html')
-def embed_song(song):
+def embed_song(song, layout):
     s = song.first()
     a = None
     if s.album:
         a = s.album
     embed_bc = make_bandcamp_embed(album=a, song=s)
     embed_sp = make_spotify_embed(album=None, song=s)
-    return {'song': s, 'embed_code_bc': embed_bc, 'embed_code_sp': embed_sp}
+    outer, inner = get_layout(layout)
+    return {'song': s, 'embed_code_bc': embed_bc, 'embed_code_sp': embed_sp, 'layout_outer': outer,
+            'layout_inner': inner}
 
 
 @register.inclusion_tag('hobro/embed_album.html')
-def embed_album(album):
+def embed_album(album, layout=""):
     al = album.first()
     embed_bc = make_bandcamp_embed(album=al, song=None)
     embed_sp = make_spotify_embed(album=al, song=None)
-    return {'album': al, 'embed_code_bc': embed_bc, 'embed_code_sp': embed_sp}
+    outer, inner = get_layout(layout)
+    return {'album': al, 'embed_code_bc': embed_bc, 'embed_code_sp': embed_sp, 'layout_outer': outer,
+            'layout_inner': inner}
 
 
 @register.inclusion_tag('hobro/embed_musicvideo.html')

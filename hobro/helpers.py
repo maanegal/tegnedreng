@@ -234,9 +234,13 @@ def get_layout(lt=""):
         inner = "is-6-desktop is-8-tablet"
     # background type:
     if 'color-b' in lt:
-        outer += " background-b"
+        outer += " background-party"
     elif 'color-c' in lt:
-        outer += " background-c"
+        outer += " background-release"
+    elif 'bg-swgrs' in lt:
+        outer += " background-swgrs"
+    elif 'bg-dark' in lt:
+        outer += " background-dark"
     elif 'paper' in lt:
         outer += " paper"
     elif 'faded-paper' in lt:

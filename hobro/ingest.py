@@ -116,7 +116,8 @@ def mark_it_down(data):
                 elem = "unknown"
             s = line.replace('*', '').strip()  # get line without the prefix
             if s.startswith('|'):  # remove the temporary '|' prefix
-                s = s[2:]
+                #s = s[1:]
+                s = s.replace('|', '.')
             try:
                 cur_item[elem].append(s)
             except Exception as e:
@@ -181,10 +182,13 @@ def make_hashtags(text, alias, element):
     words = text.split(' ')
     new_words = []
     ht = []
-    link = "§§"
+    link = "§§"  # placeholder
     for word in words:
+        #word = word.replace("|#", "#")
         if '#' in word and not word.endswith('#'):
-            word = word.split('<')[0]
+            word = word.split('<')[0]  # can't remember why this is here....
+            # word2 = word.split('#', 1)[1]
+            word2 = word.encode('ascii', 'ignore').decode('ascii').replace('!', '')
             ht.append(word)
             # make word a link
             html_o, html_c = html_element('a', custom={'href': '/hashtag/' + link + slugify(word)})
@@ -468,6 +472,7 @@ def process_tree(item={}):
         text = make_links(text)
         text = make_hashtags(text, alias, element)
         text = make_mentions(text)
+        relations.extend([('appears', '&PSW')])
         link_sc = item.get('link-sc', '')
         if link_sc:
             link_sc = link_sc[0]
@@ -482,6 +487,7 @@ def process_tree(item={}):
         html = make_links(html)
         html = make_hashtags(html, alias, element)
         html = make_mentions(html)
+        relations.extend([('appears', '&PSW')])
         yt_embed = item.get('yt-embed', None)
         if yt_embed:
             yt_embed = yt_embed[0]
@@ -501,6 +507,7 @@ def process_tree(item={}):
         html = make_links(html)
         html = make_hashtags(html, alias, element)
         html = make_mentions(html)
+        relations.extend([('appears', '&PSW')])
         link_fb = item.get('link-fb', '')
         if link_fb:
             link_fb = 'https://facebook.com'+link_fb[0]
