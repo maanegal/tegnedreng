@@ -42,8 +42,8 @@
     <div class="section is-medium has-background-dark is-raised has-text-centered">
     {% if next %}
         <a href="{% url 'item_page' number=next %}" class="button alive fade navy-text is-medium is-dark is-inverted is-rounded">Videre til kapitel {{next}}</a>
-    {% elif %}
-        <h1 class="is-3">Her slutter historien</h1>
+    {% else %}
+        <h1 class="is-size-3 has-text-light">Her slutter historien</h1><br>
         <a href="{% url 'music_list' %}" class="button alive fade navy-text is-medium is-dark is-inverted is-rounded">Udforsk musikken</a>
     {% endif %}
     </div>
@@ -85,7 +85,7 @@
             Velocity(entry.target, { transform: [ "translateY(0)", "translateY(20%)" ], opacity: [1, 0] }, {duration: 600, easing: 'ease-out'} );
           }
           else if (entry.target.classList.contains('slide-down')) {
-            Velocity(entry.target, { transform: [  "translateY(0)", "translateY(-10%)" ], opacity: [1, 0] }, {duration: 1000, easing: 'ease-out'} );
+            Velocity(entry.target, { transform: [  "translateY(0)", "translateY(-10%)" ], opacity: [1, 0] }, {duration: 500, easing: 'ease-out'} );
           }
           else {
             Velocity(entry.target, { transform: [ "scale(1)", "scale(0.96)" ], opacity: [1, 0.5] }, {duration: 400, easing: 'ease-in'} );

@@ -476,6 +476,16 @@ a img:hover {
 }
 
 
+
+/* bulma background mods */
+.hero.is-dark {
+    background-image: url("/media/patterns/dark-mosaic.png");
+}
+
+.has-background-dark {
+    background-image: url("/media/patterns/dark-mosaic.png");
+}
+
 /* feed backgrounds */
 .background-main {
     background-color: #2da5e5;
@@ -590,12 +600,15 @@ a img:hover {
     top: 20px;
     left: 50%;
     margin-left: -25px;
+    /* TESTY */
+    z-index: 5;
 }
 
 .comment-block {
     padding: 4rem 2rem;
     margin-top: 0;
-    z-index: -1;
+    /* TESTY */
+    /*z-index: -1;*/
     position: relative;
 }
 
@@ -635,14 +648,11 @@ a img:hover {
 
 .motif-head {
     background-color: #666;
-    transition: all .3s;
+    transition: all .6s;
     padding: 1em;
     margin-bottom: 0rem !important;
     margin-top: 2rem !important;
     z-index: 10;
-}
-
-.motif-head {
     display: flex;
     flex-flow: row;
     align-items: center;
@@ -669,7 +679,7 @@ a img:hover {
 
 .motif-view {
     background-color: #444;
-    padding: 2em;
+    padding: 2em 3em;
     z-index: 9;
 }
 
@@ -799,10 +809,9 @@ blockquote p {
 .manus ul ul {
     text-align: left;
     text-transform: none;
-    max-width: 550px;
     list-style: none;
-    margin-left: calc(50% - 225px);
-    margin-right: calc(50% - 225px);
+    margin-left: 15%;
+    margin-right: 15%;
 }
 
 .manus ul ul li {

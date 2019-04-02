@@ -1,17 +1,17 @@
 {% if pref != "off" %}
     {% if pref == "yellow" %}<div class="is-before-behind"></div>{% endif %}
 
-<div class="comment-container">
+<div class="comment-container has-background-dark is-behind">
 <div id="closer_{{comment.alias}}" class="comment-closer" {% if pref != "on" %}style="display: none;"{% endif %}>
     <a class="delete" onclick="commentToggle('{{comment.alias}}', 'btn_{{comment.alias}}', 'closer_{{comment.alias}}')"></a>
 </div>
-<div class="has-background-dark comment-bg"></div>
+{# <div class="has-background-dark comment-bg"></div> #}
 
-<section id="{{comment.alias}}" class="section comment-block {% if pref == "on" %}is-behind alive slide-down{% endif %}
-    {% if pref != "on" %}collapsed {% endif %} story is-family-secondary is-size-5 has-background-dark has-text-light columns is-tablet is-centered"
+<section id="{{comment.alias}}" class="section comment-block {% if pref == "on" %} alive slide-down{% endif %}
+    {% if pref != "on" %}collapsed {% endif %} story is-family-secondary is-size-5 has-text-light columns is-tablet is-centered"
     {% if pref != "on" %} style="display:none;"{% endif %}>
 
-    <div class="column is-10-tablet is-8-desktop is-6-full-hd darkmode">
+    <div class="column is-10-tablet is-8-desktop is-6-full-hd darkmode justified">
         {{comment.text|safe}}
         {% for motif in comment.has_motif.all %}
         <div>
@@ -34,7 +34,7 @@
 </section>
 
 <div class="comment-toggle">
-    <p class="button navy-text is-dark is-rounded" id="btn_{{comment.alias}}" {% if pref == "on" %}style="visibility: collapse;"{% endif %}
+    <p class="button navy-text is-dark is-inverted is-rounded" id="btn_{{comment.alias}}" {% if pref == "on" %}style="visibility: collapse;"{% endif %}
        onclick="commentToggle('{{comment.alias}}', 'btn_{{comment.alias}}', 'closer_{{comment.alias}}')"><i class="fas fa-angle-double-down"></i>&nbsp;&nbsp;Vis kommentar</p>
 </div></div>
 

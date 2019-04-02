@@ -3,7 +3,7 @@
 
 {% block title %}Forside{% endblock %}
 {% block content %}
-<section class="hero is-info is-bold is-fullheight">
+<section class="hero is-dark is-bold is-fullheight">
     <div id="konrad" class="hero is-fullheight" style="background-color: #000000;" >
     <div class="hero-body">
         <div class="container is-family-secondary has-text-centered">
@@ -15,9 +15,9 @@
     </div>
       <div id="svend" class="hero-foot" style="opacity:0">
           <div style="text-align: center; padding:30px;">
-            <a href="{% url 'item_page' number=1 %}" class="button navy-text is-medium is-white is-outlined is-rounded do-shadow" style="margin:15px">
-                <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-book-open"></i></span>
-                Læs historien</a>
+            <p id="scrollBtn" class="button navy-text is-medium is-primary is-rounded do-shadow" style="margin:15px">
+                <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-angle-double-down"></i></span>
+                Læs historien</p>
             <a href="{% url 'music_list' %}" class="button navy-text is-medium is-light is-outlined is-rounded do-shadow" style="margin:15px">
                 <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-music"></i></span>
                 Hør musikken</a>
@@ -26,10 +26,10 @@
 </div>
 </section>
 
-<section class="section columns is-mobile is-centered has-background-dark">
+<section id="read" class="section columns is-mobile is-centered background-main">
     <div class="column alive fade story justified is-6-desktop is-8-tablet notecard is-family-secondary is-size-5">
     <h1 class="title is-size-2-desktop is-size-3-tablet has-text-centered has-text-weight-normal is-smallcaps">Indledning</h1>
-    <div class="is-divider" data-content=""></div>
+    <div class="is-divider" data-content="&#xf518"></div>
     <p>Den 1. oktober 2015 dukkede <em>Tegnedreng Records</em> op på internettet. De fremførte sig selv som en rap-gruppe fra Hobro, og lagde en endeløs strøm af opslag og billeder ud på de sociale medier. Snart fulgte også musik – album efter album af hip-hop-sange med tåbelige tekster fra mere eller mindre kompetente rappere. Deres personlige drama, alle deres sejre, nederlag og interne konflikter, var plastret op og ned ad Facebook og Instagram. </p>
     <p>Og så – den 1. april 2016 – forsvandt de igen, uden spor eller varsel. De var borte, lige så brat som de dukkede op. Hvad blev der af dem?</p>
     <p>Det her kunne være et mysterium, en gåde, som man kunne kaste sig over og febrilsk optrævle, i håbet om at opspore den mystiske gruppe og aftvinge sig en forklaring. Denne hjemmeside kunne være journal over den omhyggelige efterforskning. Men det er der ingen grund til.</p>
@@ -48,83 +48,58 @@
 </div>
 </section>
 
-<section class="section columns is-tablet is-centered has-background-dark">
+<section class="section columns is-tablet is-centered background-main">
     <div class="column alive fade is-8-desktop is-10-tablet box big-box">
+        <div class="is-divider" data-content="&#xf013"></div>
         <div class="content">
             <p>Historien har et kommentarspor, hvor jeg løbende giver små bag-om-scenerne-betragtninger, forklaringer af forskellige motivers betydning og ophav, og sektioner fra den oprindelige drejebog, som jeg skrev før projektet blev iværksat.</p>
             <p>Du kan selv vælge om kommentarsporet skal være synligt mens du læser.</p>
         </div>
         <br>
 
-    <div class="columns">
-      <div class="column">
-        <div class="card">
-          <header class="card-header">
-            <p class="card-header-title is-centered">
-              Fokus på historien
-            </p>
-          </header>
-          <div class="card-content">
-            <div class="content">
+
+
+    <div class="columns has-text-centered navbar-controls field">
+        <div class="column"><div class="card">
+            <div class="navbar-control card-header"><div class="card-header-title is-centered">
+              <input class="is-checkradio" id="commentOffs" type="radio" name="commentradio"
+                     {% if request.COOKIES.show_comments == "off" %}checked{% endif %}>
+              <label for="commentOffs">Fokus på historien</label>
+            </div></div>
+            <div class="card-content content">
                 <p>Kommentarer vises ikke</p>
                 <p>Bedst til dem, der ikke kender så meget til projektet, og gerne vil opleve fortællingen uforstyrret</p>
             </div>
-          </div>
-        </div>
-      </div>
+        </div></div>
 
-      <div class="column">
-        <div class="card">
-          <header class="card-header">
-            <p class="card-header-title is-centered">
-              Det frie valg
-            </p>
-          </header>
-          <div class="card-content">
-            <div class="content">
+        <div class="column"><div class="card">
+            <div class="navbar-control card-header"><div class="card-header-title is-centered">
+              <input class="is-checkradio" id="commentToggles" type="radio" name="commentradio"
+                     {% if request.COOKIES.show_comments == "toggle" %}checked
+                            {% elif not request.COOKIES.show_comments %}checked{% endif %}>
+              <label for="commentToggles">Det frie valg</label>
+          </div></div>
+            <div class="card-content content">
                 <p>Hver kommentar er som udgangspunkt skjult, men kan vises med et tryk på en knap</p>
                 <p>Viser den rene fortælling, men gør det samtidig muligt at dykke dybere ned i dele af den</p>
             </div>
-          </div>
-        </div>
-      </div>
+        </div></div>
 
-      <div class="column">
-        <div class="card">
-          <header class="card-header">
-            <p class="card-header-title is-centered">
-              Det fulde billede
-            </p>
-          </header>
-          <div class="card-content">
-            <div class="content">
+        <div class="column"><div class="card">
+            <div class="navbar-control card-header"><div class="card-header-title is-centered">
+              <input class="is-checkradio " id="commentOns" type="radio" name="commentradio"
+                     {% if request.COOKIES.show_comments == "on" %}checked{% endif %}>
+              <label for="commentOns">Det fulde billede</label>
+            </div></div>
+            <div class="card-content content">
                 <p>Alle kommentarer vises</p>
                 <p>Bedst til dem, der kender projektet godt – især dem, der var en del af det</p>
             </div>
-          </div>
-        </div>
-      </div>
+        </div></div>
+
     </div>
 
-    <div class="columns has-text-centered navbar-controls field">
-        <div class="column">
-          <input class="is-checkradio " id="commentOns" type="radio" name="commentradio">
-          <label for="commentOns" class="navbar-setting">Vælg</label>
-        </div>
-        <div class="column">
-            <div class="navbar-control">
-              <input class="is-checkradio" id="commentToggles" type="radio" name="commentradio" checked>
-              <label for="commentToggles" class="navbar-setting">Vælg</label>
-          </div>
-        </div>
-        <div class="column">
-            <div class="navbar-control">
-              <input class="is-checkradio" id="commentOffs" type="radio" name="commentradio">
-              <label for="commentOffs" class="navbar-setting">Vælg</label>
-            </div>
-        </div>
-    </div>
-        <div class="is-divider" data-content=""></div>
+    <div class="is-divider" data-content="&#xf013"></div>
     <div class="has-text-centered">
         <a href="{% url 'item_page' number=1 %}" class="button alive fade navy-text is-medium is-dark is-outlined is-rounded">Begynd med kapitel 1</a>
     </div>
@@ -149,5 +124,16 @@
             svend.style.opacity = "1";
         }
     }
+
+    var read = document.getElementById('read');
+    var btn = document.getElementById('scrollBtn');
+
+    btn.addEventListener('click', function() {
+        scrollTo(document.body, read.offsetTop, 125);
+    });
+
+    document.getElementById("commentOffs").addEventListener("click", setCommentPrefs);
+    document.getElementById("commentOns").addEventListener("click", setCommentPrefs);
+    document.getElementById("commentToggles").addEventListener("click", setCommentPrefs);
 </script>
 {% endblock %}

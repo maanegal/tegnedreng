@@ -151,7 +151,7 @@ BULMA_SETTINGS = {
         "family-sans-serif": "'Assistant', sans-serif;",
         "family-primary": "'Assistant', sans-serif;",
         "family-secondary": "'Crimson Text', serif;",
-        "family-monospace": "'Overpass Mono', monospace;",
+        "family-monospace": "'Fira Mono', monospace;",
         "navbar-breakpoint": "8000px",
         "link": "hsl(217, 71%, 40%)",
         "size-1": "6rem",

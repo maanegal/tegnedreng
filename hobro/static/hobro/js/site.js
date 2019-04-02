@@ -1,3 +1,15 @@
+function scrollTo(element, to, duration) {
+    if (duration <= 0) return;
+    var difference = to - element.scrollTop;
+    var perTick = difference / duration * 10;
+
+    setTimeout(function() {
+        element.scrollTop = element.scrollTop + perTick;
+        if (element.scrollTop === to) return;
+        scrollTo(element, to, duration - 10);
+    }, 10);
+}
+
 /* Cookie cutter cookie code from the w3 school */
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
@@ -69,6 +81,18 @@ function setCommentPref() {
     }
 }
 
+function setCommentPrefs() {
+    var comOn = document.getElementById('commentOns');
+    var comOff = document.getElementById('commentOffs');
+    var comTog = document.getElementById('commentToggles');
+    if (comOn.checked) {
+        setCookie('show_comments', 'on', 30);
+    } else if (comOff.checked) {
+        setCookie('show_comments', 'off', 30);
+    } else {
+        setCookie('show_comments', 'toggle', 30);
+    }
+}
 
 
 function toggleShowMenu() {
@@ -222,7 +246,7 @@ function commentToggle(comId, btnId, closerId) {
     button.style.visibility = "visible";
     if ( comment.classList.contains('collapsed') ) {
         if (anim) {
-            Velocity(comment, { transform: [ "translateY(0)", "translateY(-20%)" ], opacity: [1, 0], display: 'flex' }, {duration: 400, easing: 'ease-out'} );
+            Velocity(comment, { transform: [ "translateY(0)", "translateY(-15%)" ], opacity: [1, 0], display: 'flex' }, {duration: 200, easing: 'ease-in'} );
         } else {
             comment.style.opacity = "1";
             comment.style.display = "flex";
@@ -232,7 +256,7 @@ function commentToggle(comId, btnId, closerId) {
         button.innerHTML = '<i class="fas fa-angle-double-up"></i>&nbsp;&nbsp;Skjul kommentar';
     } else {
         if (anim) {
-            Velocity(comment, { transform: [ "translateY(-20%)", "translateY(0%)" ], opacity: [0, 1], display: 'none' }, {duration: 300, easing: 'ease-in'} );
+            Velocity(comment, { transform: [ "translateY(-15%)", "translateY(0%)" ], opacity: [0, 1], display: 'none' }, {duration: 300, easing: 'ease-in'} );
         } else {
             comment.style.opacity = "0";
             comment.style.display = "none";
@@ -250,7 +274,7 @@ function motifToggle(motifId, commentId) {
     var anim = showAnimations();
     if ( motif.classList.contains('collapsed') ) {
         if (anim) {
-            Velocity(motif, { transform: [ "translateY(0)", "translateY(-20%)" ], opacity: [1, 0], display: 'block' }, {duration: 400, easing: 'ease-out'} );
+            Velocity(motif, { transform: [ "translateY(0)", "translateY(-5%)" ], opacity: [1, 0], display: 'block' }, {duration: 300, easing: 'ease-in'} );
         } else {
             motif.style.opacity = "1";
             motif.style.display = "block";
@@ -259,7 +283,7 @@ function motifToggle(motifId, commentId) {
         head.innerHTML = '<span><i class="fas fa-angle-double-up"></i></span>';
     } else {
         if (anim) {
-            Velocity(motif, { transform: [ "translateY(-20%)", "translateY(0%)" ], opacity: [0, 1], display: 'none' }, {duration: 300, easing: 'ease-in'} );
+            Velocity(motif, { transform: [ "translateY(-5%)", "translateY(0%)" ], opacity: [0, 1], display: 'none' }, {duration: 300, easing: 'ease-in'} );
         } else {
             motif.style.opacity = "0";
             motif.style.display = "none";
