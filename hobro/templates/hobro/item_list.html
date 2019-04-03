@@ -6,7 +6,11 @@
 {% else %}Alle kapitler{% endif %}
 {% endblock %}
 
+
 {% block content %}
+<div class="progress-container">
+    <div class="progress-bar" id="theProgressBar"></div>
+</div>
 
     {% for item in items %}
         {% with a=item.get_type %}
@@ -41,10 +45,16 @@
     {% endfor %}
     <div class="section is-medium has-background-dark is-raised has-text-centered">
     {% if next %}
-        <a href="{% url 'item_page' number=next %}" class="button alive fade navy-text is-medium is-dark is-inverted is-rounded">Videre til kapitel {{next}}</a>
+        <a href="{% url 'item_page' number=next %}" class="button alive fade navy-text is-medium is-dark is-inverted is-rounded">
+            <span class="icon"><i class="fas fa-forward"></i></span>
+            <span>Videre til kapitel {{next}}</span>
+        </a>
     {% else %}
         <h1 class="is-size-3 has-text-light">Her slutter historien</h1><br>
-        <a href="{% url 'music_list' %}" class="button alive fade navy-text is-medium is-dark is-inverted is-rounded">Udforsk musikken</a>
+        <a href="{% url 'music_list' %}" class="button alive fade navy-text is-medium is-dark is-inverted is-rounded">
+            <span class="icon"><i class="fas fa-music"></i></span>
+            <span>Udforsk musikken</span>
+        </a>
     {% endif %}
     </div>
 
@@ -52,14 +62,17 @@
     window.onload = function(){
         var kasper = document.getElementById("section-num");
         var jens = document.getElementById("section-title");
+        var rasmus = document.getElementById("section-gfx");
         var birger = document.getElementById("section-scroll");
         if ( showAnimations() ) {
             Velocity(kasper, { transform: [ "scale(1)", "scale(0.96)" ], opacity: [1, 0] }, {duration: 2000, delay: 200, easing: 'ease-in'} );
             Velocity(jens, { transform: [ "scale(1)", "scale(0.98)" ], opacity: [1, 0] }, {duration: 2000, delay: 1000, easing: 'ease-in'} );
+            Velocity(rasmus, { transform: [ "scale(1)", "scale(0.85)" ], opacity: [1, 0] }, {duration: 2800, delay: 1800, easing: 'ease-in'} );
             Velocity(birger, { transform: [ "translateY(0%)", "translateY(-20%)" ], opacity: [0, 1] }, {duration: 1000, delay: 4000, easing: 'ease-in-out'} );
         } else {
             kasper.style.opacity = "1";
             jens.style.opacity = "1";
+            rasmus.style.opacity = "1";
             birger.style.opacity = "1";
         }
     }
@@ -101,7 +114,14 @@
         });
     }
 
+    window.onscroll = function() {myScroll()};
 
+    function myScroll() {
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("theProgressBar").style.width = scrolled + "%";
+    }
 
 </script>
 

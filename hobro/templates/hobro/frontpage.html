@@ -1,7 +1,9 @@
 {% extends 'hobro/base.html' %}
 {% load itemviews %}
+{% load static %}
 
 {% block title %}Forside{% endblock %}
+{% block cookies %}{% endblock cookies %}
 {% block content %}
 <section class="hero is-dark is-bold is-fullheight">
     <div id="konrad" class="hero is-fullheight" style="background-color: #000000;" >
@@ -9,6 +11,7 @@
         <div class="container is-family-secondary has-text-centered">
         <h1 class="title is-capitalized is-size-1-desktop is-size-2-tablet is-size-2-mobile txt-shadow" id="kasper" style="opacity:0">Hobro for livet</h1>
         <h2 class="subtitle is-size-2-desktop is-size-3-tablet is-size-3-mobile txt-shadow" id="jens" style="opacity:0">Legenden om <em>Tegnedreng Records</em></h2>
+            <img id="section-gfx" src="{% get_media_prefix %}chapters/chapter8.svg" style="opacity: 0;"/>
             <br>
 
     </div>
@@ -18,7 +21,7 @@
             <p id="scrollBtn" class="button navy-text is-medium is-primary is-rounded do-shadow" style="margin:15px">
                 <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-angle-double-down"></i></span>
                 Læs historien</p>
-            <a href="{% url 'music_list' %}" class="button navy-text is-medium is-light is-outlined is-rounded do-shadow" style="margin:15px">
+            <a href="{% url 'music_list' %}" class="button navy-text is-medium is-info is-rounded do-shadow" style="margin:15px">
                 <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-music"></i></span>
                 Hør musikken</a>
         </div><br>
@@ -26,8 +29,8 @@
 </div>
 </section>
 
-<section id="read" class="section columns is-mobile is-centered background-main">
-    <div class="column alive fade story justified is-6-desktop is-8-tablet notecard is-family-secondary is-size-5">
+<section id="read" class="section background-main is-sunk"><div class="columns is-mobile is-centered">
+    <div class="column story justified is-6-desktop is-8-tablet notecard is-family-secondary is-size-5">
     <h1 class="title is-size-2-desktop is-size-3-tablet has-text-centered has-text-weight-normal is-smallcaps">Indledning</h1>
     <div class="is-divider" data-content="&#xf518"></div>
     <p>Den 1. oktober 2015 dukkede <em>Tegnedreng Records</em> op på internettet. De fremførte sig selv som en rap-gruppe fra Hobro, og lagde en endeløs strøm af opslag og billeder ud på de sociale medier. Snart fulgte også musik – album efter album af hip-hop-sange med tåbelige tekster fra mere eller mindre kompetente rappere. Deres personlige drama, alle deres sejre, nederlag og interne konflikter, var plastret op og ned ad Facebook og Instagram. </p>
@@ -46,10 +49,10 @@
     <br>
     <div class="youtube-embed"><iframe class="lazy loaded" data-src="https://www.youtube.com/embed/43ZbeVUATBQ" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" src="https://www.youtube.com/embed/43ZbeVUATBQ" data-was-processed="true" width="560" height="315" frameborder="0"></iframe></div>
 </div>
-</section>
+</div></section>
 
 <section class="section columns is-tablet is-centered background-main">
-    <div class="column alive fade is-8-desktop is-10-tablet box big-box">
+    <div class="column is-6-desktop is-8-tablet box big-box">
         <div class="is-divider" data-content="&#xf013"></div>
         <div class="content">
             <p>Historien har et kommentarspor, hvor jeg løbende giver små bag-om-scenerne-betragtninger, forklaringer af forskellige motivers betydning og ophav, og sektioner fra den oprindelige drejebog, som jeg skrev før projektet blev iværksat.</p>
@@ -100,8 +103,19 @@
     </div>
 
     <div class="is-divider" data-content="&#xf013"></div>
+        <div class="box has-background-warning media">
+            <span class="media-left icon is-large">
+              <i class="fas fa-cookie-bite"></i>
+            </span>
+          <div class="media-content">
+        Denne side bruger cookies. Det betyder at den gemmer små stumper af information i din internetbrowser, for at huske dine indstillinger mv. på siden.
+        Når du klikker videre nedenunder, accepterer du det. </div>
+            </div>
     <div class="has-text-centered">
-        <a href="{% url 'item_page' number=1 %}" class="button alive fade navy-text is-medium is-dark is-outlined is-rounded">Begynd med kapitel 1</a>
+        <a id="startReading" href="{% url 'item_page' number=1 %}" class="button navy-text is-medium is-primary is-rounded">
+            <span class="icon"><i class="fas fa-forward"></i></span>
+            <span>Begynd med kapitel 1</span>
+        </a>
     </div>
 </div>
 </section>
@@ -112,15 +126,18 @@
         var svend = document.getElementById("svend");
         var kasper = document.getElementById("kasper");
         var jens = document.getElementById("jens");
+        var rasmus = document.getElementById("section-gfx");
         if ( showAnimations() ) {
-            Velocity(konrad, { backgroundColor: 'rgba(200, 200, 192, 0)' }, 8000, 'ease-in' );
+            Velocity(konrad, { backgroundColor: 'rgba(200, 200, 192, 0)' }, 7000, 'ease-in' );
             Velocity(kasper, { transform: [ "scale(1)", "scale(0.96)" ], opacity: [1, 0] }, {duration: 2000, delay: 400, easing: 'ease-in'} );
             Velocity(jens, { transform: [ "scale(1)", "scale(0.98)" ], opacity: [1, 0] }, {duration: 2000, delay: 800, easing: 'ease-in'} );
+            Velocity(rasmus, { transform: [ "scale(1)", "scale(0.8)" ], opacity: [1, 0] }, {duration: 2000, delay: 1200, easing: 'ease-in'} );
             Velocity(svend, { transform: [ "translateY(0)", "translateY(5%)" ], opacity: [1, 0] }, {duration: 1000, delay: 2000, easing: 'ease-in'} );
         } else {
             konrad.style.backgroundColor = "rgba(200, 200, 192, 0)";
             kasper.style.opacity = "1";
             jens.style.opacity = "1";
+            rasmus.style.opacity = "1";
             svend.style.opacity = "1";
         }
     }
@@ -130,6 +147,12 @@
 
     btn.addEventListener('click', function() {
         scrollTo(document.body, read.offsetTop, 125);
+    });
+
+
+    var startReadingBtn = document.getElementById('startReading');
+    startReadingBtn.addEventListener('click', function() {
+        setCookie('cookie_consent', "true", 365);
     });
 
     document.getElementById("commentOffs").addEventListener("click", setCommentPrefs);

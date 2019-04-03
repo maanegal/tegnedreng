@@ -186,9 +186,12 @@ def make_hashtags(text, alias, element):
     for word in words:
         #word = word.replace("|#", "#")
         if '#' in word and not word.endswith('#'):
-            word = word.split('<')[0]  # can't remember why this is here....
+            #word = word.split('<')[0]  # can't remember why this is here....
             # word2 = word.split('#', 1)[1]
-            word2 = word.encode('ascii', 'ignore').decode('ascii').replace('!', '')
+            if word.startswith(".#"):
+                print(word)
+            #word2 = word.encode('ascii', 'ignore').decode('ascii').replace('!', '')
+            word2 = ''.join(e for e in word if e.isalnum())
             ht.append(word)
             # make word a link
             html_o, html_c = html_element('a', custom={'href': '/hashtag/' + link + slugify(word)})
@@ -196,17 +199,19 @@ def make_hashtags(text, alias, element):
         new_words.append(word)
     new_text = " ".join(new_words)
     for tag in ht:
-        matches = Hashtag.objects.filter(name=tag)
+        sanitag = tag.replace('<p>', '').replace('</p>', '')
+        sanitag = ''.join(e for e in sanitag if e.isalnum())
+        matches = Hashtag.objects.filter(name=sanitag)
         if not matches:  # make object in db if it doesn't exist already
-            hashtag = Hashtag(name=tag)
+            hashtag = Hashtag(name=sanitag)
             hashtag.save()
             h_id = hashtag.pk
-            slug = str(h_id) + '_' + slugify(tag)
+            slug = str(h_id) + '_' + slugify(sanitag)
             hashtag.slug = slug
             hashtag.save()
-        hashtag = Hashtag.objects.filter(name=tag).first()
+        hashtag = Hashtag.objects.filter(name=sanitag).first()
         slug = hashtag.slug
-        old = link + slugify(hashtag.name)
+        old = link + slugify(tag)
         new_text = new_text.replace(old, slug)
         rel = ''
         if element == 'post':
@@ -533,7 +538,6 @@ def process_tree(item={}):
                 text = ""
         html = markdown(text, extensions=['smarty'])
         html = make_screenplay(html)
-        html = make_hashtags(html, alias, element)
         html = make_mentions(html)
         author = item.get('author', '')
         if author:

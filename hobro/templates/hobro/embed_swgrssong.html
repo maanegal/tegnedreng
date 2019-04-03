@@ -1,7 +1,7 @@
 <article id="{{ song.slug }}" class="section columns is-tablet is-centered background-swgrs">
 <div class="column is-two-thirds starts-transparent alive fade">
     <div class="box has-text-light has-background-dark darkmode">
-    <a href="{% url 'song_viewer' slug=song.slug %}">
+    <a href="{% url 'item_detail' pk=song.pk tp=song.get_type %}">
         <span class="title has-text-light">{{ song.title }}</span><span class="icon is-small">&emsp;<i class="fas fa-external-link-alt"></i></span>
     </a>
     <p class="subtitle has-text-light">Fra SWGRS</p>

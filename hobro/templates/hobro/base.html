@@ -140,12 +140,40 @@
 </div>
 </div>
 
+{% block cookies %}
+<div id="the-cookies" {% if not request.COOKIES.cookie_consent %}style="display: block;"{% endif %}>
+<div class="columns is-desktop is-centered">
+    <div class="column is-one-quarter"></div>
+    <div class="column alive fade is-one-half">
+    <div class="media has-text-light">
+        <span class="media-left icon is-large">
+          <i class="fas fa-cookie-bite"></i>
+        </span>
+      <div class="media-content">
+        Denne side bruger cookies. Det betyder at den gemmer små stumper af information i din internetbrowser, for at huske dine indstillinger mv. på siden.
+        For at bruge siden, er du nødt til at sige god for det. </div>
+    </div>
+    </div>
+    <div class="column alive fade is-one-quarter has-text-centered has-text-left-desktop">
+        <a class="button is-success" id="cookie-okay">
+            <span class="icon is-small">
+          <i class="fas fa-check"></i>
+        </span>
+        <span>Okay, så skidt da</span>
+        </a>
+    </div>
+</div></div>
+{% endblock cookies %}
+
+
+
     {% block content %}
     {% endblock %}
 
 
     <script>
 		(function () { ll = new LazyLoad({ elements_selector: '.lazy', });}());
+
 
     document.getElementById("switchAnim").addEventListener("click", setAnimPref);
     document.getElementById("playerSP").addEventListener("click", setPlayerPref);
@@ -154,6 +182,15 @@
     document.getElementById("commentOn").addEventListener("click", setCommentPref);
     document.getElementById("commentToggle").addEventListener("click", setCommentPref);
 
+    var cookieBanner = document.getElementById('the-cookies');
+    var cookieBtn = document.getElementById('cookie-okay');
+
+    cookieBtn.addEventListener('click', function() {
+        setCookie('cookie_consent', "true", 365);
+        //cookieBanner.style.display = "none";
+        Velocity(cookieBanner, { transform: ["translateY(100%)", "translateY(0%)"], opacity: [ 0, 1 ], display: ['none', 'block'] }, 250, "ease-in");
+    });
+
 	</script>
-    </body>
+</body>
 </html>
