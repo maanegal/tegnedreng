@@ -237,6 +237,8 @@ def get_layout(lt=""):
         outer += " background-party"
     elif 'color-c' in lt:
         outer += " background-release"
+    elif 'color-a' in lt:
+        outer += " background-main"
     elif 'bg-swgrs' in lt:
         outer += " background-swgrs"
     elif 'bg-dark' in lt:
@@ -318,5 +320,5 @@ def make_soundcloud_embed(obj):
     e = None
     if obj.sc_embed_code:
         e = a + obj.sc_embed_code + b
-    print('sc', e)
+
     return e

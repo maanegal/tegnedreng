@@ -1,4 +1,5 @@
 {% extends 'hobro/base.html' %}
+{% load itemviews %}
 
 {% block title %}{{ musicvideo.song.title }}{% endblock %}
 {% block content %}
@@ -17,6 +18,11 @@
     {% endif %}
     <div class="is-divider" data-content="&#xf001"></div>
     <div class="youtube-embed">{{ embed_code|safe }}</div>
+    {% if musicvideo.comment %}
+        <hr>
+        <h3 class="subtitle is-5">Kommentarspor fra projektets skaber:</h3><br>
+        {% show_comment musicvideo.comment request.COOKIES.show_comments request.COOKIES.motifs_seen  %}
+    {% endif %}
     </div></div></div></section>
 
 {% endblock %}
