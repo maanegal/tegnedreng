@@ -4,13 +4,13 @@
     {% if kind == "character" %}
         {% embed_character itemembed.target_character.all %}
     {% elif kind == "song" %}
-        {% embed_song itemembed.target_song.all itemembed.layout %}
+        {% embed_song itemembed.target_song.all itemembed.layout anim_pref %}
     {% elif kind == "album" %}
-        {% embed_album itemembed.target_album.all itemembed.layout %}
+        {% embed_album itemembed.target_album.all anim_pref itemembed.layout %}
     {% elif kind == "musicvideo" %}
-        {% embed_musicvideo itemembed.target_musicvideo.all %}
+        {% embed_musicvideo itemembed.target_musicvideo.all anim_pref %}
     {% elif kind == "swgrs_song" %}
-        {% embed_swgrssong itemembed.target_swgrssong.all %}
+        {% embed_swgrssong itemembed.target_swgrssong.all anim_pref %}
     {% else %}
         <div class="box">
             <h2>Kunne ikke findes...</h2>

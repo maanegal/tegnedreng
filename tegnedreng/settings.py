@@ -157,5 +157,6 @@ BULMA_SETTINGS = {
         "size-1": "6rem",
         "size-2": "3.5rem",
         "tooltip-max-width": "14rem",
+        "checkbox-border": ".1rem solid hsl(0, 0%, 71%)",
     }
 }

@@ -1,7 +1,7 @@
 {% if pref != "off" %}
     {% if pref == "yellow" %}<div class="is-before-behind"></div>{% endif %}
 
-<div class="comment-container has-background-dark is-behind">
+<div class="comment-container background-meta is-behind">
 <div id="closer_{{comment.alias}}" class="comment-closer" {% if pref != "on" %}style="display: none;"{% endif %}>
     <a class="delete" onclick="commentToggle('{{comment.alias}}', 'btn_{{comment.alias}}', 'closer_{{comment.alias}}')"></a>
 </div>
@@ -9,16 +9,16 @@
 
 <section id="{{comment.alias}}" class="section comment-block {% if pref == "on" %} alive slide-down{% endif %}
     {% if pref != "on" %}collapsed {% endif %} story is-family-secondary is-size-5 has-text-light columns is-tablet is-centered"
-    {% if pref != "on" %} style="display:none;"{% endif %}>
+    style="{% if pref != "on" %}display:none;{% endif %} {% if anim_pref != "false" %}opacity:0;{% endif %}">
 
     <div class="column is-10-tablet is-8-desktop is-6-full-hd darkmode justified">
         {{comment.text|safe}}
         {% for motif in comment.has_motif.all %}
-        <div>
+        <div class="is-slightly-raised">
             <a id="head-{{comment.slug}}-{{motif.slug}}" class="motif-head" onclick="motifToggle('{{comment.slug}}', '{{motif.slug}}')">
               <div class="motif-head-left">
                 <div class="level-item">
-                  <h2 class="subtitle is-size-4-desktop is-size-5-tablet has-text-light has-text-centered">Gennemgående motiv: {{motif.title}}</h2>
+                  <h2 class="subtitle is-size-6 is-size-5-tablet is-size-4-desktop has-text-light has-text-centered">Gennemgående motiv: {{motif.title}}</h2>
                 </div>
               </div>
               <div class="motif-head-right">

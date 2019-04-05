@@ -24,7 +24,9 @@ def item_list(request):
     data = the_big_retriever()
     comment_pref = request.COOKIES.get('show_comments')
     motifs_seen = request.COOKIES.get('motifs_seen')
-    return render(request, 'hobro/item_list.html', {'items': data, 'comment_pref': comment_pref, 'motifs_seen': motifs_seen})
+    anim_pref = request.COOKIES.get('show_animations')
+    print('this', anim_pref)
+    return render(request, 'hobro/item_list.html', {'items': data, 'comment_pref': comment_pref, 'motifs_seen': motifs_seen, 'anim_pref': anim_pref})
 
 
 def item_page(request, number=1):
@@ -38,7 +40,8 @@ def item_page(request, number=1):
         motifs_seen = motifs.split('/')
     else:
         motifs_seen = []
-    return render(request, 'hobro/item_list.html', {'items': data, 'number': number, 'next': next_page, 'comment_pref': comment_pref, 'motifs_seen': motifs_seen})
+    anim_pref = request.COOKIES.get('show_animations')
+    return render(request, 'hobro/item_list.html', {'items': data, 'number': number, 'next': next_page, 'comment_pref': comment_pref, 'motifs_seen': motifs_seen,  'anim_pref': anim_pref})
 
 
 def item_detail(request, pk, tp):

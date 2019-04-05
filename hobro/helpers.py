@@ -242,7 +242,7 @@ def get_layout(lt=""):
     elif 'bg-swgrs' in lt:
         outer += " background-swgrs"
     elif 'bg-dark' in lt:
-        outer += " background-dark"
+        outer += " background-night"
     elif 'paper' in lt:
         outer += " paper"
     elif 'faded-paper' in lt:

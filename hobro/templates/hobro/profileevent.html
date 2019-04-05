@@ -7,7 +7,7 @@
 </div>
 
 <section id="{{ profileevent.time_stamp }}" class="section columns is-tablet {{ layout_outer }}">
-<div class="column has-text-centered has-image-centered alive slide {{ layout_inner }}">
+<div class="column has-text-centered has-image-centered alive slide {{ layout_inner }}"{% if anim_pref != "false" %}style="opacity:0;"{% endif %}>
     <div class="box">
     <p class="subtitle">Profilen skiftede navn og billede</p>
     <h3 class="title">{{ profileevent.page_name }} (id: {{profileevent.get_type}} {{ profileevent.time_stamp }})</h3>

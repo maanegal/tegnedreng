@@ -18,20 +18,20 @@ nav {
 .side-menu {
     left: unset !important;
     z-index: 29;
-    background-color: rgba(8, 8, 8, 0.5) !important;
+    background-color: rgba(8, 8, 8, 0.7) !important;
 }
 
 
 .menu-overlay {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.4);
     width: 100vw;
     height: 100vh;
     position: fixed;
     z-index: 28;
     display:none;
     bottom: 0;
-    backdrop-filter: blur(2px) grayscale(80%);
-    -webkit-backdrop-filter: blur(2px) grayscale(80%);
+    backdrop-filter: blur(1px) grayscale(80%);
+    -webkit-backdrop-filter: blur(1px) grayscale(80%);
 }
 
 
@@ -151,8 +151,8 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
 
 /* MODAL */
 .modal-background {
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
 }
 
 .modal-content {
@@ -163,12 +163,20 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
     text-align: center;
     background-color: black;
 }
-
+/*
 .modal-content img {
     height: auto;
     max-width: 100%;
     width: auto;
     max-height: 100%;
+}
+*/
+.modal-content img {
+    height: 100%;
+    width: 100%;
+    max-height: 100vh;
+    max-width: 100vh;
+    object-fit: contain;
 }
 
 .stop-scrolling {
@@ -482,9 +490,10 @@ a img:hover {
     background-image: url("/media/patterns/dark-mosaic.png");
 }
 
+/*
 .has-background-dark {
     background-image: url("/media/patterns/dark-mosaic.png");
-}
+}*/
 
 /* feed backgrounds */
 .background-main {
@@ -502,7 +511,7 @@ a img:hover {
     background-image: url("/media/patterns/cartographer.png");
 }
 
-.background-dark {
+.background-night {
     /*background-color: #363636;
     background-image: url("/media/patterns/dark-mosaic.png");*/
     background-color: #00263d;
@@ -514,12 +523,21 @@ a img:hover {
     background-image: url("/media/patterns/diagmonds.png");
 }
 
+.background-meta {
+    background-color: #4a4a4a;
+    background-image: url("/media/patterns/dark-mosaic.png");
+}
+
 .is-sunk {
     box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.3);
 }
 
 .is-raised {
     box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.4);
+}
+
+.is-slightly-raised {
+    box-shadow: 0px 0px 25px 1px rgba(0, 0, 0, 0.2);
 }
 
 .is-stacked {
@@ -623,7 +641,7 @@ a img:hover {
 }
 
 .comment-block ul {
-    list-style: square;
+    list-style: square inside;
 }
 
 .comment-block ul ul {
@@ -674,13 +692,19 @@ a img:hover {
 }
 
 .motif-head:hover, .motif-head:focus {
-    background-color: #333;
+    background-color: #4a4a4a;
 }
 
 .motif-view {
-    background-color: #444;
+    background-color: #333;
     padding: 2em 3em;
     z-index: 9;
+}
+
+@media screen and (max-width: 768px) {
+    .motif-view {
+        padding: 0.5em;
+    }
 }
 
 
@@ -856,7 +880,13 @@ blockquote p {
 
 /* PROGRESS BAR WORK */
 /* Avoid Infinity value in JS*/
-html { height: 100%; }
+/*html { height: 100%; }*/
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+}
 
 .progress-container {
   width: 100%;
@@ -869,8 +899,10 @@ html { height: 100%; }
 
 .progress-bar {
   height: 5px;
-  background-color: rgba(30, 85, 174, 0.5);
-  background-image: linear-gradient( 90deg, rgba(28, 157, 227, 0.3) 15%, rgba(73, 177, 233, 0.8) 50% );
+/*  background-color: rgba(30, 85, 174, 0.5);
+  background-image: linear-gradient( 90deg, rgba(28, 157, 227, 0.3) 15%, rgba(73, 177, 233, 0.8) 50% );*/
+  background-color: rgba(102, 102, 102, 0.7);
+  background-image: linear-gradient( 90deg, rgba(128, 128, 128, 0.8) 15%, rgba(150, 150, 150, 0.5) 50% );
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
   width: 0%;
 }
@@ -889,4 +921,10 @@ html { height: 100%; }
         width: 60px;
         margin-bottom: 1rem;
     }
+}
+
+
+/* Fix content extending box when there are long words, eg. links */
+.media-content {
+    word-break: break-all;
 }

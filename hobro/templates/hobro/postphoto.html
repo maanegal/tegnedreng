@@ -7,12 +7,12 @@
 </div>
 
 <article id="{{ post.time_stamp }}" class="section is-medium columns is-tablet is-gapless {{ layout_outer }}">
-  <div class="column starts-transparent alive slide post-img is-one-third-desktop is-half-tablet">
+  <div class="column starts-transparent alive slide post-img is-one-third-desktop is-half-tablet"{% if anim_pref != "false" %}style="opacity:0;"{% endif %}>
       <a onclick="modalOpen('modal_{{ post.time_stamp }}')">
     <img class="lazy do-shadow" data-src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}"/>
       </a>
   </div>
-  <div class="column alive slide-long is-one-third-desktop is-half-tablet">
+  <div class="column alive slide-long is-one-third-desktop is-half-tablet {% if anim_pref != "false" %}style="opacity:0;"{% endif %}">
     <div class="box">
     <div class="media">
       <figure class="media-left">

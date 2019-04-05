@@ -1,6 +1,6 @@
 
 <section id="{{ story.time_stamp }}" class="section is-family-secondary is-size-5 columns is-mobile {{ layout_outer }}">
-<div class="column alive fade story justified {{ layout_inner }}">
+<div class="column alive fade story justified {{ layout_inner }}" {% if anim_pref != "false" %}style="opacity:0;"{% endif %}>
      (id: {{story.get_type}} {{ story.time_stamp }})
     {{story.text|safe}}
 </div>

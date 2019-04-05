@@ -1,5 +1,5 @@
 <article id="{{ post.time_stamp }}" class="section has-line columns is-tablet {{ layout_outer }}">
-<div class="column alive {{ layout_inner }}">
+<div class="column alive {{ layout_inner }}"{% if anim_pref != "false" %}style="opacity:0;"{% endif %}>
 <div class="box">
     <div class="media">
       <figure class="media-left">

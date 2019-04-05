@@ -246,7 +246,7 @@ function commentToggle(comId, btnId, closerId) {
     button.style.visibility = "visible";
     if ( comment.classList.contains('collapsed') ) {
         if (anim) {
-            Velocity(comment, { transform: [ "translateY(0)", "translateY(-15%)" ], opacity: [1, 0], display: 'flex' }, {duration: 200, easing: 'ease-in'} );
+            Velocity(comment, { transform: [ "translateY(0vh)", "translateY(-10vh)" ], opacity: [1, 0], display: 'flex' }, {duration: 200, easing: 'ease-in'} );
         } else {
             comment.style.opacity = "1";
             comment.style.display = "flex";
@@ -256,7 +256,7 @@ function commentToggle(comId, btnId, closerId) {
         button.innerHTML = '<i class="fas fa-angle-double-up"></i>&nbsp;&nbsp;Skjul kommentar';
     } else {
         if (anim) {
-            Velocity(comment, { transform: [ "translateY(-15%)", "translateY(0%)" ], opacity: [0, 1], display: 'none' }, {duration: 300, easing: 'ease-in'} );
+            Velocity(comment, { transform: [ "translateY(-10vh)", "translateY(0vh)" ], opacity: [0, 1], display: 'none' }, {duration: 300, easing: 'ease-in'} );
         } else {
             comment.style.opacity = "0";
             comment.style.display = "none";
@@ -274,7 +274,7 @@ function motifToggle(motifId, commentId) {
     var anim = showAnimations();
     if ( motif.classList.contains('collapsed') ) {
         if (anim) {
-            Velocity(motif, { transform: [ "translateY(0)", "translateY(-5%)" ], opacity: [1, 0], display: 'block' }, {duration: 300, easing: 'ease-in'} );
+            Velocity(motif, { transform: [ "translateY(0vh)", "translateY(-5vh)" ], opacity: [1, 0], display: 'block' }, {duration: 300, delay: 50, easing: 'ease-in'} );
         } else {
             motif.style.opacity = "1";
             motif.style.display = "block";
@@ -283,7 +283,7 @@ function motifToggle(motifId, commentId) {
         head.innerHTML = '<span><i class="fas fa-angle-double-up"></i></span>';
     } else {
         if (anim) {
-            Velocity(motif, { transform: [ "translateY(-5%)", "translateY(0%)" ], opacity: [0, 1], display: 'none' }, {duration: 300, easing: 'ease-in'} );
+            Velocity(motif, { transform: [ "translateY(-5vh)", "translateY(0vh)" ], opacity: [0, 1], display: 'none' }, {duration: 300, easing: 'ease-in'} );
         } else {
             motif.style.opacity = "0";
             motif.style.display = "none";

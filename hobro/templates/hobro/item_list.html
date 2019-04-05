@@ -17,21 +17,21 @@
             {% if a == "section" %}
                 {% show_section item %}
             {% elif a == "story" %}
-                {% show_story item %}
+                {% show_story item anim_pref %}
             {% elif a == "post" %}
-                {% show_post item %}
+                {% show_post item anim_pref %}
             {% elif a == "postphoto" %}
-                {% show_postphoto item %}
+                {% show_postphoto item anim_pref %}
             {% elif a == "postvideo" %}
-                {% show_postvideo item %}
+                {% show_postvideo item anim_pref %}
             {% elif a == "profileevent" %}
-                {% show_profileevent item %}
+                {% show_profileevent item anim_pref %}
             {% elif a == "itemembed" %}
-                {% show_itemembed item %}
+                {% show_itemembed item anim_pref %}
             {% elif a == "swgrs_post" %}
-                {% show_swgrspost item %}
+                {% show_swgrspost item anim_pref %}
             {% elif a == "swgrs_media" %}
-                {% show_swgrsmedia item %}
+                {% show_swgrsmedia item anim_pref %}
             {% else %}
                 <div class="post">
                     <h2>Indhold kunne ikke findes</h2>
@@ -40,10 +40,10 @@
             {% endif %}
         {% endwith %}
         {% if item.comment %}
-            {% show_comment item.comment comment_pref motifs_seen %}
+            {% show_comment item.comment comment_pref motifs_seen anim_pref %}
         {% endif %}
     {% endfor %}
-    <div class="section is-medium has-background-dark is-raised has-text-centered">
+    <div class="section is-medium background-meta is-raised has-text-centered">
     {% if next %}
         <a href="{% url 'item_page' number=next %}" class="button alive fade navy-text is-medium is-dark is-inverted is-rounded">
             <span class="icon"><i class="fas fa-forward"></i></span>
@@ -98,7 +98,7 @@
             Velocity(entry.target, { transform: [ "translateY(0)", "translateY(20%)" ], opacity: [1, 0] }, {duration: 600, easing: 'ease-out'} );
           }
           else if (entry.target.classList.contains('slide-down')) {
-            Velocity(entry.target, { transform: [  "translateY(0)", "translateY(-10%)" ], opacity: [1, 0] }, {duration: 500, easing: 'ease-out'} );
+            Velocity(entry.target, { transform: [  "translateY(0)", "translateY(-2vh)" ], opacity: [1, 0] }, {duration: 400, easing: 'ease-in-out'} );
           }
           else {
             Velocity(entry.target, { transform: [ "scale(1)", "scale(0.96)" ], opacity: [1, 0.5] }, {duration: 400, easing: 'ease-in'} );
