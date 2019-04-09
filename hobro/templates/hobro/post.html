@@ -1,5 +1,5 @@
 <article id="{{ post.time_stamp }}" class="section has-line columns is-tablet {{ layout_outer }}">
-<div class="column alive {{ layout_inner }}"{% if anim_pref != "false" %}style="opacity:0;"{% endif %}>
+<div class="column {{ layout_inner }}" data-sal="zoom-in-light" data-sal-duration="400" data-sal-easing="ease-in">
 <div class="box">
     <div class="media">
       <figure class="media-left">
@@ -25,12 +25,12 @@
             <span class="icon is-small"><i class="fas fa-external-link-alt"></i></span>
           </a></li>
           {% if post.link_fb %}
-              <li><a href="{{ post.link_fb }}" target="_blank">
+              <li><a href="{{ post.link_fb }}" target="_blank" rel="noopener">
                 <span class="icon is-small"><i class="fab fa-facebook"></i></span>
               </a></li>
           {% endif %}
           {% if post.link_tw %}
-              <li><a href="{{ post.link_tw }}" target="_blank">
+              <li><a href="{{ post.link_tw }}" target="_blank" rel="noopener">
                 <span class="icon is-small"><i class="fab fa-twitter"></i></span>
               </a></li>
           {% endif %}

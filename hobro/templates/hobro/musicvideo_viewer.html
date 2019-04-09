@@ -17,11 +17,11 @@
         </p>
     {% endif %}
     <div class="is-divider" data-content="&#xf001"></div>
-    <div class="youtube-embed">{{ embed_code|safe }}</div>
+    <div class="youtube-embed embed-placeholder">{{ embed_code|safe }}</div>
     {% if musicvideo.comment %}
         <hr>
         <h3 class="subtitle is-5">Kommentarspor fra projektets skaber:</h3><br>
-        {% show_comment musicvideo.comment request.COOKIES.show_comments request.COOKIES.motifs_seen  %}
+        {% show_comment musicvideo.comment request.COOKIES.show_comments request.COOKIES.motifs_seen request.COOKIES.anim_pref %}
     {% endif %}
     </div></div></div></section>
 

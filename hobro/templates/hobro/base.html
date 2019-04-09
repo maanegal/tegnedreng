@@ -5,16 +5,26 @@
         <title>{% block title %}{% endblock %} | Tegnedreng Records</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript">
+        if (!"IntersectionObserver" in window){
+            // only contact polyfill.io if necessary
+            document.write('<script crossorigin=\"anonymous\" src=\"https:\/\/polyfill.io\/v3\/polyfill.min.js?features=IntersectionObserver\"><\/script>');
+        }
+        </script>
+        {% comment %}<script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>{% endcomment %}
           {% load django_simple_bulma %}
           {% bulma %}
           {% font_awesome %}
-        <link href="https://fonts.googleapis.com/css?family=Assistant:400,700,800|Crimson+Text:400,400i,700|Fira+Mono" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="{% static 'hobro/style.css' %}">
         {% if request.COOKIES.show_animations != "false" %}
             <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.5/velocity.min.js"></script>
         {% endif %}
         <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@10.20.1/dist/lazyload.min.js"></script>
-        <script src="{% static "hobro/js/site.js" %}" type="text/javascript"></script>
+        <script src="{% static 'hobro/js/vendor/bodyScrollLockblah.min.js' %}"></script>
+        <script src="{% static 'hobro/js/site.js' %}"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+        <link href="https://fonts.googleapis.com/css?family=Assistant:400,700,800|Crimson+Text:400,400i,700|Fira+Mono" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static 'hobro/sal/sal.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'hobro/style.css' %}">
         <link rel="icon" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-32x32.png" sizes="32x32" />
         <link rel="icon" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-192x192.png" sizes="192x192" />
         <link rel="apple-touch-icon-precomposed" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-180x180.png" />
@@ -165,13 +175,11 @@
 </div></div>
 {% endblock cookies %}
 
+{% block content %}
+{% endblock %}
 
-
-    {% block content %}
-    {% endblock %}
-
-
-    <script>
+<script src="{% static 'hobro/sal/sal.js' %}"></script>
+<script>
 		(function () { ll = new LazyLoad({ elements_selector: '.lazy', });}());
 
 
@@ -188,8 +196,14 @@
     cookieBtn.addEventListener('click', function() {
         setCookie('cookie_consent', "true", 365);
         //cookieBanner.style.display = "none";
-        Velocity(cookieBanner, { transform: ["translateY(100%)", "translateY(0%)"], opacity: [ 0, 1 ], display: ['none', 'block'] }, 250, "ease-in");
+        if ( showAnimations() ) {
+            Velocity(cookieBanner, { transform: ["translateY(100%)", "translateY(0%)"], opacity: [ 0, 1 ], display: ['none', 'block'] }, 250, "ease-in");
+        } else {
+            cookieBanner.style.display = "none;"
+        }
     });
+
+    sal({ threshold: 0.5 });
 
 	</script>
 </body>

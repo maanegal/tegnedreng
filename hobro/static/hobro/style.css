@@ -19,13 +19,14 @@ nav {
     left: unset !important;
     z-index: 29;
     background-color: rgba(8, 8, 8, 0.7) !important;
+    will-change: transform, opacity;
 }
 
 
 .menu-overlay {
     background-color: rgba(0, 0, 0, 0.4);
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     position: fixed;
     z-index: 28;
     display:none;
@@ -59,9 +60,9 @@ nav {
 }
 
 .navbar-menu {
-    height: 100vh;
+    height: 100%;
     overflow: auto;
-    width: 285px;
+    width: 18rem /*285px*/;
     float: right;
     padding-top: 3rem;
     padding-bottom: 0rem;
@@ -880,17 +881,25 @@ blockquote p {
 
 /* PROGRESS BAR WORK */
 /* Avoid Infinity value in JS*/
-/*html { height: 100%; }*/
+
 html {
-  height: 100%;
+    height: 100%;
+    overflow-y: auto;
 }
+/*nav { margin-right: 1em; }*/
+/*html {
+  height: 100%;
+  overflow-x: hidden;
+}*/
 body {
-  min-height: 100%;
+  /*min-height: 100%;*/
+  height: 100%;
+  overflow-x: hidden;
 }
 
 .progress-container {
   width: 100%;
-  height: 5px;
+  height: 7px;
   background: transparent;
   position: fixed;
   top: 0;
@@ -926,5 +935,20 @@ body {
 
 /* Fix content extending box when there are long words, eg. links */
 .media-content {
-    word-break: break-all;
+    word-break: break-word;
+}
+
+.embed-placeholder {
+    background-color: #ddd;
+}
+
+
+[data-sal=slide-up-short] {
+ -webkit-transform:translateY(10%);
+ transform:translateY(10%)
+}
+
+[data-sal=zoom-in-light] {
+ -webkit-transform:scale(.95);
+ transform:scale(.95)
 }

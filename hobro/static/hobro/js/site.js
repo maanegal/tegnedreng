@@ -112,7 +112,8 @@ function toggleShowMenu() {
             sideMenu.style.display = "block";
             menuOverlay.style.display = "block";
         }
-        disableScroll();
+        //disableScroll();
+        bodyScrollLock.disableBodyScroll(sideMenu);
         document.onkeyup = function(evt) {
             evt = evt || window.event;
             var isEscape = false;
@@ -136,7 +137,8 @@ function toggleShowMenu() {
             sideMenu.style.display = "none";
             menuOverlay.style.display = "none";
         }
-        enableScroll();
+        //enableScroll();
+        bodyScrollLock.enableBodyScroll(sideMenu);
         document.onkeyup = null;
     }
 }
@@ -210,7 +212,8 @@ function modalOpen(modalId) {
         modal.style.opacity = "1";
         modal.style.display = "flex";
     }
-    disableScroll();
+    //disableScroll();
+    bodyScrollLock.disableBodyScroll(modal);
     document.onkeyup = function(evt) {
         evt = evt || window.event;
         var isEscape = false;
@@ -234,7 +237,8 @@ function modalClose(modalId) {
         modal.style.opacity = "0";
         modal.style.display = "none";
     }
-    enableScroll();
+    //enableScroll();
+    bodyScrollLock.enableBodyScroll(modal);
     document.onkeyup = null;
 }
 

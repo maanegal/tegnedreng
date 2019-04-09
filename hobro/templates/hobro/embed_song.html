@@ -9,10 +9,10 @@
 
     <p>{{ song.text|safe }}</p><br>
     {% if request.COOKIES.use_player == "spotify" and embed_code_sp%}
-        <div>{{ embed_code_sp|safe }}</div>
+        <div class="embed-placeholder">{{ embed_code_sp|safe }}</div>
     {% else %}
         {% if embed_code_bc %}
-            <div>{{ embed_code_bc|safe }}</div>
+            <div class="embed-placeholder">{{ embed_code_bc|safe }}</div>
         {% endif %}
     {% endif %}
 </div></div>

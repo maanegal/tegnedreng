@@ -3,14 +3,14 @@
 {% block title %}Medlemmer{% endblock %}
 
 {% block content %}
-    <section class="section columns is-tablet is-centered">
+<section class="section columns is-tablet is-centered">
     <div class="column is-two-thirds is-centered"><div class="box big-box">
         <br>
         <h1 class="title is-size-2-desktop is-size-3-tablet has-text-centered">Medlemmerne af Tegnedreng Records</h1>
-<div class="is-divider" data-content="&#xf007"></div>
+    <div class="is-divider" data-content="&#xf007"></div>
     <div class="tile is-ancestor">
     {% for character in characters %}
-        <div class="tile is-parent is-4-fullhd is-6-widescreen is-6-desktop is-6-tablet mobile-fix has-image-centered">
+        <div class="tile is-parent is-4-fullhd is-6-widescreen is-6-desktop is-6-tablet mobile-fix has-image-centered" data-sal="fade" data-sal-duration="500" data-sal-easing="ease-in-out">
             <div class="tile is-child card has-background-light">
               <div class="card-image">
                 <figure class="image">
@@ -26,6 +26,6 @@
     {% endfor %}
 
     </div>
-        <div class="is-divider" data-content="&#xf007"></div>
+    <div class="is-divider" data-content="&#xf007"></div>
 </div></section>
 {% endblock %}

@@ -29,19 +29,19 @@
                   <p class="subtitle is-size-6 is-size-5-widescreen has-text-grey">{{ album.release_date|date }}</p>
                   {% if album.text %}<blockquote>{{ album.text|safe }}</blockquote>{% endif %}
                     {% if album.link_bc %}
-                      <a class="tag is-dark is-medium" href="{{album.link_bc}}" target="_blank">
+                      <a class="tag is-dark is-medium" href="{{album.link_bc}}" target="_blank" rel="noopener">
                           <span class="icon is-small"><i class="fab fa-bandcamp"></i></span>&emsp;Bandcamp</a>
                     {% endif %}
                      {% if album.sp_embed_code %}
-                      <a class="tag is-dark is-medium" href="https://open.spotify.com/album/{{album.sp_embed_code}}" target="_blank">
+                      <a class="tag is-dark is-medium" href="https://open.spotify.com/album/{{album.sp_embed_code}}" target="_blank" rel="noopener">
                           <span class="icon is-small"><i class="fab fa-spotify"></i></span>&emsp;Spotify</a>
                     {% endif %}
                     {% if album.link_yt %}
-                      <a class="tag is-dark is-medium" href="{{album.link_yt}}" target="_blank">
+                      <a class="tag is-dark is-medium" href="{{album.link_yt}}" target="_blank" rel="noopener">
                           <span class="icon is-small"><i class="fab fa-youtube"></i></span>&emsp;YouTube</a>
                     {% endif %}
                     {% if album.link_sc %}
-                      <a class="tag is-dark is-medium" href="{{album.link_sc}}" target="_blank">
+                      <a class="tag is-dark is-medium" href="{{album.link_sc}}" target="_blank" rel="noopener">
                           <span class="icon is-small"><i class="fab fa-soundcloud"></i></span>&emsp;Soundcloud</a>
                     {% endif %}
               </div></div>
@@ -62,16 +62,16 @@
 
                 <div class="column is-half-desktop"><br>
                 {% if request.COOKIES.use_player == "spotify" and embed_code_sp%}
-                    <div>{{ embed_code_sp|safe }}</div>
+                    <div class="embed-placeholder">{{ embed_code_sp|safe }}</div>
                 {% else %}
                     {% if embed_code_bc %}
-                        <div>{{ embed_code_bc|safe }}</div>
+                        <div class="embed-placeholder">{{ embed_code_bc|safe }}</div>
                     {% endif %}
                 {% endif %}
                 {% if album.comment %}
                     <hr>
                     <h3 class="subtitle is-5">Kommentarspor fra projektets skaber:</h3><br>
-                    {% show_comment album.comment request.COOKIES.show_comments request.COOKIES.motifs_seen  %}
+                    {% show_comment album.comment request.COOKIES.show_comments request.COOKIES.motifs_seen request.COOKIES.anim_pref %}
                 {% endif %}
             </div></div>
     </section>

@@ -8,9 +8,9 @@
     <p class="subtitle">Album {{player_pref}}</p>
     <p>{{ album.text|safe }}</p><br>
     {% if player_pref == "spotify" %}
-        <div>{{ embed_code_sp|safe }}</div><br>
+        <div class="embed-placeholder">{{ embed_code_sp|safe }}</div><br>
     {% else %}
-        <div>{{ embed_code_bc|safe }}
+        <div class="embed-placeholder">{{ embed_code_bc|safe }}
         <a class="close-player delete is-medium" style="float: right; display: none;"></a>
         </div>
     {% endif %}

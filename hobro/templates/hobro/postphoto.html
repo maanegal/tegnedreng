@@ -7,12 +7,12 @@
 </div>
 
 <article id="{{ post.time_stamp }}" class="section is-medium columns is-tablet is-gapless {{ layout_outer }}">
-  <div class="column starts-transparent alive slide post-img is-one-third-desktop is-half-tablet"{% if anim_pref != "false" %}style="opacity:0;"{% endif %}>
+  <div class="column starts-transparent alivez slide post-img is-one-third-desktop is-half-tablet" data-sal="slide-up-short" data-sal-duration="500" data-sal-easing="ease-out">
       <a onclick="modalOpen('modal_{{ post.time_stamp }}')">
     <img class="lazy do-shadow" data-src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}"/>
       </a>
   </div>
-  <div class="column alive slide-long is-one-third-desktop is-half-tablet {% if anim_pref != "false" %}style="opacity:0;"{% endif %}">
+  <div class="column alivez slide-long is-one-third-desktop is-half-tablet" data-sal="slide-up" data-sal-duration="600" data-sal-easing="ease-out">
     <div class="box">
     <div class="media">
       <figure class="media-left">
@@ -36,17 +36,17 @@
             <span class="icon is-small"><i class="fas fa-external-link-alt"></i></span>
           </a></li>
           {% if post.link_fb %}
-              <li><a href="{{ post.link_fb }}" target="_blank">
+              <li><a href="{{ post.link_fb }}" target="_blank" rel="noopener">
                 <span class="icon is-small"><i class="fab fa-facebook"></i></span>
               </a></li>
           {% endif %}
           {% if post.link_ig %}
-              <li><a href="{{ post.link_ig }}" target="_blank">
+              <li><a href="{{ post.link_ig }}" target="_blank" rel="noopener">
                 <span class="icon is-small"><i class="fab fa-instagram"></i></span>
               </a></li>
           {% endif %}
           {% if post.link_tw %}
-              <li><a href="{{ post.link_tw }}" target="_blank">
+              <li><a href="{{ post.link_tw }}" target="_blank" rel="noopener">
                 <span class="icon is-small"><i class="fab fa-twitter"></i></span>
               </a></li>
           {% endif %}

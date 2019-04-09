@@ -38,16 +38,16 @@
             {% endif %}
              <p>
             {% if song.link_bc %}
-                  <a class="tag is-dark is-medium" href="{{song.link_bc}}" target="_blank"><span class="icon is-small"><i class="fab fa-bandcamp"></i></span>&emsp;Bandcamp</a>
+                  <a class="tag is-dark is-medium" href="{{song.link_bc}}" target="_blank" rel="noopener"><span class="icon is-small"><i class="fab fa-bandcamp"></i></span>&emsp;Bandcamp</a>
             {% endif %}
              {% if song.sp_embed_code %}
                   <a class="tag is-dark is-medium" href="https://open.spotify.com/track/{{song.sp_embed_code}}" target="_blank"><span class="icon is-small"><i class="fab fa-spotify"></i></span>&emsp;Spotify</a>
             {% endif %}
             {% if song.link_yt %}
-                  <a class="tag is-dark is-medium" href="{{song.link_yt}}" target="_blank"><span class="icon is-small"><i class="fab fa-youtube"></i></span>&emsp;YouTube</a>
+                  <a class="tag is-dark is-medium" href="{{song.link_yt}}" target="_blank" rel="noopener"><span class="icon is-small"><i class="fab fa-youtube"></i></span>&emsp;YouTube</a>
             {% endif %}
             {% if song.link_sc %}
-                  <a class="tag is-dark is-medium" href="{{song.link_sc}}" target="_blank"><span class="icon is-small"><i class="fab fa-soundcloud"></i></span>&emsp;Soundcloud</a>
+                  <a class="tag is-dark is-medium" href="{{song.link_sc}}" target="_blank" rel="noopener"><span class="icon is-small"><i class="fab fa-soundcloud"></i></span>&emsp;Soundcloud</a>
             {% endif %}
               </p>
 
@@ -64,10 +64,10 @@
         </div></div>
         <div class="is-divider" data-content="&#xf001"></div>
         {% if request.COOKIES.use_player == "spotify" and embed_code_sp%}
-            <div>{{ embed_code_sp|safe }}</div>
+            <div class="embed-placeholder">{{ embed_code_sp|safe }}</div>
         {% else %}
             {% if embed_code_bc %}
-                <div>{{ embed_code_bc|safe }}</div>
+                <div class="embed-placeholder">{{ embed_code_bc|safe }}</div>
             {% endif %}
         {% endif %}
         <div class="is-divider" data-content="&#xf001"></div>
@@ -80,7 +80,7 @@
         {% endif %}
         {% if song.comment %}
             <div class="column">
-            {% show_comment song.comment request.COOKIES.show_comments request.COOKIES.motifs_seen  %}
+            {% show_comment song.comment request.COOKIES.show_comments request.COOKIES.motifs_seen request.COOKIES.anim_pref %}
             </div>
         {% endif %}
             </div>
