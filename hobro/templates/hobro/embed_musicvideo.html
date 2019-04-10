@@ -1,5 +1,5 @@
 <article id="{{ musicvideo.slug }}" class="section columns is-mobile is-centered background-release">
-<div class="column is-6-desktop is-8-tablet starts-transparent alive fade"{% if anim_pref != "false" %}style="opacity:0;"{% endif %}>
+<div class="column is-6-desktop is-8-tablet" data-sal="zoom-out" data-sal-duration="500" data-sal-easing="ease-in-out">
 <div class="box">
     <a href="{% url 'musicvideo_viewer' slug=musicvideo.slug %}">
         <span class="title">{{ musicvideo.title }}</span>

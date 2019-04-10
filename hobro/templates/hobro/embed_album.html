@@ -1,5 +1,5 @@
 <section id="{{ album.slug }}" class="section columns is-tablet is-centered background-release">
-<div class="column is-two-thirds starts-transparent alive fade"{% if anim_pref != "false" %}style="opacity:0;"{% endif %}>
+<div class="column is-two-thirds" data-sal="zoom-out" data-sal-duration="500" data-sal-easing="ease-in-out">
 <div class="box">
     <a href="{% url 'album_viewer' slug=album.slug %}">
         <span class="title">{{ album.title }}</span>

@@ -218,6 +218,20 @@ def the_big_retriever(number=None):
     return output
 
 
+def get_animation(lt=""):
+    if not lt:
+        lt = "basic"
+    anims = {
+        'slide': 'data-sal="slide-up-short" data-sal-duration="500" data-sal-easing="ease-out"',
+        'slide-long': 'data-sal="slide-up" data-sal-duration="600" data-sal-easing="ease-out"',
+        'slide-down': 'data-sal="slide-down" data-sal-duration="400" data-sal-easing="ease-in-out"',
+        'left': 'data-sal="slide-right" data-sal-duration="500" data-sal-easing="ease-out"',
+        'right': 'data-sal="slide-left" data-sal-duration="500" data-sal-easing="ease-out"',
+        'fade': 'data-sal="fade" data-sal-duration="600" data-sal-easing="ease-out"',
+        'basic': 'data-sal="zoom-in-light" data-sal-duration="400" data-sal-easing="ease-out"'
+    }
+    return anims.get(lt, '')
+
 def get_layout(lt=""):
     # basic placement:
     if 'left' in lt:

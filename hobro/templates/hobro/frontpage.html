@@ -6,30 +6,30 @@
 {% block cookies %}{% endblock cookies %}
 {% block content %}
 <section class="hero is-dark is-bold is-fullheight">
-    <div id="konrad" class="hero is-fullheight" style="background-color: #000000;" >
+    <div id="" class="hero is-fullheight" >
     <div class="hero-body">
         <div class="container is-family-secondary has-text-centered">
-        <h1 class="title is-capitalized is-size-1-desktop is-size-2-tablet is-size-2-mobile txt-shadow" id="kasper" style="opacity:0">Hobro for livet</h1>
-        <h2 class="subtitle is-size-2-desktop is-size-3-tablet is-size-3-mobile txt-shadow" id="jens" style="opacity:0">Legenden om <em>Tegnedreng Records</em></h2>
-            <img id="section-gfx" src="{% get_media_prefix %}chapters/chapter8.svg" style="opacity: 0;"/>
-            <br>
+        <h1 class="title is-capitalized is-size-1-desktop is-size-2-tablet is-size-2-mobile txt-shadow" data-sal="zoom-in-light" data-sal-duration="2000" data-sal-delay="200" data-sal-easing="ease-in">Hobro for livet</h1>
+        <h2 class="subtitle is-size-2-desktop is-size-3-tablet is-size-3-mobile txt-shadow" data-sal="zoom-in-light" data-sal-duration="2000" data-sal-delay="800" data-sal-easing="ease-in">Legenden om <em>Tegnedreng Records</em></h2>
+        <img id="section-gfx" src="{% get_media_prefix %}chapters/chapter8.svg" data-sal="zoom-out" data-sal-duration="2000" data-sal-delay="2000" data-sal-easing="ease-in-out"/>
+        <br>
 
     </div>
     </div>
-      <div id="svend" class="hero-foot" style="opacity:0">
+      <div id="svendsen" class="hero-foot">
           <div style="text-align: center; padding:30px;">
-            <p id="scrollBtn" class="button navy-text is-medium is-primary is-rounded do-shadow" style="margin:15px">
-                <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-angle-double-down"></i></span>
+            <p id="scrollBtn" class="button navy-text is-medium is-primary is-rounded do-shadow" style="margin:15px" data-sal="slide-down" data-sal-duration="2000" data-sal-delay="2000" data-sal-easing="ease-in-out">
+                <span class="icon is-small"><i class="fas fa-angle-double-down"></i></span>
                 Læs historien</p>
-            <a href="{% url 'music_list' %}" class="button navy-text is-medium is-info is-rounded do-shadow" style="margin:15px">
-                <span class="icon is-small" style="margin-right:7px;"><i class="fas fa-music"></i></span>
+            <a href="{% url 'music_list' %}" class="button navy-text is-medium is-info is-rounded do-shadow" style="margin:15px" data-sal="slide-down" data-sal-duration="2000" data-sal-delay="2600" data-sal-easing="ease-in-out">
+                <span class="icon is-small"><i class="fas fa-music"></i></span>
                 Hør musikken</a>
         </div><br>
       </div>
 </div>
 </section>
 
-<section id="read" class="section background-main is-sunk"><div class="columns is-mobile is-centered">
+<section id="read" class="section background-main is-sunk"><div class="columns is-mobile is-centered" >
     <div class="column story justified is-9-tablet is-7-widescreen notecard is-family-secondary is-size-5">
     <h1 class="title is-size-2-desktop is-size-3-tablet has-text-centered has-text-weight-normal is-smallcaps">Indledning</h1>
     <div class="is-divider" data-content="&#xf518"></div>
@@ -121,12 +121,14 @@
 </section>
 
 <script>
+
     window.onload = function(){
-        var konrad = document.getElementById("konrad");
+        sal(); }
+    /*    var konrad = document.getElementById("konrad");
         var svend = document.getElementById("svend");
         var kasper = document.getElementById("kasper");
         var jens = document.getElementById("jens");
-        var rasmus = document.getElementById("section-gfx");
+        //var rasmus = document.getElementById("section-gfx");
         if ( showAnimations() ) {
             Velocity(konrad, { backgroundColor: 'rgba(200, 200, 192, 0)' }, 6000, 'ease-out' );
             Velocity(kasper, { transform: [ "scale(1)", "scale(0.96)" ], opacity: [1, 0] }, {duration: 2000, delay: 400, easing: 'ease-in'} );
@@ -140,7 +142,7 @@
             rasmus.style.opacity = "1";
             svend.style.opacity = "1";
         }
-    }
+    }*/
 
     var read = document.getElementById('read');
     var btn = document.getElementById('scrollBtn');

@@ -1,10 +1,10 @@
 <article id="{{ post.time_stamp }}" class="section slide is-medium has-line columns is-tablet is-gapless {{ layout_outer }}">
-  <div class="column is-one-third alive slide" {% if anim_pref != "false" %}style="opacity:0;"{% endif %}>
+  <div class="column is-one-third alivez slide" data-sal="slide-up-short" data-sal-duration="500" data-sal-easing="ease-out">
     <video class="lazy do-shadow" data-src="{{ post.video.url }}" controls="1" height="{{ post.photo.height }}" width="{{ post.photo.width }}">
         <a href="{{ post.video.url }}"> <img class="lazy" data-src="{{ post.photo.url }}"></a>
     </video>
   </div>
-  <div class="column is-one-third alive slide-long"{% if anim_pref != "false" %}style="opacity:0;"{% endif %}>
+  <div class="column is-one-third alivez slide-long" data-sal="slide-up" data-sal-duration="600" data-sal-easing="ease-out">
     <div class="box">
     <div class="media">
       <figure class="media-left">

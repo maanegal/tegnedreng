@@ -94,29 +94,20 @@ function setCommentPrefs() {
     }
 }
 
-
 function toggleShowMenu() {
     var sideMenu = document.getElementById("sideMenu");
     var menuOverlay = document.getElementById("menuOverlay");
     var menuButton = document.getElementById("menuButton");
     menuButton.classList.toggle('is-active');
-    var anim = showAnimations();
-    if (sideMenu.style.display === "none") { // open menu
-        if (anim) {
-            // From right
-            Velocity(sideMenu, { transform: [ "translate(0%)", "translate(100%)" ], opacity: [ 1, 0 ], display: ['block', 'none'] }, 150, "ease-out");
-            // From left
-            //Velocity(sideMenu, { transform: [ "translate(0%)", "translate(-100%)" ], opacity: [ 1, 0 ], display: ['block', 'none'] }, 150, "ease-out");
-            Velocity(menuOverlay, { opacity: [ 1, 0 ], display: ['block', 'none'] }, 250, "ease-in");
-        } else {
-            sideMenu.style.display = "block";
-            menuOverlay.style.display = "block";
-        }
-        //disableScroll();
-        bodyScrollLock.disableBodyScroll(sideMenu);
+    sideMenu.classList.toggle('is-active');
+    menuOverlay.classList.toggle('is-active');
+    if (sideMenu.classList.contains('is-active')) {
+        disableScroll();
+        //bodyScrollLock.disableBodyScroll(sideMenu);
         document.onkeyup = function(evt) {
             evt = evt || window.event;
             var isEscape = false;
+            console.log(evt.key);
             if ("key" in evt) {
                 isEscape = (evt.key === "Escape" || evt.key === "Esc");
             } else {
@@ -126,19 +117,9 @@ function toggleShowMenu() {
                 toggleShowMenu();
             }
         };
-    } else { // close menu
-        if (anim) {
-            // From right
-            Velocity(sideMenu, { transform: ["translate(100%)", "translate(0%)"], opacity: [ 0, 1 ], display: ['none', 'block'] }, 150, "ease-in");
-            // From left
-            //Velocity(sideMenu, { transform: ["translate(-100%)", "translate(0%)"], opacity: [ 0, 1 ], display: ['none', 'block'] }, 150, "ease-in");
-            Velocity(menuOverlay, { opacity: [ 0, 1 ], display: ['none', 'block'] }, 250, "ease-out");
-        } else {
-            sideMenu.style.display = "none";
-            menuOverlay.style.display = "none";
-        }
-        //enableScroll();
-        bodyScrollLock.enableBodyScroll(sideMenu);
+    } else {
+        enableScroll();
+        //bodyScrollLock.enableBodyScroll(sideMenu);
         document.onkeyup = null;
     }
 }
@@ -146,9 +127,9 @@ function toggleShowMenu() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // fading nav in on page load
-    var anim = showAnimations();
-    var klaus = document.getElementsByTagName("nav");
-    if ( anim ) { Velocity(klaus, { opacity: [1, 0] }, {duration: 1000, easing: 'ease-in'} ); }
+    //var anim = showAnimations();
+    //var klaus = document.getElementsByTagName("nav");
+    //if ( anim ) { Velocity(klaus, { opacity: [1, 0] }, {duration: 1000, easing: 'ease-in'} ); }
 //Velocity(klaus, { opacity: [1, 0] }, {duration: 1000, easing: 'ease-in'} );
 
   // Get all "navbar-burger" elements
@@ -184,35 +165,45 @@ function preventDefaultForScrollKeys(e) {
 }
 
 function disableScroll() {
-  if (window.addEventListener) // older FF
+    var htmlElement = document.querySelector("html");
+    htmlElement.classList.add('locked');
+/*  if (window.addEventListener) // older FF
       window.addEventListener('DOMMouseScroll', preventDefault, false);
   window.onwheel = preventDefault; // modern standard
   window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
   window.ontouchmove  = preventDefault; // mobile
   document.onkeydown  = preventDefaultForScrollKeys;
+*/
 }
 
 function enableScroll() {
-    if (window.removeEventListener)
+    var htmlElement = document.querySelector("html");
+    htmlElement.classList.remove('locked');
+/*    if (window.removeEventListener)
         window.removeEventListener('DOMMouseScroll', preventDefault, false);
     window.onmousewheel = document.onmousewheel = null;
     window.onwheel = null;
     window.ontouchmove = null;
     document.onkeydown = null;
+*/
 }
 
 
 function modalOpen(modalId) {
     var modal = document.getElementById(modalId);
-    modal.classList.add('activated');
-    var anim = showAnimations();
+    modal.classList.add('prepare');
+    setTimeout(function(){
+        modal.classList.add('is-active');
+   },20);
+
+    /*var anim = showAnimations();
     if (anim) {
         Velocity(modal, { opacity: [1, 0], display: 'flex' }, {duration: 300, easing: 'ease-in'} );
     } else {
         modal.style.opacity = "1";
         modal.style.display = "flex";
-    }
-    //disableScroll();
+    }*/
+    disableScroll();
     bodyScrollLock.disableBodyScroll(modal);
     document.onkeyup = function(evt) {
         evt = evt || window.event;
@@ -229,15 +220,15 @@ function modalOpen(modalId) {
 }
 function modalClose(modalId) {
     var modal = document.getElementById(modalId);
-    modal.classList.remove('activated');
-    var anim = showAnimations();
+    modal.classList.remove('is-active');
+    /*var anim = showAnimations();
     if (anim) {
         Velocity(modal, { opacity: [0, 1], display: 'none' }, {duration: 500, easing: 'ease-in'} );
     } else {
         modal.style.opacity = "0";
         modal.style.display = "none";
-    }
-    //enableScroll();
+    }*/
+    enableScroll();
     bodyScrollLock.enableBodyScroll(modal);
     document.onkeyup = null;
 }
@@ -302,13 +293,13 @@ function motifToggle(motifId, commentId) {
     setCookie("motifs_seen", cook, 14);
     console.log("motivation");
 }
-
+/*
 window.onload = function() {
     var h = document.documentElement,
       b = document.body,
       st = 'scrollTop',
       sh = 'scrollHeight',
-      progress = document.querySelector('.progress-bar'),
+      progress = document.querySelector('.progress-bar-old'),
       scroll;
 
     document.addEventListener('scroll', function() {
@@ -316,7 +307,7 @@ window.onload = function() {
       progress.style.setProperty('--scroll', scroll + '%');
     });
 }
-
+*/
 
 function filterList(queryField, queryList) {
   // from w3schools

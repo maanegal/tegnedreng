@@ -15,24 +15,52 @@ nav {
 }
 
 
-.side-menu {
+#sideMenu {
     left: unset !important;
     z-index: 29;
     background-color: rgba(8, 8, 8, 0.7) !important;
     will-change: transform, opacity;
+    display: block !important;
+    visibility: hidden;
+    opacity: 0;
+    transform: translate(100%);
+    transition-property: transform, opacity, visibility;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-in;
 }
 
+#sideMenu.is-active {
+    transform: translate(0%);
+    opacity: 1;
+    visibility: visible;
+    transition-property: transform, opacity, visibility;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-in;
+}
 
 .menu-overlay {
+    will-change: opacity;
+    visibility: hidden;
+    opacity: 0;
+    transition-property: opacity, visibility;
+    transition-duration: 0.35s;
+    transition-timing-function: ease-in;
     background-color: rgba(0, 0, 0, 0.4);
     width: 100vw;
     height: 100%;
     position: fixed;
     z-index: 28;
-    display:none;
     bottom: 0;
     backdrop-filter: blur(1px) grayscale(80%);
     -webkit-backdrop-filter: blur(1px) grayscale(80%);
+}
+
+.menu-overlay.is-active {
+    opacity: 1;
+    visibility: visible;
+    transition-property: opacity, visibility;
+    transition-duration: 0.35s;
+    transition-timing-function: ease-in;
 }
 
 
@@ -179,6 +207,27 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
     max-width: 100vh;
     object-fit: contain;
 }
+
+.modal.prepare {
+    display: flex;
+}
+
+.modal {
+    visibility: hidden;
+    opacity: 0;
+    transition-property: opacity, visibility;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in;
+}
+
+.modal.is-active {
+    opacity: 1;
+    visibility: visible;
+    transition-property: opacity, visibility;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in;
+}
+
 
 .stop-scrolling {
   height: 100%;
@@ -368,7 +417,7 @@ img:not([src]) {
 
 .post-img img {
     background-color: rgba(10, 10, 10, 0.25);
-    opacity: 1
+    opacity: 1;
     transition: opacity 1s;
 }
 
@@ -600,13 +649,16 @@ a img:hover {
 
 .is-behind-top {
     z-index: -3;
-    position: sticky;
+    /*position: sticky;*/
     top: 0;
+    position: fixed; /*EXPERIMENTAL*/
+    width: 100%;
 }
 
 .is-after-behind {
     height: 40px;
     background: linear-gradient(360deg, rgba(20, 20, 20, 0.5) 0%, rgba(255,255,255,0) 83%);
+    margin-top: 100vh; /*EXPERIMENTAL*/
 }
 
 
@@ -876,25 +928,42 @@ blockquote p {
     -webkit-backdrop-filter: blur(2px) grayscale(80%);
     box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.4);
     display: none;
+    transform: translateY(100%);
+    opacity: 0;
+    visibility: hidden;
+    will-change: transform, opacity;
+    transition-property: transform, opacity, visibility;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in;
 }
 
+#the-cookies.is-active {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0%);
+}
 
 /* PROGRESS BAR WORK */
 /* Avoid Infinity value in JS*/
 
 html {
     height: 100%;
-    overflow-y: auto;
+    /*overflow-y: auto;*/
 }
 /*nav { margin-right: 1em; }*/
 /*html {
   height: 100%;
   overflow-x: hidden;
 }*/
+
 body {
   /*min-height: 100%;*/
-  height: 100%;
   overflow-x: hidden;
+}
+
+html.locked {
+    overflow-y: hidden;
 }
 
 .progress-container {
@@ -932,17 +1001,24 @@ body {
     }
 }
 
+/* Space after icons on buttons */
+.icon.is-small {
+    margin-right: 0.5em !important;
+}
+
 
 /* Fix content extending box when there are long words, eg. links */
 .media-content {
     word-break: break-word;
 }
 
+/* before iframes load, show some color to indicate that something's coming*/
 .embed-placeholder {
     background-color: #ddd;
 }
 
 
+/* ADDITIONAL PARAMETERS FOR SAL ANIMATION LIBRARY */
 [data-sal=slide-up-short] {
  -webkit-transform:translateY(10%);
  transform:translateY(10%)
@@ -951,4 +1027,29 @@ body {
 [data-sal=zoom-in-light] {
  -webkit-transform:scale(.95);
  transform:scale(.95)
+}
+
+[data-sal][data-sal-duration="2400"] {
+ -webkit-transition-duration:2.4s;
+ transition-duration:2.4s
+}
+
+[data-sal][data-sal-delay="1600"] {
+ -webkit-transition-delay:1.6s;
+ transition-delay:1.6s
+}
+
+[data-sal][data-sal-delay="2000"] {
+ -webkit-transition-delay:2s;
+ transition-delay:2s
+}
+
+[data-sal][data-sal-delay="2600"] {
+ -webkit-transition-delay:2.6s;
+ transition-delay:2.6s
+}
+
+[data-sal][data-sal-delay="4000"] {
+ -webkit-transition-delay:4s;
+ transition-delay:4s
 }

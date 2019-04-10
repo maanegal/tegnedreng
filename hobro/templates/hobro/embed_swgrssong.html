@@ -1,5 +1,5 @@
 <article id="{{ song.slug }}" class="section columns is-tablet is-centered background-swgrs">
-<div class="column is-two-thirds starts-transparent alive fade"{% if anim_pref != "false" %}style="opacity:0;"{% endif %}>
+<div class="column is-two-thirds" data-sal="zoom-out" data-sal-duration="500" data-sal-easing="ease-in-out">
     <div class="box has-text-light has-background-dark darkmode">
     <a href="{% url 'item_detail' pk=song.pk tp=song.get_type %}">
         <span class="title has-text-light">{{ song.title }}</span><span class="icon is-small">&emsp;<i class="fas fa-external-link-alt"></i></span>

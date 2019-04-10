@@ -1,36 +1,48 @@
 from datetime import datetime
 from ..models import *
 from hobro.helpers import get_current_info, make_bandcamp_embed, make_spotify_embed, make_youtube_embed, \
-    make_soundcloud_embed, get_layout
+    make_soundcloud_embed, get_layout, get_animation
 from django import template
 register = template.Library()
 
 
 @register.inclusion_tag('hobro/post.html')
-def show_post(post, anim_pref):
+def show_post(post):
     info = get_current_info(post.time_stamp)
     dt = datetime.fromtimestamp(post.time_stamp)
-    outer, inner = get_layout(post.layout)
+    layout = post.layout
+    outer, inner = get_layout(layout)
+    if 'left' in layout:
+        a = 'left'
+    elif 'right' in layout:
+        a = 'right'
+    else:
+        a = ''
+    anim = get_animation(a)
     return {'post': post, 'name': info.get('name', ''), 'profilepic': info.get('photo', ''), 'post_time': dt,
-            'layout_outer': outer, 'layout_inner': inner, "anim_pref": anim_pref}
+            'layout_outer': outer, 'layout_inner': inner, "anim": anim}
 
 
 @register.inclusion_tag('hobro/postphoto.html')
-def show_postphoto(postphoto, anim_pref):
+def show_postphoto(postphoto):
     info = get_current_info(postphoto.time_stamp)
     dt = datetime.fromtimestamp(postphoto.time_stamp)
     outer, inner = get_layout(postphoto.layout)
+    anim_a = get_animation('slide')
+    anim_b = get_animation('slide-long')
     return {'post': postphoto, 'name': info.get('name', ''), 'profilepic': info.get('photo', ''), 'post_time': dt,
-            'layout_outer': outer, 'layout_inner': inner, "anim_pref": anim_pref}
+            'layout_outer': outer, 'layout_inner': inner, "anim_a": anim_a, "anim_b": anim_b}
 
 
 @register.inclusion_tag('hobro/postvideo.html')
-def show_postvideo(postvideo, anim_pref):
+def show_postvideo(postvideo):
     info = get_current_info(postvideo.time_stamp)
     dt = datetime.fromtimestamp(postvideo.time_stamp)
     outer, inner = get_layout(postvideo.layout)
+    anim_a = get_animation('slide')
+    anim_b = get_animation('slide-long')
     return {'post': postvideo, 'name': info.get('name', ''), 'profilepic': info.get('photo', ''), 'post_time': dt,
-            'layout_outer': outer, 'layout_inner': inner, "anim_pref": anim_pref}
+            'layout_outer': outer, 'layout_inner': inner, "anim_a": anim_a, "anim_b": anim_b}
 
 
 @register.inclusion_tag('hobro/post_card.html')
@@ -46,13 +58,14 @@ def show_section(section):
 
 
 @register.inclusion_tag('hobro/story.html')
-def show_story(story, anim_pref):
+def show_story(story):
     if story.layout:
         layout = story.layout
     else:
         layout = "sunk paper"
     outer, inner = get_layout(layout)
-    return {'story': story, 'layout_outer': outer, 'layout_inner': inner, 'anim_pref': anim_pref}
+    anim = get_animation('fade')
+    return {'story': story, 'layout_outer': outer, 'layout_inner': inner, 'anim': anim}
 
 
 @register.inclusion_tag('hobro/profileevent.html')
@@ -63,7 +76,8 @@ def show_profileevent(profileevent, anim_pref):
     #else:
     layout = "color-c"
     outer, inner = get_layout(layout)
-    return {'profileevent': profileevent, 'post_time': dt, 'layout_outer': outer, 'layout_inner': inner, 'anim_pref': anim_pref}
+    anim = get_animation('slide')
+    return {'profileevent': profileevent, 'post_time': dt, 'layout_outer': outer, 'layout_inner': inner, 'anim': anim}
 
 
 @register.inclusion_tag('hobro/swgrspost.html')
@@ -80,7 +94,14 @@ def show_swgrspost(swgrspost, anim_pref):
             yt = make_youtube_embed(swgrspost)
     except:
         yt = ""
-    return {'swgrspost': swgrspost, 'post_time': dt, 'yt_embed': yt, 'layout_outer': outer, 'layout_inner': inner, "anim_pref": anim_pref}
+    if 'left' in layout:
+        a = 'left'
+    elif 'right' in layout:
+        a = 'right'
+    else:
+        a = ''
+    anim = get_animation(a)
+    return {'swgrspost': swgrspost, 'post_time': dt, 'yt_embed': yt, 'layout_outer': outer, 'layout_inner': inner, "anim": anim}
 
 
 @register.inclusion_tag('hobro/swgrsmedia.html')
@@ -97,8 +118,10 @@ def show_swgrsmedia(swgrsmedia, anim_pref):
     else:
         video = ""
         video_title = ""
+    anim_a = get_animation('slide')
+    anim_b = get_animation('slide-long')
     return {'post': swgrsmedia, 'post_time': dt, 'video': video, 'video_title': video_title, 'layout_outer': outer,
-            'layout_inner': inner, "anim_pref": anim_pref}
+            'layout_inner': inner, "anim_a": anim_a, "anim_b": anim_b}
 
 
 @register.inclusion_tag('hobro/itemembed.html')
@@ -106,11 +129,11 @@ def show_itemembed(itemembed, anim_pref):
     dt = datetime.fromtimestamp(itemembed.time_stamp)
     kind = itemembed.what_kind()
     outer, inner = get_layout("")
-    return {'itemembed': itemembed, 'post_time': dt, 'kind': kind, 'layout_outer': outer, "anim_pref": anim_pref}
+    return {'itemembed': itemembed, 'post_time': dt, 'kind': kind, 'layout_outer': outer}
 
 
 @register.inclusion_tag('hobro/embed_song.html')
-def embed_song(song, layout, anim_pref):
+def embed_song(song, layout):
     s = song.first()
     a = None
     if s.album:
@@ -119,23 +142,23 @@ def embed_song(song, layout, anim_pref):
     embed_sp = make_spotify_embed(album=None, song=s)
     outer, inner = get_layout(layout)
     return {'song': s, 'embed_code_bc': embed_bc, 'embed_code_sp': embed_sp, 'layout_outer': outer,
-            'layout_inner': inner, "anim_pref": anim_pref}
+            'layout_inner': inner}
 
 
 @register.inclusion_tag('hobro/embed_album.html')
-def embed_album(album, anim_pref, layout=""):
+def embed_album(album, layout=""):
     al = album.first()
     embed_bc = make_bandcamp_embed(album=al, song=None)
     embed_sp = make_spotify_embed(album=al, song=None)
     outer, inner = get_layout(layout)
     return {'album': al, 'embed_code_bc': embed_bc, 'embed_code_sp': embed_sp, 'layout_outer': outer,
-            'layout_inner': inner, "anim_pref": anim_pref}
+            'layout_inner': inner}
 
 
 @register.inclusion_tag('hobro/embed_musicvideo.html')
-def embed_musicvideo(musicvideo, anim_pref):
+def embed_musicvideo(musicvideo):
     embed = make_youtube_embed(musicvideo.first())
-    return {'musicvideo': musicvideo.first(), 'embed_code': embed, "anim_pref": anim_pref}
+    return {'musicvideo': musicvideo.first(), 'embed_code': embed}
 
 
 @register.inclusion_tag('hobro/embed_character.html')
@@ -144,10 +167,10 @@ def embed_character(character):
 
 
 @register.inclusion_tag('hobro/embed_swgrssong.html')
-def embed_swgrssong(swgrssong, anim_pref):
+def embed_swgrssong(swgrssong):
     swgrssong = swgrssong.first()
     embed_sc = make_soundcloud_embed(swgrssong)
-    return {'song': swgrssong, 'embed_code_sc': embed_sc, "anim_pref": anim_pref}
+    return {'song': swgrssong, 'embed_code_sc': embed_sc}
 
 
 @register.inclusion_tag('hobro/comment.html')

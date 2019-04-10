@@ -17,13 +17,13 @@
             {% if a == "section" %}
                 {% show_section item %}
             {% elif a == "story" %}
-                {% show_story item anim_pref %}
+                {% show_story item %}
             {% elif a == "post" %}
-                {% show_post item anim_pref %}
+                {% show_post item %}
             {% elif a == "postphoto" %}
-                {% show_postphoto item anim_pref %}
+                {% show_postphoto item %}
             {% elif a == "postvideo" %}
-                {% show_postvideo item anim_pref %}
+                {% show_postvideo item %}
             {% elif a == "profileevent" %}
                 {% show_profileevent item anim_pref %}
             {% elif a == "itemembed" %}
@@ -59,7 +59,7 @@
     </div>
 
 <script>
-    window.onload = function(){
+    /*window.onload = function(){
         var kasper = document.getElementById("section-num");
         var jens = document.getElementById("section-title");
         var rasmus = document.getElementById("section-gfxz");
@@ -75,7 +75,7 @@
             rasmus.style.opacity = "1";
             birger.style.opacity = "1";
         }
-    }
+    }*/
 
     const alive = document.querySelectorAll('.alive');
 
@@ -121,7 +121,7 @@
       var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       var scrolled = (winScroll / height) * 100;
       document.getElementById("theProgressBar").style.width = scrolled + "%";
-      console.log(winScroll);
+      //console.log(scrolled);
     }
 
 </script>

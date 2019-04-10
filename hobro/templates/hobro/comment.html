@@ -10,9 +10,9 @@
 <section id="{{comment.alias}}" class="section comment-block {% if pref == "on" %} alive slide-down{% endif %}
     {% if pref != "on" %}collapsed {% endif %} story is-family-secondary is-size-5 has-text-light columns is-tablet is-centered"
     style="{% if pref != "on" %}display:none;{% endif %} {% if anim_pref != "false" %}opacity:0;{% endif %}">
-
     <div class="column is-10-tablet is-8-desktop is-6-full-hd darkmode justified">
         {{comment.text|safe}}
+
         {% for motif in comment.has_motif.all %}
         <div class="is-slightly-raised">
             <a id="head-{{comment.slug}}-{{motif.slug}}" class="motif-head" onclick="motifToggle('{{comment.slug}}', '{{motif.slug}}')">
