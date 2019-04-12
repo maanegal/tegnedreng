@@ -1,3 +1,5 @@
+{% load itemviews %}
+
 <section id="{{ album.slug }}" class="section columns is-tablet is-centered background-release">
 <div class="column is-two-thirds" data-sal="zoom-out" data-sal-duration="500" data-sal-easing="ease-in-out">
 <div class="box">
@@ -10,9 +12,8 @@
     {% if player_pref == "spotify" %}
         <div class="embed-placeholder">{{ embed_code_sp|safe }}</div><br>
     {% else %}
-        <div class="embed-placeholder">{{ embed_code_bc|safe }}
-        <a class="close-player delete is-medium" style="float: right; display: none;"></a>
-        </div>
+        <div class="embed-placeholder">{{ embed_code_bc|safe }}</div>
     {% endif %}
+    {% killplayers_msg %}
 </div></div>
 </section>

@@ -1,3 +1,5 @@
+{% load itemviews %}
+
 <article id="{{ song.slug }}" class="section columns is-tablet is-centered background-swgrs">
 <div class="column is-two-thirds" data-sal="zoom-out" data-sal-duration="500" data-sal-easing="ease-in-out">
     <div class="box has-text-light has-background-dark darkmode">
@@ -7,7 +9,8 @@
     <p class="subtitle has-text-light">Fra SWGRS</p>
     <p>{{ song.text|safe }}</p><br>
     {% if embed_code_sc %}
-    <div class="embed-placeholder">{{ embed_code_sc|safe }}</div>
+        <div class="embed-placeholder">{{ embed_code_sc|safe }}</div>
+        {% killplayers_msg %}
     {% endif %}
 </div></div>
 </article>

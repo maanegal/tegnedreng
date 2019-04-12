@@ -103,7 +103,6 @@ function toggleShowMenu() {
     menuOverlay.classList.toggle('is-active');
     if (sideMenu.classList.contains('is-active')) {
         disableScroll();
-        //bodyScrollLock.disableBodyScroll(sideMenu);
         document.onkeyup = function(evt) {
             evt = evt || window.event;
             var isEscape = false;
@@ -119,19 +118,12 @@ function toggleShowMenu() {
         };
     } else {
         enableScroll();
-        //bodyScrollLock.enableBodyScroll(sideMenu);
         document.onkeyup = null;
     }
 }
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    // fading nav in on page load
-    //var anim = showAnimations();
-    //var klaus = document.getElementsByTagName("nav");
-    //if ( anim ) { Velocity(klaus, { opacity: [1, 0] }, {duration: 1000, easing: 'ease-in'} ); }
-//Velocity(klaus, { opacity: [1, 0] }, {duration: 1000, easing: 'ease-in'} );
-
   // Get all "navbar-burger" elements
   const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.nav-toggle'), 0);
 
@@ -167,25 +159,11 @@ function preventDefaultForScrollKeys(e) {
 function disableScroll() {
     var htmlElement = document.querySelector("html");
     htmlElement.classList.add('locked');
-/*  if (window.addEventListener) // older FF
-      window.addEventListener('DOMMouseScroll', preventDefault, false);
-  window.onwheel = preventDefault; // modern standard
-  window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
-  window.ontouchmove  = preventDefault; // mobile
-  document.onkeydown  = preventDefaultForScrollKeys;
-*/
 }
 
 function enableScroll() {
     var htmlElement = document.querySelector("html");
     htmlElement.classList.remove('locked');
-/*    if (window.removeEventListener)
-        window.removeEventListener('DOMMouseScroll', preventDefault, false);
-    window.onmousewheel = document.onmousewheel = null;
-    window.onwheel = null;
-    window.ontouchmove = null;
-    document.onkeydown = null;
-*/
 }
 
 
@@ -195,14 +173,6 @@ function modalOpen(modalId) {
     setTimeout(function(){
         modal.classList.add('is-active');
    },20);
-
-    /*var anim = showAnimations();
-    if (anim) {
-        Velocity(modal, { opacity: [1, 0], display: 'flex' }, {duration: 300, easing: 'ease-in'} );
-    } else {
-        modal.style.opacity = "1";
-        modal.style.display = "flex";
-    }*/
     disableScroll();
     bodyScrollLock.disableBodyScroll(modal);
     document.onkeyup = function(evt) {
@@ -221,13 +191,6 @@ function modalOpen(modalId) {
 function modalClose(modalId) {
     var modal = document.getElementById(modalId);
     modal.classList.remove('is-active');
-    /*var anim = showAnimations();
-    if (anim) {
-        Velocity(modal, { opacity: [0, 1], display: 'none' }, {duration: 500, easing: 'ease-in'} );
-    } else {
-        modal.style.opacity = "0";
-        modal.style.display = "none";
-    }*/
     enableScroll();
     bodyScrollLock.enableBodyScroll(modal);
     document.onkeyup = null;
@@ -237,26 +200,19 @@ function commentToggle(comId, btnId, closerId) {
     var comment = document.getElementById(comId);
     var button = document.getElementById(btnId);
     var closer = document.getElementById(closerId);
-    var anim = showAnimations();
     button.style.visibility = "visible";
     if ( comment.classList.contains('collapsed') ) {
-        if (anim) {
-            Velocity(comment, { transform: [ "translateY(0vh)", "translateY(-10vh)" ], opacity: [1, 0], display: 'flex' }, {duration: 200, easing: 'ease-in'} );
-        } else {
-            comment.style.opacity = "1";
-            comment.style.display = "flex";
-        }
-        comment.classList.remove('collapsed');
+        comment.classList.remove('disappeared');
+        setTimeout(function(){
+            comment.classList.remove('collapsed');
+        },30);
         closer.style.display = "block";
         button.innerHTML = '<i class="fas fa-angle-double-up"></i>&nbsp;&nbsp;Skjul kommentar';
     } else {
-        if (anim) {
-            Velocity(comment, { transform: [ "translateY(-10vh)", "translateY(0vh)" ], opacity: [0, 1], display: 'none' }, {duration: 300, easing: 'ease-in'} );
-        } else {
-            comment.style.opacity = "0";
-            comment.style.display = "none";
-        }
         comment.classList.add('collapsed');
+        setTimeout(function(){
+            comment.classList.add('disappeared');
+        },300);
         closer.style.display = "none";
         button.innerHTML = '<i class="fas fa-angle-double-down"></i>&nbsp;&nbsp;Vis kommentar';
     }
@@ -268,46 +224,19 @@ function motifToggle(motifId, commentId) {
     var head = button.querySelector('.motif-head-right');
     var anim = showAnimations();
     if ( motif.classList.contains('collapsed') ) {
-        if (anim) {
-            Velocity(motif, { transform: [ "translateY(0vh)", "translateY(-5vh)" ], opacity: [1, 0], display: 'block' }, {duration: 300, delay: 50, easing: 'ease-in'} );
-        } else {
-            motif.style.opacity = "1";
-            motif.style.display = "block";
-        }
-        motif.classList.remove('collapsed');
+        motif.classList.remove('disappeared');
+        setTimeout(function(){
+            motif.classList.remove('collapsed');
+        },30);
         head.innerHTML = '<span><i class="fas fa-angle-double-up"></i></span>';
     } else {
-        if (anim) {
-            Velocity(motif, { transform: [ "translateY(-5vh)", "translateY(0vh)" ], opacity: [0, 1], display: 'none' }, {duration: 300, easing: 'ease-in'} );
-        } else {
-            motif.style.opacity = "0";
-            motif.style.display = "none";
-        }
         motif.classList.add('collapsed');
+        setTimeout(function(){
+            motif.classList.add('disappeared');
+        },300);
         head.innerHTML = '<span><i class="fas fa-angle-double-down"></i></span>';
     }
-    var cook = getCookie("motifs_seen");
-    if(!cook.includes(motifId)){
-        cook += motifId + '/';
-    }
-    setCookie("motifs_seen", cook, 14);
-    console.log("motivation");
 }
-/*
-window.onload = function() {
-    var h = document.documentElement,
-      b = document.body,
-      st = 'scrollTop',
-      sh = 'scrollHeight',
-      progress = document.querySelector('.progress-bar-old'),
-      scroll;
-
-    document.addEventListener('scroll', function() {
-      scroll = (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
-      progress.style.setProperty('--scroll', scroll + '%');
-    });
-}
-*/
 
 function filterList(queryField, queryList) {
   // from w3schools
@@ -339,3 +268,10 @@ function clearText(queryField, queryList)
         li[i].style.display = "";
       }
 }
+
+
+function reload_iframes() {
+    var f_list = document.getElementsByTagName('iframe');
+    for (var i = 0, f; f = f_list[i]; i++) { f.src = f.src; }
+}
+

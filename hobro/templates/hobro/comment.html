@@ -7,9 +7,8 @@
 </div>
 {# <div class="has-background-dark comment-bg"></div> #}
 
-<section id="{{comment.alias}}" class="section comment-block {% if pref == "on" %} alive slide-down{% endif %}
-    {% if pref != "on" %}collapsed {% endif %} story is-family-secondary is-size-5 has-text-light columns is-tablet is-centered"
-    style="{% if pref != "on" %}display:none;{% endif %} {% if anim_pref != "false" %}opacity:0;{% endif %}">
+<section id="{{comment.alias}}" class="section comment-block {% if pref != 'on' %}disappeared collapsed {% endif %} story is-family-secondary is-size-5 has-text-light columns is-tablet is-centered"
+    style="{% if pref == 'off' %}display:none;{% endif %}" {% if pref == 'on' %} data-sal="slide-down" data-sal-duration="400" data-sal-easing="ease-in-out"{% endif %}>
     <div class="column is-10-tablet is-8-desktop is-6-full-hd darkmode justified">
         {{comment.text|safe}}
 
@@ -22,10 +21,27 @@
                 </div>
               </div>
               <div class="motif-head-right">
-                <span><i class="fas fa-angle-double-up"></i></span>
+                <span><i class="fas fa-angle-double-down"></i></span>
               </div>
             </a>
-            <div class="motif-view {% if motif.slug in motifs_seen %}collapsed{% endif %}" {% if motif in motifs_seen %}style="display:none;"{% endif %} id="{{comment.slug}}-{{motif.slug}}">
+            <div class="motif-view disappeared collapsed" id="{{comment.slug}}-{{motif.slug}}">
+                {{motif.text|safe}}
+            </div>
+        </div>
+        {% endfor %}
+        {% for motif in comment.has_motif_open.all %}
+        <div class="is-slightly-raised">
+            <a id="head-{{comment.slug}}-{{motif.slug}}" class="motif-head" onclick="motifToggle('{{comment.slug}}', '{{motif.slug}}')">
+              <div class="motif-head-left">
+                <div class="level-item">
+                  <h2 class="subtitle is-size-6 is-size-5-tablet is-size-4-desktop has-text-light has-text-centered">Gennemgående motiv: {{motif.title}}</h2>
+                </div>
+              </div>
+              <div class="motif-head-right">
+                <span><i class="fas fa-angle-double-down"></i></span>
+              </div>
+            </a>
+            <div class="motif-view" id="{{comment.slug}}-{{motif.slug}}">
                 {{motif.text|safe}}
             </div>
         </div>

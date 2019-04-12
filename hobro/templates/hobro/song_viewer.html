@@ -65,9 +65,11 @@
         <div class="is-divider" data-content="&#xf001"></div>
         {% if request.COOKIES.use_player == "spotify" and embed_code_sp%}
             <div class="embed-placeholder">{{ embed_code_sp|safe }}</div>
+            {% killplayers_msg %}
         {% else %}
             {% if embed_code_bc %}
                 <div class="embed-placeholder">{{ embed_code_bc|safe }}</div>
+                {% killplayers_msg %}
             {% endif %}
         {% endif %}
         <div class="is-divider" data-content="&#xf001"></div>
@@ -80,7 +82,7 @@
         {% endif %}
         {% if song.comment %}
             <div class="column">
-            {% show_comment song.comment request.COOKIES.show_comments request.COOKIES.motifs_seen request.COOKIES.anim_pref %}
+            {% show_comment song.comment request.COOKIES.show_comments %}
             </div>
         {% endif %}
             </div>

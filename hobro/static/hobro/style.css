@@ -92,8 +92,8 @@ nav {
     overflow: auto;
     width: 18rem /*285px*/;
     float: right;
-    padding-top: 3rem;
-    padding-bottom: 0rem;
+    /*padding-top: 3rem;*/
+    padding: 0rem;
     overflow: hidden;
 }
 
@@ -418,7 +418,7 @@ img:not([src]) {
 .post-img img {
     background-color: rgba(10, 10, 10, 0.25);
     opacity: 1;
-    transition: opacity 1s;
+    /*transition: opacity 1s;*/
 }
 
 
@@ -671,16 +671,29 @@ a img:hover {
     top: 20px;
     left: 50%;
     margin-left: -25px;
-    /* TESTY */
     z-index: 5;
 }
 
 .comment-block {
     padding: 4rem 2rem;
     margin-top: 0;
-    /* TESTY */
-    /*z-index: -1;*/
     position: relative;
+    transition-property: transform, opacity, visibility;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in;
+}
+
+.comment-block.collapsed {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-10vh);
+    transition-property: transform, opacity, visibility;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in;
+}
+
+.disappeared {
+    display:none !important;
 }
 
 .comment-bg {
@@ -752,6 +765,18 @@ a img:hover {
     background-color: #333;
     padding: 2em 3em;
     z-index: 9;
+    transition-property: transform, opacity, visibility;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in;
+}
+
+.motif-view.collapsed {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-5vh);
+    transition-property: transform, opacity, visibility;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in;
 }
 
 @media screen and (max-width: 768px) {
@@ -1014,8 +1039,13 @@ html.locked {
 
 /* before iframes load, show some color to indicate that something's coming*/
 .embed-placeholder {
-    background-color: #ddd;
+    background-color: whitesmoke;
+    border-radius: 4px;
 }
+/*
+.embed-placeholder::before {
+    content: "Hej!"
+}*/
 
 
 /* ADDITIONAL PARAMETERS FOR SAL ANIMATION LIBRARY */

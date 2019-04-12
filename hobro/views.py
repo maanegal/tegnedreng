@@ -35,13 +35,7 @@ def item_page(request, number=1):
     if not number == 8:
         next_page = number + 1
     comment_pref = request.COOKIES.get('show_comments')
-    motifs = request.COOKIES.get('motifs_seen')
-    if motifs:
-        motifs_seen = motifs.split('/')
-    else:
-        motifs_seen = []
-    anim_pref = request.COOKIES.get('show_animations')
-    return render(request, 'hobro/item_list.html', {'items': data, 'number': number, 'next': next_page, 'comment_pref': comment_pref, 'motifs_seen': motifs_seen,  'anim_pref': anim_pref})
+    return render(request, 'hobro/item_list.html', {'items': data, 'number': number, 'next': next_page, 'comment_pref': comment_pref})
 
 
 def item_detail(request, pk, tp):

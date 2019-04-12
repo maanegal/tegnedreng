@@ -63,15 +63,17 @@
                 <div class="column is-half-desktop"><br>
                 {% if request.COOKIES.use_player == "spotify" and embed_code_sp%}
                     <div class="embed-placeholder">{{ embed_code_sp|safe }}</div>
+                    {% killplayers_msg %}
                 {% else %}
                     {% if embed_code_bc %}
                         <div class="embed-placeholder">{{ embed_code_bc|safe }}</div>
+                    {% killplayers_msg %}
                     {% endif %}
                 {% endif %}
                 {% if album.comment %}
                     <hr>
                     <h3 class="subtitle is-5">Kommentarspor fra projektets skaber:</h3><br>
-                    {% show_comment album.comment request.COOKIES.show_comments request.COOKIES.motifs_seen request.COOKIES.anim_pref %}
+                    {% show_comment album.comment request.COOKIES.show_comments %}
                 {% endif %}
             </div></div>
     </section>

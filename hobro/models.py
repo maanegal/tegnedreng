@@ -358,14 +358,15 @@ class Comment(models.Model):
     revision_date = models.DateField()
     layout = models.CharField(max_length=30, default='')  # how the post should appear. Select from html presets
     has_motif = models.ManyToManyField(Motif, related_name='in_comment')
+    has_motif_open = models.ManyToManyField(Motif, related_name='in_comment_open')
     target = models.CharField(max_length=60)  # alias of item to be embedded. Make this relationship instead
     on_story = models.OneToOneField(Story, null=True, on_delete=models.CASCADE)
     on_profileevent = models.OneToOneField(ProfileEvent, null=True, on_delete=models.CASCADE)
     on_post = models.OneToOneField(Post, null=True, on_delete=models.CASCADE)
     on_postphoto = models.OneToOneField(PostPhoto, null=True, on_delete=models.CASCADE)
     on_postvideo = models.OneToOneField(PostVideo, null=True, on_delete=models.CASCADE)
-    on_swgrspost = models.OneToOneField(SwgrsPost, null=True, on_delete=models.CASCADE)
-    on_swgrsmedia = models.OneToOneField(SwgrsMedia, null=True, on_delete=models.CASCADE)
+    on_swgrs_post = models.OneToOneField(SwgrsPost, null=True, on_delete=models.CASCADE)
+    on_swgrs_media = models.OneToOneField(SwgrsMedia, null=True, on_delete=models.CASCADE)
     on_character = models.OneToOneField(Character, null=True, on_delete=models.CASCADE)
     on_song = models.OneToOneField(Song, null=True, on_delete=models.CASCADE)
     on_album = models.OneToOneField(Album, null=True, on_delete=models.CASCADE)

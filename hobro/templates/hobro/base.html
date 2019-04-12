@@ -20,7 +20,7 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.5/velocity.min.js"></script>
         {% endif %}
         <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@10.20.1/dist/lazyload.min.js"></script>
-        <script src="{% static 'hobro/js/vendor/bodyScrollLock.min.js' %}"></script>
+
         <script src="{% static 'hobro/js/site.js' %}"></script>
         <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
         <link href="https://fonts.googleapis.com/css?family=Assistant:400,700,800|Crimson+Text:400,400i,700|Fira+Mono" rel="stylesheet">
@@ -117,6 +117,11 @@
 <div id="sideMenu" class="navbar is-fixed navbar-menu is-dark is-transparent side-menu">
 <div class="navbar-contents">
     <div class="navbar-top">
+        <a role="button" class="button is-medium is-rounded is-dark navy killPlayers" style="margin-left: 0.2em; margin-bottom: 0.2em; padding: 1.25em 1em; background-color: transparent;">
+            <span class="icon">
+              <i class="fas fa-volume-mute"></i>
+            </span>
+        </a>
           <a class="navbar-item has-text-light has-text-centered" href="/">
             <span class="icon is-small"><i class="fas fa-home"></i></span>
             Forsiden
@@ -206,10 +211,21 @@
         modalOpen('settings-modal');
     });
 
-    sal({
-        threshold: 0.1,
-        disable: false,
-    });
+
+    var killPlayers = document.getElementsByClassName("killPlayers");
+    for (var i = 0; i < killPlayers.length; i++) {
+        killPlayers[i].addEventListener("click", function() {
+            reload_iframes();
+        });
+    }
+
+    var animState = showAnimations()
+    //if ( !animState == false ) {
+        sal({
+            threshold: 0.1,
+            disable: animState,
+        });
+    //}
 
 	</script>
 </body>

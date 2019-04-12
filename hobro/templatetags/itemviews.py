@@ -6,6 +6,10 @@ from django import template
 register = template.Library()
 
 
+@register.inclusion_tag('hobro/killplayers.html')
+def killplayers_msg():
+    return
+
 @register.inclusion_tag('hobro/post.html')
 def show_post(post):
     info = get_current_info(post.time_stamp)
@@ -174,5 +178,5 @@ def embed_swgrssong(swgrssong):
 
 
 @register.inclusion_tag('hobro/comment.html')
-def show_comment(comment, pref, motifs_seen, anim_pref):
-    return {'comment': comment, 'pref': pref, 'motifs_seen': motifs_seen, "anim_pref": anim_pref}
+def show_comment(comment, pref):
+    return {'comment': comment, 'pref': pref}

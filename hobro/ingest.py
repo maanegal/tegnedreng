@@ -559,7 +559,6 @@ def process_tree(item={}):
                 return None
         html = markdown(text, extensions=['smarty'])
         html = make_screenplay(html)
-        html = make_hashtags(html, alias, element)
         html = make_mentions(html)
         title = item.get('title', '')
         if title:
