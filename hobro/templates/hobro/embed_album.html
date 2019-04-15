@@ -17,3 +17,7 @@
     {% killplayers_msg %}
 </div></div>
 </section>
+
+{% if album.comment %}
+    {% show_comment album.comment request.COOKIES.show_comments %}
+{% endif %}

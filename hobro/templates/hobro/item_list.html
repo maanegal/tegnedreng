@@ -43,15 +43,15 @@
             {% show_comment item.comment comment_pref %}
         {% endif %}
     {% endfor %}
-    <div class="section is-medium background-meta is-raised has-text-centered">
+    <div class="section is-medium has-background-dark is-raised has-text-centered">
     {% if next %}
-        <a href="{% url 'item_page' number=next %}" class="button alive fade navy-text is-medium is-dark is-inverted is-rounded">
+        <a href="{% url 'item_page' number=next %}" class="button navy-text is-medium is-primary is-rounded do-shadow" data-sal="slide-up" data-sal-duration="2000" data-sal-easing="ease-out">
             <span class="icon"><i class="fas fa-forward"></i></span>
             <span>Videre til kapitel {{next}}</span>
         </a>
     {% else %}
         <h1 class="is-size-3 has-text-light">Her slutter historien</h1><br>
-        <a href="{% url 'music_list' %}" class="button alive fade navy-text is-medium is-dark is-inverted is-rounded">
+        <a href="{% url 'music_list' %}" class="button navy-text is-medium is-info is-rounded do-shadow"  data-sal="slide-up" data-sal-duration="2000" data-sal-easing="ease-out">
             <span class="icon"><i class="fas fa-music"></i></span>
             <span>Udforsk musikken</span>
         </a>
@@ -59,71 +59,15 @@
     </div>
 
 <script>
-    /*window.onload = function(){
-        var kasper = document.getElementById("section-num");
-        var jens = document.getElementById("section-title");
-        var rasmus = document.getElementById("section-gfxz");
-        var birger = document.getElementById("section-scroll");
-        if ( showAnimations() ) {
-            Velocity(kasper, { transform: [ "scale(1)", "scale(0.96)" ], opacity: [1, 0] }, {duration: 2000, delay: 200, easing: 'ease-in'} );
-            Velocity(jens, { transform: [ "scale(1)", "scale(0.98)" ], opacity: [1, 0] }, {duration: 2000, delay: 1000, easing: 'ease-in'} );
-            Velocity(rasmus, { transform: [ "scale(1)", "scale(0.85)" ], opacity: [1, 0] }, {duration: 2800, delay: 1800, easing: 'ease-in'} );
-            Velocity(birger, { transform: [ "translateY(0%)", "translateY(-20%)" ], opacity: [0, 1] }, {duration: 1000, delay: 4000, easing: 'ease-in-out'} );
-        } else {
-            kasper.style.opacity = "1";
-            jens.style.opacity = "1";
-            rasmus.style.opacity = "1";
-            birger.style.opacity = "1";
-        }
-    }*/
+    window.onscroll = function() {scrollPosition()};
 
-    const alive = document.querySelectorAll('.alive');
-
-    observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.intersectionRatio > 0) {
-          if (entry.target.classList.contains('right')) {
-            Velocity(entry.target, { transform: [ "translateX(0)", "translateX(5%)" ], opacity: [1, 0.3] }, {duration: 400, easing: 'ease-in'} );
-          }
-          else if (entry.target.classList.contains('left')) {
-            Velocity(entry.target, { transform: [ "translateX(0)", "translateX(-5%)" ], opacity: [1, 0.3] }, {duration: 400, easing: 'ease-in'} );
-          }
-          else if (entry.target.classList.contains('fade')) {
-            Velocity(entry.target, { opacity: [1, 0] }, {duration: 500, easing: 'ease-out'} );
-          }
-          else if (entry.target.classList.contains('slide')) {
-            Velocity(entry.target, { transform: [ "translateY(0)", "translateY(8%)" ], opacity: [1, 0] }, {duration: 500, easing: 'ease-in'} );
-          }
-          else if (entry.target.classList.contains('slide-long')) {
-            Velocity(entry.target, { transform: [ "translateY(0)", "translateY(20%)" ], opacity: [1, 0] }, {duration: 600, easing: 'ease-out'} );
-          }
-          else if (entry.target.classList.contains('slide-down')) {
-            Velocity(entry.target, { transform: [  "translateY(0)", "translateY(-2vh)" ], opacity: [1, 0] }, {duration: 400, easing: 'ease-in-out'} );
-          }
-          else {
-            Velocity(entry.target, { transform: [ "scale(1)", "scale(0.96)" ], opacity: [1, 0.5] }, {duration: 400, easing: 'ease-in'} );
-          }
-          observer.unobserve(entry.target);
-        }
-      });
-    });
-    var anim = showAnimations();
-    if (anim) {
-        alive.forEach(living => {
-          observer.observe(living);
-        });
-    }
-
-    window.onscroll = function() {myScroll()};
-
-    function myScroll() {
+    function scrollPosition() {
       var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       var scrolled = (winScroll / height) * 100;
       document.getElementById("theProgressBar").style.width = scrolled + "%";
       //console.log(scrolled);
     }
-
 </script>
 
 {% endblock %}

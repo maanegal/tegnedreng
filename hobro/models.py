@@ -127,6 +127,7 @@ class ProfileEvent(models.Model):
     expires = models.IntegerField(null=True)  # one less than value of next object
     page_name = models.CharField(max_length=60)  # link to profile-event via function
     photo = models.ImageField(default="default.jpg")  # filename of photo, stored in folder
+    photo_thumb = models.ImageField(default="default.jpg")  # filename of photo, stored in folder
     text = models.TextField()  # free text field, in case it is needed
     link_fb = models.CharField(max_length=100, null=True)  # facebook post id
     link_tw = models.CharField(max_length=100, null=True)  # twitter post id
@@ -221,7 +222,6 @@ class SwgrsPost(models.Model):
     slug = models.SlugField(unique=True)
     text = models.TextField()
     link_yt = models.CharField(max_length=100, null=True)  # If post has a youtube video that should be embedded
-    profile = models.ImageField(default="swgrs/profile.jpg")
     link_fb = models.CharField(max_length=100, null=True)  # facebook post id
     layout = models.CharField(max_length=30, default='')  # how the post should appear. Select from html presets
     appears = models.ManyToManyField(Character)  # hardcode to swiggers during ingest
@@ -241,7 +241,6 @@ class SwgrsMedia(models.Model):
     slug = models.SlugField(unique=True)
     text = models.TextField()  # photo description
     photo = models.ImageField(default="swgrs/profile.jpg")  # filename of photo, stored in folder
-    profile = models.ImageField(default="swgrs/profile.jpg")
     video = models.FileField(null=True)  # filename of video, stored in folder
     video_title = models.CharField(max_length=160, null=True)  # title of video
     link_fb = models.CharField(max_length=100, null=True)  # facebook post id

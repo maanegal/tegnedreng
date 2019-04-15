@@ -1,4 +1,4 @@
-function scrollTo(element, to, duration) {
+/*function scrollTo(element, to, duration) {
     if (duration <= 0) return;
     var difference = to - element.scrollTop;
     var perTick = difference / duration * 10;
@@ -8,7 +8,7 @@ function scrollTo(element, to, duration) {
         if (element.scrollTop === to) return;
         scrollTo(element, to, duration - 10);
     }, 10);
-}
+}*/
 
 /* Cookie cutter cookie code from the w3 school */
 function setCookie(cname, cvalue, exdays) {
@@ -94,33 +94,6 @@ function setCommentPrefs() {
     }
 }
 
-function toggleShowMenu() {
-    var sideMenu = document.getElementById("sideMenu");
-    var menuOverlay = document.getElementById("menuOverlay");
-    var menuButton = document.getElementById("menuButton");
-    menuButton.classList.toggle('is-active');
-    sideMenu.classList.toggle('is-active');
-    menuOverlay.classList.toggle('is-active');
-    if (sideMenu.classList.contains('is-active')) {
-        disableScroll();
-        document.onkeyup = function(evt) {
-            evt = evt || window.event;
-            var isEscape = false;
-            console.log(evt.key);
-            if ("key" in evt) {
-                isEscape = (evt.key === "Escape" || evt.key === "Esc");
-            } else {
-                isEscape = (evt.keyCode === 27);
-            }
-            if (isEscape) {
-                toggleShowMenu();
-            }
-        };
-    } else {
-        enableScroll();
-        document.onkeyup = null;
-    }
-}
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -138,24 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// left: 37, up: 38, right: 39, down: 40,
-// spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
-var keys = {37: 1, 38: 1, 39: 1, 40: 1};
-
-function preventDefault(e) {
-  e = e || window.event;
-  if (e.preventDefault)
-      e.preventDefault();
-  e.returnValue = false;
-}
-
-function preventDefaultForScrollKeys(e) {
-    if (keys[e.keyCode]) {
-        preventDefault(e);
-        return false;
-    }
-}
-
 function disableScroll() {
     var htmlElement = document.querySelector("html");
     htmlElement.classList.add('locked');
@@ -167,6 +122,34 @@ function enableScroll() {
 }
 
 
+function toggleShowMenu() {
+    var sideMenu = document.getElementById("sideMenu");
+    var menuOverlay = document.getElementById("menuOverlay");
+    var menuButton = document.getElementById("menuButton");
+    menuButton.classList.toggle('is-active');
+    sideMenu.classList.toggle('is-active');
+    menuOverlay.classList.toggle('is-active');
+    if (sideMenu.classList.contains('is-active')) {
+        disableScroll();
+        document.onkeyup = function(evt) {
+            evt = evt || window.event;
+            var isEscape = false;
+            //console.log(evt.key);
+            if ("key" in evt) {
+                isEscape = (evt.key === "Escape" || evt.key === "Esc");
+            } else {
+                isEscape = (evt.keyCode === 27);
+            }
+            if (isEscape) {
+                toggleShowMenu();
+            }
+        };
+    } else {
+        enableScroll();
+        document.onkeyup = null;
+    }
+}
+
 function modalOpen(modalId) {
     var modal = document.getElementById(modalId);
     modal.classList.add('prepare');
@@ -174,7 +157,6 @@ function modalOpen(modalId) {
         modal.classList.add('is-active');
    },20);
     disableScroll();
-    bodyScrollLock.disableBodyScroll(modal);
     document.onkeyup = function(evt) {
         evt = evt || window.event;
         var isEscape = false;
@@ -192,11 +174,10 @@ function modalClose(modalId) {
     var modal = document.getElementById(modalId);
     modal.classList.remove('is-active');
     enableScroll();
-    bodyScrollLock.enableBodyScroll(modal);
     document.onkeyup = null;
 }
 
-function commentToggle(comId, btnId, closerId) {
+function commentToggle(comId, btnId, closerId, scroll=false) {
     var comment = document.getElementById(comId);
     var button = document.getElementById(btnId);
     var closer = document.getElementById(closerId);
@@ -215,6 +196,7 @@ function commentToggle(comId, btnId, closerId) {
         },300);
         closer.style.display = "none";
         button.innerHTML = '<i class="fas fa-angle-double-down"></i>&nbsp;&nbsp;Vis kommentar';
+        if (scroll) { comment.scrollIntoView({block: "start", behavior: "smooth"}); }
     }
 }
 
@@ -274,4 +256,3 @@ function reload_iframes() {
     var f_list = document.getElementsByTagName('iframe');
     for (var i = 0, f; f = f_list[i]; i++) { f.src = f.src; }
 }
-

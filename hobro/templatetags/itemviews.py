@@ -23,7 +23,7 @@ def show_post(post):
     else:
         a = ''
     anim = get_animation(a)
-    return {'post': post, 'name': info.get('name', ''), 'profilepic': info.get('photo', ''), 'post_time': dt,
+    return {'post': post, 'name': info.get('name', ''), 'profilepic': info.get('thumb', ''), 'post_time': dt,
             'layout_outer': outer, 'layout_inner': inner, "anim": anim}
 
 
@@ -34,7 +34,7 @@ def show_postphoto(postphoto):
     outer, inner = get_layout(postphoto.layout)
     anim_a = get_animation('slide')
     anim_b = get_animation('slide-long')
-    return {'post': postphoto, 'name': info.get('name', ''), 'profilepic': info.get('photo', ''), 'post_time': dt,
+    return {'post': postphoto, 'name': info.get('name', ''), 'profilepic': info.get('thumb', ''), 'post_time': dt,
             'layout_outer': outer, 'layout_inner': inner, "anim_a": anim_a, "anim_b": anim_b}
 
 
@@ -45,7 +45,7 @@ def show_postvideo(postvideo):
     outer, inner = get_layout(postvideo.layout)
     anim_a = get_animation('slide')
     anim_b = get_animation('slide-long')
-    return {'post': postvideo, 'name': info.get('name', ''), 'profilepic': info.get('photo', ''), 'post_time': dt,
+    return {'post': postvideo, 'name': info.get('name', ''), 'profilepic': info.get('thumb', ''), 'post_time': dt,
             'layout_outer': outer, 'layout_inner': inner, "anim_a": anim_a, "anim_b": anim_b}
 
 
@@ -53,7 +53,7 @@ def show_postvideo(postvideo):
 def show_post_card(post, swgrs=False):
     info = get_current_info(post.time_stamp)
     dt = datetime.fromtimestamp(post.time_stamp)
-    return {'post': post, 'name': info.get('name', ''), 'profilepic': info.get('photo', ''), 'post_time': dt, 'is_swgrs': swgrs}
+    return {'post': post, 'name': info.get('name', ''), 'profilepic': info.get('thumb', ''), 'post_time': dt, 'is_swgrs': swgrs}
 
 
 @register.inclusion_tag('hobro/section.html')
@@ -75,9 +75,6 @@ def show_story(story):
 @register.inclusion_tag('hobro/profileevent.html')
 def show_profileevent(profileevent, anim_pref):
     dt = datetime.fromtimestamp(profileevent.time_stamp)
-    #if profileevent.layout:
-     #   layout = profileevent.layout
-    #else:
     layout = "color-c"
     outer, inner = get_layout(layout)
     anim = get_animation('slide')

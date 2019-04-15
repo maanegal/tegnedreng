@@ -14,3 +14,7 @@
     {% endif %}
 </div></div>
 </article>
+
+{% if song.comment %}
+    {% show_comment song.comment request.COOKIES.show_comments %}
+{% endif %}

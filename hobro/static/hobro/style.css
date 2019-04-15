@@ -229,11 +229,17 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
 }
 
 
-.stop-scrolling {
-  height: 100%;
-
-  overflow-x: hidden;
+/* Styling for button to stop all playback by reloading iframes*/
+.killPlayers {
+    padding: 1.25em 1em;
 }
+
+.killPlayers.in-menu {
+    margin-left: 0.2em;
+    margin-bottom: 0.2em;
+    background-color: transparent;
+}
+
 
 
 /*
@@ -534,16 +540,15 @@ a img:hover {
 }
 
 
-
-/* bulma background mods */
-.hero.is-dark {
-    background-image: url("/media/patterns/dark-mosaic.png");
+/* for use on frontpage, aligning logo with text*/
+img.inlined {
+    height: 1em;
+    vertical-align: middle;
+    /*margin-bottom: 0.3em;*/
+    opacity: 0.85;
+    margin-right: 0.15em;
 }
 
-/*
-.has-background-dark {
-    background-image: url("/media/patterns/dark-mosaic.png");
-}*/
 
 /* feed backgrounds */
 .background-main {
@@ -668,14 +673,14 @@ a img:hover {
 
 .comment-closer {
     position: absolute;
-    top: 20px;
+    top: 2em;
     left: 50%;
-    margin-left: -25px;
+    transform: translate(-50%);
     z-index: 5;
 }
 
 .comment-block {
-    padding: 4rem 2rem;
+    padding: 4rem 1rem;
     margin-top: 0;
     position: relative;
     transition-property: transform, opacity, visibility;
@@ -712,6 +717,7 @@ a img:hover {
 
 .comment-block ul ul {
     margin-bottom: unset;
+    margin-left: 1.5em;
 }
 
 
@@ -817,15 +823,15 @@ ul ul {
 }
 
 .quoted::before{
-  content: "\201C"; /*Unicode for Left Double Quote*/
+    content: "\201C"; /*Unicode for Left Double Quote*/
 
-  /*Font*/
-  font-size: 60px;
-  font-weight: bold;
-  color: #999;
+    /*Font*/
+    font-size: 60px;
+    font-weight: bold;
+    color: #999;
 
-  /*Positioning*/
-  position: absolute;
+    /*Positioning*/
+    position: absolute;
     left: -35px;
     top: -30px;
 }
@@ -907,6 +913,13 @@ blockquote p {
     margin-right: 15%;
 }
 
+@media screen and (max-width: 768px) {
+    .manus ul ul {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+}
+
 .manus ul ul li {
     margin-bottom: 1em;
 }
@@ -920,7 +933,7 @@ blockquote p {
 .clear-input {
     position: absolute;
     z-index: 4;
-    bottom: 0.5em;
+    bottom: 0.25em;
     right: 0.5em;
 }
 
@@ -952,7 +965,6 @@ blockquote p {
     backdrop-filter: blur(2px) grayscale(80%);
     -webkit-backdrop-filter: blur(2px) grayscale(80%);
     box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.4);
-    display: none;
     transform: translateY(100%);
     opacity: 0;
     visibility: hidden;
@@ -963,7 +975,6 @@ blockquote p {
 }
 
 #the-cookies.is-active {
-    display: block;
     opacity: 1;
     visibility: visible;
     transform: translateY(0%);
@@ -974,16 +985,9 @@ blockquote p {
 
 html {
     height: 100%;
-    /*overflow-y: auto;*/
 }
-/*nav { margin-right: 1em; }*/
-/*html {
-  height: 100%;
-  overflow-x: hidden;
-}*/
 
 body {
-  /*min-height: 100%;*/
   overflow-x: hidden;
 }
 
@@ -1013,22 +1017,63 @@ html.locked {
 
 /* Chapter number graphic */
 #section-gfx {
-    height: 90px;
-    width: 90px;
+    height: 6em;
     margin-bottom: 1rem;
+}
+
+
+@media screen and (max-width: 1024px) {
+    #section-gfx {
+        height: 5em;
+    }
 }
 
 @media screen and (max-width: 768px) {
     #section-gfx {
-        height: 60px;
-        width: 60px;
-        margin-bottom: 1rem;
+        height: 4em;
+    }
+}
+
+@media screen and (max-width: 384px) {
+    #section-gfx {
+        height: 2em;
     }
 }
 
 /* Space after icons on buttons */
 .icon.is-small {
     margin-right: 0.5em !important;
+}
+
+.frontspace {
+    margin-bottom: 3rem !important;
+}
+
+.hero-foot.front {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.button.front {
+    margin: 0.9rem;
+}
+
+@media screen and (max-width: 768px) {
+    .button.front {
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 384px) {
+    .button.front {
+        font-size: 0.7rem;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .button.front {
+        font-size: 1.2rem;
+    }
 }
 
 
@@ -1048,6 +1093,14 @@ html.locked {
 }*/
 
 
+.blackbox {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    position: absolute;
+}
+
+
 /* ADDITIONAL PARAMETERS FOR SAL ANIMATION LIBRARY */
 [data-sal=slide-up-short] {
  -webkit-transform:translateY(10%);
@@ -1062,6 +1115,11 @@ html.locked {
 [data-sal][data-sal-duration="2400"] {
  -webkit-transition-duration:2.4s;
  transition-duration:2.4s
+}
+
+[data-sal][data-sal-duration="4000"] {
+ -webkit-transition-duration:4s;
+ transition-duration:4s
 }
 
 [data-sal][data-sal-delay="1600"] {
@@ -1079,7 +1137,22 @@ html.locked {
  transition-delay:2.6s
 }
 
+[data-sal][data-sal-delay="3000"] {
+ -webkit-transition-delay:3s;
+ transition-delay:3s
+}
+
 [data-sal][data-sal-delay="4000"] {
  -webkit-transition-delay:4s;
  transition-delay:4s
+}
+
+[data-sal|=disappear] {
+ opacity:1;
+ -webkit-transition-property:opacity;
+ transition-property:opacity
+}
+[data-sal|=disappear].sal-animate,
+body.sal-disabled [data-sal|=disappear] {
+ opacity:0
 }

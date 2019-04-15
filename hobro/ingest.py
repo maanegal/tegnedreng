@@ -356,12 +356,13 @@ def process_tree(item={}):
             text = ''
         html = markdown(text)
         html = make_links(html)
-        photo = 'profile/' + item.get('photo')[0]
+        photo = 'albums/' + item.get('photo')[0] + ".jpg"
+        photo_thumb = 'albums/' + item.get('photo')[0] + "_thumb.jpg"
         link_fb = item.get('link-fb', '')
         if link_fb:
             link_fb = 'https://facebook.com'+link_fb[0]
         al = int(alias)
-        obj = ProfileEvent(time_stamp=al, photo=photo, text=html, page_name=item.get('name')[0],
+        obj = ProfileEvent(time_stamp=al, photo=photo, photo_thumb=photo_thumb, text=html, page_name=item.get('name')[0],
                            link_fb=link_fb)
     elif element == 'item-embed':
         # set alias (timestamp)
@@ -549,6 +550,7 @@ def process_tree(item={}):
         t_type = t[0]
         t_alias = t[1]
         relations.extend(parse_relation('has_motif', item.get('motif', None)))
+        relations.extend(parse_relation('has_motif_open', item.get('motif-open', None)))
         relations.extend([('on_' + t_type, t_alias)])
         obj = Comment(text=html, alias=alias, author=author, layout=layout)
     elif element == 'motif':

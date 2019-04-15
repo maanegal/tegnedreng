@@ -3,7 +3,7 @@
 
 <html class="has-background-dark" lang="da">
     <head>
-        <title>{% block title %}{% endblock %} | Tegnedreng Records</title>
+        <title>{% block title %}{% endblock %}{% block title_brand %} | {% endblock %}Tegnedreng Records</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript">
@@ -17,10 +17,8 @@
           {% bulma %}
           {% font_awesome %}
         {% if request.COOKIES.show_animations != "false" %}
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.5/velocity.min.js"></script>
+            {% comment %}<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.5/velocity.min.js"></script>{% endcomment %}
         {% endif %}
-        <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@10.20.1/dist/lazyload.min.js"></script>
-
         <script src="{% static 'hobro/js/site.js' %}"></script>
         <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
         <link href="https://fonts.googleapis.com/css?family=Assistant:400,700,800|Crimson+Text:400,400i,700|Fira+Mono" rel="stylesheet">
@@ -32,6 +30,13 @@
         <meta name="msapplication-TileImage" content="https://maanegal.dk/wp-content/uploads/cropped-brand-square-270x270.png" />
     </head>
 <body>
+<noscript>
+    <div class="box"><h2 class="subtitle">
+        Denne hjemmeside afhænger af Javascript for at fungere. Det lader til at være slået fra i din internet-browser.
+        For at bruge siden, er du nødt til at slå det til eller bruge en anden browser.
+    </h2></div>
+</noscript>
+
 
 <div class="modal" id="settings-modal">
   <div class="modal-background" onclick="modalClose('settings-modal')"></div>
@@ -117,7 +122,7 @@
 <div id="sideMenu" class="navbar is-fixed navbar-menu is-dark is-transparent side-menu">
 <div class="navbar-contents">
     <div class="navbar-top">
-        <a role="button" class="button is-medium is-rounded is-dark navy killPlayers" style="margin-left: 0.2em; margin-bottom: 0.2em; padding: 1.25em 1em; background-color: transparent;">
+        <a role="button" class="button is-medium is-rounded is-dark navy killPlayers in-menu">
             <span class="icon">
               <i class="fas fa-volume-mute"></i>
             </span>
@@ -148,7 +153,7 @@
       </a>
           </div>
     <div class="navbar-bottom">
-      <a onclick="" id="menuSettings" class="navbar-item has-text-light has-text-centered">
+      <a id="menuSettings" class="navbar-item has-text-light has-text-centered">
         <span class="icon is-small"><i class="fa fa-cog"></i></span>Sideindstillinger</a>
     <a class="navbar-item has-text-centered has-text-light has-image-centered" href="https://maanegal.dk">Et projekt fra
         <img src="{% get_media_prefix %}/moon_full.png" alt="Månegal Media"></a>
@@ -157,10 +162,10 @@
 </div>
 
 {% block cookies %}
-<div id="the-cookies" {% if not request.COOKIES.cookie_consent %}class="is-active" style="display: block;"{% endif %}>
-<div class="columns is-desktop is-centered">
+<div id="the-cookies" {% if not request.COOKIES.cookie_consent %}class="is-active"{% else %} class="disappeared"{% endif %}>
+<div class="columns is-desktop is-centered" data-sal="fade" data-sal-duration="800" data-sal-easing="ease-in">
     <div class="column is-one-quarter"></div>
-    <div class="column alive fade is-one-half">
+    <div class="column is-one-half">
     <div class="media has-text-light">
         <span class="media-left icon is-large">
           <i class="fas fa-cookie-bite"></i>
@@ -185,8 +190,23 @@
 {% endblock %}
 
 <script src="{% static 'hobro/sal/sal.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@10.20.1/dist/lazyload.min.js"></script>
+<script src="{% static 'hobro/js/vendor/smoothscroll.min.js' %}"></script>
 <script>
-    (function () { ll = new LazyLoad({ elements_selector: '.lazy', });}());
+    (function () { lazyload = new LazyLoad({ elements_selector: '.lazy', });}());
+    window.onload = function(){
+        sal({threshold: 0.1, disable: true,});
+
+        //const scrollAnimations = sal({ selector: '[data-salw]',});
+        //scrollAnimations.disable();
+
+        document.getElementById('menuSettings').addEventListener('click', function() {
+            toggleShowMenu();
+            modalOpen('settings-modal');
+        });
+
+    }
+
 
 
     document.getElementById("switchAnim").addEventListener("click", setAnimPref);
@@ -198,18 +218,12 @@
 
     var cookieBanner = document.getElementById('the-cookies');
     var cookieBtn = document.getElementById('cookie-okay');
-
     cookieBtn.addEventListener('click', function() {
         setCookie('cookie_consent', "true", 365);
         cookieBanner.classList.remove('is-active');
     });
 
-    var menuSettings = document.getElementById('menuSettings');
 
-    menuSettings.addEventListener('click', function() {
-        toggleShowMenu();
-        modalOpen('settings-modal');
-    });
 
 
     var killPlayers = document.getElementsByClassName("killPlayers");
@@ -218,14 +232,6 @@
             reload_iframes();
         });
     }
-
-    var animState = showAnimations()
-    //if ( !animState == false ) {
-        sal({
-            threshold: 0.1,
-            disable: animState,
-        });
-    //}
 
 	</script>
 </body>

@@ -114,7 +114,7 @@ def get_current_info(ts):
     if not isinstance(ts, int):
         return None
     data = ProfileEvent.objects.filter(expires__gt=ts, time_stamp__lt=ts).first()
-    hit = {'name': data.page_name, 'photo': data.photo}
+    hit = {'name': data.page_name, 'photo': data.photo, 'thumb': data.photo_thumb}
     return hit
 
 

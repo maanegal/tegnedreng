@@ -3,30 +3,31 @@
 {% load static %}
 
 {% block title %}{% endblock %}
+{% block title_brand %}{% endblock %}
 {% block cookies %}{% endblock cookies %}
 {% block content %}
-<section class="hero is-dark is-bold is-fullheight">
-    <div id="" class="hero is-fullheight" >
+<section class="hero is-dark is-bold is-fullheight" style="position: relative">
+<div class="blackbox" data-sal="disappear" data-sal-duration="4000" data-sal-easing="ease-in-out"></div>
     <div class="hero-body">
         <div class="container is-family-secondary has-text-centered">
-        <h1 class="title is-capitalized is-size-1-desktop is-size-2-tablet is-size-2-mobile txt-shadow" data-sal="zoom-in-light" data-sal-duration="2000" data-sal-delay="200" data-sal-easing="ease-in">Hobro for livet</h1>
-        <h2 class="subtitle is-size-2-desktop is-size-3-tablet is-size-3-mobile txt-shadow" data-sal="zoom-in-light" data-sal-duration="2000" data-sal-delay="800" data-sal-easing="ease-in">Legenden om <em>Tegnedreng Records</em></h2>
-        <img id="section-gfx" src="{% get_media_prefix %}chapters/chapter8.svg" data-sal="zoom-out" data-sal-duration="2000" data-sal-delay="2000" data-sal-easing="ease-in-out"/>
+        <p class="subtitle is-family-primary is-size-3-desktop is-size-4-tablet is-size-5-mobile txt-shadow frontspace" data-sal="zoom-in-light" data-sal-duration="1400" data-sal-delay="200" data-sal-easing="ease-in-out"><img src="{% get_media_prefix %}/moon_full.png" class="inlined" alt="Månegal Media"> præsenterer</p>
+        <h1 class="title is-capitalized is-size-1-desktop is-size-2-tablet is-size-3-mobile txt-shadow" data-sal="zoom-in-light" data-sal-duration="2000" data-sal-delay="800" data-sal-easing="ease-in">Hobro for livet</h1>
+        <h2 class="subtitle is-size-2-desktop is-size-3-tablet is-size-4-mobile txt-shadow" data-sal="zoom-in-light" data-sal-duration="2000" data-sal-delay="2000" data-sal-easing="ease-in">Legenden om <em>Tegnedreng Records</em></h2>
+        <img id="section-gfx" src="{% get_media_prefix %}chapters/chapter8.svg" data-sal="zoom-out" data-sal-duration="4000" data-sal-delay="1600" data-sal-easing="ease-in-out"/>
         <br>
+        <p class="subtitle is-size-3-desktop is-size-4-tablet is-size-5-mobile txt-shadow" data-sal="fade" data-sal-duration="1200" data-sal-delay="4000" data-sal-easing="ease-in-out"><em>En roman af Sigfred Nielsen</em></p>
 
     </div>
     </div>
-      <div id="svendsen" class="hero-foot">
-          <div style="text-align: center; padding:30px;">
-            <p id="scrollBtn" class="button navy-text is-medium is-primary is-rounded do-shadow" style="margin:15px" data-sal="slide-down" data-sal-duration="2000" data-sal-delay="2000" data-sal-easing="ease-in-out">
+      <div class="hero-foot front">
+            <p id="scrollBtn" class="button navy-text front is-primary is-rounded do-shadow" data-sal="slide-down" data-sal-duration="2000" data-sal-delay="2000" data-sal-easing="ease-in-out">
                 <span class="icon is-small"><i class="fas fa-angle-double-down"></i></span>
                 Læs historien</p>
-            <a href="{% url 'music_list' %}" class="button navy-text is-medium is-info is-rounded do-shadow" style="margin:15px" data-sal="slide-down" data-sal-duration="2000" data-sal-delay="2600" data-sal-easing="ease-in-out">
+            <a href="{% url 'music_list' %}" class="button navy-text front is-info is-rounded do-shadow" data-sal="slide-down" data-sal-duration="2000" data-sal-delay="2600" data-sal-easing="ease-in-out">
                 <span class="icon is-small"><i class="fas fa-music"></i></span>
                 Hør musikken</a>
-        </div><br>
       </div>
-</div>
+
 </section>
 
 <section id="read" class="section background-main is-sunk"><div class="columns is-mobile is-centered" >
@@ -47,7 +48,7 @@
     <p>Så derfor har jeg lavet denne side. Jeg har med flid og møje trukket alle gruppens opslag ud af de sociale medier, og gjort dem til en læselig multimodal roman. Historien om Tegnedreng Records foreligger nu endelig i sin helhed – en fortælling om ambitioner om rigdom og berømmelse, om sammenhold og opbrud, og om at satse alt på en drøm, der måske ikke fører nogen vegne hen. Og så selvfølgelig, masser af gakket rap-musik.</p>
     <p>Her er en forsmag:</p>
     <br>
-    <div class="youtube-embed"><iframe class="lazy loaded" data-src="https://www.youtube.com/embed/43ZbeVUATBQ" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" src="https://www.youtube.com/embed/43ZbeVUATBQ" data-was-processed="true" width="560" height="315" frameborder="0"></iframe></div>
+    <div class="youtube-embed"><iframe class="lazy" width="560" height="315" class="lazy" data-src="https://www.youtube.com/embed/43ZbeVUATBQ" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 </div>
 </div></section>
 
@@ -121,34 +122,12 @@
 </section>
 
 <script>
-
-    window.onload = function(){
-        sal(); }
-    /*    var konrad = document.getElementById("konrad");
-        var svend = document.getElementById("svend");
-        var kasper = document.getElementById("kasper");
-        var jens = document.getElementById("jens");
-        //var rasmus = document.getElementById("section-gfx");
-        if ( showAnimations() ) {
-            Velocity(konrad, { backgroundColor: 'rgba(200, 200, 192, 0)' }, 6000, 'ease-out' );
-            Velocity(kasper, { transform: [ "scale(1)", "scale(0.96)" ], opacity: [1, 0] }, {duration: 2000, delay: 400, easing: 'ease-in'} );
-            Velocity(jens, { transform: [ "scale(1)", "scale(0.98)" ], opacity: [1, 0] }, {duration: 2000, delay: 800, easing: 'ease-in'} );
-            Velocity(rasmus, { transform: [ "scale(1)", "scale(0.8)" ], opacity: [1, 0] }, {duration: 2000, delay: 1200, easing: 'ease-in'} );
-            Velocity(svend, { transform: [ "translateY(0)", "translateY(5%)" ], opacity: [1, 0] }, {duration: 1000, delay: 2000, easing: 'ease-in'} );
-        } else {
-            konrad.style.backgroundColor = "rgba(200, 200, 192, 0)";
-            kasper.style.opacity = "1";
-            jens.style.opacity = "1";
-            rasmus.style.opacity = "1";
-            svend.style.opacity = "1";
-        }
-    }*/
-
     var read = document.getElementById('read');
     var btn = document.getElementById('scrollBtn');
 
     btn.addEventListener('click', function() {
-        scrollTo(document.body, read.offsetTop, 125);
+        //scrollTo(document.body, read.offsetTop, 125);
+        read.scrollIntoView({behavior: "smooth"});
     });
 
 

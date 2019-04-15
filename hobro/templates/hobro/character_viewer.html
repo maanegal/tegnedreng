@@ -29,6 +29,12 @@
                 <p class="subtitle is-size-6 is-size-5-widescreen">{{ character.text|safe }}</p>
         </div></div>
         </div>
+        {% if character.comment %}
+            <div class="column">
+            <h3 class="subtitle has-text-centered is-5">Kommentarspor fra projektets skaber:</h3><br>
+            {% show_comment character.comment request.COOKIES.show_comments %}
+            </div>
+        {% endif %}
         <div class="is-divider" data-content="&#xf007"></div>
         {% if character.appears_on_song.all %}
             <h3 class="subtitle has-text-centered">Optræder på disse sange:</h3>

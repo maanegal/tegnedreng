@@ -82,6 +82,7 @@
         {% endif %}
         {% if song.comment %}
             <div class="column">
+            <h3 class="subtitle has-text-centered is-5">Kommentarspor fra projektets skaber:</h3><br>
             {% show_comment song.comment request.COOKIES.show_comments %}
             </div>
         {% endif %}

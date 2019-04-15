@@ -12,69 +12,69 @@
   <button class="modal-close is-large" onclick="modalClose('modal_{{ album.slug }}')" aria-label="close"></button>
 </div>
 
-    <section id="{{ album.slug }}" class="section columns is-tablet is-centered">
-    <div class="column is-8-widescreen is-10-desktop"><div class="box big-box">
-        <a class="button is-dark is-outlined is-small navy-text backlink" href="/musik/">
-            <span class="icon is-small"><i class="fas fa-long-arrow-alt-left"></i></span>
-              <span>Al musikken</span></a>
-        <div class="columns is-tablet is-vcentered">
-          <div class="column is-half is-half-mobile is-half-tablet is-one-third-widescreen has-image-centered">
-              <figure class="image"><a onclick="modalOpen('modal_{{ album.slug }}')">
-                <img src="{{ album.photo.url }}" alt="{{ album.title }}"></a></figure>
-          </div>
-          <div class="column is-half is-one-half-tablet is-two-thirds-widescreen has-text-centered-mobile">
+<section id="{{ album.slug }}" class="section columns is-tablet is-centered">
+<div class="column is-8-widescreen is-10-desktop"><div class="box big-box">
+    <a class="button is-dark is-outlined is-small navy-text backlink" href="/musik/">
+        <span class="icon is-small"><i class="fas fa-long-arrow-alt-left"></i></span>
+          <span>Al musikken</span></a>
+    <div class="columns is-tablet is-vcentered">
+      <div class="column is-half is-half-mobile is-half-tablet is-one-third-widescreen has-image-centered">
+          <figure class="image"><a onclick="modalOpen('modal_{{ album.slug }}')">
+        <img src="{{ album.photo.url }}" alt="{{ album.title }}"></a></figure>
+  </div>
+  <div class="column is-half is-one-half-tablet is-two-thirds-widescreen has-text-centered-mobile">
+      <h1 class="title is-size-3 is-size-2-widescreen">{{ album.title }}</h1>
+      <h2 class="subtitle is-size-5 is-size-4-widescreen">Udgivet under navnet <strong>{{ album.name }}</strong></h2>
+      <p class="subtitle is-size-6 is-size-5-widescreen has-text-grey">{{ album.release_date|date }}</p>
+      {% if album.text %}<blockquote>{{ album.text|safe }}</blockquote>{% endif %}
+        {% if album.link_bc %}
+          <a class="tag is-dark is-medium" href="{{album.link_bc}}" target="_blank" rel="noopener">
+              <span class="icon is-small"><i class="fab fa-bandcamp"></i></span>&emsp;Bandcamp</a>
+        {% endif %}
+         {% if album.sp_embed_code %}
+          <a class="tag is-dark is-medium" href="https://open.spotify.com/album/{{album.sp_embed_code}}" target="_blank" rel="noopener">
+              <span class="icon is-small"><i class="fab fa-spotify"></i></span>&emsp;Spotify</a>
+        {% endif %}
+        {% if album.link_yt %}
+          <a class="tag is-dark is-medium" href="{{album.link_yt}}" target="_blank" rel="noopener">
+              <span class="icon is-small"><i class="fab fa-youtube"></i></span>&emsp;YouTube</a>
+        {% endif %}
+        {% if album.link_sc %}
+          <a class="tag is-dark is-medium" href="{{album.link_sc}}" target="_blank" rel="noopener">
+              <span class="icon is-small"><i class="fab fa-soundcloud"></i></span>&emsp;Soundcloud</a>
+        {% endif %}
+  </div></div>
+  <div class="is-divider" data-content="&#xf001"></div>
+  <div class="columns is-desktop"><div class="column is-half-desktop">
+      <h3 class="subtitle is-5">Sange på dette album:</h3>
+    <ul>{% for s in album.song_set.all %}
+        <li>{{ s.track_number }}. <a href="{% url 'song_viewer' slug=s.slug %}"><strong>{{ s.title }}</strong></a>
+            {% if s.appears.all %}<ul><li>Med
+                {% for c in s.appears.all %}
+                    {% if not forloop.first and not forloop.last %}{% spaceless %}, {% endspaceless %}{%endif%}
+                    {% if forloop.last and not forloop.first %} & {%endif%}
+                     <a href="{% url 'character_viewer' slug=c.slug %}">{{c.name}}</a>
+                {% endfor %}
+            </ul></li>{%endif%}
+        </li>
+    {% endfor %} </ul> </div>
 
-                  <h1 class="title is-size-3 is-size-2-widescreen">{{ album.title }}</h1>
-                  <h2 class="subtitle is-size-5 is-size-4-widescreen">Udgivet under navnet <strong>{{ album.name }}</strong></h2>
-                  <p class="subtitle is-size-6 is-size-5-widescreen has-text-grey">{{ album.release_date|date }}</p>
-                  {% if album.text %}<blockquote>{{ album.text|safe }}</blockquote>{% endif %}
-                    {% if album.link_bc %}
-                      <a class="tag is-dark is-medium" href="{{album.link_bc}}" target="_blank" rel="noopener">
-                          <span class="icon is-small"><i class="fab fa-bandcamp"></i></span>&emsp;Bandcamp</a>
-                    {% endif %}
-                     {% if album.sp_embed_code %}
-                      <a class="tag is-dark is-medium" href="https://open.spotify.com/album/{{album.sp_embed_code}}" target="_blank" rel="noopener">
-                          <span class="icon is-small"><i class="fab fa-spotify"></i></span>&emsp;Spotify</a>
-                    {% endif %}
-                    {% if album.link_yt %}
-                      <a class="tag is-dark is-medium" href="{{album.link_yt}}" target="_blank" rel="noopener">
-                          <span class="icon is-small"><i class="fab fa-youtube"></i></span>&emsp;YouTube</a>
-                    {% endif %}
-                    {% if album.link_sc %}
-                      <a class="tag is-dark is-medium" href="{{album.link_sc}}" target="_blank" rel="noopener">
-                          <span class="icon is-small"><i class="fab fa-soundcloud"></i></span>&emsp;Soundcloud</a>
-                    {% endif %}
-              </div></div>
-              <div class="is-divider" data-content="&#xf001"></div>
-              <div class="columns is-desktop"><div class="column is-half-desktop">
-                  <h3 class="subtitle is-5">Sange på dette album:</h3>
-                <ul>{% for s in album.song_set.all %}
-                    <li>{{ s.track_number }}. <a href="{% url 'song_viewer' slug=s.slug %}"><strong>{{ s.title }}</strong></a>
-                        {% if s.appears.all %}<ul><li>Med
-                            {% for c in s.appears.all %}
-                                {% if not forloop.first and not forloop.last %}{% spaceless %}, {% endspaceless %}{%endif%}
-                                {% if forloop.last and not forloop.first %} & {%endif%}
-                                 <a href="{% url 'character_viewer' slug=c.slug %}">{{c.name}}</a>
-                            {% endfor %}
-                        </ul></li>{%endif%}
-                    </li>
-                {% endfor %} </ul> </div>
+    <div class="column is-half-desktop"><br>
+    {% if request.COOKIES.use_player == "spotify" and embed_code_sp%}
+        <div class="embed-placeholder">{{ embed_code_sp|safe }}</div>
+        {% killplayers_msg %}
+    {% else %}
+        {% if embed_code_bc %}
+            <div class="embed-placeholder">{{ embed_code_bc|safe }}</div>
+        {% killplayers_msg %}
+        {% endif %}
+    {% endif %}
+    </div></div>
+    {% if album.comment %}
+        <hr>
+        <h3 class="subtitle has-text-centered is-5">Kommentarspor fra projektets skaber:</h3><br>
+        {% show_comment album.comment request.COOKIES.show_comments %}
+    {% endif %}
 
-                <div class="column is-half-desktop"><br>
-                {% if request.COOKIES.use_player == "spotify" and embed_code_sp%}
-                    <div class="embed-placeholder">{{ embed_code_sp|safe }}</div>
-                    {% killplayers_msg %}
-                {% else %}
-                    {% if embed_code_bc %}
-                        <div class="embed-placeholder">{{ embed_code_bc|safe }}</div>
-                    {% killplayers_msg %}
-                    {% endif %}
-                {% endif %}
-                {% if album.comment %}
-                    <hr>
-                    <h3 class="subtitle is-5">Kommentarspor fra projektets skaber:</h3><br>
-                    {% show_comment album.comment request.COOKIES.show_comments %}
-                {% endif %}
-            </div></div>
-    </section>
+</section>
 {% endblock %}
