@@ -58,6 +58,12 @@ function setAnimPref() {
     setCookie('show_animations', pref.checked, 14);
 }
 
+function setBookPref() {
+    var pref = document.getElementById("switchBook");
+    if (pref.checked) { var s = ""; } else { var s = "off"; }
+    setCookie('bookmark', s, 14);
+}
+
 function setPlayerPref() {
     var bc = document.getElementById('playerBC');
     var sp = document.getElementById('playerSP');
@@ -256,3 +262,23 @@ function reload_iframes() {
     var f_list = document.getElementsByTagName('iframe');
     for (var i = 0, f; f = f_list[i]; i++) { f.src = f.src; }
 }
+
+/*
+function getBookmark() {
+    var bookVal = getCookie("bookmark");
+    //console.log(bookVal);
+    if (bookVal) {
+        if (bookVal == "off") { return false;
+        } else {
+        // determine if val seems valid, return in two parts
+        var vals = bookVal.split("/")
+        if (vals.length == 2) {
+            var chp = vals[0];
+            var elem = vals[1];
+            if (/^\d+$/.test(chp) || /^\d+$/.test(elem)) { //test if they're only numbers
+                return [chp, elem];
+                }
+            }
+        }
+    }
+}*/

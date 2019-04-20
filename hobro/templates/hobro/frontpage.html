@@ -121,6 +121,29 @@
 </div>
 </section>
 
+{% if request.COOKIES.bookmark != "off" %}
+<div id="the-bookmark" class="notification is-link {% if request.COOKIES.show_animations == 'false' %} no-motion{% endif %}">
+<button class="delete" id="bookmark-hide"></button>
+<div class="columns is-desktop">
+    <div class="column">
+    <div class="media">
+        <span class="media-left icon">
+          <i class="fas fa-bookmark"></i>
+        </span>
+      <div class="media-content">Siden er sat til at huske hvor langt du er nået i læsningen af historien. Vil du fortsætte hvor du slap?</div>
+    </div>
+    </div>
+    <div class="column has-text-left is-narrow buttons" style="padding: 0.25em;">
+        <a class="button is-success has-a-little-space" id="bookmark-go">
+            <span class="icon is-small"><i class="fas fa-forward"></i></span>
+            <span>Gå til bogmærke</span></a>
+        <a class="button is-danger has-a-little-space" id="bookmark-off">
+            <span class="icon is-small"><i class="fas fa-stop"></i></span>
+            <span>Gem ikke bogmærker</span></a>
+    </div>
+</div></div>
+{% endif %}
+
 <script>
     var read = document.getElementById('read');
     var btn = document.getElementById('scrollBtn');
@@ -135,6 +158,30 @@
     startReadingBtn.addEventListener('click', function() {
         setCookie('cookie_consent', "true", 365);
     });
+
+   /* var bookBanner = document.getElementById('the-bookmark');
+    var bookBtn = document.getElementById('bookmark-go');
+    var bookOff = document.getElementById('bookmark-off');
+    var bookHide = document.getElementById('bookmark-hide');
+
+    bookHide.addEventListener('click', function() { bookBanner.classList.remove('is-active'); });
+
+    bookOff.addEventListener('click', function() {
+        bookBanner.classList.remove('is-active');
+        setCookie('bookmark', "off", 14);
+    });
+
+    bookBtn.addEventListener('click', function() {
+        // naviger til element
+        bm = getBookmark();
+        location = "/kapitel/" + bm[0] + "/#" + bm[1];
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        if (getBookmark()) {
+            bookBanner.classList.add('is-active');
+        }
+    });*/
 
     document.getElementById("commentOffs").addEventListener("click", setCommentPrefs);
     document.getElementById("commentOns").addEventListener("click", setCommentPrefs);

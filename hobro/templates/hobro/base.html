@@ -7,6 +7,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript">
+        /*if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { console.log('works');
+           document.cookie = "show_animations=false;expires=Tue, 04 Jun 2019 10:37:21 GMT;path=/"; window.location.reload() };*/
+
         if (!"IntersectionObserver" in window){
             // only contact polyfill.io if necessary
             document.write('<script crossorigin=\"anonymous\" src=\"https:\/\/polyfill.io\/v3\/polyfill.min.js?features=IntersectionObserver\"><\/script>');
@@ -19,11 +22,13 @@
         {% if request.COOKIES.show_animations != "false" %}
             {% comment %}<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.5/velocity.min.js"></script>{% endcomment %}
         {% endif %}
-        <script src="{% static 'hobro/js/site.js' %}"></script>
         <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
         <link href="https://fonts.googleapis.com/css?family=Assistant:400,700,800|Crimson+Text:400,400i,700|Fira+Mono" rel="stylesheet">
+        {% if request.COOKIES.show_animations != "false" %}
         <link rel="stylesheet" type="text/css" href="{% static 'hobro/sal/sal.css' %}">
+        {% endif %}
         <link rel="stylesheet" type="text/css" href="{% static 'hobro/style.css' %}">
+        <script src="{% static 'hobro/js/site.js' %}"></script>
         <link rel="icon" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-32x32.png" sizes="32x32" />
         <link rel="icon" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-192x192.png" sizes="192x192" />
         <link rel="apple-touch-icon-precomposed" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-180x180.png" />
@@ -103,6 +108,19 @@
                     "><span class="icon"><i class="fas fa-info"></i></span></button>
                 </div>
             </div></div>
+            <div class="tile is-parent is-4-fullhd is-6-widescreen is-6-desktop is-6-tablet"><div class="tile is-child">
+                <p class="navbar-setting has-text-light is-uppercase has-text-centered">Gem bogmærke under læsning:</p>
+                <div class="has-text-light has-text-centered navbar-controls field"><div class="navbar-control">
+                  <input id="switchBook" type="checkbox" name="switchBook" class="switch is-rounded is-info"
+                        {% if request.COOKIES.bookmark != "off" %}checked{% endif %}>
+                  <label for="switchBook" class="navbar-setting">Til/Fra</label>
+                </div></div>
+                <div class="has-text-light has-text-centered">
+                    <button class="button is-small is-rounded is-light is-outlined tooltip is-tooltip-multiline is-tooltip-bottom" data-tooltip="
+                    Siden kan huske hvor langt du er nået i historien, så du kan hoppe direkte ind igen senere. Bogmærket glemmes hvis du ændrer på indstillingen
+                    "><span class="icon"><i class="fas fa-info"></i></span></button>
+                </div>
+            </div></div>
         </div>
         <br>
         <a class="button is-info navy-text" value="Gendindlæs siden" onClick="window.location.reload()"><span class="icon is-small">
@@ -118,8 +136,8 @@
       <span aria-hidden="true"></span>
     </a>
 </nav>
-<div id="menuOverlay" class="menu-overlay nav-toggle"></div>
-<div id="sideMenu" class="navbar is-fixed navbar-menu is-dark is-transparent side-menu">
+<div id="menuOverlay" class="menu-overlay nav-toggle {% if request.COOKIES.show_animations == 'false' %} no-motion{% endif %}"></div>
+<div id="sideMenu" class="navbar is-fixed navbar-menu is-dark is-transparent side-menu{% if request.COOKIES.show_animations == 'false' %} no-motion{% endif %}">
 <div class="navbar-contents">
     <div class="navbar-top">
         <a role="button" class="button is-medium is-rounded is-dark navy killPlayers in-menu">
@@ -162,12 +180,12 @@
 </div>
 
 {% block cookies %}
-<div id="the-cookies" {% if not request.COOKIES.cookie_consent %}class="is-active"{% else %} class="disappeared"{% endif %}>
+<div id="the-cookies" class="{% if not request.COOKIES.cookie_consent %}is-active{% else %}disappeared{% endif %}{% if request.COOKIES.show_animations == 'false' %} no-motion{% endif %}">
 <div class="columns is-desktop is-centered" data-sal="fade" data-sal-duration="800" data-sal-easing="ease-in">
     <div class="column is-one-quarter"></div>
     <div class="column is-one-half">
     <div class="media has-text-light">
-        <span class="media-left icon is-large">
+        <span class="media-left icon">
           <i class="fas fa-cookie-bite"></i>
         </span>
       <div class="media-content">
@@ -175,7 +193,7 @@
         For at bruge siden, er du nødt til at sige god for det. </div>
     </div>
     </div>
-    <div class="column alive fade is-one-quarter has-text-centered has-text-left-desktop">
+    <div class="column is-one-quarter has-text-centered has-text-left-desktop">
         <a class="button is-success" id="cookie-okay">
             <span class="icon is-small">
           <i class="fas fa-check"></i>
@@ -189,22 +207,22 @@
 {% block content %}
 {% endblock %}
 
-<script src="{% static 'hobro/sal/sal.js' %}"></script>
+{% if request.COOKIES.show_animations != "false" %}<script src="{% static 'hobro/sal/sal.js' %}"></script>{% endif %}
 <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@10.20.1/dist/lazyload.min.js"></script>
 <script src="{% static 'hobro/js/vendor/smoothscroll.min.js' %}"></script>
 <script>
     (function () { lazyload = new LazyLoad({ elements_selector: '.lazy', });}());
     window.onload = function(){
-        sal({threshold: 0.1, disable: true,});
 
-        //const scrollAnimations = sal({ selector: '[data-salw]',});
-        //scrollAnimations.disable();
+        var showAnim = showAnimations();
+        if (showAnim) {
+            sal({threshold: 0.1, disable: false,});
+        }
 
         document.getElementById('menuSettings').addEventListener('click', function() {
             toggleShowMenu();
             modalOpen('settings-modal');
         });
-
     }
 
 
@@ -215,6 +233,8 @@
     document.getElementById("commentOff").addEventListener("click", setCommentPref);
     document.getElementById("commentOn").addEventListener("click", setCommentPref);
     document.getElementById("commentToggle").addEventListener("click", setCommentPref);
+    document.getElementById("switchBook").addEventListener("click", setBookPref);
+
 
     var cookieBanner = document.getElementById('the-cookies');
     var cookieBtn = document.getElementById('cookie-okay');
