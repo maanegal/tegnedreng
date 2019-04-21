@@ -9,7 +9,6 @@ urlpatterns = [
     path('rulletekster/', views.about, name='about'),
     path('indeks/', views.search_index, name='search_index'),
     path('kapitel/', views.redirect_chapter, name='redirect_chapter'),
-    path('kapitel/alle/', views.item_list, name='item_list'),
     path('kapitel/<int:number>/', views.item_page, name='item_page'),
     path('musik/', views.music_list, name='music_list'),
     path('sang/<slug:slug>/', views.song_viewer, name='song_viewer'),

@@ -20,22 +20,19 @@ def search_index(request):
     return render(request, 'hobro/search_index.html', {'hashtags': hashtags})
 
 
-def item_list(request):
-    data = the_big_retriever()
-    comment_pref = request.COOKIES.get('show_comments')
-    motifs_seen = request.COOKIES.get('motifs_seen')
-    anim_pref = request.COOKIES.get('show_animations')
-    print('this', anim_pref)
-    return render(request, 'hobro/item_list.html', {'items': data, 'comment_pref': comment_pref, 'motifs_seen': motifs_seen, 'anim_pref': anim_pref})
-
-
 def item_page(request, number=1):
+    previous_page = request.META.get('HTTP_REFERER')
+    p = "/kapitel/"+str(number - 1)
+    if previous_page and p in previous_page:
+        continued = True
+    else:
+        continued = False
     data = the_big_retriever(number)
     next_page = None
     if not number == 8:
         next_page = number + 1
     comment_pref = request.COOKIES.get('show_comments')
-    return render(request, 'hobro/item_list.html', {'items': data, 'number': number, 'next': next_page, 'comment_pref': comment_pref})
+    return render(request, 'hobro/item_list.html', {'items': data, 'number': number, 'next': next_page, 'comment_pref': comment_pref, 'continued': continued})
 
 
 def item_detail(request, pk, tp):

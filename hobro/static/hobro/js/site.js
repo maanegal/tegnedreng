@@ -263,12 +263,11 @@ function reload_iframes() {
     for (var i = 0, f; f = f_list[i]; i++) { f.src = f.src; }
 }
 
-/*
 function getBookmark() {
     var bookVal = getCookie("bookmark");
     //console.log(bookVal);
     if (bookVal) {
-        if (bookVal == "off") { return false;
+        if (bookVal == "off") { return "off";
         } else {
         // determine if val seems valid, return in two parts
         var vals = bookVal.split("/")
@@ -281,4 +280,4 @@ function getBookmark() {
             }
         }
     }
-}*/
+}

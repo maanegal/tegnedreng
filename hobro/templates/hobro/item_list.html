@@ -58,8 +58,12 @@
     {% endif %}
     </div>
 
+<div id="bookmark-note" class="bookmark note notification is-link {% if request.COOKIES.show_animations == 'false' %} no-motion{% endif %}">
+<span class="media-left icon"><i class="fas fa-bookmark"></i></span>Der er et bogmærke gemt</div>
+
+{% if not continued %}
 {% if request.COOKIES.bookmark != "off" %}
-<div id="the-bookmark" class="bookmark notification is-link {% if request.COOKIES.show_animations == 'false' %} no-motion{% endif %}">
+<div id="bookmark-banner" class="bookmark notification is-link {% if request.COOKIES.show_animations == 'false' %} no-motion{% endif %}">
 <button class="delete" id="bookmark-hide"></button>
 <div class="columns is-desktop">
     <div class="column">
@@ -75,7 +79,7 @@
             <span class="icon is-small"><i class="fas fa-forward"></i></span>
             <span>Gå til bogmærke</span></a>
         <a class="button is-danger has-a-little-space" id="bookmark-off">
-            <span class="icon is-small"><i class="fas fa-stop"></i></span>
+            <span class="icon is-small"><i class="fas fa-toggle-off"></i></span>
             <span>Gem ikke bogmærker</span></a>
     </div>
 </div></div>
@@ -83,28 +87,11 @@
 Siden gemmer ikke længere et bogmærke. Du kan altid slå det til igen i sidens indstillinger, der kan tilgås fra menuen til venstre.
 </div>
 {% endif %}
+{% endif %}
 
 <script>
-function getBookmark() {
-    var bookVal = getCookie("bookmark");
-    //console.log(bookVal);
-    if (bookVal) {
-        if (bookVal == "off") { return "off";
-        } else {
-        // determine if val seems valid, return in two parts
-        var vals = bookVal.split("/")
-        if (vals.length == 2) {
-            var chp = vals[0];
-            var elem = vals[1];
-            if (/^\d+$/.test(chp) || /^\d+$/.test(elem)) { //test if they're only numbers
-                return [chp, elem];
-                }
-            }
-        }
-    }
-}
-
-    var bookBanner = document.getElementById('the-bookmark');
+    var bookBanner = document.getElementById('bookmark-banner');
+    var bookNote = document.getElementById('bookmark-note');
     var bookBtn = document.getElementById('bookmark-go');
     var bookOff = document.getElementById('bookmark-off');
     var bookOffNote = document.getElementById('bookmark-off-note');
@@ -115,6 +102,7 @@ function getBookmark() {
     bookOff.addEventListener('click', function() {
         bookBanner.classList.remove('is-active');
         setCookie('bookmark', "off", 14);
+        document.getElementById("switchBook").checked = false;
         bookOffNote.classList.add('is-active');
         setTimeout(function(){
             bookOffNote.classList.remove('is-active');
@@ -124,26 +112,39 @@ function getBookmark() {
     bookBtn.addEventListener('click', function() {
         // naviger til element
         bm = getBookmark();
+        bookBanner.classList.remove('is-active');
         location = "/kapitel/" + bm[0] + "/#" + bm[1];
     });
 
-    document.addEventListener('DOMContentLoaded', () => {
-        if (getBookmark()) {
-            bookBanner.classList.add('is-active');
-        }
+    bookNote.addEventListener('click', function() {
+        bookNote.classList.remove('is-active');
+        bookBanner.classList.add('is-active');
     });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(function(){
+            if (getBookmark()) {
+                bookNote.classList.add('is-active');
+            }
+        },2800);
+    });
+
+    // following is for saving bookmark
 
     const elems = document.querySelectorAll('article');
     bm = getBookmark()
-    if (bm && bm != "off") { var cur = bm[1]; } else { var cur = 0; }
+    if (bm && bm != "off") {
+        var cur = bm[1];
+    } else {
+        var cur = 0;
+    }
 
     observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.intersectionRatio > 0) {
           var val = entry.target.id;
-          console.log(cur, val);
-          if (/^\d+$/.test(val) && val > +cur ) { //is a number
-            // is bigger than cur
+          //console.log(cur, val);
+          if (/^\d+$/.test(val) && val > +cur ) { //is a number and bigger than cur
             setCookie('bookmark', '{{number}}/'+val, 14);
             cur = val;
           }
@@ -167,6 +168,7 @@ function getBookmark() {
       document.getElementById("theProgressBar").style.width = scrolled + "%";
       //console.log(scrolled);
     }
+
 
 </script>
 

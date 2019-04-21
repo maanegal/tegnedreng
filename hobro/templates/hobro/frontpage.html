@@ -11,18 +11,23 @@
     <div class="hero-body">
         <div class="container is-family-secondary has-text-centered">
         <p class="subtitle is-family-primary is-size-3-desktop is-size-4-tablet is-size-5-mobile txt-shadow frontspace" data-sal="zoom-in-light" data-sal-duration="1400" data-sal-delay="200" data-sal-easing="ease-in-out"><img src="{% get_media_prefix %}/moon_full.png" class="inlined" alt="Månegal Media"> præsenterer</p>
-        <h1 class="title is-capitalized is-size-1-desktop is-size-2-tablet is-size-3-mobile txt-shadow" data-sal="zoom-in-light" data-sal-duration="2000" data-sal-delay="800" data-sal-easing="ease-in">Hobro for livet</h1>
-        <h2 class="subtitle is-size-2-desktop is-size-3-tablet is-size-4-mobile txt-shadow" data-sal="zoom-in-light" data-sal-duration="2000" data-sal-delay="2000" data-sal-easing="ease-in">Legenden om <em>Tegnedreng Records</em></h2>
+        <h1 class="title is-capitalized is-size-1-desktop is-size-2-tablet is-size-2-mobile txt-shadow" data-sal="zoom-in-light" data-sal-duration="2000" data-sal-delay="800" data-sal-easing="ease-in">Hobro for livet</h1>
+        <h2 class="subtitle is-size-2-desktop is-size-3-tablet is-size-3-mobile txt-shadow" data-sal="zoom-in-light" data-sal-duration="2000" data-sal-delay="2000" data-sal-easing="ease-in">Legenden om <em>Tegnedreng Records</em></h2>
         <img id="section-gfx" src="{% get_media_prefix %}chapters/chapter8.svg" data-sal="zoom-out" data-sal-duration="4000" data-sal-delay="1600" data-sal-easing="ease-in-out"/>
         <br>
-        <p class="subtitle is-size-3-desktop is-size-4-tablet is-size-5-mobile txt-shadow" data-sal="fade" data-sal-duration="1200" data-sal-delay="4000" data-sal-easing="ease-in-out"><em>En roman af Sigfred Nielsen</em></p>
+        <p class="subtitle is-size-3-desktop is-size-4-tablet is-size-4-mobile txt-shadow" data-sal="fade" data-sal-duration="1200" data-sal-delay="4000" data-sal-easing="ease-in-out"><em>En roman af Sigfred Nielsen</em></p>
 
     </div>
     </div>
       <div class="hero-foot front">
-            <p id="scrollBtn" class="button navy-text front is-primary is-rounded do-shadow" data-sal="slide-down" data-sal-duration="2000" data-sal-delay="2000" data-sal-easing="ease-in-out">
+            <a id="scrollBtn" class="button navy-text front is-primary is-rounded do-shadow" title="Bladr ned til indledningen" data-sal="slide-down" data-sal-duration="2000" data-sal-delay="2000" data-sal-easing="ease-in-out">
                 <span class="icon is-small"><i class="fas fa-angle-double-down"></i></span>
-                Læs historien</p>
+                Læs historien</a>
+          {% if request.COOKIES.bookmark and request.COOKIES.bookmark != "off" %}
+          <a id="bookmarkBtn" class="button navy-text front is-success is-rounded do-shadow" title="Gå til det gemte bogmærke" data-sal="slide-down" data-sal-duration="2000" data-sal-delay="2300" data-sal-easing="ease-in-out">
+                <span class="icon is-small"><i class="fas fa-bookmark"></i></span>
+                Fortsæt fra bogmærke</a>
+          {% endif %}
             <a href="{% url 'music_list' %}" class="button navy-text front is-info is-rounded do-shadow" data-sal="slide-down" data-sal-duration="2000" data-sal-delay="2600" data-sal-easing="ease-in-out">
                 <span class="icon is-small"><i class="fas fa-music"></i></span>
                 Hør musikken</a>
@@ -64,7 +69,7 @@
 
 
     <div class="columns has-text-centered field">
-        <div class="column"><div class="card">
+        <div class="column"><div class="card selection-card">
             <div class="card-header"><div class="card-header-title is-centered">
               <input class="is-checkradio" id="commentOffs" type="radio" name="commentradio"
                      {% if request.COOKIES.show_comments == "off" %}checked{% endif %}>
@@ -76,7 +81,7 @@
             </div>
         </div></div>
 
-        <div class="column"><div class="card">
+        <div class="column"><div class="card selection-card">
             <div class="card-header"><div class="card-header-title is-centered">
               <input class="is-checkradio" id="commentToggles" type="radio" name="commentradio"
                      {% if request.COOKIES.show_comments == "toggle" %}checked
@@ -89,7 +94,7 @@
             </div>
         </div></div>
 
-        <div class="column"><div class="card">
+        <div class="column"><div class="card selection-card">
             <div class="card-header"><div class="card-header-title is-centered">
               <input class="is-checkradio " id="commentOns" type="radio" name="commentradio"
                      {% if request.COOKIES.show_comments == "on" %}checked{% endif %}>
@@ -101,6 +106,10 @@
             </div>
         </div></div>
 
+    </div><br>
+    <div class="content">
+        <p>Du kan tilpasse siden mere fra indstillingspanelet, som kan åbnes fra menuen til venstre. Her kan du slå animationer fra, sætte musikafspillere til at bruge Spotify, og ændre om kommentarsporet vises.</p>
+        <p>Siden gemmer automatisk et bogmærke, der husker hvor langt du er kommet i historien. Det kan også slås fra i indstillingerne.</p>
     </div>
 
     <div class="is-divider" data-content="&#xf013"></div>
@@ -121,29 +130,6 @@
 </div>
 </section>
 
-{% if request.COOKIES.bookmark != "off" %}
-<div id="the-bookmark" class="notification is-link {% if request.COOKIES.show_animations == 'false' %} no-motion{% endif %}">
-<button class="delete" id="bookmark-hide"></button>
-<div class="columns is-desktop">
-    <div class="column">
-    <div class="media">
-        <span class="media-left icon">
-          <i class="fas fa-bookmark"></i>
-        </span>
-      <div class="media-content">Siden er sat til at huske hvor langt du er nået i læsningen af historien. Vil du fortsætte hvor du slap?</div>
-    </div>
-    </div>
-    <div class="column has-text-left is-narrow buttons" style="padding: 0.25em;">
-        <a class="button is-success has-a-little-space" id="bookmark-go">
-            <span class="icon is-small"><i class="fas fa-forward"></i></span>
-            <span>Gå til bogmærke</span></a>
-        <a class="button is-danger has-a-little-space" id="bookmark-off">
-            <span class="icon is-small"><i class="fas fa-stop"></i></span>
-            <span>Gem ikke bogmærker</span></a>
-    </div>
-</div></div>
-{% endif %}
-
 <script>
     var read = document.getElementById('read');
     var btn = document.getElementById('scrollBtn');
@@ -159,29 +145,11 @@
         setCookie('cookie_consent', "true", 365);
     });
 
-   /* var bookBanner = document.getElementById('the-bookmark');
-    var bookBtn = document.getElementById('bookmark-go');
-    var bookOff = document.getElementById('bookmark-off');
-    var bookHide = document.getElementById('bookmark-hide');
-
-    bookHide.addEventListener('click', function() { bookBanner.classList.remove('is-active'); });
-
-    bookOff.addEventListener('click', function() {
-        bookBanner.classList.remove('is-active');
-        setCookie('bookmark', "off", 14);
-    });
-
-    bookBtn.addEventListener('click', function() {
+    document.getElementById('bookmarkBtn').addEventListener('click', function() {
         // naviger til element
         bm = getBookmark();
         location = "/kapitel/" + bm[0] + "/#" + bm[1];
     });
-
-    document.addEventListener('DOMContentLoaded', () => {
-        if (getBookmark()) {
-            bookBanner.classList.add('is-active');
-        }
-    });*/
 
     document.getElementById("commentOffs").addEventListener("click", setCommentPrefs);
     document.getElementById("commentOns").addEventListener("click", setCommentPrefs);
