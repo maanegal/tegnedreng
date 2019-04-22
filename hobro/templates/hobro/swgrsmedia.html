@@ -35,7 +35,7 @@
       </div>
       <div class="media-right">
           <ul class="darkmode icon-list">
-          <li><a href="{% url 'item_detail' pk=post.pk tp=post.get_type %}">
+          <li><a href="{% url 'item_detail' slug=post.slug tp=post.get_type %}">
             <span class="icon is-small"><i class="fas fa-external-link-alt"></i></span>
           </a></li>
           {% if post.link_fb %}

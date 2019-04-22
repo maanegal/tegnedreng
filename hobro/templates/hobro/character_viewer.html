@@ -45,10 +45,11 @@
             </div><br>
         {% endif %}
         {% if character.appears_on_sw_song.all %}
+            <div class="is-divider" data-content="&#xf007"></div>
             <h3 class="subtitle has-text-centered">Optræder på disse numre fra SWGRS:</h3>
             <div class="multicols"><ul>
                 {% for s in character.appears_on_sw_song.all %}
-                    <li> <a href="{% url 'song_viewer' slug=s.slug %}">{{ s.title }}</a></li>
+                    <li> <a href="{% url 'item_detail' pk=s.pk tp=s.get_type %}">{{ s.title }}</a></li>
                 {% endfor %} </ul>
             </div><br>
         {% endif %}

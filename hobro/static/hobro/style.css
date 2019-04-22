@@ -406,9 +406,19 @@ img:not([src]) {
     opacity: 0
 }
 
-@media screen and (max-width: 768px) {
+
+@media screen and (max-width: 383px) {
+  .tabs.is-responsive {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 768px) and (min-width: 384px) {
   .post-img {
     height: width: 90vw;
+  }
+  .tabs.is-responsive {
+    font-size: 1rem;
   }
 }
 
@@ -416,11 +426,17 @@ img:not([src]) {
   .post-img {
     height: 45vw;
   }
+  .tabs.is-responsive {
+    font-size: 1.2rem;
+  }
 }
 
 @media screen and (min-width: 1024px) {
   .post-img {
     height: 30vw;
+  }
+  .tabs.is-responsive {
+    font-size: 1.5rem;
   }
 }
 

@@ -277,7 +277,7 @@ class SwgrsSong(models.Model):
         super(SwgrsSong, self).save(*args, **kwargs)
 
     def get_type(self):
-        class_name = "swgrs_song"
+        class_name = "swgrs-sang"
         return class_name
 
 
@@ -325,7 +325,7 @@ class ItemEmbed(models.Model):
         elif self.target_musicvideo.all():
             return 'musicvideo'
         elif self.target_swgrssong.all():
-            return 'swgrs_song'
+            return 'swgrs-sang'
         else:
             return None
 

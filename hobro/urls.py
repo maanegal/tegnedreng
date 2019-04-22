@@ -8,6 +8,7 @@ urlpatterns = [
     path('teaser/', views.teaser, name='teaser'),
     path('rulletekster/', views.about, name='about'),
     path('indeks/', views.search_index, name='search_index'),
+    path('galleri/', views.photo_gallery, name='photo_gallery'),
     path('kapitel/', views.redirect_chapter, name='redirect_chapter'),
     path('kapitel/<int:number>/', views.item_page, name='item_page'),
     path('musik/', views.music_list, name='music_list'),
@@ -23,7 +24,7 @@ urlpatterns = [
     path('hashtag/<slug:slug>/', views.hashtag_viewer, name='hashtag_viewer'),
     path('hashtags/', views.hashtag_list, name='hashtag_list'),
     path('hashtag/', views.redirect_character, name='redirect_hashtag'),
-    path('<str:tp>/<int:pk>/', views.item_detail, name='item_detail'),
+    path('<str:tp>/<slug:slug>/', views.item_detail, name='item_detail'),
 
 ]
 

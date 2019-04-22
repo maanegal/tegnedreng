@@ -236,14 +236,16 @@ function filterList(queryField, queryList) {
   }
 }
 
-function clearText(queryField, queryList)
+function clearText(queryField, queryList="")
 {
     document.getElementById(queryField).value = "";
+    if (queryList) {
       ul = document.getElementById(queryList);
       li = ul.getElementsByTagName('li');
     for (i = 0; i < li.length; i++) {
         li[i].style.display = "";
       }
+    }
 }
 
 

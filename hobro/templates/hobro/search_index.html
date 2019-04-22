@@ -4,7 +4,7 @@
 {% block content %}
     <section class="section columns is-tablet is-centered">
     <div class="column is-two-thirds is-centered"><div class="box big-box">
-        <div class="tabs is-centered is-large is-boxed">
+        <div class="tabs is-centered is-responsive is-boxed">
           <ul>
             <li class="is-active"><a href="/indeks/">
                 <span class="icon is-small"><i class="fas fa-search" aria-hidden="true"></i></span>
@@ -12,30 +12,62 @@
             <li><a href="/hashtags/">
                 <span class="icon is-small"><i class="fas fa-hashtag" aria-hidden="true"></i></span>
                 <span>Hashtags</span></a></li>
-            <li><a>
+            <li><a href="/galleri/">
                 <span class="icon is-small"><i class="fas fa-image" aria-hidden="true"></i></span>
                 <span>Galleri</span></a></li>
           </ul>
         </div>
         <br>
-        <div class="columns is-centered">
-            <div class="column is-half">
-                <p class="subtitle">Kommer snart...</p>
-                <div class="field has-addons">
+        <div class="columns is-centered is-desktop">
+            <div class="column is-half-desktop">
+                <form id="searchform" action="{% url 'search_index' %}" method="get" accept-charset="utf-8" class="field has-addons">
                   <div class="control is-expanded">
-                    <input class="input" type="text" id="tag-input" onkeyup="filterList('tag-input', 'tag-list')" placeholder="Søg...">
-                      <span class="clear-input"><span class="control"><a class="delete" onclick="clearText('tag-input', 'tag-list')"></a></span></span>
+                    <input class="input" type="text" name="q" id="query" placeholder="Søg..."{% if query %} value="{{query}}"{% endif %}>
+                      <span class="clear-input"><span class="control"><a class="delete" onclick="clearText('query')"></a></span></span>
                   </div>
                   <div class="control">
                       <button class="button is-info" type="submit">
                           <span class="icon"><i class="fas fa-search"></i></span>
                       </button>
                   </div>
-                </div>
+                </form>
+                <br>
+                <p>Søgefunktionen er meget basal. Der tages ikke forbehold for stavevariationer i fx sangtekster. Hvis der er noget, du ikke kan finde, kan du prøve at erstatte "ligesom" med "lissom", "ikke" med "ik'", osv.</p>
             </div>
         </div>
         <br>
         <div class="is-divider" data-content="&#xf002"></div>
+
+        {% if results %}
+        <h2 class="title has-text-centered">{{ results|length }} resultater</h2>
+        <div class="tile is-ancestor">
+        {% for hit in results %}
+            <div class="tile is-parent is-4-fullhd is-4-widescreen is-4-desktop is-6-tablet has-image-centered">
+            <div class="tile is-child card has-background-light">
+            <div class="card-content has-text-centered has-text-dark">
+            {% if hit.get_type == "character" %}
+                <p class="subtitle">Medlem</p>
+                <a href="{% url 'character_viewer' slug=hit.slug %}">{{ hit.name }}</a>
+            {% elif hit.get_type == "album" %}
+                <p class="subtitle">Album</p>
+                <a href="{% url 'album_viewer' slug=hit.slug %}">{{ hit.title }}</a>
+            {% elif hit.get_type == "musicvideo" %}
+                <p class="subtitle">Musikvideo</p>
+                <a href="{% url 'musicvideo_viewer' slug=hit.slug %}">{{ hit.title }}</a>
+            {% elif hit.get_type == "song" %}
+                <p class="subtitle">Sang</p>
+                <a href="{% url 'song_viewer' slug=hit.slug %}">{{ hit.title}}</a>
+            {% elif hit.get_type == "swgrs-sang" %}
+                <p class="subtitle">SWGRS-nummer</p>
+                <a href="{% url 'item_detail' slug=hit.slug tp=hit.get_type %}">{{ hit.title}}</a>
+            {% else %}
+                <p class="subtitle">Opslag</p>
+                <a href="{% url 'item_detail' slug=hit.slug tp=hit.get_type %}">{{ hit.text|striptags|truncatechars:280 }}</a>
+            {% endif %}
+            </div></div></div>
+        {% endfor %}
+        </div>
+        {% endif %}
     </div>
 </section>
 {% endblock %}

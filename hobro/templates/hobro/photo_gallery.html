@@ -1,0 +1,45 @@
+{% extends 'hobro/base.html' %}
+{% load itemviews %}
+
+{% block title %}Galleri over billeder fra opslag{% endblock %}
+{% block content %}
+<section class="section columns is-tablet is-centered">
+    <div class="column is-two-thirds is-centered"><div class="box big-box">
+        <div class="tabs is-centered is-large is-boxed">
+          <ul>
+            <li><a href="/indeks/">
+                <span class="icon is-small"><i class="fas fa-search" aria-hidden="true"></i></span>
+                <span>Søg</span></a></li>
+            <li><a href="/hashtags/">
+                <span class="icon is-small"><i class="fas fa-hashtag" aria-hidden="true"></i></span>
+                <span>Hashtags</span></a></li>
+            <li class="is-active"><a href="/galleri/">
+                <span class="icon is-small"><i class="fas fa-image" aria-hidden="true"></i></span>
+                <span>Galleri</span></a></li>
+          </ul></div>
+        <div class="has-text-centered">
+            <h2 class="subtitle is-size-4 has-text-dark">20 tilfældige billeder fra projektet. Klik på et for at se detaljerne om opslaget</h2>
+            <a class="button is-info navy-text" value="Gendindlæs siden" onClick="location.reload(true)"><span class="icon is-small">
+            <i class="fa fa-redo"></i></span>Ryst posen og få 20 nye</a></div>
+</div></section>
+
+
+<div class="tile is-ancestor">
+{% for post in objects %}
+        <div class="tile is-parent is-4-fullhd is-6-widescreen is-6-desktop is-6-tablet has-image-centered is-paddingless">
+    <div class="tile is-child">
+        <figure class="image">
+          <a href="{% url 'item_detail' slug=post.slug tp=post.get_type %}">
+            <img class="lazy do-shadow" data-src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}"/>
+          </a>
+        </figure>
+    </div></div>
+{% endfor %}</div>
+
+
+
+<div class="columns is-centered "><div class="column is-half section is-medium has-text-centered">
+        <a class="button is-info navy-text" value="Gendindlæs siden" onClick="location.reload(true)"><span class="icon is-small">
+        <i class="fa fa-redo"></i></span>Ryst posen!</a>
+</div></div>
+{% endblock %}

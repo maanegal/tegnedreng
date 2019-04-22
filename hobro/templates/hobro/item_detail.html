@@ -1,6 +1,28 @@
 {% extends 'hobro/base.html' %}
 {% load itemviews %}
 
+{% block title %}
+    {% with a=item.get_type %}
+        {% if a == "opslag" %}
+            "{{ item.text|striptags|truncatechars:35 }}"
+        {% elif a == "billede" %}
+            "{{ item.text|striptags|truncatechars:35 }}"
+        {% elif a == "video" %}
+            "{{ item.text|striptags|truncatechars:35 }}"
+        {% elif a == "navneskift" %}
+            Nyt navn: {{ item.page_name }}
+        {% elif a == "swgrs-opslag" %}
+            "{{ item.text|striptags|truncatechars:35 }}"
+        {% elif a == "swgrs-billede" %}
+            "{{ item.text|striptags|truncatechars:35 }}"
+        {% elif a == "swgrs-sang" %}
+            {{ item.title }}
+        {% else %}
+
+        {% endif %}
+    {% endwith %}
+{% endblock %}
+
 {% block content %}
     {% with a=item.get_type %}
         {% if a == "opslag" %}
@@ -15,7 +37,7 @@
             {% show_swgrspost item %}
         {% elif a == "swgrs-billede" %}
             {% show_swgrsmedia item %}
-        {% elif a == "swgrs_song" %}
+        {% elif a == "swgrs-sang" %}
             {% embed_swgrssong item %}
         {% else %}
             <div class="post">

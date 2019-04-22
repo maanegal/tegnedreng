@@ -1,6 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from .helpers import the_big_retriever, class_from_str, make_bandcamp_embed, make_spotify_embed, make_youtube_embed
+#from simple_search import search_filter
+from django.db.models import Q
+from itertools import chain
+from random import shuffle
 
 
 def frontpage(request):
@@ -16,8 +20,26 @@ def about(request):
 
 
 def search_index(request):
-    hashtags = Hashtag.objects.order_by('name')
-    return render(request, 'hobro/search_index.html', {'hashtags': hashtags})
+    query = request.GET.get('q')
+    q_song = Q(title__icontains=query) | Q(lyrics__icontains=query) | Q(text__icontains=query)
+    q_post = Q(text__icontains=query)
+    q_media = Q(title__icontains=query) | Q(text__icontains=query)
+    q_char = Q(name__icontains=query) | Q(text__icontains=query)
+    if query:
+        results = list(chain(Character.objects.filter(q_char).distinct(),
+                        Album.objects.filter(q_media).distinct(),
+                        MusicVideo.objects.filter(q_media).distinct(),
+                        Song.objects.filter(q_song).distinct(),
+                        Post.objects.filter(q_post).distinct(),
+                        PostPhoto.objects.filter(q_post).distinct(),
+                        PostVideo.objects.filter(q_post).distinct(),
+                        SwgrsPost.objects.filter(q_post).distinct(),
+                        SwgrsMedia.objects.filter(q_post).distinct(),
+                        SwgrsSong.objects.filter(q_media).distinct()
+                        ))
+    else:
+        results = []
+    return render(request, 'hobro/search_index.html', {'query': query, 'results': results})
 
 
 def item_page(request, number=1):
@@ -35,9 +57,9 @@ def item_page(request, number=1):
     return render(request, 'hobro/item_list.html', {'items': data, 'number': number, 'next': next_page, 'comment_pref': comment_pref, 'continued': continued})
 
 
-def item_detail(request, pk, tp):
+def item_detail(request, slug, tp):
     cl = class_from_str(tp)
-    item = get_object_or_404(cl, pk=pk)
+    item = get_object_or_404(cl, slug=slug)
     comment_pref = request.COOKIES.get('show_comments')
     return render(request, 'hobro/item_detail.html', {'item': item, 'comment_pref': comment_pref})
 
@@ -83,7 +105,7 @@ def character_list(request):
 def character_viewer(request, slug):
     character = get_object_or_404(Character, slug=slug)
     posts = list(character.post_set.all()) + list(character.postphoto_set.all()) + list(character.postvideo_set.all()) \
-            + list(character.swgrspost_set.all()) + list(character.swgrsmedia_set.all())
+        + list(character.swgrspost_set.all()) + list(character.swgrsmedia_set.all())
     return render(request, 'hobro/character_viewer.html', {'character': character, 'posts': posts})
 
 
@@ -95,6 +117,15 @@ def hashtag_list(request):
 def hashtag_viewer(request, slug):
     hashtag = get_object_or_404(Hashtag, slug=slug)
     return render(request, 'hobro/hashtag_viewer.html', {'hashtag': hashtag})
+
+
+def photo_gallery(request):
+    objects = []
+    objects.extend(list(PostPhoto.objects.order_by('?')[:15]))
+    objects.extend(list(SwgrsMedia.objects.order_by('?')[:5]))
+    shuffle(objects)
+    return render(request, 'hobro/photo_gallery.html', {'objects': objects})
+
 
 
 # REDIRECTS

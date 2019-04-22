@@ -62,7 +62,7 @@
     <h2 class="subtitle is-3 has-text-centered">Musik fra SWGRS</h2>
     <div class="multicols" id="song-list"><ul>
     {% for ssong in swgrs %}
-        <li><a href="{% url 'song_viewer' slug=ssong.slug %}">{{ ssong.title }}</a></li>
+        <li><a href="{% url 'item_detail' slug=ssong.slug tp=ssong.get_type %}">{{ ssong.title }}</a></li>
     {% endfor %}
     </ul></div>
     <br>

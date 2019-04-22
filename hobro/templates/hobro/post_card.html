@@ -1,3 +1,5 @@
+{% load static %}
+
 {% if post.photo %}
 <div class="modal" id="modal_{{ post.time_stamp }}">
   <div class="modal-background" onclick="modalClose('modal_{{ post.time_stamp }}')"></div>
@@ -29,16 +31,14 @@
       <div class="media-left">
         <figure class="image is-48x48">
             {% if is_swgrs %}
-                <img src="{{ post.profile.url }}" alt="SWGRS">
+                <img src="{% get_media_prefix %}/swgrs/profile_thumb.jpg" alt="SWGRS">
             {% else %}
                 <img src="{{ profilepic.url }}" alt="{{ name }}">
             {% endif %}
         </figure>
       </div>
       <div class="media-content">
-          <p class="title is-size-5">
-              {% if is_swgrs %}SWGRS{% else %}{{ name }}{% endif %}
-              (id: {{post.get_type}} {{ post.time_stamp }}) {% if not post.link_fb%}FB mangler{%endif%}</p>
+          <p class="title is-size-5">{% if is_swgrs %}SWGRS{% else %}{{ name }}{% endif %}</p>
         <p class="subtitle is-size-6 has-text-grey">{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>
       </div>
     </div>
@@ -51,7 +51,7 @@
             </p>
         {% endif %}
         <p class="lightmode icon-list">
-          <span><a href="{% url 'item_detail' pk=post.pk tp=post.get_type %}">
+          <span><a href="{% url 'item_detail' slug=post.slug tp=post.get_type %}">
             <span class="icon is-small"><i class="fas fa-external-link-alt"></i></span>
           </a></span>
           {% if post.link_fb %}
