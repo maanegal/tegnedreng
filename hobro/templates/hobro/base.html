@@ -294,6 +294,7 @@
 
     try {
         document.getElementById('bookmark-go-menu').addEventListener('click', function() {
+            modalClose('story-modal');
             // naviger til element
             bm = getBookmark();
             location = "/kapitel/" + bm[0] + "/#" + bm[1];
