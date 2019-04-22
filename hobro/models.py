@@ -70,7 +70,7 @@ class Post(models.Model):
         super(Post, self).save(*args, **kwargs)
 
     def get_type(self):
-        class_name = "post"
+        class_name = "opslag"
         return class_name
 
 
@@ -92,7 +92,7 @@ class PostPhoto(models.Model):
         super(PostPhoto, self).save(*args, **kwargs)
 
     def get_type(self):
-        class_name = "postphoto"
+        class_name = "billede"
         return class_name
 
 
@@ -116,7 +116,7 @@ class PostVideo(models.Model):
         super(PostVideo, self).save(*args, **kwargs)
 
     def get_type(self):
-        class_name = "postvideo"
+        class_name = "video"
         return class_name
 
 
@@ -137,7 +137,7 @@ class ProfileEvent(models.Model):
         super(ProfileEvent, self).save(*args, **kwargs)
 
     def get_type(self):
-        class_name = "profileevent"
+        class_name = "navneskift"
         return class_name
 
 
@@ -231,7 +231,7 @@ class SwgrsPost(models.Model):
         super(SwgrsPost, self).save(*args, **kwargs)
 
     def get_type(self):
-        class_name = "swgrs_post"
+        class_name = "swgrs-opslag"
         return class_name
 
 
@@ -252,7 +252,7 @@ class SwgrsMedia(models.Model):
         super(SwgrsMedia, self).save(*args, **kwargs)
 
     def get_type(self):
-        class_name = "swgrs_media"
+        class_name = "swgrs-billede"
         return class_name
 
     def is_video(self):
@@ -265,7 +265,7 @@ class SwgrsMedia(models.Model):
 class SwgrsSong(models.Model):
     alias = models.CharField(max_length=30)
     slug = models.SlugField(unique=True)
-    photo = models.ImageField(default="swgrs/profile.jpg")  # filename of photo, stored in folder
+    photo = models.ImageField(default="swgrs/profile.jpg")  # filename of photo, stored in folder TODO obsolete??
     title = models.CharField(max_length=100)
     text = models.TextField()  # description
     sc_embed_code = models.CharField(max_length=100)  # code used for spotify embeds

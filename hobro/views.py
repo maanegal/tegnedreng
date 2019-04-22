@@ -39,12 +39,7 @@ def item_detail(request, pk, tp):
     cl = class_from_str(tp)
     item = get_object_or_404(cl, pk=pk)
     comment_pref = request.COOKIES.get('show_comments')
-    motifs = request.COOKIES.get('motifs_seen')
-    if motifs:
-        motifs_seen = motifs.split('/')
-    else:
-        motifs_seen = []
-    return render(request, 'hobro/item_detail.html', {'item': item, 'comment_pref': comment_pref, 'motifs_seen': motifs_seen})
+    return render(request, 'hobro/item_detail.html', {'item': item, 'comment_pref': comment_pref})
 
 
 def song_viewer(request, slug):

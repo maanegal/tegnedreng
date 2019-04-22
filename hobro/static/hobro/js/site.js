@@ -87,20 +87,6 @@ function setCommentPref() {
     }
 }
 
-function setCommentPrefs() {
-    var comOn = document.getElementById('commentOns');
-    var comOff = document.getElementById('commentOffs');
-    var comTog = document.getElementById('commentToggles');
-    if (comOn.checked) {
-        setCookie('show_comments', 'on', 30);
-    } else if (comOff.checked) {
-        setCookie('show_comments', 'off', 30);
-    } else {
-        setCookie('show_comments', 'toggle', 30);
-    }
-}
-
-
 
 document.addEventListener('DOMContentLoaded', () => {
   // Get all "navbar-burger" elements
@@ -187,6 +173,8 @@ function commentToggle(comId, btnId, closerId, scroll=false) {
     var comment = document.getElementById(comId);
     var button = document.getElementById(btnId);
     var closer = document.getElementById(closerId);
+    var w = 300;
+    if (!showAnimations()) { comment.classList.add('no-motion'); w = 30; }
     button.style.visibility = "visible";
     if ( comment.classList.contains('collapsed') ) {
         comment.classList.remove('disappeared');
@@ -199,7 +187,7 @@ function commentToggle(comId, btnId, closerId, scroll=false) {
         comment.classList.add('collapsed');
         setTimeout(function(){
             comment.classList.add('disappeared');
-        },300);
+        },w);
         closer.style.display = "none";
         button.innerHTML = '<i class="fas fa-angle-double-down"></i>&nbsp;&nbsp;Vis kommentar';
         if (scroll) { comment.scrollIntoView({block: "start", behavior: "smooth"}); }
@@ -210,7 +198,8 @@ function motifToggle(motifId, commentId) {
     var motif = document.getElementById(motifId+'-'+commentId);
     var button = document.getElementById('head-'+motifId+'-'+commentId);
     var head = button.querySelector('.motif-head-right');
-    var anim = showAnimations();
+    var w = 300;
+    if (!showAnimations()) { motif.classList.add('no-motion'); w = 30; }
     if ( motif.classList.contains('collapsed') ) {
         motif.classList.remove('disappeared');
         setTimeout(function(){
@@ -221,7 +210,7 @@ function motifToggle(motifId, commentId) {
         motif.classList.add('collapsed');
         setTimeout(function(){
             motif.classList.add('disappeared');
-        },300);
+        },w);
         head.innerHTML = '<span><i class="fas fa-angle-double-down"></i></span>';
     }
 }

@@ -3,17 +3,17 @@
 
 {% block content %}
     {% with a=item.get_type %}
-        {% if a == "post" %}
+        {% if a == "opslag" %}
             {% show_post item %}
-        {% elif a == "postphoto" %}
+        {% elif a == "billede" %}
             {% show_postphoto item %}
-        {% elif a == "postvideo" %}
+        {% elif a == "video" %}
             {% show_postvideo item %}
-        {% elif a == "profileevent" %}
+        {% elif a == "navneskift" %}
             {% show_profileevent item %}
-        {% elif a == "swgrs_post" %}
+        {% elif a == "swgrs-opslag" %}
             {% show_swgrspost item %}
-        {% elif a == "swgrs_media" %}
+        {% elif a == "swgrs-billede" %}
             {% show_swgrsmedia item %}
         {% elif a == "swgrs_song" %}
             {% embed_swgrssong item %}
@@ -25,6 +25,6 @@
         {% endif %}
     {% endwith %}
     {% if item.comment %}
-        {% show_comment item.comment comment_pref motifs_seen %}
+        {% show_comment item.comment comment_pref %}
     {% endif %}
 {% endblock %}

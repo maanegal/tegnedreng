@@ -73,7 +73,7 @@ def show_story(story):
 
 
 @register.inclusion_tag('hobro/profileevent.html')
-def show_profileevent(profileevent, anim_pref):
+def show_profileevent(profileevent):
     dt = datetime.fromtimestamp(profileevent.time_stamp)
     layout = "color-c"
     outer, inner = get_layout(layout)
@@ -82,7 +82,7 @@ def show_profileevent(profileevent, anim_pref):
 
 
 @register.inclusion_tag('hobro/swgrspost.html')
-def show_swgrspost(swgrspost, anim_pref):
+def show_swgrspost(swgrspost):
     dt = datetime.fromtimestamp(swgrspost.time_stamp)
     if swgrspost.layout:
         layout = swgrspost.layout
@@ -106,7 +106,7 @@ def show_swgrspost(swgrspost, anim_pref):
 
 
 @register.inclusion_tag('hobro/swgrsmedia.html')
-def show_swgrsmedia(swgrsmedia, anim_pref):
+def show_swgrsmedia(swgrsmedia):
     dt = datetime.fromtimestamp(swgrsmedia.time_stamp)
     if swgrsmedia.layout:
         layout = swgrsmedia.layout
@@ -126,7 +126,7 @@ def show_swgrsmedia(swgrsmedia, anim_pref):
 
 
 @register.inclusion_tag('hobro/itemembed.html')
-def show_itemembed(itemembed, anim_pref):
+def show_itemembed(itemembed):
     dt = datetime.fromtimestamp(itemembed.time_stamp)
     kind = itemembed.what_kind()
     outer, inner = get_layout("")
@@ -169,7 +169,10 @@ def embed_character(character):
 
 @register.inclusion_tag('hobro/embed_swgrssong.html')
 def embed_swgrssong(swgrssong):
-    swgrssong = swgrssong.first()
+    try:  # if this pulled during a story flow, it comes as a list of one. If pulled on its own, it's just one item
+        swgrssong = swgrssong.first()
+    except:
+        pass  # Yeah yeah, ugly and all that...
     embed_sc = make_soundcloud_embed(swgrssong)
     return {'song': swgrssong, 'embed_code_sc': embed_sc}
 

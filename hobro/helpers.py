@@ -11,13 +11,13 @@ def str_to_int(s):
 
 
 def class_from_str(name):
-    if name == 'post':
+    if name in ('post', 'opslag'):
         return Post
-    elif name in ('postphoto', 'post-photo'):
+    elif name in ('postphoto', 'post-photo', 'billede'):
         return PostPhoto
-    elif name in ('postvideo', 'post-video'):
+    elif name in ('postvideo', 'post-video', 'video'):
         return PostVideo
-    elif name in ('profileevent', 'profile-event'):
+    elif name in ('profileevent', 'profile-event', 'navneskift'):
         return ProfileEvent
     elif name == 'character':
         return Character
@@ -35,11 +35,11 @@ def class_from_str(name):
         return MusicVideo
     elif name == 'hashtag':
         return Hashtag
-    elif name == 'swgrs_song':
+    elif name in ('swgrs_song', 'swgrs-sang'):
         return SwgrsSong
-    elif name == 'swgrs_post':
+    elif name in ('swgrs_post', 'swgrs-opslag'):
         return SwgrsPost
-    elif name == 'swgrs_media':
+    elif name in ('swgrs_media', 'swgrs-billede'):
         return SwgrsMedia
     elif name == 'comment':
         return Comment

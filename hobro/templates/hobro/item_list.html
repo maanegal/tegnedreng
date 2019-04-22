@@ -18,20 +18,20 @@
                 {% show_section item %}
             {% elif a == "story" %}
                 {% show_story item %}
-            {% elif a == "post" %}
+            {% elif a == "opslag" %}
                 {% show_post item %}
-            {% elif a == "postphoto" %}
+            {% elif a == "billede" %}
                 {% show_postphoto item %}
-            {% elif a == "postvideo" %}
+            {% elif a == "video" %}
                 {% show_postvideo item %}
-            {% elif a == "profileevent" %}
-                {% show_profileevent item anim_pref %}
+            {% elif a == "navneskift" %}
+                {% show_profileevent item %}
             {% elif a == "itemembed" %}
-                {% show_itemembed item anim_pref %}
-            {% elif a == "swgrs_post" %}
-                {% show_swgrspost item anim_pref %}
-            {% elif a == "swgrs_media" %}
-                {% show_swgrsmedia item anim_pref %}
+                {% show_itemembed item %}
+            {% elif a == "swgrs-opslag" %}
+                {% show_swgrspost item %}
+            {% elif a == "swgrs-billede" %}
+                {% show_swgrsmedia item %}
             {% else %}
                 <div class="post">
                     <h2>Indhold kunne ikke findes</h2>

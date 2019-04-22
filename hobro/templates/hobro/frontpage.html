@@ -7,7 +7,7 @@
 {% block cookies %}{% endblock cookies %}
 {% block content %}
 <section class="hero is-dark is-bold is-fullheight" style="position: relative">
-<div class="blackbox" data-sal="disappear" data-sal-duration="4000" data-sal-easing="ease-in-out"></div>
+{% if request.COOKIES.show_animations != "false" %}<div class="blackbox" data-sal="disappear" data-sal-duration="4000" data-sal-easing="ease-in-out"></div>{% endif %}
     <div class="hero-body">
         <div class="container is-family-secondary has-text-centered">
         <p class="subtitle is-family-primary is-size-3-desktop is-size-4-tablet is-size-5-mobile txt-shadow frontspace" data-sal="zoom-in-light" data-sal-duration="1400" data-sal-delay="200" data-sal-easing="ease-in-out"><img src="{% get_media_prefix %}/moon_full.png" class="inlined" alt="Månegal Media"> præsenterer</p>
@@ -145,14 +145,30 @@
         setCookie('cookie_consent', "true", 365);
     });
 
-    document.getElementById('bookmarkBtn').addEventListener('click', function() {
-        // naviger til element
-        bm = getBookmark();
-        location = "/kapitel/" + bm[0] + "/#" + bm[1];
-    });
+    try { // this feels dirty...
+        document.getElementById('bookmarkBtn').addEventListener('click', function() {
+            // naviger til element
+            bm = getBookmark();
+            location = "/kapitel/" + bm[0] + "/#" + bm[1];
+        });
+    } catch (e) {}
 
     document.getElementById("commentOffs").addEventListener("click", setCommentPrefs);
     document.getElementById("commentOns").addEventListener("click", setCommentPrefs);
     document.getElementById("commentToggles").addEventListener("click", setCommentPrefs);
+
+    function setCommentPrefs() {
+        var comOn = document.getElementById('commentOns');
+        var comOff = document.getElementById('commentOffs');
+        var comTog = document.getElementById('commentToggles');
+        if (comOn.checked) {
+            setCookie('show_comments', 'on', 30);
+        } else if (comOff.checked) {
+            setCookie('show_comments', 'off', 30);
+        } else {
+            setCookie('show_comments', 'toggle', 30);
+        }
+    }
+
 </script>
 {% endblock %}

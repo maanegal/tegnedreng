@@ -7,10 +7,10 @@
 </div>
 
 <section id="{{ profileevent.time_stamp }}" class="section columns is-tablet {{ layout_outer }}">
-<div class="column has-text-centered has-image-centered alivez slide {{ layout_inner }}" {{ anim|safe }}>
+<div class="column has-text-centered has-image-centered {{ layout_inner }}" {{ anim|safe }}>
     <div class="box">
     <p class="subtitle">Profilen skiftede navn og billede</p>
-    <h3 class="title">{{ profileevent.page_name }} (id: {{profileevent.get_type}} {{ profileevent.time_stamp }})</h3>
+    <h3 class="title">{{ profileevent.page_name }}</h3>
     <p class="subtitle is-6 has-text-grey">{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>
     <p>{{ profileevent.text|safe }}</p>
     <figure class="image"><a onclick="modalOpen('modal_{{ profileevent.time_stamp }}')">

@@ -20,7 +20,7 @@
       </figure>
       <div class="media-content">
         <div class="content">
-          <h2 class="title is-4">{{ name }} (id: {{post.get_type}} {{ post.time_stamp }}) {% if not post.link_fb%}FB mangler{%endif%}</h2>
+          <h2 class="title is-4">{{ name }}</h2>
             <p class="subtitle is-6 has-text-grey">{{ post_time|date }}, kl. {{ post_time|time:"H:i" }} </p>
             <p>{{ post.text|safe }}</p>
             {% if post.appears.all %}
