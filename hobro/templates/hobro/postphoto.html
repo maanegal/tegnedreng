@@ -1,18 +1,18 @@
 <div class="modal" id="modal_{{ post.time_stamp }}">
   <div class="modal-background" onclick="modalClose('modal_{{ post.time_stamp }}')"></div>
   <div class="modal-content">
-      <img src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}"/>
+      <img src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}" alt="Billede fra {{ name }}"/>
   </div>
   <button class="modal-close is-large" onclick="modalClose('modal_{{ post.time_stamp }}')" aria-label="close"></button>
 </div>
 
 <article id="{{ post.time_stamp }}" class="section is-medium columns is-tablet is-gapless {{ layout_outer }}">
-  <div class="column starts-transparent alivez slide post-img is-one-third-desktop is-half-tablet" {{ anim_a|safe }}>
+  <div class="column starts-transparent post-img is-one-third-desktop is-half-tablet" {{ anim_a|safe }}>
       <a onclick="modalOpen('modal_{{ post.time_stamp }}')">
-    <img class="lazy do-shadow" data-src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}"/>
+    <img class="lazy do-shadow" data-src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}" alt="Opslag med billede fra {{ name }}"/>
       </a>
   </div>
-  <div class="column alivez slide-long is-one-third-desktop is-half-tablet" {{ anim_b|safe }}>
+  <div class="column is-one-third-desktop is-half-tablet" {{ anim_b|safe }}>
     <div class="box">
     <div class="media">
       <figure class="media-left">
@@ -50,6 +50,7 @@
                 <span class="icon is-small"><i class="fab fa-twitter"></i></span>
               </a></li>
           {% endif %}
+          <li><a class="button is-small is-inverted tooltip is-tooltip-multiline" data-tooltip="Du kan bruge disse links til at gå til det oprindelige opslag på Facebook, Instagram mv. De burde virke. Hvis de ikke gør, er det sandsynligvis fordi Facebooks teknik er fucked op (det er en affaldsside, der bør undgås hvis muligt)"><span class="icon"><i class="fas fa-info"></i></span></a></li>
           </ul>
       </div>
     </div>

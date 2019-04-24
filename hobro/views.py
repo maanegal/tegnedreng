@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from .helpers import the_big_retriever, class_from_str, make_bandcamp_embed, make_spotify_embed, make_youtube_embed
-#from simple_search import search_filter
 from django.db.models import Q
 from itertools import chain
 from random import shuffle
@@ -9,10 +8,6 @@ from random import shuffle
 
 def frontpage(request):
     return render(request, 'hobro/frontpage.html')
-
-
-def teaser(request):
-    return render(request, 'hobro/teaser.html')
 
 
 def about(request):
@@ -121,8 +116,8 @@ def hashtag_viewer(request, slug):
 
 def photo_gallery(request):
     objects = []
-    objects.extend(list(PostPhoto.objects.order_by('?')[:15]))
-    objects.extend(list(SwgrsMedia.objects.order_by('?')[:5]))
+    objects.extend(list(PostPhoto.objects.order_by('?')[:16]))
+    objects.extend(list(SwgrsMedia.objects.order_by('?')[:4]))
     shuffle(objects)
     return render(request, 'hobro/photo_gallery.html', {'objects': objects})
 
@@ -147,3 +142,22 @@ def redirect_character(request):
 def redirect_hashtag(request):
     response = redirect('/hashtags/')
     return response
+
+
+# Error Pages
+
+def handler500(request):
+    return render(request, 'errors/500.html')
+
+
+def handler404(request, exception):
+    return render(request, 'errors/404.html')
+
+
+def handler403(request, exception):
+    return render(request, 'errors/403.html')
+
+
+def handler400(request, exception):
+    return render(request, 'errors/400.html')
+

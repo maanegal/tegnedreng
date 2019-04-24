@@ -1,15 +1,3 @@
-/*function scrollTo(element, to, duration) {
-    if (duration <= 0) return;
-    var difference = to - element.scrollTop;
-    var perTick = difference / duration * 10;
-
-    setTimeout(function() {
-        element.scrollTop = element.scrollTop + perTick;
-        if (element.scrollTop === to) return;
-        scrollTo(element, to, duration - 10);
-    }, 10);
-}*/
-
 /* Cookie cutter cookie code from the w3 school */
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
@@ -88,21 +76,6 @@ function setCommentPref() {
 }
 
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Get all "navbar-burger" elements
-  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.nav-toggle'), 0);
-
-  // Check if there are any navbar burgers
-  if ($navbarBurgers.length > 0) {
-
-    // Add a click event on each of them
-    $navbarBurgers.forEach($el => {
-      $el.addEventListener('click', toggleShowMenu);
-    });
-  }
-});
-
-
 function disableScroll() {
     var htmlElement = document.querySelector("html");
     htmlElement.classList.add('locked');
@@ -126,7 +99,6 @@ function toggleShowMenu() {
         document.onkeyup = function(evt) {
             evt = evt || window.event;
             var isEscape = false;
-            //console.log(evt.key);
             if ("key" in evt) {
                 isEscape = (evt.key === "Escape" || evt.key === "Esc");
             } else {
@@ -248,7 +220,6 @@ function clearText(queryField, queryList="")
     }
 }
 
-
 function reload_iframes() {
     var f_list = document.getElementsByTagName('iframe');
     for (var i = 0, f; f = f_list[i]; i++) { f.src = f.src; }
@@ -256,9 +227,9 @@ function reload_iframes() {
 
 function getBookmark() {
     var bookVal = getCookie("bookmark");
-    //console.log(bookVal);
     if (bookVal) {
         if (bookVal == "off") { return "off";
+        //} else if (bookVal.length === 0) { return "";
         } else {
         // determine if val seems valid, return in two parts
         var vals = bookVal.split("/")
@@ -272,3 +243,25 @@ function getBookmark() {
         }
     }
 }
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Get all "navbar-burger" elements
+  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.nav-toggle'), 0);
+
+  // Check if there are any navbar burgers
+  if ($navbarBurgers.length > 0) {
+
+    // Add a click event on each of them
+    $navbarBurgers.forEach($el => {
+      $el.addEventListener('click', toggleShowMenu);
+    });
+  }
+
+    var killPlayers = document.getElementsByClassName("killPlayers");
+    for (var i = 0; i < killPlayers.length; i++) {
+        killPlayers[i].addEventListener("click", function() {
+            reload_iframes();
+        });
+    }
+});

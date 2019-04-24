@@ -5,7 +5,7 @@
 <div class="box">
     <a href="{% url 'album_viewer' slug=album.slug %}">
         <span class="title">{{ album.title }}</span>
-        <span style="margin: 10px;" class="icon is-small">&emsp;<i class="fas fa-external-link-alt"></i></span>
+        <span class="icon is-small">&emsp;<i class="fas fa-external-link-alt"></i></span>
     </a>
     <p class="subtitle">Album {{player_pref}}</p>
     <p>{{ album.text|safe }}</p><br>

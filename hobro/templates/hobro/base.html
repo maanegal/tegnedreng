@@ -15,16 +15,15 @@
             document.write('<script crossorigin=\"anonymous\" src=\"https:\/\/polyfill.io\/v3\/polyfill.min.js?features=IntersectionObserver\"><\/script>');
         }
         </script>
-        {% comment %}<script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>{% endcomment %}
           {% load django_simple_bulma %}
           {% bulma %}
-          {% font_awesome %}
         <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
         <link href="https://fonts.googleapis.com/css?family=Assistant:400,700,800|Crimson+Text:400,400i,700|Fira+Mono" rel="stylesheet">
         {% if request.COOKIES.show_animations != "false" %}
         <link rel="stylesheet" type="text/css" href="{% static 'hobro/sal/sal.css' %}">
         {% endif %}
         <link rel="stylesheet" type="text/css" href="{% static 'hobro/style.css' %}">
+        {% font_awesome %}
         <script src="{% static 'hobro/js/site.js' %}"></script>
         <link rel="icon" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-32x32.png" sizes="32x32" />
         <link rel="icon" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-192x192.png" sizes="192x192" />
@@ -54,9 +53,8 @@
                   <label for="switchAnim" class="navbar-setting">Til/Fra</label>
                 </div></div>
                 <div class="has-text-light has-text-centered">
-                    <button class="button is-small is-rounded is-light is-outlined tooltip is-tooltip-multiline is-tooltip-bottom" data-tooltip="
-                    Animerede elementer kan slåes fra, til brug på ældre systemer (eller hvis man synes de er irriterende)
-                    "><span class="icon"><i class="fas fa-info"></i></span></button>
+                    <button class="button is-small is-rounded is-light is-outlined tooltip is-tooltip-multiline is-tooltip-bottom" data-tooltip="Animerede elementer kan slåes fra, til brug på ældre systemer (eller hvis man synes de er irriterende)">
+                        <span class="icon"><i class="fas fa-info"></i></span></button>
                 </div>
             </div></div>
              <div class="tile is-parent is-4-fullhd is-6-widescreen is-6-desktop is-6-tablet"><div class="tile is-child">
@@ -74,9 +72,7 @@
                   </div>
                 </div>
                 <div class="has-text-light has-text-centered">
-                    <button class="button is-small is-rounded is-light is-outlined tooltip is-tooltip-multiline is-tooltip-bottom" data-tooltip="
-                    Vælg hvilken tjeneste der skal bruges til afspillere på siden. Spotify kræver login, men hjælper med at dække sidens driftsomkostninger
-                    "><span class="icon"><i class="fas fa-info"></i></span></button>
+                    <button class="button is-small is-rounded is-light is-outlined tooltip is-tooltip-multiline is-tooltip-bottom" data-tooltip="Vælg hvilken tjeneste der skal bruges til afspillere på siden. Spotify kræver login, men hjælper med at dække sidens driftsomkostninger"><span class="icon"><i class="fas fa-info"></i></span></button>
                 </div>
             </div></div>
              <div class="tile is-parent is-4-fullhd is-6-widescreen is-6-desktop is-6-tablet"><div class="tile is-child">
@@ -100,9 +96,7 @@
                   </div>
                 </div>
                 <div class="has-text-light has-text-centered">
-                    <button class="button is-small is-rounded is-light is-outlined tooltip is-tooltip-multiline is-tooltip-top is-tooltip-bottom-desktop" data-tooltip="
-                    Siden har et kommentarspor med bag-scenerne-observationer. Det kan vises eller skjules helt — som standard åbnes hver kommentar manuelt
-                    "><span class="icon"><i class="fas fa-info"></i></span></button>
+                    <button class="button is-small is-rounded is-light is-outlined tooltip is-tooltip-multiline is-tooltip-top is-tooltip-bottom-desktop" data-tooltip="Siden har et kommentarspor med bag-scenerne-observationer. Det kan vises eller skjules helt — som standard åbnes hver kommentar manuelt"><span class="icon"><i class="fas fa-info"></i></span></button>
                 </div>
             </div></div>
             <div class="tile is-parent is-4-fullhd is-6-widescreen is-6-desktop is-6-tablet"><div class="tile is-child">
@@ -113,14 +107,12 @@
                   <label for="switchBook" class="navbar-setting">Til/Fra</label>
                 </div></div>
                 <div class="has-text-light has-text-centered">
-                    <button class="button is-small is-rounded is-light is-outlined tooltip is-tooltip-multiline" data-tooltip="
-                    Siden kan huske hvor langt du er nået i historien, så du kan hoppe direkte ind igen senere. Bogmærket glemmes hvis du ændrer på indstillingen
-                    "><span class="icon"><i class="fas fa-info"></i></span></button>
+                    <button class="button is-small is-rounded is-light is-outlined tooltip is-tooltip-multiline" data-tooltip="Siden kan huske hvor langt du er nået i historien, så du kan hoppe direkte ind igen senere. Bogmærket glemmes hvis du ændrer på indstillingen"><span class="icon"><i class="fas fa-info"></i></span></button>
                 </div>
             </div></div>
         </div>
         <br>
-        <a class="button is-info navy-text" value="Gendindlæs siden" onClick="window.location.reload()"><span class="icon is-small">
+        <a class="button is-info navy-text" aria-label="Gendindlæs siden" value="Gendindlæs siden" onClick="window.location.reload()"><span class="icon is-small">
         <i class="fa fa-redo"></i></span>Luk og gendindlæs siden</a>
   </div>
   <button class="modal-close is-large" onclick="modalClose('settings-modal')" aria-label="close"></button>
@@ -146,11 +138,11 @@
       {% endif %}
         </div>
     {% if request.COOKIES.bookmark == "off" %}
-        <a class="button is-success has-a-little-space" id="bookmark-activate">
+        <a class="button is-success has-a-little-space" id="bookmark-activate" aria-label="Slå bogmærke til">
         <span class="icon is-small"><i class="fas fa-toggle-on"></i></span>
-        <span>Slå bogmærke til</span></a>
+        <span>Slå bogmærke til (gendindlæser siden)</span></a>
     {% elif request.COOKIES.bookmark != "" %}
-        <a class="button is-success has-a-little-space" id="bookmark-go-menu">
+        <a class="button is-success has-a-little-space" id="bookmark-go-menu" aria-label="Gå til bogmærke">
         <span class="icon is-small"><i class="fas fa-forward"></i></span>
         <span>Gå til bogmærke</span></a>
     {% endif %}
@@ -217,7 +209,8 @@
         <span class="icon is-small"><i class="fa fa-cog"></i></span>Sideindstillinger
           <span class="icon is-tiny"><i class="fas fa-plus"></i></span>
       </a>
-    <a class="navbar-item has-text-centered has-text-light has-image-centered" href="https://maanegal.dk">Et projekt fra
+        <p class="title is-size-4-mobile is-family-secondary is-italic has-text-light has-text-centered menu-branding"> • Tegnedreng Records • </p>
+        <a class="navbar-item has-text-centered has-text-light has-image-centered" href="https://maanegal.dk"><p>Et projekt fra</p>
         <img src="{% get_media_prefix %}/moon_full.png" alt="Månegal Media"></a>
     </div>
 </div>
@@ -238,7 +231,7 @@
     </div>
     </div>
     <div class="column is-one-quarter has-text-centered has-text-left-desktop">
-        <a class="button is-success" id="cookie-okay">
+        <a class="button is-success" id="cookie-okay" aria-label="Acceptér cookies">
             <span class="icon is-small">
           <i class="fas fa-check"></i>
         </span>
@@ -255,71 +248,62 @@
 <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@10.20.1/dist/lazyload.min.js"></script>
 <script src="{% static 'hobro/js/vendor/smoothscroll.min.js' %}"></script>
 <script>
-    (function () { lazyload = new LazyLoad({ elements_selector: '.lazy', });}());
-    window.onload = function(){
+(function () { lazyload = new LazyLoad({ elements_selector: '.lazy', });}());
+window.onload = function(){
 
-        var showAnim = showAnimations();
-        if (showAnim) {
-            sal({threshold: 0.1, disable: false,});
-        }
-
-        document.getElementById('menuSettings').addEventListener('click', function() {
-            toggleShowMenu();
-            modalOpen('settings-modal');
-        });
-
-        document.getElementById('menuStory').addEventListener('click', function() {
-            toggleShowMenu();
-            modalOpen('story-modal');
-        });
+    var showAnim = showAnimations();
+    if (showAnim) {
+        sal({threshold: 0.1, disable: false,});
     }
 
-
-
-    document.getElementById("switchAnim").addEventListener("click", setAnimPref);
-    document.getElementById("playerSP").addEventListener("click", setPlayerPref);
-    document.getElementById("playerBC").addEventListener("click", setPlayerPref);
-    document.getElementById("commentOff").addEventListener("click", setCommentPref);
-    document.getElementById("commentOn").addEventListener("click", setCommentPref);
-    document.getElementById("commentToggle").addEventListener("click", setCommentPref);
-    document.getElementById("switchBook").addEventListener("click", setBookPref);
-
-
-    var cookieBanner = document.getElementById('the-cookies');
-    var cookieBtn = document.getElementById('cookie-okay');
-    cookieBtn.addEventListener('click', function() {
-        setCookie('cookie_consent', "true", 365);
-        cookieBanner.classList.remove('is-active');
+    document.getElementById('menuSettings').addEventListener('click', function() {
+        toggleShowMenu();
+        modalOpen('settings-modal');
     });
 
-    try {
-        document.getElementById('bookmark-go-menu').addEventListener('click', function() {
-            modalClose('story-modal');
-            // naviger til element
-            bm = getBookmark();
-            location = "/kapitel/" + bm[0] + "/#" + bm[1];
-        });
-    } catch (e) {}
-
-    try {
-        var bookOnM = document.getElementById('bookmark-activate');
-        bookOnM.addEventListener('click', function() {
-            bookOnM.innerHTML = '<span class="icon is-small"><i class="fas fa-check"></i></span><span>Bogmærke gemmes nu</span></a>';
-            document.getElementById("switchBook").checked = true;
-            setCookie('bookmark', "", 14);
-        });
-    } catch (e) {}
+    document.getElementById('menuStory').addEventListener('click', function() {
+        toggleShowMenu();
+        modalOpen('story-modal');
+    });
+}
 
 
+document.getElementById("switchAnim").addEventListener("click", setAnimPref);
+document.getElementById("playerSP").addEventListener("click", setPlayerPref);
+document.getElementById("playerBC").addEventListener("click", setPlayerPref);
+document.getElementById("commentOff").addEventListener("click", setCommentPref);
+document.getElementById("commentOn").addEventListener("click", setCommentPref);
+document.getElementById("commentToggle").addEventListener("click", setCommentPref);
+document.getElementById("switchBook").addEventListener("click", setBookPref);
 
 
-    var killPlayers = document.getElementsByClassName("killPlayers");
-    for (var i = 0; i < killPlayers.length; i++) {
-        killPlayers[i].addEventListener("click", function() {
-            reload_iframes();
-        });
-    }
+var cookieBanner = document.getElementById('the-cookies');
+var cookieBtn = document.getElementById('cookie-okay');
+cookieBtn.addEventListener('click', function() {
+    setCookie('cookie_consent', "true", 365);
+    cookieBanner.classList.remove('is-active');
+});
 
-	</script>
+var bm = getBookmark();
+if (bm == "off") {
+    var bookOnM = document.getElementById('bookmark-activate');
+    bookOnM.addEventListener('click', function() {
+        bookOnM.innerHTML = '<span class="icon is-small"><i class="fas fa-check"></i></span><span>Bogmærke gemmes nu</span></a>';
+        document.getElementById("switchBook").checked = true;
+        setCookie('bookmark', "", 14);
+        setTimeout(function(){
+            location.reload()
+        },300);
+    });
+} else if (bm) {
+    document.getElementById('bookmark-go-menu').addEventListener('click', function() {
+        modalClose('story-modal');
+        location = "/kapitel/" + bm[0] + "/#" + bm[1];
+    });
+}
+
+
+
+</script>
 </body>
 </html>

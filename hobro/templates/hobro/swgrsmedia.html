@@ -3,7 +3,7 @@
 <div class="modal" id="modal_{{ post.time_stamp }}">
   <div class="modal-background" onclick="modalClose('modal_{{ post.time_stamp }}')"></div>
   <div class="modal-content">
-      <img src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}"/>
+      <img src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}" alt="Billede fra SWGRS"/>
   </div>
   <button class="modal-close is-large" onclick="modalClose('modal_{{ post.time_stamp }}')" aria-label="close"></button>
 </div>
@@ -16,7 +16,7 @@
         </video>
     {% else %}
       <a onclick="modalOpen('modal_{{ post.time_stamp }}')">
-        <img class="lazy do-shadow" data-src="{{ post.photo.url }}" style="width: 100%;" height="{{ post.photo.height }}" width="{{ post.photo.width }}"/>
+        <img class="lazy do-shadow" data-src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}" alt="Opslag med billede fra SWGRS"/>
         </a>
     {% endif %}
   </div>
@@ -43,6 +43,7 @@
                 <span class="icon is-small"><i class="fab fa-facebook"></i></span>
               </a></li>
           {% endif %}
+          <li><a class="button is-small is-black is-inverted tooltip is-tooltip-multiline" data-tooltip="Du kan bruge disse links til at gå til det oprindelige opslag på Facebook, Instagram mv. De burde virke. Hvis de ikke gør, er det sandsynligvis fordi Facebooks teknik er fucked op (det er en affaldsside, der bør undgås hvis muligt)"><span class="icon"><i class="fas fa-info"></i></span></a></li>
           </ul>
       </div>
     </div>

@@ -63,10 +63,10 @@ def show_section(section):
 
 @register.inclusion_tag('hobro/story.html')
 def show_story(story):
-    if story.layout:
-        layout = story.layout
-    else:
-        layout = "sunk paper"
+    #if story.layout:
+    #    layout = story.layout
+    #else:
+    layout = "sunk paper"
     outer, inner = get_layout(layout)
     anim = get_animation('fade')
     return {'story': story, 'layout_outer': outer, 'layout_inner': inner, 'anim': anim}

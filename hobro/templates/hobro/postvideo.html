@@ -1,10 +1,10 @@
-<article id="{{ post.time_stamp }}" class="section slide is-medium has-line columns is-tablet is-gapless {{ layout_outer }}">
-  <div class="column is-one-third alivez slide" data-sal="slide-up-short" data-sal-duration="500" data-sal-easing="ease-out">
+<article id="{{ post.time_stamp }}" class="section is-medium has-line columns is-tablet is-gapless {{ layout_outer }}">
+  <div class="column is-one-third" data-sal="slide-up-short" data-sal-duration="500" data-sal-easing="ease-out">
     <video class="lazy do-shadow" data-src="{{ post.video.url }}" controls="1" height="{{ post.photo.height }}" width="{{ post.photo.width }}">
-        <a href="{{ post.video.url }}"> <img class="lazy" data-src="{{ post.photo.url }}"></a>
+        <img class="lazy" data-src="{{ post.photo.url }}" alt="Video fra {{ name }}">
     </video>
   </div>
-  <div class="column is-one-third alivez slide-long" data-sal="slide-up" data-sal-duration="600" data-sal-easing="ease-out">
+  <div class="column is-one-third" data-sal="slide-up" data-sal-duration="600" data-sal-easing="ease-out">
     <div class="box">
     <div class="media">
       <figure class="media-left">
@@ -47,6 +47,7 @@
                 <span class="icon is-small"><i class="fab fa-twitter"></i></span>
               </a></li>
           {% endif %}
+          <li><a class="button is-small is-inverted tooltip is-tooltip-multiline" data-tooltip="Du kan bruge disse links til at gå til det oprindelige opslag på Facebook, Instagram mv. De burde virke. Hvis de ikke gør, er det sandsynligvis fordi Facebooks teknik er fucked op (det er en affaldsside, der bør undgås hvis muligt)"><span class="icon"><i class="fas fa-info"></i></span></a></li>
           </ul>
       </div>
     </div>

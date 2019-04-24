@@ -7,7 +7,7 @@
 <div class="modal" id="modal_{{ character.slug }}">
   <div class="modal-background" onclick="modalClose('modal_{{ character.slug }}')"></div>
   <div class="modal-content">
-      <img src="{{ character.photo.url }}" height="{{ character.photo.height }}" width="{{ character.photo.width }}"/>
+      <img src="{{ character.photo.url }}" height="{{ character.photo.height }}" width="{{ character.photo.width }}" alt="{{character.name}}"/>
   </div>
   <button class="modal-close is-large" onclick="modalClose('modal_{{ character.slug }}')" aria-label="close"></button>
 </div>
@@ -21,7 +21,7 @@
             <div class="column is-2-desktop"></div>
           <div class="column is-4 is-10-mobile is-4-desktop has-image-centered has-text-centered mobile-fix">
                 <figure class="image"><a onclick="modalOpen('modal_{{ character.slug }}')">
-                    <img class="is-rounded" src="{{ character.photo.url }}"></a></figure>
+                    <img class="is-rounded" src="{{ character.photo.url }}" alt="{{character.name}}"></a></figure>
           </div>
           <div class="column has-text-centered-mobile has-text-centered-tablet-only">
               <div class="content">
@@ -49,7 +49,7 @@
             <h3 class="subtitle has-text-centered">Optræder på disse numre fra SWGRS:</h3>
             <div class="multicols"><ul>
                 {% for s in character.appears_on_sw_song.all %}
-                    <li> <a href="{% url 'item_detail' pk=s.pk tp=s.get_type %}">{{ s.title }}</a></li>
+                    <li> <a href="{% url 'item_detail' slug=s.slug tp=s.get_type %}">{{ s.title }}</a></li>
                 {% endfor %} </ul>
             </div><br>
         {% endif %}

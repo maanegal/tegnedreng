@@ -4,7 +4,7 @@
 <div class="modal" id="modal_{{ post.time_stamp }}">
   <div class="modal-background" onclick="modalClose('modal_{{ post.time_stamp }}')"></div>
   <div class="modal-content">
-      <img src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}"/>
+      <img src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}" alt="Opslag med billede"/>
   </div>
   <button class="modal-close is-large" onclick="modalClose('modal_{{ post.time_stamp }}')" aria-label="close"></button>
 </div>
@@ -15,7 +15,7 @@
       <div class="card-image">
         <figure class="image">
           <a onclick="modalOpen('modal_{{ post.time_stamp }}')">
-            <img class="lazy do-shadow" data-src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}"/>
+            <img class="lazy do-shadow" data-src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}" alt="Opslag med billede"/>
           </a>
         </figure>
       </div>
@@ -23,7 +23,7 @@
     {% if post.video %}
     <div class="card-image">
     <video data-src="{{ post.video.url }}" controls="1" height="{{ post.photo.height }}" width="{{ post.photo.width }}">
-        <a href="{{ post.video.url }}"> <img class="lazy" data-src="{{ post.photo.url }}"></a>
+        <img class="lazy" data-src="{{ post.photo.url }}" alt="Opslag med video">
     </video></div>
     {% endif %}
   <div class="card-content">

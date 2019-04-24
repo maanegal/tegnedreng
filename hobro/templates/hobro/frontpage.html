@@ -6,7 +6,7 @@
 {% block title_brand %}{% endblock %}
 {% block cookies %}{% endblock cookies %}
 {% block content %}
-<section class="hero is-dark is-bold is-fullheight" style="position: relative">
+<section class="hero is-dark is-bold is-fullheight" style="position: relative; height: 100%;">
 {% if request.COOKIES.show_animations != "false" %}<div class="blackbox" data-sal="disappear" data-sal-duration="4000" data-sal-easing="ease-in-out"></div>{% endif %}
     <div class="hero-body">
         <div class="container is-family-secondary has-text-centered">
@@ -28,7 +28,7 @@
                 <span class="icon is-small"><i class="fas fa-bookmark"></i></span>
                 Fortsæt fra bogmærke</a>
           {% endif %}
-            <a href="{% url 'music_list' %}" class="button navy-text front is-info is-rounded do-shadow" data-sal="slide-down" data-sal-duration="2000" data-sal-delay="2600" data-sal-easing="ease-in-out">
+            <a href="{% url 'music_list' %}" title="Hør musikken" class="button navy-text front is-info is-rounded do-shadow" data-sal="slide-down" data-sal-duration="2000" data-sal-delay="2600" data-sal-easing="ease-in-out">
                 <span class="icon is-small"><i class="fas fa-music"></i></span>
                 Hør musikken</a>
       </div>
@@ -39,16 +39,16 @@
     <div class="column story justified is-9-tablet is-7-widescreen notecard is-family-secondary is-size-5">
     <h1 class="title is-size-2-desktop is-size-3-tablet has-text-centered has-text-weight-normal is-smallcaps">Indledning</h1>
     <div class="is-divider" data-content="&#xf518"></div>
-    <p>Den 1. oktober 2015 dukkede <em>Tegnedreng Records</em> op på internettet. De fremførte sig selv som en rap-gruppe fra Hobro, og lagde en endeløs strøm af opslag og billeder ud på de sociale medier. Snart fulgte også musik – album efter album af hip-hop-sange med tåbelige tekster fra mere eller mindre kompetente rappere. Deres personlige drama, alle deres sejre, nederlag og interne konflikter, var plastret op og ned ad Facebook og Instagram. </p>
+    <p>Den 1. oktober 2015 dukkede <em>Tegnedreng Records</em> op på internettet. De præsenterede sig selv som en rap-gruppe fra Hobro, og lagde en endeløs strøm af opslag og billeder ud på de sociale medier. Snart fulgte også musik – album efter album af hip-hop-sange med tåbelige tekster fra mere eller mindre kompetente rappere. Deres personlige drama, alle deres sejre, nederlag og interne konflikter, var plastret op og ned ad Facebook og Instagram. </p>
     <p>Og så – den 1. april 2016 – forsvandt de igen, uden spor eller varsel. De var borte, lige så brat som de dukkede op. Hvad blev der af dem?</p>
     <p>Det her kunne være et mysterium, en gåde, som man kunne kaste sig over og febrilsk optrævle, i håbet om at opspore den mystiske gruppe og aftvinge sig en forklaring. Denne hjemmeside kunne være journal over den omhyggelige efterforskning. Men det er der ingen grund til.</p>
     <p>For Tegnedreng Records er en fiktion. De er det pure opspind, og det er mig, der står bag det hele. Mit navn er Sigfred Nielsen, og i 2015 var jeg en bachelorstuderende ved det nu hedengangne Informations&shy;videnskabelige Akademi i Aalborg. Her fik jeg ideen til et tosset projekt, og som det tossede menneske jeg er, førte jeg det ud i livet.</p>
-    <p>Jeg ville opdigte en rap-gruppe, og give den et liv online. Og så ville jeg over en på forhånd fastlagt periode iscenesætte deres gøren og laden. Jeg ville opføre en på forhånd nedskrevet fortælling, som en slags online teater – en multimodal roman i realtid. Og jeg ville skrive, producere og udgive store mængder af musik, som jeg ville gøre mit bedste for at få skabt opmærksomhed om. Jeg ville gøre alt hvad jeg kunne for at gøre gruppen landskendte, dog uden at afvige fra mit manuskript. Og så – på den på forhånd planlagte afslutningsdato, d. 1. april – ville jeg slukke det hele ned, uanset hvor kendt eller ukendt, gruppen var.</p>
+    <p>Jeg ville opdigte en rap-gruppe, og give den et liv online. Og så ville jeg over en på forhånd fastlagt periode iscenesætte deres gøren og laden. Min plan var at opføre en på forhånd nedskrevet fortælling, som en slags online teater – en multimodal roman i realtid. Det indebar at skrive, producere og udgive store mængder af musik, som jeg ville gøre mit bedste for at få skabt opmærksomhed om. Jeg ville gøre alt hvad jeg kunne for at gøre gruppen landskendte, dog uden at afvige fra mit manuskript. Og så – på den på forhånd planlagte afslutningsdato, d. 1. april – ville jeg slukke det hele ned, uanset hvor kendt eller ukendt, gruppen var.</p>
     <p>Og jeg gjorde det. Gruppen blev ikke berømt, men det var nok også for det bedste. Det ville have været et hulens besvær, selvom det kunne have været en sjov anekdote at fortælle. Men jeg førte projektet ud i livet, og fik fortalt den historie, jeg havde fundet på. Og på vejen blev det til syv albums, tre musikvideoer, og et utal af mærkelige billeder og tekster. Og det blev til en hel del minder – og indirekte, til Månegal Medias eksistens.</p>
     <p>For jeg gjorde det selvfølgelig ikke alene. Mange mennesker hjalp til med at gøre projektet til virkelighed, især fra mine medstuderendes rækker. Uden hjælp fra Martin, Mads, Kaare, Henrik, Emil, Heine, Ingo, Sofie, Marcel, Mathilde, og mange flere, ville det slet ikke have været muligt – en stor tak til dem alle.</p>
     <p>Men hvorfor skriver jeg så alt dette, her i skrivende stund d. 31. marts 2019?</p>
     <p>Siden projektet sluttede for tre år siden, har det haft et støt eftermæle. Det blev en del af kulturen og fællesskabet på et lille universitets&shy;studie, der snart efter blev lukket ned; det blev et springbræt til flere sære og sjove projekter med mange af de samme deltagere; og det høres, deles og diskuteres stadig i det små rundt omkring.</p>
-    <p>Men én ting ved projektet, der lidt var gået tabt, var historien, det fortalte. Den var tænkt som en roman, der levede i Facebook’s tidslinje – et hændelsesforløb og karakterdrama, der udspillede sig gennem opslag på de sociale medier. Jeg havde en idé om at siden indhold på disse hjemmesider vises i omvendt kronologisk rækkefølge, med de nyeste opslag først, skulle det være en historie, der kunne læses i begge retninger. Fortællingens verden skulle kunne åbne og udfolde sig lige vel fra begge ender, og slutningen skulle ligge i begyndelsen. Det var en del af tanken bag det hele – men én som i praksis aldrig blev ordentligt realiseret. Det kunne simpelthen ikke lade sig gøre, samtidig med at historen tilpassede sig løbende til virkelighedens omstændigheder.</p>
+    <p>Men én ting ved projektet, der lidt var gået tabt, var historien, det fortalte. Den var tænkt som en roman, der levede i Facebook’s tidslinje – et hændelsesforløb og karakterdrama, der udspillede sig gennem opslag på de sociale medier. Jeg havde en idé om at siden indhold på disse hjemmesider vises i omvendt kronologisk rækkefølge, med de nyeste opslag først, skulle det være en historie, der kunne læses i begge retninger. Fortællingens verden skulle kunne åbne og udfolde sig lige vel fra begge ender, og slutningen skulle ligge i begyndelsen. Det var en del af tanken bag det hele – men en som i praksis aldrig blev ordentligt realiseret. Det kunne simpelthen ikke lade sig gøre, samtidig med at historien tilpassede sig løbende til virkelighedens omstændigheder.</p>
     <p>Fortællingen er der dog stadig, og hændelsesforløbet kører hele vejen igennem projektet. Den er bare svær at få øje på, når man kigger på gruppens Facebook-side, og endnu sværere at sætte sig ned og læse igennem. En ting, som jeg ikke havde taget højde for, var hvor uegnede de sociale medier er til at bevare og fremlægge dét, der er fundet sted; de er for fokuseret på sidste nyt og det mest opmærksomhedsopslugende indhold. De er <em>ikke</em> egnede som fortællemedie.</p>
     <p>Så derfor har jeg lavet denne side. Jeg har med flid og møje trukket alle gruppens opslag ud af de sociale medier, og gjort dem til en læselig multimodal roman. Historien om Tegnedreng Records foreligger nu endelig i sin helhed – en fortælling om ambitioner om rigdom og berømmelse, om sammenhold og opbrud, og om at satse alt på en drøm, der måske ikke fører nogen vegne hen. Og så selvfølgelig, masser af gakket rap-musik.</p>
     <p>Her er en forsmag:</p>
@@ -122,7 +122,7 @@
         Når du klikker videre nedenunder, accepterer du det. </div>
             </div>
     <div class="has-text-centered">
-        <a id="startReading" href="{% url 'item_page' number=1 %}" class="button navy-text is-medium is-primary is-rounded">
+        <a id="startReading" href="{% url 'item_page' number=1 %}" class="button navy-text is-medium is-primary is-rounded" aria-label="Begynd læsning">
             <span class="icon"><i class="fas fa-forward"></i></span>
             <span>Begynd med kapitel 1</span>
         </a>
@@ -131,44 +131,44 @@
 </section>
 
 <script>
-    var read = document.getElementById('read');
-    var btn = document.getElementById('scrollBtn');
+var read = document.getElementById('read');
+var btn = document.getElementById('scrollBtn');
 
-    btn.addEventListener('click', function() {
-        //scrollTo(document.body, read.offsetTop, 125);
-        read.scrollIntoView({behavior: "smooth"});
+btn.addEventListener('click', function() {
+    //scrollTo(document.body, read.offsetTop, 125);
+    read.scrollIntoView({behavior: "smooth"});
+});
+
+
+var startReadingBtn = document.getElementById('startReading');
+startReadingBtn.addEventListener('click', function() {
+    setCookie('cookie_consent', "true", 365);
+});
+
+var bm = getBookmark();
+if (bm && bm != "off") {
+    document.getElementById('bookmarkBtn').addEventListener('click', function() {
+        // naviger til element
+        bm = getBookmark();
+        location = "/kapitel/" + bm[0] + "/#" + bm[1];
     });
+}
 
+document.getElementById("commentOffs").addEventListener("click", setCommentPrefs);
+document.getElementById("commentOns").addEventListener("click", setCommentPrefs);
+document.getElementById("commentToggles").addEventListener("click", setCommentPrefs);
 
-    var startReadingBtn = document.getElementById('startReading');
-    startReadingBtn.addEventListener('click', function() {
-        setCookie('cookie_consent', "true", 365);
-    });
-
-    try { // this feels dirty...
-        document.getElementById('bookmarkBtn').addEventListener('click', function() {
-            // naviger til element
-            bm = getBookmark();
-            location = "/kapitel/" + bm[0] + "/#" + bm[1];
-        });
-    } catch (e) {}
-
-    document.getElementById("commentOffs").addEventListener("click", setCommentPrefs);
-    document.getElementById("commentOns").addEventListener("click", setCommentPrefs);
-    document.getElementById("commentToggles").addEventListener("click", setCommentPrefs);
-
-    function setCommentPrefs() {
-        var comOn = document.getElementById('commentOns');
-        var comOff = document.getElementById('commentOffs');
-        var comTog = document.getElementById('commentToggles');
-        if (comOn.checked) {
-            setCookie('show_comments', 'on', 30);
-        } else if (comOff.checked) {
-            setCookie('show_comments', 'off', 30);
-        } else {
-            setCookie('show_comments', 'toggle', 30);
-        }
+function setCommentPrefs() {
+    var comOn = document.getElementById('commentOns');
+    var comOff = document.getElementById('commentOffs');
+    var comTog = document.getElementById('commentToggles');
+    if (comOn.checked) {
+        setCookie('show_comments', 'on', 30);
+    } else if (comOff.checked) {
+        setCookie('show_comments', 'off', 30);
+    } else {
+        setCookie('show_comments', 'toggle', 30);
     }
-
+}
 </script>
 {% endblock %}

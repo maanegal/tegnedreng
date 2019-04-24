@@ -5,8 +5,6 @@
 /*
 ** NAVIGATION **
 */
-
-
 nav {
     min-height: 3.25rem;
     z-index: 30 !important;
@@ -85,8 +83,6 @@ nav {
     transition: 0.2s ease-in;
 }
 
-
-
 .navbar-burger span {
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
 }
@@ -94,9 +90,8 @@ nav {
 .navbar-menu {
     height: 100%;
     overflow: auto;
-    width: 18rem /*285px*/;
+    width: 18rem;
     float: right;
-    /*padding-top: 3rem;*/
     padding: 0rem;
     overflow: hidden;
 }
@@ -140,14 +135,20 @@ nav {
 
 @media screen and (max-width: 768px) {
     .navbar-item {
-        padding: 0.75rem 0.75rem;
+        padding: 0.65rem 0.75rem;
         font-size: 1rem;
     }
     .navbar-item img {
-        max-height: 2.5rem;
+        max-height: 2.2rem;
     }
 }
 
+.menu-branding {
+    margin: 0 !important;
+    border-top: 2px white solid;
+    padding: 1rem 0.15rem 0 0.15rem;
+    font-size: 1.8rem;
+}
 
 .navbar-setting {
     font-weight: 700;
@@ -165,8 +166,6 @@ nav {
 .navbar-control {
     padding: 0.5em 0em;
 }
-
-
 
 
 a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.is-active {
@@ -196,14 +195,7 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
     text-align: center;
     background-color: black;
 }
-/*
-.modal-content img {
-    height: auto;
-    max-width: 100%;
-    width: auto;
-    max-height: 100%;
-}
-*/
+
 .modal-content img {
     height: 100%;
     width: 100%;
@@ -258,6 +250,12 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
 
 .icon-list li {
     margin-bottom: 10px;
+}
+
+.icon-list .button {
+    border-radius: 20px;
+    padding: 0em 0.6em;
+    font-size: 0.65rem;
 }
 
 
@@ -376,14 +374,6 @@ a.tag:hover, a.tag:focus {
     color: lightgray;
 }
 
-/*
-body::after {
-  content:'';
-  position:fixed; top:0; bottom:0; left:50%;
-  z-index:-1;
-  width:2px; background: rgba(77, 77, 77, 0.3);
-  box-shadow:  0px 0px 25px rgba(77, 77, 77, 0.05);
-}*/
 
 /* When box is used to contain a lot of content, give it some more padding */
 @media screen and (min-width: 769px) {
@@ -395,8 +385,6 @@ body::after {
 .content h2 {
     font-weight: unset;
 }
-
-
 
 
 
@@ -440,13 +428,10 @@ img:not([src]) {
   }
 }
 
-
 .post-img img {
     background-color: rgba(10, 10, 10, 0.25);
     opacity: 1;
-    /*transition: opacity 1s;*/
 }
-
 
 
 /* When setting background per item in feed, some  items had a gap after  */
@@ -459,15 +444,13 @@ starts-transparent {
 }
 
 
-
-
 @media screen and (min-width: 384px) and (max-width: 768px) {
     .mobile-fix {
         max-width: 60%;
     }
 }
 
-/* TILE MOD */
+/* BULMA TILE MOD */
 @media screen and (max-width: 1023px) and (min-width: 769px) {
     .tile.is-3-tablet {
       flex-basis: 25%;
@@ -528,7 +511,6 @@ starts-transparent {
       max-width: 66.6667%; }
 }
 
-
 .tile.is-ancestor {
     flex-wrap: wrap;
 }
@@ -570,7 +552,7 @@ img.inlined {
 }
 
 
-/* feed backgrounds */
+/* FEED ITEM BACKGROUNDS AND LAYOUTS */
 .background-main {
     background-color: #2da5e5;
     background-image: linear-gradient( 90deg, rgb(28, 157, 227) 15%, rgb(73, 177, 233) 50% );
@@ -635,8 +617,6 @@ img.inlined {
 }
 
 .story p + p {
-    /* Decide on a paragraph style */
-    /*margin-bottom: 1.2rem;*/
     text-indent: 1em;
 }
 
@@ -658,9 +638,6 @@ img.inlined {
 
 /* feed item emerges from behind previous item */
 .is-behind {
-    /*z-index: -1;
-    bottom: -120%;
-    position: sticky;*/
     box-shadow: inset 0px 15px 40px rgba(0, 0, 0, 0.3);
     margin-top: -1.4rem;
 }
@@ -728,8 +705,6 @@ img.inlined {
 .comment-bg {
     z-index: -2;
     width: 100%;
-    /*height: 200%;
-    position: absolute;*/
     height: 100vh;
     position: fixed;
     bottom: 0;
@@ -746,9 +721,6 @@ img.inlined {
 
 
 .comment-toggle {
-    /*z-index: 20;
-    position: absolute;
-    border-top: 6px solid #363636;*/
     width: 100%;
     text-align: center;
     margin-top: -1rem;
@@ -821,9 +793,6 @@ img.inlined {
 }
 
 
-.screenplay {
-    font-family: 'Cousine', "Courier New", Courier, monospace;
-}
 
 ul ul {
     list-style: square;
@@ -839,7 +808,7 @@ ul ul {
     margin-bottom: 1em;
 }
 
-
+/*
 .quoted {
     position: relative;
     display:block;
@@ -847,35 +816,26 @@ ul ul {
 }
 
 .quoted::before{
-    content: "\201C"; /*Unicode for Left Double Quote*/
-
-    /*Font*/
+    content: "\201C";
     font-size: 60px;
     font-weight: bold;
     color: #999;
-
-    /*Positioning*/
     position: absolute;
     left: -35px;
     top: -30px;
-}
+}*/
 
 blockquote {
     position: relative;
     display:block;
-    /*margin-left: 30px;*/
     margin:30px;
 }
 
 blockquote::before{
   content: "\201C"; /*Unicode for Left Double Quote*/
-
-  /*Font*/
   font-size: 60px;
   font-weight: bold;
   color: #999;
-
-  /*Positioning*/
   position: absolute;
     left: -35px;
     top: -30px;
@@ -970,6 +930,9 @@ blockquote p {
         display:flex;
         flex-flow: column;
         align-items: center;
+    }
+    .is-fullwidth-on-mobile {
+        width: 100%;
     }
 }
 
@@ -1082,7 +1045,6 @@ html.locked {
     margin-bottom: 1rem;
 }
 
-
 @media screen and (max-width: 1024px) {
     #section-gfx {
         height: 5em;
@@ -1148,6 +1110,15 @@ html.locked {
     }
 }
 
+/* used on front page, for fade-in effect */
+.blackbox {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    position: absolute;
+}
+
+
 
 /* Fix content extending box when there are long words, eg. links */
 .media-content {
@@ -1159,20 +1130,8 @@ html.locked {
     background-color: whitesmoke;
     border-radius: 4px;
 }
-/*
-.embed-placeholder::before {
-    content: "Hej!"
-}*/
 
-
-.blackbox {
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    position: absolute;
-}
-
-
+/* Story type selectors on front page  */
 .selection-card {
     /*cursor: pointer;*/
     background-color: #eee;
@@ -1180,4 +1139,20 @@ html.locked {
 
 .selection-card.is-active {
     background-color: #eee;
+}
+
+.columns.endnote {
+    margin: 0 10vw;
+}
+
+.endnote .column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.endnote .column .button {
+    margin-top: 1.5rem;
+    margin-bottom: 2.5rem;
 }

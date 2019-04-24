@@ -7,7 +7,7 @@
 <div class="modal" id="modal_{{ album.slug }}">
   <div class="modal-background" onclick="modalClose('modal_{{ album.slug }}')"></div>
   <div class="modal-content">
-      <img src="{{ album.photo.url }}" height="{{ album.photo.height }}" width="{{ album.photo.width }}"/>
+      <img src="{{ album.photo.url }}" height="{{ album.photo.height }}" width="{{ album.photo.width }}" alt="{{ album.title }}"/>
   </div>
   <button class="modal-close is-large" onclick="modalClose('modal_{{ album.slug }}')" aria-label="close"></button>
 </div>
@@ -29,19 +29,19 @@
       {% if album.text %}<blockquote>{{ album.text|safe }}</blockquote>{% endif %}
         {% if album.link_bc %}
           <a class="tag is-dark is-medium" href="{{album.link_bc}}" target="_blank" rel="noopener">
-              <span class="icon is-small"><i class="fab fa-bandcamp"></i></span>&emsp;Bandcamp</a>
+              <span class="icon"><i class="fab fa-bandcamp"></i></span>&emsp;Bandcamp</a>
         {% endif %}
          {% if album.sp_embed_code %}
           <a class="tag is-dark is-medium" href="https://open.spotify.com/album/{{album.sp_embed_code}}" target="_blank" rel="noopener">
-              <span class="icon is-small"><i class="fab fa-spotify"></i></span>&emsp;Spotify</a>
+              <span class="icon"><i class="fab fa-spotify"></i></span>&emsp;Spotify</a>
         {% endif %}
         {% if album.link_yt %}
           <a class="tag is-dark is-medium" href="{{album.link_yt}}" target="_blank" rel="noopener">
-              <span class="icon is-small"><i class="fab fa-youtube"></i></span>&emsp;YouTube</a>
+              <span class="icon"><i class="fab fa-youtube"></i></span>&emsp;YouTube</a>
         {% endif %}
         {% if album.link_sc %}
           <a class="tag is-dark is-medium" href="{{album.link_sc}}" target="_blank" rel="noopener">
-              <span class="icon is-small"><i class="fab fa-soundcloud"></i></span>&emsp;Soundcloud</a>
+              <span class="icon"><i class="fab fa-soundcloud"></i></span>&emsp;Soundcloud</a>
         {% endif %}
   </div></div>
   <div class="is-divider" data-content="&#xf001"></div>

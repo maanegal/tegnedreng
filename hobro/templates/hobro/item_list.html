@@ -50,19 +50,40 @@
             <span>Videre til kapitel {{next}}</span>
         </a>
     {% else %}
-        <h1 class="is-size-3 has-text-light">Her slutter historien</h1><br>
-        <a href="{% url 'music_list' %}" class="button navy-text is-medium is-info is-rounded do-shadow"  data-sal="slide-up" data-sal-duration="2000" data-sal-easing="ease-out">
-            <span class="icon"><i class="fas fa-music"></i></span>
-            <span>Udforsk musikken</span>
-        </a>
+        <h2 class="title is-2 has-text-light">Her slutter historien</h2><br>
+        <p class="has-text-light is-size-5">
+        <div class="columns is-desktop has-text-centered endnote">
+            <div class="column">
+            <p class="has-text-light is-size-5">Har du ikke fået nok af de lækre beats og smadrede rim?</p><br>
+            <a href="{% url 'music_list' %}" class="button navy-text is-medium is-info is-rounded do-shadow"  data-sal="slide-up" data-sal-duration="2000" data-sal-easing="ease-out">
+                <span class="icon"><i class="fas fa-music"></i></span>
+                <span>Udforsk musikken</span>
+            </a>
+            </div>
+            <div class="column">
+            <p class="has-text-light is-size-5">Vil du høre lidt mere om hvem, der var involveret, og teknikken bag siden? Eller har du noget, du gerne vil fortælle os?</p><br>
+            <a href="{% url 'about' %}" class="button navy-text is-medium is-danger is-rounded do-shadow"  data-sal="slide-up" data-sal-duration="2000" data-sal-easing="ease-out">
+                <span class="icon"><i class="fas fa-align-center"></i></span>
+                <span>Læs rulleteksterne</span>
+            </a>
+            </div>
+            <div class="column">
+            <p class="has-text-light is-size-5"><em>Tegnedreng Records</em> er et projekt fra Månegal Media, et tosset mediekollektiv fra Aalborg. Hvis du brød dig om det, har vi mange andre projekter, der nok vil falde i din smag.</p><br>
+            <a href="https://maanegal.dk" class="button navy-text is-medium is-primary is-rounded do-shadow"  data-sal="slide-up" data-sal-duration="2000" data-sal-easing="ease-out">
+                <span class="icon"><i class="fas fa-moon"></i></span>
+                <span>Se mere fra Månegal Media</span>
+            </a>
+            </div>
+        </div>
     {% endif %}
     </div>
 
-<div id="bookmark-note" class="bookmark note notification is-link {% if request.COOKIES.show_animations == 'false' %} no-motion{% endif %}">
-<span class="media-left icon"><i class="fas fa-bookmark"></i></span>Der er et bogmærke gemt</div>
 
 {% if not continued %}
 {% if request.COOKIES.bookmark != "off" %}
+<div id="bookmark-note" class="bookmark note notification is-link {% if request.COOKIES.show_animations == 'false' %} no-motion{% endif %}">
+<span class="media-left icon"><i class="fas fa-bookmark"></i></span>Der er et bogmærke gemt</div>
+
 <div id="bookmark-banner" class="bookmark notification is-link {% if request.COOKIES.show_animations == 'false' %} no-motion{% endif %}">
 <button class="delete" id="bookmark-hide"></button>
 <div class="columns is-desktop">
@@ -90,15 +111,21 @@ Siden gemmer ikke længere et bogmærke. Du kan altid slå det til igen i sidens
 {% endif %}
 
 <script>
+
+bm = getBookmark() // get bookmark value from cookie
+if (bm != "off") {
+
+    {% if not continued %}
     var bookBanner = document.getElementById('bookmark-banner');
     var bookNote = document.getElementById('bookmark-note');
     var bookBtn = document.getElementById('bookmark-go');
     var bookOff = document.getElementById('bookmark-off');
     var bookOffNote = document.getElementById('bookmark-off-note');
-    var bookHide = document.getElementById('bookmark-hide');
 
-    bookHide.addEventListener('click', function() { bookBanner.classList.remove('is-active'); });
+    // 'delete' button
+    document.getElementById('bookmark-hide').addEventListener('click', function() { bookBanner.classList.remove('is-active'); });
 
+    // 'Turn off' button
     bookOff.addEventListener('click', function() {
         bookBanner.classList.remove('is-active');
         setCookie('bookmark', "off", 14);
@@ -109,6 +136,7 @@ Siden gemmer ikke længere et bogmærke. Du kan altid slå det til igen i sidens
         },6000);
     });
 
+    // 'Go to' button
     bookBtn.addEventListener('click', function() {
         // naviger til element
         bm = getBookmark();
@@ -116,11 +144,13 @@ Siden gemmer ikke længere et bogmærke. Du kan altid slå det til igen i sidens
         location = "/kapitel/" + bm[0] + "/#" + bm[1];
     });
 
+    // Initial notification click
     bookNote.addEventListener('click', function() {
         bookNote.classList.remove('is-active');
         bookBanner.classList.add('is-active');
     });
 
+    // Initial notification appearance
     document.addEventListener('DOMContentLoaded', () => {
         setTimeout(function(){
             if (getBookmark()) {
@@ -128,48 +158,38 @@ Siden gemmer ikke længere et bogmærke. Du kan altid slå det til igen i sidens
             }
         },2800);
     });
+    {% endif %}
+
 
     // following is for saving bookmark
-
-    const elems = document.querySelectorAll('article');
-    bm = getBookmark()
-    if (bm && bm != "off") {
-        var cur = bm[1];
-    } else {
-        var cur = 0;
-    }
+    if (bm) { var cur = bm[1]; } else { var cur = 0; }
 
     observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.intersectionRatio > 0) {
           var val = entry.target.id;
-          //console.log(cur, val);
-          if (/^\d+$/.test(val) && val > +cur ) { //is a number and bigger than cur
-            setCookie('bookmark', '{{number}}/'+val, 14);
-            cur = val;
+          if (/^\d+$/.test(val) && val > +cur ) { //is a number and bigger than cur (as number)
+            setCookie('bookmark', '{{number}}/' + val, 14);
+            cur = val; // update current bookmark variable
           }
           observer.unobserve(entry.target);
         }
       });
     });
 
+     // if bookmark is not turned off, make observer
+    const elems = document.querySelectorAll('article');
     elems.forEach(elem => {
       observer.observe(elem);
     });
+}
 
-
-
-
-    window.onscroll = function() {scrollPosition()};
-    function scrollPosition() {
-      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      var scrolled = (winScroll / height) * 100;
-      document.getElementById("theProgressBar").style.width = scrolled + "%";
-      //console.log(scrolled);
-    }
-
-
+window.onscroll = function() {scrollPosition()};
+function scrollPosition() {
+  var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  var scrolled = (winScroll / height) * 100;
+  document.getElementById("theProgressBar").style.width = scrolled + "%";
+}
 </script>
-
 {% endblock %}

@@ -20,3 +20,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('hobro.urls')),
 ]
+
+
+handler404 = 'hobro.views.handler404'
+handler500 = 'hobro.views.handler500'
+handler403 = 'hobro.views.handler403'
+handler400 = 'hobro.views.handler400'
