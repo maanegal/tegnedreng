@@ -547,8 +547,11 @@ def process_tree(item={}):
         if layout:
             layout = layout[0]
         t = alias.split(':', 1)
-        t_type = t[0]
-        t_alias = t[1]
+        try:
+            t_type = t[0]
+            t_alias = t[1]
+        except:
+            raise Exception("fejl her", t)
         relations.extend(parse_relation('has_motif', item.get('motif', None)))
         relations.extend(parse_relation('has_motif_open', item.get('motif-open', None)))
         relations.extend([('on_' + t_type, t_alias)])
