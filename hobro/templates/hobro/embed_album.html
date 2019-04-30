@@ -1,9 +1,9 @@
 {% load itemviews %}
 
-<section id="{{ album.slug }}" class="section columns is-tablet is-centered background-release">
+<article id="{{ album.slug }}" class="section columns is-tablet is-centered background-release">
 <div class="column is-two-thirds" data-sal="zoom-out" data-sal-duration="500" data-sal-easing="ease-in-out">
 <div class="box">
-    <a href="{% url 'album_viewer' slug=album.slug %}">
+    <a href="{% url 'album_viewer' slug=album.slug %}" title='Åbn "{{ album.title }}" i en ny fane'>
         <span class="title">{{ album.title }}</span>
         <span class="icon is-small">&emsp;<i class="fas fa-external-link-alt"></i></span>
     </a>
@@ -16,7 +16,7 @@
     {% endif %}
     {% killplayers_msg %}
 </div></div>
-</section>
+</article>
 
 {% if album.comment %}
     {% show_comment album.comment request.COOKIES.show_comments %}

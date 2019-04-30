@@ -6,7 +6,7 @@
 {% block title_brand %}{% endblock %}
 {% block cookies %}{% endblock cookies %}
 {% block content %}
-<section class="hero is-dark is-bold is-fullheight" style="position: relative; height: 100%;">
+<section class="hero is-dark is-bold front">
 {% if request.COOKIES.show_animations != "false" %}<div class="blackbox" data-sal="disappear" data-sal-duration="4000" data-sal-easing="ease-in-out"></div>{% endif %}
     <div class="hero-body">
         <div class="container is-family-secondary has-text-centered">
@@ -16,7 +16,6 @@
         <img id="section-gfx" src="{% get_media_prefix %}chapters/chapter8.svg" data-sal="zoom-out" data-sal-duration="4000" data-sal-delay="1600" data-sal-easing="ease-in-out"/>
         <br>
         <p class="subtitle is-size-3-desktop is-size-4-tablet is-size-4-mobile txt-shadow" data-sal="fade" data-sal-duration="1200" data-sal-delay="4000" data-sal-easing="ease-in-out"><em>En roman af Sigfred Nielsen</em></p>
-
     </div>
     </div>
       <div class="hero-foot front">

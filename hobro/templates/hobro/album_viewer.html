@@ -28,19 +28,19 @@
       <p class="subtitle is-size-6 is-size-5-widescreen has-text-grey">{{ album.release_date|date }}</p>
       {% if album.text %}<blockquote>{{ album.text|safe }}</blockquote>{% endif %}
         {% if album.link_bc %}
-          <a class="tag is-dark is-medium" href="{{album.link_bc}}" target="_blank" rel="noopener">
+          <a class="tag is-dark is-medium" href="{{album.link_bc}}" target="_blank" rel="noopener" title="Åbn album på Bandcamp">
               <span class="icon"><i class="fab fa-bandcamp"></i></span>&emsp;Bandcamp</a>
         {% endif %}
          {% if album.sp_embed_code %}
-          <a class="tag is-dark is-medium" href="https://open.spotify.com/album/{{album.sp_embed_code}}" target="_blank" rel="noopener">
+          <a class="tag is-dark is-medium" href="https://open.spotify.com/album/{{album.sp_embed_code}}" target="_blank" rel="noopener" title="Åbn album på Spotify">
               <span class="icon"><i class="fab fa-spotify"></i></span>&emsp;Spotify</a>
         {% endif %}
         {% if album.link_yt %}
-          <a class="tag is-dark is-medium" href="{{album.link_yt}}" target="_blank" rel="noopener">
+          <a class="tag is-dark is-medium" href="{{album.link_yt}}" target="_blank" rel="noopener" title="Åbn album på YouTube">
               <span class="icon"><i class="fab fa-youtube"></i></span>&emsp;YouTube</a>
         {% endif %}
         {% if album.link_sc %}
-          <a class="tag is-dark is-medium" href="{{album.link_sc}}" target="_blank" rel="noopener">
+          <a class="tag is-dark is-medium" href="{{album.link_sc}}" target="_blank" rel="noopener" title="Åbn album på Soundcloud">
               <span class="icon"><i class="fab fa-soundcloud"></i></span>&emsp;Soundcloud</a>
         {% endif %}
   </div></div>
@@ -62,11 +62,9 @@
     <div class="column is-half-desktop"><br>
     {% if request.COOKIES.use_player == "spotify" and embed_code_sp%}
         <div class="embed-placeholder">{{ embed_code_sp|safe }}</div>
-        {% killplayers_msg %}
     {% else %}
         {% if embed_code_bc %}
             <div class="embed-placeholder">{{ embed_code_bc|safe }}</div>
-        {% killplayers_msg %}
         {% endif %}
     {% endif %}
     </div></div>

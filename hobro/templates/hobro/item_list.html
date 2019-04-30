@@ -184,6 +184,21 @@ if (bm != "off") {
     });
 }
 
+const section = document.querySelector('section');
+const sectionAfter = document.querySelector('.is-after-behind');
+
+sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.intersectionRatio > 0) {
+      section.classList.remove('make-transparent');
+    } else {
+      section.classList.add('make-transparent');
+    }
+  });
+});
+
+sectionObserver.observe(sectionAfter);
+
 window.onscroll = function() {scrollPosition()};
 function scrollPosition() {
   var winScroll = document.body.scrollTop || document.documentElement.scrollTop;

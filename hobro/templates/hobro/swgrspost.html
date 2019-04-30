@@ -22,11 +22,11 @@
       </div>
       <div class="media-right">
           <ul class="darkmode icon-list">
-          <li><a href="{% url 'item_detail' slug=swgrspost.slug tp=swgrspost.get_type %}">
+          <li><a href="{% url 'item_detail' slug=swgrspost.slug tp=swgrspost.get_type %}" title="Se opslag i en ny fane">
             <span class="icon is-small"><i class="fas fa-external-link-alt"></i></span>
           </a></li>
           {% if swgrspost.link_fb %}
-              <li><a href="{{ swgrspost.link_fb }}" target="_blank" rel="noopener">
+              <li><a href="{{ swgrspost.link_fb }}" target="_blank" rel="noopener" title="Se oprindeligt opslag på Facebook">
                 <span class="icon is-small"><i class="fab fa-facebook"></i></span>
               </a></li>
           {% endif %}

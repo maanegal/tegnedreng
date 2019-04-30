@@ -3,7 +3,7 @@
 <article id="{{ musicvideo.slug }}" class="section columns is-mobile is-centered background-release">
 <div class="column is-6-desktop is-8-tablet" data-sal="zoom-out" data-sal-duration="500" data-sal-easing="ease-in-out">
 <div class="box">
-    <a href="{% url 'musicvideo_viewer' slug=musicvideo.slug %}">
+    <a href="{% url 'musicvideo_viewer' slug=musicvideo.slug %}" title='Åbn "{{ musicvideo.title }}" i en ny fane'>
         <span class="title">{{ musicvideo.title }}</span>
         <span class="icon is-small">&emsp;<i class="fas fa-external-link-alt"></i></span>
     </a>

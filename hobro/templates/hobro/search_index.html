@@ -1,4 +1,5 @@
 {% extends 'hobro/base.html' %}
+{% load static %}
 
 {% block title %}Søgning og indeks{% endblock %}
 {% block content %}
@@ -32,37 +33,74 @@
                   </div>
                 </form>
                 <br>
-                <p>Søgefunktionen er meget basal. Der tages ikke forbehold for stavevariationer i fx sangtekster. Hvis der er noget, du ikke kan finde, kan du prøve at erstatte "ligesom" med "lissom", "ikke" med "ik'", osv.</p>
+                <p>Søgefunktionen er meget basal. Der tages ikke forbehold for stavevariationer i fx sangtekster. Hvis der er noget, du ikke kan finde, kan du prøve at erstatte “ligesom” med “lissom”, “ikke” med “ik’”, osv.</p>
             </div>
         </div>
         <br>
         <div class="is-divider" data-content="&#xf002"></div>
 
         {% if results %}
-        <h2 class="title has-text-centered">{{ results|length }} resultater</h2>
+        <h2 class="title has-text-centered">{{ results|length }} resultater for “{{query}}”</h2>
         <div class="tile is-ancestor">
         {% for hit in results %}
-            <div class="tile is-parent is-4-fullhd is-4-widescreen is-4-desktop is-6-tablet has-image-centered">
-            <div class="tile is-child card has-background-light">
-            <div class="card-content has-text-centered has-text-dark">
+            <div class="tile is-parent is-4-fullhd is-4-widescreen is-4-desktop is-6-tablet has-image-centered mobile-fix">
+            <div class="tile is-child"><div class="card has-background-light">
             {% if hit.get_type == "character" %}
+                <a href="{% url 'character_viewer' slug=hit.slug %}">
+                <div class="card-content has-text-centered has-text-dark">
                 <p class="subtitle">Medlem</p>
-                <a href="{% url 'character_viewer' slug=hit.slug %}">{{ hit.name }}</a>
+                <p class="title is-4">{{ hit.name }}</p>
+                <figure class="image"><img class="is-rounded" src="{{ hit.photo.url }}" alt="{{ hit.name }}"></figure>
+                </div></a>
             {% elif hit.get_type == "album" %}
+                <a href="{% url 'album_viewer' slug=hit.slug %}">
+                <div class="card-content has-text-centered has-text-dark">
                 <p class="subtitle">Album</p>
-                <a href="{% url 'album_viewer' slug=hit.slug %}">{{ hit.title }}</a>
+                <p class="title is-4">{{ hit.title }}</p>
+                <img class="lazy" data-src="{{ hit.photo.url }}" alt="{{ hit.title }}">
+                </div></a>
             {% elif hit.get_type == "musicvideo" %}
+                <a href="{% url 'musicvideo_viewer' slug=hit.slug %}">
+                <div class="card-content has-text-centered has-text-dark">
                 <p class="subtitle">Musikvideo</p>
-                <a href="{% url 'musicvideo_viewer' slug=hit.slug %}">{{ hit.title }}</a>
+                <p class="title is-4">{{ hit.title }}</p>
+                <img class="lazy halfwidth" data-src="{{ hit.song.album.photo.url }}" alt="{{ hit.title }}">
+                </div></a>
             {% elif hit.get_type == "song" %}
+                <a href="{% url 'song_viewer' slug=hit.slug %}">
+                <div class="card-content has-text-centered has-text-dark">
                 <p class="subtitle">Sang</p>
-                <a href="{% url 'song_viewer' slug=hit.slug %}">{{ hit.title}}</a>
+                <p class="title is-4">{{ hit.title }}</p>
+                <img class="lazy halfwidth" data-src="{{ hit.album.photo.url }}" alt="{{ hit.title }}">
+                </div></a>
             {% elif hit.get_type == "swgrs-sang" %}
+                <a href="{% url 'item_detail' slug=hit.slug tp=hit.get_type %}">
+                <div class="card-content has-text-centered has-text-dark">
                 <p class="subtitle">SWGRS-nummer</p>
-                <a href="{% url 'item_detail' slug=hit.slug tp=hit.get_type %}">{{ hit.title}}</a>
+                <p class="title is-4">{{ hit.title }}</p>
+                <img class="lazy halfwidth" data-src="{% get_media_prefix %}/swgrs/profile_thumb.jpg" alt="SWGRS">
+                </div></a>
+            {% elif hit.get_type == "swgrs-opslag" or hit.get_type == "swgrs-billede" %}
+                <a href="{% url 'item_detail' slug=hit.slug tp=hit.get_type %}">
+                <div class="card-content has-text-centered has-text-dark">
+                <p class="subtitle">SWGRS-opslag</p>
+                <p class="has-text-left break-word">{{ hit.text|striptags|safe|truncatechars:280 }}</p>
+                {% if hit.photo %}
+                <br><img class="lazy" data-src="{{ hit.photo.url }}" alt="Opslag fra SWGRS med billede"/>
+                {% else %}
+                <br><img class="lazy halfwidth" data-src="{% get_media_prefix %}/swgrs/profile_thumb.jpg" alt="SWGRS">
+                {% endif %}
+                </div></a>
             {% else %}
+                <a href="{% url 'item_detail' slug=hit.slug tp=hit.get_type %}">
+                <div class="card-content has-text-centered has-text-dark">
                 <p class="subtitle">Opslag</p>
-                <a href="{% url 'item_detail' slug=hit.slug tp=hit.get_type %}">{{ hit.text|striptags|truncatechars:280 }}</a>
+                <p class="has-text-left break-word">{{ hit.text|striptags|safe|truncatechars:280 }}</p>
+                {% if hit.photo %}
+                <br>
+                <img class="lazy" data-src="{{ hit.photo.url }}" alt="Opslag med billede"/>
+                {% endif %}
+                </div></a>
             {% endif %}
             </div></div></div>
         {% endfor %}

@@ -6,7 +6,7 @@
   <button class="modal-close is-large" onclick="modalClose('modal_{{ profileevent.time_stamp }}')" aria-label="close"></button>
 </div>
 
-<section id="{{ profileevent.time_stamp }}" class="section columns is-tablet {{ layout_outer }}">
+<article id="{{ profileevent.time_stamp }}" class="section columns is-tablet {{ layout_outer }}">
 <div class="column has-text-centered has-image-centered {{ layout_inner }}" {{ anim|safe }}>
     <div class="box">
     <p class="subtitle">Profilen skiftede navn og billede</p>
@@ -16,4 +16,4 @@
     <figure class="image"><a onclick="modalOpen('modal_{{ profileevent.time_stamp }}')">
         <img src="{{ profileevent.photo.url }}" class="image has-image-centered" style="max-width: 500px;" alt="{{ profileevent.page_name }}"></a></figure>
 </div></div>
-</section>
+</article>

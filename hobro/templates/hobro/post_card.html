@@ -15,7 +15,7 @@
       <div class="card-image">
         <figure class="image">
           <a onclick="modalOpen('modal_{{ post.time_stamp }}')">
-            <img class="lazy do-shadow" data-src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}" alt="Opslag med billede"/>
+            <img class="lazy" data-src="{{ post.photo.url }}" height="{{ post.photo.height }}" width="{{ post.photo.width }}" alt="Opslag med billede"/>
           </a>
         </figure>
       </div>
@@ -51,16 +51,21 @@
             </p>
         {% endif %}
         <p class="lightmode icon-list">
-          <span><a href="{% url 'item_detail' slug=post.slug tp=post.get_type %}">
+          <span><a href="{% url 'item_detail' slug=post.slug tp=post.get_type %}" title="Se opslag i en ny fane">
             <span class="icon is-small"><i class="fas fa-external-link-alt"></i></span>
           </a></span>
           {% if post.link_fb %}
-              <span><a href="{{ post.link_fb }}" target="_blank" rel="noopener">
+              <span><a href="{{ post.link_fb }}" target="_blank" rel="noopener" title="Se oprindeligt opslag på Facebook">
                 <span class="icon is-small"><i class="fab fa-facebook"></i></span>
               </a></span>
           {% endif %}
+          {% if post.link_ig %}
+              <span><a href="{{ post.link_ig }}" target="_blank" rel="noopener" title="Se oprindeligt opslag på Instagram">
+                <span class="icon is-small"><i class="fab fa-instagram"></i></span>
+              </a></span>
+          {% endif %}
           {% if post.link_tw %}
-              <span><a href="{{ post.link_tw }}" target="_blank" rel="noopener">
+              <span><a href="{{ post.link_tw }}" target="_blank" rel="noopener" title="Se oprindeligt opslag på Twitter">
                 <span class="icon is-small"><i class="fab fa-twitter"></i></span>
               </a></span>
           {% endif %}

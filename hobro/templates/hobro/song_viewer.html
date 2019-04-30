@@ -38,16 +38,16 @@
             {% endif %}
              <p>
             {% if song.link_bc %}
-                  <a class="tag is-dark is-medium" href="{{song.link_bc}}" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-bandcamp"></i></span>&emsp;Bandcamp</a>
+                  <a class="tag is-dark is-medium" href="{{song.link_bc}}" target="_blank" rel="noopener" title="Åbn sang på Bandcamp"><span class="icon"><i class="fab fa-bandcamp"></i></span>&emsp;Bandcamp</a>
             {% endif %}
              {% if song.sp_embed_code %}
-                  <a class="tag is-dark is-medium" href="https://open.spotify.com/track/{{song.sp_embed_code}}" target="_blank"><span class="icon"><i class="fab fa-spotify"></i></span>&emsp;Spotify</a>
+                  <a class="tag is-dark is-medium" href="https://open.spotify.com/track/{{song.sp_embed_code}}" title="Åbn sang på Spotify" target="_blank"><span class="icon"><i class="fab fa-spotify"></i></span>&emsp;Spotify</a>
             {% endif %}
             {% if song.link_yt %}
-                  <a class="tag is-dark is-medium" href="{{song.link_yt}}" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-youtube"></i></span>&emsp;YouTube</a>
+                  <a class="tag is-dark is-medium" href="{{song.link_yt}}" target="_blank" rel="noopener" title="Åbn sang på YouTube"><span class="icon"><i class="fab fa-youtube"></i></span>&emsp;YouTube</a>
             {% endif %}
             {% if song.link_sc %}
-                  <a class="tag is-dark is-medium" href="{{song.link_sc}}" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-soundcloud"></i></span>&emsp;Soundcloud</a>
+                  <a class="tag is-dark is-medium" href="{{song.link_sc}}" target="_blank" rel="noopener" title="Åbn sang på Soundcloud"><span class="icon"><i class="fab fa-soundcloud"></i></span>&emsp;Soundcloud</a>
             {% endif %}
               </p>
 
@@ -65,11 +65,9 @@
         <div class="is-divider" data-content="&#xf001"></div>
         {% if request.COOKIES.use_player == "spotify" and embed_code_sp%}
             <div class="embed-placeholder">{{ embed_code_sp|safe }}</div>
-            {% killplayers_msg %}
         {% else %}
             {% if embed_code_bc %}
                 <div class="embed-placeholder">{{ embed_code_bc|safe }}</div>
-                {% killplayers_msg %}
             {% endif %}
         {% endif %}
         <div class="is-divider" data-content="&#xf001"></div>
@@ -81,7 +79,7 @@
             <div class="lyrics">{{ song.lyrics|safe }}</div></div>
         {% endif %}
         {% if song.comment %}
-            <div class="column">
+            <div class="column"><br>
             <h3 class="subtitle has-text-centered is-5">Kommentarspor fra projektets skaber:</h3><br>
             {% show_comment song.comment request.COOKIES.show_comments %}
             </div>

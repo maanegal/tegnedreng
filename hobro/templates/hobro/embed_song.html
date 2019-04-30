@@ -3,7 +3,7 @@
 <article id="{{ song.slug }}" class="section columns is-tablet is-centered background-release">
 <div class="column is-two-thirds" data-sal="zoom-out" data-sal-duration="500" data-sal-easing="ease-in-out">
 <div class="box">
-    <a href="{% url 'song_viewer' slug=song.slug %}">
+    <a href="{% url 'song_viewer' slug=song.slug %}" title='Åbn "{{ song.title }}" i en ny fane'>
         <span class="title">{{ song.title }}</span>
         <span class="icon is-small">&emsp;<i class="fas fa-external-link-alt"></i></span>
     </a>

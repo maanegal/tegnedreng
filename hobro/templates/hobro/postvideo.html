@@ -29,21 +29,21 @@
       </div>
       <div class="media-right">
           <ul class="lightmode icon-list">
-          <li><a href="{% url 'item_detail' slug=post.slug tp=post.get_type %}">
+          <li><a href="{% url 'item_detail' slug=post.slug tp=post.get_type %}" title="Se opslag i en ny fane">
             <span class="icon is-small"><i class="fas fa-external-link-alt"></i></span>
           </a></li>
           {% if post.link_fb %}
-              <li><a href="{{ post.link_fb }}" target="_blank" rel="noopener">
+              <li><a href="{{ post.link_fb }}" target="_blank" rel="noopener" title="Se oprindeligt opslag på Facebook">
                 <span class="icon is-small"><i class="fab fa-facebook"></i></span>
               </a></li>
           {% endif %}
           {% if post.link_ig %}
-              <li><a href="{{ post.link_ig }}" target="_blank" rel="noopener">
+              <li><a href="{{ post.link_ig }}" target="_blank" rel="noopener" title="Se oprindeligt opslag på Instagram">
                 <span class="icon is-small"><i class="fab fa-instagram"></i></span>
               </a></li>
           {% endif %}
           {% if post.link_tw %}
-              <li><a href="{{ post.link_tw }}" target="_blank" rel="noopener">
+              <li><a href="{{ post.link_tw }}" target="_blank" rel="noopener" title="Se oprindeligt opslag på Twitter">
                 <span class="icon is-small"><i class="fab fa-twitter"></i></span>
               </a></li>
           {% endif %}

@@ -2,11 +2,11 @@
 
 <div class="comment-container background-meta is-behind">
 <div id="closer_{{comment.alias}}" class="comment-closer" {% if pref != "on" %}style="display: none;"{% endif %}>
-    <a class="delete" onclick="commentToggle('{{comment.alias}}', 'btn_{{comment.alias}}', 'closer_{{comment.alias}}')"></a>
+    <a class="delete" title="Skjul kommentar" onclick="commentToggle('{{comment.alias}}', 'btn_{{comment.alias}}', 'closer_{{comment.alias}}')"></a>
 </div>
 {# <div class="has-background-dark comment-bg"></div> #}
 
-<section id="{{comment.alias}}" class="section comment-block story is-family-secondary is-size-5 has-text-light columns is-tablet is-centered{% if pref != 'on' %} disappeared collapsed {% endif %}"
+<article id="{{comment.alias}}" class="section comment-block story is-family-secondary is-size-5 has-text-light columns is-tablet is-centered{% if pref != 'on' %} disappeared collapsed {% endif %}"
     {% if pref == 'on' %} data-sal="slide-down" data-sal-duration="400" data-sal-easing="ease-in-out"{% endif %}>
     <div class="column is-10-tablet is-8-desktop is-6-full-hd darkmode justified">
         {{comment.text|safe}}
@@ -46,10 +46,10 @@
         </div>
         {% endfor %}
     </div>
-</section>
+</article>
 
 <div class="comment-toggle">
-    <p class="button navy-text is-dark is-inverted is-rounded" id="btn_{{comment.alias}}" {% if pref == "on" %}style="visibility: collapse;"{% endif %}
+    <button class="button navy-text is-dark is-inverted is-rounded" id="btn_{{comment.alias}}" {% if pref == "on" %}style="visibility: collapse;"{% endif %}
        onclick="commentToggle('{{comment.alias}}', 'btn_{{comment.alias}}', 'closer_{{comment.alias}}', true)"><i class="fas fa-angle-double-down"></i>&nbsp;&nbsp;Vis kommentar</p>
 </div></div>
 

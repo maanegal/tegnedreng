@@ -254,8 +254,8 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
 
 .icon-list .button {
     border-radius: 20px;
-    padding: 0em 0.6em;
-    font-size: 0.65rem;
+    padding: 0em 0.65em;
+    font-size: 0.5rem;
 }
 
 
@@ -439,8 +439,8 @@ img:not([src]) {
     margin-bottom: 0 !important;
 }
 
-starts-transparent {
-    opacity: 0;
+.make-transparent {
+    opacity: 0 !important;
 }
 
 
@@ -641,26 +641,25 @@ img.inlined {
     box-shadow: inset 0px 15px 40px rgba(0, 0, 0, 0.3);
     margin-top: -1.4rem;
 }
-
+/*
 .is-before-behind {
     height: 20px;
     background-color: black;
     background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(255,255,255,0) 83%);
-}
+}*/
 
 
 .is-behind-top {
     z-index: -3;
-    /*position: sticky;*/
     top: 0;
-    position: fixed; /*EXPERIMENTAL*/
+    position: fixed;
     width: 100%;
 }
 
 .is-after-behind {
     height: 40px;
     background: linear-gradient(360deg, rgba(20, 20, 20, 0.5) 0%, rgba(255,255,255,0) 83%);
-    margin-top: 100vh; /*EXPERIMENTAL*/
+    margin-top: 99vh;
 }
 
 
@@ -846,6 +845,10 @@ blockquote p {
     text-indent: unset !important;
 }
 
+
+.lyrics ul ul li:first-letter {
+  text-transform: capitalize
+}
 
 .lyrics ul {
     font-weight: bold;
@@ -1078,6 +1081,13 @@ html.locked {
     margin-bottom: 3rem !important;
 }
 
+.hero.front {
+    position: relative;
+    height: 100%;
+    min-height: 100vh;
+}
+
+
 .hero-foot.front {
     text-align: center;
     margin-bottom: 2rem;
@@ -1097,7 +1107,7 @@ html.locked {
         margin-top: 0.2rem;
     }
     .hero-foot.front {
-        margin-bottom: 0.2rem;
+        margin-bottom: 1.2rem;
     }
     .frontspace {
         margin-bottom: 1.5rem !important;
@@ -1156,3 +1166,13 @@ html.locked {
     margin-top: 1.5rem;
     margin-bottom: 2.5rem;
 }
+
+.halfwidth {
+    width: 50%;
+}
+
+.break-word {
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
