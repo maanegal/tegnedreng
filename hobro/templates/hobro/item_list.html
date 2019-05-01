@@ -110,6 +110,7 @@ Siden gemmer ikke længere et bogmærke. Du kan altid slå det til igen i sidens
 {% endif %}
 {% endif %}
 
+{% compress js %}
 <script>
 
 bm = getBookmark() // get bookmark value from cookie
@@ -207,4 +208,5 @@ function scrollPosition() {
   document.getElementById("theProgressBar").style.width = scrolled + "%";
 }
 </script>
+{% endcompress %}
 {% endblock %}

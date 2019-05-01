@@ -22,16 +22,16 @@ def search_index(request):
     q_char = Q(name__icontains=query) | Q(text__icontains=query)
     if query:
         results = list(chain(Character.objects.filter(q_char).distinct(),
-                        Album.objects.filter(q_media).distinct(),
-                        MusicVideo.objects.filter(q_media).distinct(),
-                        Song.objects.filter(q_song).distinct(),
-                        Post.objects.filter(q_post).distinct(),
-                        PostPhoto.objects.filter(q_post).distinct(),
-                        PostVideo.objects.filter(q_post).distinct(),
-                        SwgrsPost.objects.filter(q_post).distinct(),
-                        SwgrsMedia.objects.filter(q_post).distinct(),
-                        SwgrsSong.objects.filter(q_media).distinct()
-                        ))
+                             Album.objects.filter(q_media).distinct(),
+                             MusicVideo.objects.filter(q_media).distinct(),
+                             Song.objects.filter(q_song).distinct(),
+                             Post.objects.filter(q_post).distinct(),
+                             PostPhoto.objects.filter(q_post).distinct(),
+                             PostVideo.objects.filter(q_post).distinct(),
+                             SwgrsPost.objects.filter(q_post).distinct(),
+                             SwgrsMedia.objects.filter(q_post).distinct(),
+                             SwgrsSong.objects.filter(q_media).distinct()
+                             ))
     else:
         results = []
     return render(request, 'hobro/search_index.html', {'query': query, 'results': results})

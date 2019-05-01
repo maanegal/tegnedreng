@@ -1,4 +1,6 @@
 {% load static %}
+{% load compress %}
+
 <!DOCTYPE html>
 
 <html class="has-background-dark" lang="da">
@@ -16,15 +18,21 @@
         }
         </script>
           {% load django_simple_bulma %}
+        {% compress css %}
           {% bulma %}
+        {% endcompress %}
         <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
         <link href="https://fonts.googleapis.com/css?family=Assistant:400,700,800|Crimson+Text:400,400i,700|Fira+Mono" rel="stylesheet">
         {% if request.COOKIES.show_animations != "false" %}
         <link rel="stylesheet" type="text/css" href="{% static 'hobro/sal/sal.css' %}">
         {% endif %}
+        {% compress css %}
         <link rel="stylesheet" type="text/css" href="{% static 'hobro/style.css' %}">
+        {% endcompress %}
         {% font_awesome %}
+        {% compress js %}
         <script src="{% static 'hobro/js/site.js' %}"></script>
+        {% endcompress %}
         <link rel="icon" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-32x32.png" sizes="32x32" />
         <link rel="icon" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-192x192.png" sizes="192x192" />
         <link rel="apple-touch-icon-precomposed" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-180x180.png" />
@@ -247,6 +255,7 @@
 {% if request.COOKIES.show_animations != "false" %}<script src="{% static 'hobro/sal/sal.js' %}"></script>{% endif %}
 <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@10.20.1/dist/lazyload.min.js"></script>
 <script src="{% static 'hobro/js/vendor/smoothscroll.min.js' %}"></script>
+{% compress js %}
 <script>
 (function () { lazyload = new LazyLoad({ elements_selector: '.lazy', });}());
 window.onload = function(){
@@ -305,5 +314,6 @@ if (bm == "off") {
 
 
 </script>
+{% endcompress %}
 </body>
 </html>

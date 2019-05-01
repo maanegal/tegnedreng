@@ -129,6 +129,7 @@
 </div>
 </section>
 
+{% compress js %}
 <script>
 var read = document.getElementById('read');
 var btn = document.getElementById('scrollBtn');
@@ -170,4 +171,5 @@ function setCommentPrefs() {
     }
 }
 </script>
+{% endcompress %}
 {% endblock %}

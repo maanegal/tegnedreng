@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_simple_bulma',
+    'compressor',
     'hobro',
 ]
 
@@ -49,6 +50,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'htmlmin.middleware.HtmlMinifyMiddleware',
+    'htmlmin.middleware.MarkRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'tegnedreng.urls'
@@ -126,6 +129,8 @@ STATICFILES_FINDERS = [
 
   # Now add our custom SimpleBulma one.
   'django_simple_bulma.finders.SimpleBulmaFinder',
+
+  'compressor.finders.CompressorFinder',
 ]
 
 STATIC_URL = '/static/'
@@ -160,3 +165,9 @@ BULMA_SETTINGS = {
         "checkbox-border": ".1rem solid hsl(0, 0%, 71%)",
     }
 }
+
+# TRUE: ON DURING DEBUG
+# NOTHING: ONLY ON WHEN NOT DEBUG
+HTML_MINIFY = True
+
+#COMPRESS_ENABLED = True
