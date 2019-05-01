@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_simple_bulma',
-    'compressor',
     'hobro',
 ]
 
@@ -129,8 +128,6 @@ STATICFILES_FINDERS = [
 
   # Now add our custom SimpleBulma one.
   'django_simple_bulma.finders.SimpleBulmaFinder',
-
-  'compressor.finders.CompressorFinder',
 ]
 
 STATIC_URL = '/static/'
@@ -169,5 +166,3 @@ BULMA_SETTINGS = {
 # TRUE: ON DURING DEBUG
 # NOTHING: ONLY ON WHEN NOT DEBUG
 HTML_MINIFY = True
-
-#COMPRESS_ENABLED = True

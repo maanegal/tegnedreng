@@ -1,5 +1,4 @@
 {% load static %}
-{% load compress %}
 
 <!DOCTYPE html>
 
@@ -8,31 +7,21 @@
         <title>{% block title %}{% endblock %}{% block title_brand %} | {% endblock %}Tegnedreng Records</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Description" content="Månegal Media præsenterer Tegnedreng Records - en fiktiv rap-gruppe fra Hobro, med lækre beats og smadrede rim">
+        <meta name="theme-color" content="#5947b2"/>
         <script type="text/javascript">
-        /*if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { console.log('works');
-           document.cookie = "show_animations=false;expires=Tue, 04 Jun 2019 10:37:21 GMT;path=/"; window.location.reload() };*/
-
-        if (!"IntersectionObserver" in window){
-            // only contact polyfill.io if necessary
-            document.write('<script crossorigin=\"anonymous\" src=\"https:\/\/polyfill.io\/v3\/polyfill.min.js?features=IntersectionObserver\"><\/script>');
-        }
+        if (!"IntersectionObserver" in window){document.write('<script crossorigin=\"anonymous\" src=\"https:\/\/polyfill.io\/v3\/polyfill.min.js?features=IntersectionObserver\"><\/script>');}
         </script>
           {% load django_simple_bulma %}
-        {% compress css %}
           {% bulma %}
-        {% endcompress %}
         <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
         <link href="https://fonts.googleapis.com/css?family=Assistant:400,700,800|Crimson+Text:400,400i,700|Fira+Mono" rel="stylesheet">
         {% if request.COOKIES.show_animations != "false" %}
         <link rel="stylesheet" type="text/css" href="{% static 'hobro/sal/sal.css' %}">
         {% endif %}
-        {% compress css %}
         <link rel="stylesheet" type="text/css" href="{% static 'hobro/style.css' %}">
-        {% endcompress %}
         {% font_awesome %}
-        {% compress js %}
-        <script src="{% static 'hobro/js/site.js' %}"></script>
-        {% endcompress %}
+        <script src="{% static 'hobro/js/site.min.js' %}"></script>
         <link rel="icon" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-32x32.png" sizes="32x32" />
         <link rel="icon" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-192x192.png" sizes="192x192" />
         <link rel="apple-touch-icon-precomposed" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-180x180.png" />
@@ -255,65 +244,7 @@
 {% if request.COOKIES.show_animations != "false" %}<script src="{% static 'hobro/sal/sal.js' %}"></script>{% endif %}
 <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@10.20.1/dist/lazyload.min.js"></script>
 <script src="{% static 'hobro/js/vendor/smoothscroll.min.js' %}"></script>
-{% compress js %}
-<script>
-(function () { lazyload = new LazyLoad({ elements_selector: '.lazy', });}());
-window.onload = function(){
-
-    var showAnim = showAnimations();
-    if (showAnim) {
-        sal({threshold: 0.1, disable: false,});
-    }
-
-    document.getElementById('menuSettings').addEventListener('click', function() {
-        toggleShowMenu();
-        modalOpen('settings-modal');
-    });
-
-    document.getElementById('menuStory').addEventListener('click', function() {
-        toggleShowMenu();
-        modalOpen('story-modal');
-    });
-}
-
-
-document.getElementById("switchAnim").addEventListener("click", setAnimPref);
-document.getElementById("playerSP").addEventListener("click", setPlayerPref);
-document.getElementById("playerBC").addEventListener("click", setPlayerPref);
-document.getElementById("commentOff").addEventListener("click", setCommentPref);
-document.getElementById("commentOn").addEventListener("click", setCommentPref);
-document.getElementById("commentToggle").addEventListener("click", setCommentPref);
-document.getElementById("switchBook").addEventListener("click", setBookPref);
-
-
-var cookieBanner = document.getElementById('the-cookies');
-var cookieBtn = document.getElementById('cookie-okay');
-cookieBtn.addEventListener('click', function() {
-    setCookie('cookie_consent', "true", 365);
-    cookieBanner.classList.remove('is-active');
-});
-
-var bm = getBookmark();
-if (bm == "off") {
-    var bookOnM = document.getElementById('bookmark-activate');
-    bookOnM.addEventListener('click', function() {
-        bookOnM.innerHTML = '<span class="icon is-small"><i class="fas fa-check"></i></span><span>Bogmærke gemmes nu</span></a>';
-        document.getElementById("switchBook").checked = true;
-        setCookie('bookmark', "", 14);
-        setTimeout(function(){
-            location.reload()
-        },300);
-    });
-} else if (bm) {
-    document.getElementById('bookmark-go-menu').addEventListener('click', function() {
-        modalClose('story-modal');
-        location = "/kapitel/" + bm[0] + "/#" + bm[1];
-    });
-}
-
-
-
-</script>
-{% endcompress %}
+<script src="{% static 'hobro/js/base.min.js' %}"></script>
+{% block extrascript %}{% endblock %}
 </body>
 </html>

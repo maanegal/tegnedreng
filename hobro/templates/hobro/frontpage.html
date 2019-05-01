@@ -36,8 +36,8 @@
 
 <section id="read" class="section background-main is-sunk"><div class="columns is-mobile is-centered" >
     <div class="column story justified is-9-tablet is-7-widescreen notecard is-family-secondary is-size-5">
-    <h1 class="title is-size-2-desktop is-size-3-tablet has-text-centered has-text-weight-normal is-smallcaps">Indledning</h1>
-    <div class="is-divider" data-content="&#xf518"></div>
+    <h2 class="title is-size-2-desktop is-size-3-tablet has-text-centered has-text-weight-normal is-smallcaps">Indledning</h2>
+    <div class="is-divider dirty" data-content="&#xf518"></div>
     <p>Den 1. oktober 2015 dukkede <em>Tegnedreng Records</em> op på internettet. De præsenterede sig selv som en rap-gruppe fra Hobro, og lagde en endeløs strøm af opslag og billeder ud på de sociale medier. Snart fulgte også musik – album efter album af hip-hop-sange med tåbelige tekster fra mere eller mindre kompetente rappere. Deres personlige drama, alle deres sejre, nederlag og interne konflikter, var plastret op og ned ad Facebook og Instagram. </p>
     <p>Og så – den 1. april 2016 – forsvandt de igen, uden spor eller varsel. De var borte, lige så brat som de dukkede op. Hvad blev der af dem?</p>
     <p>Det her kunne være et mysterium, en gåde, som man kunne kaste sig over og febrilsk optrævle, i håbet om at opspore den mystiske gruppe og aftvinge sig en forklaring. Denne hjemmeside kunne være journal over den omhyggelige efterforskning. Men det er der ingen grund til.</p>
@@ -128,48 +128,7 @@
     </div>
 </div>
 </section>
-
-{% compress js %}
-<script>
-var read = document.getElementById('read');
-var btn = document.getElementById('scrollBtn');
-
-btn.addEventListener('click', function() {
-    //scrollTo(document.body, read.offsetTop, 125);
-    read.scrollIntoView({behavior: "smooth"});
-});
-
-
-var startReadingBtn = document.getElementById('startReading');
-startReadingBtn.addEventListener('click', function() {
-    setCookie('cookie_consent', "true", 365);
-});
-
-var bm = getBookmark();
-if (bm && bm != "off") {
-    document.getElementById('bookmarkBtn').addEventListener('click', function() {
-        // naviger til element
-        bm = getBookmark();
-        location = "/kapitel/" + bm[0] + "/#" + bm[1];
-    });
-}
-
-document.getElementById("commentOffs").addEventListener("click", setCommentPrefs);
-document.getElementById("commentOns").addEventListener("click", setCommentPrefs);
-document.getElementById("commentToggles").addEventListener("click", setCommentPrefs);
-
-function setCommentPrefs() {
-    var comOn = document.getElementById('commentOns');
-    var comOff = document.getElementById('commentOffs');
-    var comTog = document.getElementById('commentToggles');
-    if (comOn.checked) {
-        setCookie('show_comments', 'on', 30);
-    } else if (comOff.checked) {
-        setCookie('show_comments', 'off', 30);
-    } else {
-        setCookie('show_comments', 'toggle', 30);
-    }
-}
-</script>
-{% endcompress %}
+{% endblock %}
+{% block extrascript %}
+<script src="{% static 'hobro/js/frontpage.min.js' %}"></script>
 {% endblock %}

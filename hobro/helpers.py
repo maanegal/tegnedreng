@@ -165,9 +165,13 @@ def make_relations(data):
     for k, v in data.items():
         try:
             parent = object_from_alias(k)
+            if not parent:
+                print(rel, k, v)
             for r in v:
                 rel = r[0]
                 target = object_from_alias(r[1])
+                if not target:
+                    print(rel, k, v)
                 if rel in one_to_ones:
                     setattr(parent, rel, target)
                 else:

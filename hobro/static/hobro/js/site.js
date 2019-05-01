@@ -208,8 +208,7 @@ function filterList(queryField, queryList) {
   }
 }
 
-function clearText(queryField, queryList="")
-{
+function clearText(queryField, queryList="") {
     document.getElementById(queryField).value = "";
     if (queryList) {
       ul = document.getElementById(queryList);

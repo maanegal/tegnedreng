@@ -441,6 +441,7 @@ img:not([src]) {
 
 .make-transparent {
     opacity: 0 !important;
+    transition: opacity .6s;
 }
 
 
@@ -548,7 +549,7 @@ img.inlined {
     vertical-align: middle;
     /*margin-bottom: 0.3em;*/
     opacity: 0.85;
-    margin-right: 0.15em;
+    margin-right: 0.35em;
 }
 
 
@@ -654,12 +655,14 @@ img.inlined {
     top: 0;
     position: fixed;
     width: 100%;
+    transition: opacity .6s;
+    opacity: 1;
 }
 
 .is-after-behind {
-    height: 40px;
+    height: 4vh;
     background: linear-gradient(360deg, rgba(20, 20, 20, 0.5) 0%, rgba(255,255,255,0) 83%);
-    margin-top: 99vh;
+    margin-top: 100vh;
 }
 
 
@@ -1176,3 +1179,11 @@ html.locked {
     word-break: break-word;
 }
 
+/*BULMA DIVIDER FIX*/
+.is-divider.dirty[data-content]::after {
+    background: transparent !important;
+    }
+
+.tag .icon {
+    margin-right: 0.25em !important;
+}

@@ -1,7 +1,6 @@
 beautifulsoup4==4.7.1
 Django==2.2.1
 django-appconf==1.0.3
-django-compressor==2.2
 django-htmlmin==0.11.0
 django-simple-bulma==1.1.7
 html2text==2018.1.9
