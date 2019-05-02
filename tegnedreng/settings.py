@@ -166,3 +166,11 @@ BULMA_SETTINGS = {
 # TRUE: ON DURING DEBUG
 # NOTHING: ONLY ON WHEN NOT DEBUG
 HTML_MINIFY = True
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'tegnedreng@maanegal.dk'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+EMAIL_PORT = 1025

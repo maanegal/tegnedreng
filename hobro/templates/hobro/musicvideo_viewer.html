@@ -19,9 +19,8 @@
     <div class="is-divider" data-content="&#xf001"></div>
     <div class="youtube-embed embed-placeholder">{{ embed_code|safe }}</div>
     {% if musicvideo.comment %}
-        <hr>
-        <h3 class="subtitle is-5">Kommentarspor fra projektets skaber:</h3><br>
-        {% show_comment musicvideo.comment request.COOKIES.show_comments %}
+        <div class="is-divider" data-content="&#xf001"></div>
+        {% show_comment musicvideo.comment request.COOKIES.show_comments True %}
     {% endif %}
     </div></div></div></section>
 

@@ -178,5 +178,5 @@ def embed_swgrssong(swgrssong):
 
 
 @register.inclusion_tag('hobro/comment.html')
-def show_comment(comment, pref):
-    return {'comment': comment, 'pref': pref}
+def show_comment(comment, pref, on_page=False):
+    return {'comment': comment, 'pref': pref, 'on_page': on_page}

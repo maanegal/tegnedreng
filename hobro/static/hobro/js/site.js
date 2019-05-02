@@ -162,7 +162,11 @@ function commentToggle(comId, btnId, closerId, scroll=false) {
         },w);
         closer.style.display = "none";
         button.innerHTML = '<i class="fas fa-angle-double-down"></i>&nbsp;&nbsp;Vis kommentar';
-        if (scroll) { comment.scrollIntoView({block: "start", behavior: "smooth"}); }
+        if (scroll) {
+            setTimeout(function(){
+            comment.scrollIntoView({block: "start", behavior: "smooth"});
+            },50);
+        }
     }
 }
 

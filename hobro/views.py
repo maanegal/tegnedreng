@@ -1,6 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from .helpers import the_big_retriever, class_from_str, make_bandcamp_embed, make_spotify_embed, make_youtube_embed
+from django.core.mail import EmailMessage
+from django.shortcuts import redirect
+from django.template.loader import get_template
+from hobro.forms import ContactForm
 from django.db.models import Q
 from itertools import chain
 from random import shuffle
@@ -11,7 +15,36 @@ def frontpage(request):
 
 
 def about(request):
-    return render(request, 'hobro/about.html')
+    form_class = ContactForm
+    sent = request.GET.get('mail')
+
+    if request.method == 'POST':
+        form = form_class(data=request.POST)
+
+        if form.is_valid():
+            contact_name = request.POST.get('contact_name', '')
+            contact_email = request.POST.get('contact_email', '')
+            form_content = request.POST.get('content', '')
+
+            # Email the profile with the contact information
+            template = get_template('hobro/contact_template.txt')
+            context = {
+                'contact_name': contact_name,
+                'contact_email': contact_email,
+                'form_content': form_content,
+            }
+            content = template.render(context)
+
+            email = EmailMessage(
+                "Ny post",
+                content,
+                "Tegnedreng Records" + '',
+                ['tegnedreng@maanegal.dk'],
+                headers={'Reply-To': contact_email}
+            )
+            email.send()
+            return redirect('/rulletekster/?mail=sendt#kontakt')
+    return render(request, 'hobro/about.html', {'form': form_class, 'sent': sent})
 
 
 def search_index(request):

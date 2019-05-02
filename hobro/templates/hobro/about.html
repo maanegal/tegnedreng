@@ -35,6 +35,16 @@
         <li>Skriveprogrammet <a href="https://typora.io/">Typora</a></li>
         <li>Python-editoren <a href="https://www.jetbrains.com/pycharm/">PyCharm</a>, samt den generelle editor <a href="https://notepad-plus-plus.org/">Notepad++</a></li>
         </ul>
+        <h2 id="kontakt">Noget at fortælle?</h2>
+        <p>Jeg vil meget gerne høre respons fra folk, der har læst historien og lyttet til musikken. Hvis du har fundet fejl og ting på siden, der ikke virker på dit system, vil jeg selvfølgelig også gerne høre om det, så jeg kan forbedre teknikken.</p>
+        {%if sent %}<p class="notification is-success">Din besked er sendt!</p>{% endif %}
+        <form role="form" action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="button is-link" type="submit">Send</button>
+        </form>
+
+
         <h2>Sidens historik</h2>
         <p>Løbende ændringer og opdateringer vil fremgå her.</p>
         <ul>

@@ -43,7 +43,7 @@
         <h2 class="title has-text-centered">{{ results|length }} resultater for “{{query}}”</h2>
         <div class="tile is-ancestor">
         {% for hit in results %}
-            <div class="tile is-parent is-4-fullhd is-4-widescreen is-4-desktop is-6-tablet has-image-centered mobile-fix">
+            <div class="tile is-parent is-4-fullhd is-4-widescreen is-6-desktop is-6-tablet has-image-centered mobile-fix">
             <div class="tile is-child"><div class="card has-background-light">
             {% if hit.get_type == "character" %}
                 <a href="{% url 'character_viewer' slug=hit.slug %}">
@@ -84,22 +84,21 @@
                 <a href="{% url 'item_detail' slug=hit.slug tp=hit.get_type %}">
                 <div class="card-content has-text-centered has-text-dark">
                 <p class="subtitle">SWGRS-opslag</p>
-                <p class="has-text-left break-word">{{ hit.text|striptags|safe|truncatechars:280 }}</p>
                 {% if hit.photo %}
-                <br><img class="lazy" data-src="{{ hit.photo.url }}" alt="Opslag fra SWGRS med billede"/>
+                <img class="lazy" data-src="{{ hit.photo.url }}" alt="Opslag fra SWGRS med billede"/>
                 {% else %}
-                <br><img class="lazy halfwidth" data-src="{% get_media_prefix %}/swgrs/profile_thumb.jpg" alt="SWGRS">
+                <img class="lazy halfwidth" data-src="{% get_media_prefix %}/swgrs/profile_thumb.jpg" alt="SWGRS">
                 {% endif %}
+                <p class="has-text-left break-word">{{ hit.text|striptags|safe|truncatechars:280 }}</p>
                 </div></a>
             {% else %}
                 <a href="{% url 'item_detail' slug=hit.slug tp=hit.get_type %}">
                 <div class="card-content has-text-centered has-text-dark">
                 <p class="subtitle">Opslag</p>
-                <p class="has-text-left break-word">{{ hit.text|striptags|safe|truncatechars:280 }}</p>
                 {% if hit.photo %}
-                <br>
                 <img class="lazy" data-src="{{ hit.photo.url }}" alt="Opslag med billede"/>
                 {% endif %}
+                <p class="has-text-left break-word">{{ hit.text|striptags|safe|truncatechars:280 }}</p>
                 </div></a>
             {% endif %}
             </div></div></div>

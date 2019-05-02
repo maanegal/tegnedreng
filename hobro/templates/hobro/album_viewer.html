@@ -69,9 +69,8 @@
     {% endif %}
     </div></div>
     {% if album.comment %}
-        <hr>
-        <h3 class="subtitle has-text-centered is-5">Kommentarspor fra projektets skaber:</h3><br>
-        {% show_comment album.comment request.COOKIES.show_comments %}
+        <div class="is-divider" data-content="&#xf001"></div>
+        {% show_comment album.comment request.COOKIES.show_comments True %}
     {% endif %}
 
 </section>

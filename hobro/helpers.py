@@ -1,5 +1,16 @@
 from .models import *
 from datetime import datetime
+from css_html_js_minify import process_single_js_file, process_single_css_file, js_minify, css_minify
+
+
+def minify_resources(wd="C:/Users/Yossarian/PycharmProjects/tegnedreng/hobro/static/hobro/"):
+    js_files = ['base.js', 'frontpage.js', 'itemlist.js', 'site.js']
+    css_file = 'style.css'
+    p = wd + css_file
+    process_single_css_file(p)
+    for f in js_files:
+        p = wd + 'js/' + f
+        process_single_js_file(p)
 
 
 def str_to_int(s):

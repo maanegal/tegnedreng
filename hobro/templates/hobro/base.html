@@ -7,11 +7,15 @@
         <title>{% block title %}{% endblock %}{% block title_brand %} | {% endblock %}Tegnedreng Records</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="Description" content="Månegal Media præsenterer Tegnedreng Records - en fiktiv rap-gruppe fra Hobro, med lækre beats og smadrede rim">
+        <meta name="Description" content="Månegal Media præsenterer Tegnedreng Records — en fiktiv rap-gruppe fra Hobro, med lækre beats og smadrede rim">
         <meta name="theme-color" content="#5947b2"/>
+
         <script type="text/javascript">
-        if (!"IntersectionObserver" in window){document.write('<script crossorigin=\"anonymous\" src=\"https:\/\/polyfill.io\/v3\/polyfill.min.js?features=IntersectionObserver\"><\/script>');}
+        if (!("IntersectionObserver" in window)){
+            document.write('<script async crossorigin=\"anonymous\" src=\"https:\/\/polyfill.io\/v3\/polyfill.min.js?features=IntersectionObserver\"><\/script>');
+            }
         </script>
+
           {% load django_simple_bulma %}
           {% bulma %}
         <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
@@ -19,7 +23,7 @@
         {% if request.COOKIES.show_animations != "false" %}
         <link rel="stylesheet" type="text/css" href="{% static 'hobro/sal/sal.css' %}">
         {% endif %}
-        <link rel="stylesheet" type="text/css" href="{% static 'hobro/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'hobro/style.min.css' %}">
         {% font_awesome %}
         <script src="{% static 'hobro/js/site.min.js' %}"></script>
         <link rel="icon" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-32x32.png" sizes="32x32" />
@@ -29,12 +33,12 @@
     </head>
 <body>
 <noscript>
-    <div class="box"><h2 class="subtitle">
-        Denne hjemmeside afhænger af Javascript for at fungere. Det lader til at være slået fra i din internet-browser.
-        For at bruge siden, er du nødt til at slå det til eller bruge en anden browser.
-    </h2></div>
+    <div class="box always-on-top"><h2 class="subtitle">Denne hjemmeside afhænger af Javascript for at fungere. Det lader til at være slået fra i din internet-browser.For at bruge siden, er du nødt til at slå det til eller bruge en anden browser.</h2></div>
 </noscript>
 
+<div id="io-alert" class="notification is-warning disappeared">
+    <h2 class="subtitle">Denne hjemmeside gør brug af nogle funktioner, som din internet-browser ikke lader til at understøtte, og derfor vil hjemmesiden muligvis ikke fungere helt efter hensigten. Prøv evt. at åbne siden i en anden browser eller på en anden enhed.</h2>
+</div>
 
 <div class="modal" id="settings-modal">
   <div class="modal-background" onclick="modalClose('settings-modal')"></div>
@@ -206,7 +210,7 @@
         <span class="icon is-small"><i class="fa fa-cog"></i></span>Sideindstillinger
           <span class="icon is-tiny"><i class="fas fa-plus"></i></span>
       </a>
-        <p class="title is-size-4-mobile is-family-secondary is-italic has-text-light has-text-centered menu-branding"> • Tegnedreng Records • </p>
+        <p class="title is-size-4-mobile is-family-secondary is-italic has-text-light has-text-centered menu-branding">•&nbsp;Tegnedreng Records&nbsp;• </p>
         <a class="navbar-item has-text-centered has-text-light has-image-centered" href="https://maanegal.dk"><p>Et projekt fra</p>
         <img src="{% get_media_prefix %}/moon_full.png" alt="Månegal Media"></a>
     </div>
@@ -241,10 +245,14 @@
 {% block content %}
 {% endblock %}
 
+<a id="tech-alert" href="/rulletekster/#kontakt" aria-label="ved tekniske problemer" class="notification is-danger do-shadow technically" data-sal="slide-up" data-sal-duration="2000" data-sal-easing="ease-out">
+    <strong>Tekniske problemer?</strong><p>Er der noget på siden, der ikke virker?</p>
+</a>
+
 {% if request.COOKIES.show_animations != "false" %}<script src="{% static 'hobro/sal/sal.js' %}"></script>{% endif %}
 <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@10.20.1/dist/lazyload.min.js"></script>
 <script src="{% static 'hobro/js/vendor/smoothscroll.min.js' %}"></script>
-<script src="{% static 'hobro/js/base.min.js' %}"></script>
+<script src="{% static 'hobro/js/base.js' %}"></script>
 {% block extrascript %}{% endblock %}
 </body>
 </html>

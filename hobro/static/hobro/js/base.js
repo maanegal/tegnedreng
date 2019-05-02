@@ -1,10 +1,17 @@
 (function () { lazyload = new LazyLoad({ elements_selector: '.lazy', });}());
-window.onload = function(){
+document.addEventListener('DOMContentLoaded', () => {
+//window.onload = function(){
+
 
     var showAnim = showAnimations();
     if (showAnim) {
         sal({threshold: 0.1});
     }
+//}
+});
+
+
+
 
     document.getElementById('menuSettings').addEventListener('click', function() {
         toggleShowMenu();
@@ -15,8 +22,6 @@ window.onload = function(){
         toggleShowMenu();
         modalOpen('story-modal');
     });
-}
-
 
 document.getElementById("switchAnim").addEventListener("click", setAnimPref);
 document.getElementById("playerSP").addEventListener("click", setPlayerPref);

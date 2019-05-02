@@ -147,7 +147,7 @@ nav {
     margin: 0 !important;
     border-top: 2px white solid;
     padding: 1rem 0.15rem 0 0.15rem;
-    font-size: 1.8rem;
+    font-size: 1.7rem;
 }
 
 .navbar-setting {
@@ -394,11 +394,17 @@ img:not([src]) {
     opacity: 0
 }
 
+.title.splash {
+    font-size: 6rem;
+}
 
 @media screen and (max-width: 383px) {
   .tabs.is-responsive {
     font-size: 0.8rem;
   }
+    .title.splash {
+        font-size: 2rem;
+    }
 }
 
 @media screen and (max-width: 768px) and (min-width: 384px) {
@@ -408,6 +414,9 @@ img:not([src]) {
   .tabs.is-responsive {
     font-size: 1rem;
   }
+    .title.splash {
+        font-size: 3.5rem;
+    }
 }
 
 @media screen and (max-width: 1023px) and (min-width: 769px) {
@@ -417,6 +426,9 @@ img:not([src]) {
   .tabs.is-responsive {
     font-size: 1.2rem;
   }
+    .title.splash {
+        font-size: 4.5rem;
+    }
 }
 
 @media screen and (min-width: 1024px) {
@@ -660,8 +672,8 @@ img.inlined {
 }
 
 .is-after-behind {
-    height: 4vh;
-    background: linear-gradient(360deg, rgba(20, 20, 20, 0.5) 0%, rgba(255,255,255,0) 83%);
+    height: 3vh;
+    background: linear-gradient(360deg, rgba(20, 20, 20, 0.75) 0%, rgba(255,255,255,0) 83%);
     margin-top: 100vh;
 }
 
@@ -1019,6 +1031,7 @@ html {
 
 body {
   overflow-x: hidden;
+  position: relative;
 }
 
 html.locked {
@@ -1070,6 +1083,8 @@ html.locked {
     }
 }
 
+
+
 /* Space after icons on buttons */
 .icon.is-small {
     margin-right: 0.5em !important;
@@ -1090,10 +1105,15 @@ html.locked {
     min-height: 100vh;
 }
 
+.hero.front .hero-body {
+    display: flex;
+    align-items: center;
+}
 
 .hero-foot.front {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
 }
 
 .button.front {
@@ -1186,4 +1206,29 @@ html.locked {
 
 .tag .icon {
     margin-right: 0.25em !important;
+}
+
+
+.always-on-top {
+    position: fixed;
+    top: 0;
+    z-index: 999;
+}
+
+.technically {
+    position: absolute;
+    bottom: 0;
+    width: 10.5em;
+    padding: .5em;
+    left: .5em;
+    font-size: 0.9em;
+}
+
+.technically.top {
+    position: fixed !important;
+    z-index: 999;
+}
+
+.bottom-space {
+    padding-bottom: 6.5rem !important;
 }
