@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from .helpers import the_big_retriever, class_from_str, make_bandcamp_embed, make_spotify_embed, make_youtube_embed
-from django.core.mail import EmailMessage
+from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.template.loader import get_template
 from hobro.forms import ContactForm
@@ -17,7 +17,6 @@ def frontpage(request):
 def about(request):
     form_class = ContactForm
     sent = request.GET.get('mail')
-
     if request.method == 'POST':
         form = form_class(data=request.POST)
 
@@ -34,16 +33,22 @@ def about(request):
                 'form_content': form_content,
             }
             content = template.render(context)
-
-            email = EmailMessage(
-                "Ny post",
-                content,
-                "Tegnedreng Records" + '',
-                ['tegnedreng@maanegal.dk'],
-                headers={'Reply-To': contact_email}
-            )
-            email.send()
-            return redirect('/rulletekster/?mail=sendt#kontakt')
+            try:
+                send_mail(
+                    "Ny besked",
+                    content,
+                    contact_email,
+                    ['kontakt@maanegal.dk'],
+                    fail_silently=False
+                )
+                print("sending")
+            except Exception as e:
+                print(e)
+                return redirect('/rulletekster/?mail='+str(e))
+            finally:
+                return redirect('/rulletekster/?mail=sendt#kontakt')
+        else:
+            return redirect('/rulletekster/?mail=ikke_sendt#kontakt')
     return render(request, 'hobro/about.html', {'form': form_class, 'sent': sent})
 
 

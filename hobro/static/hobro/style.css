@@ -196,6 +196,13 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
     background-color: black;
 }
 
+@media screen and (max-width: 768px) {
+    .modal-content {
+        max-height: 90vh;
+        transform: translateY(4vh);
+    }
+}
+
 .modal-content img {
     height: 100%;
     width: 100%;
@@ -1031,7 +1038,6 @@ html {
 
 body {
   overflow-x: hidden;
-  position: relative;
 }
 
 html.locked {
@@ -1215,12 +1221,19 @@ html.locked {
     z-index: 999;
 }
 
+.tech {
+    font-size: 0.9em;
+    padding: .5em;
+    border-radius: 8px;
+    display: inline-block;
+}
+
 .technically {
     position: absolute;
-    bottom: 0;
-    width: 10.5em;
+    top: 2em;
+    width: 12em;
     padding: .5em;
-    left: .5em;
+    right: 2em;
     font-size: 0.9em;
 }
 
@@ -1231,4 +1244,10 @@ html.locked {
 
 .bottom-space {
     padding-bottom: 6.5rem !important;
+}
+
+p.narrower {
+    max-width: 38em;
+    display: inline-block;
+    margin-bottom: 2em;
 }

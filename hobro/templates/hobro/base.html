@@ -9,7 +9,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="Description" content="Månegal Media præsenterer Tegnedreng Records — en fiktiv rap-gruppe fra Hobro, med lækre beats og smadrede rim">
         <meta name="theme-color" content="#5947b2"/>
-
         <script type="text/javascript">
         if (!("IntersectionObserver" in window)){
             document.write('<script async crossorigin=\"anonymous\" src=\"https:\/\/polyfill.io\/v3\/polyfill.min.js?features=IntersectionObserver\"><\/script>');
@@ -25,7 +24,7 @@
         {% endif %}
         <link rel="stylesheet" type="text/css" href="{% static 'hobro/style.min.css' %}">
         {% font_awesome %}
-        <script src="{% static 'hobro/js/site.min.js' %}"></script>
+        <script async src="{% static 'hobro/js/site.min.js' %}"></script>
         <link rel="icon" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-32x32.png" sizes="32x32" />
         <link rel="icon" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-192x192.png" sizes="192x192" />
         <link rel="apple-touch-icon-precomposed" href="https://maanegal.dk/wp-content/uploads/cropped-brand-square-180x180.png" />
@@ -45,6 +44,8 @@
   <div class="modal-content tools" style="display:block;">
         <h2 class="navbar-item has-text-light has-text-centered title is-size-4 is-size-3-desktop">
         <span class="icon is-small"><i class="fa fa-cog"></i></span>Indstillinger for siden</h2>
+        <a href="/rulletekster/#kontakt" aria-label="ved tekniske problemer" class="has-text-light has-background-danger tech" data-sal="fade" data-sal-duration="500" data-sal-delay="500" data-sal-easing="ease-in">
+            <strong>Tekniske problemer?</strong> Er der noget på siden, der ikke virker?</a>
         <div class="tile is-ancestor">
              <div class="tile is-parent is-4-fullhd is-6-widescreen is-6-desktop is-6-tablet"><div class="tile is-child">
                 <p class="navbar-setting has-text-light is-uppercase has-text-centered">Vis animationer:</p>
@@ -245,14 +246,10 @@
 {% block content %}
 {% endblock %}
 
-<a id="tech-alert" href="/rulletekster/#kontakt" aria-label="ved tekniske problemer" class="notification is-danger do-shadow technically" data-sal="slide-up" data-sal-duration="2000" data-sal-easing="ease-out">
-    <strong>Tekniske problemer?</strong><p>Er der noget på siden, der ikke virker?</p>
-</a>
-
 {% if request.COOKIES.show_animations != "false" %}<script src="{% static 'hobro/sal/sal.js' %}"></script>{% endif %}
 <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@10.20.1/dist/lazyload.min.js"></script>
 <script src="{% static 'hobro/js/vendor/smoothscroll.min.js' %}"></script>
-<script src="{% static 'hobro/js/base.js' %}"></script>
+<script src="{% static 'hobro/js/base.min.js' %}"></script>
 {% block extrascript %}{% endblock %}
 </body>
 </html>

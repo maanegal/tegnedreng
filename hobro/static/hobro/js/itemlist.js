@@ -1,4 +1,3 @@
-try {
 bm = getBookmark(); // get bookmark value from cookie
 if (bm != "off") {
 if (!continued) {
@@ -93,8 +92,4 @@ function scrollPosition() {
   var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
   var scrolled = (winScroll / height) * 100;
   document.getElementById("theProgressBar").style.width = scrolled + "%";
-}
-
-} catch(err) {
-document.getElementById("tech-alert").classList.add("top");
 }
