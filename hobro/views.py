@@ -53,26 +53,35 @@ def about(request):
 
 
 def search_index(request):
-    query = request.GET.get('q')
-    q_song = Q(title__icontains=query) | Q(lyrics__icontains=query) | Q(text__icontains=query)
-    q_post = Q(text__icontains=query)
-    q_media = Q(title__icontains=query) | Q(text__icontains=query)
-    q_char = Q(name__icontains=query) | Q(text__icontains=query)
-    if query:
+    try:
+        query = request.GET.get('q', "")
+        q_song = Q(title__icontains=query) | Q(lyrics__icontains=query) | Q(text__icontains=query)
+        q_post = Q(text__icontains=query)
+        q_media = Q(title__icontains=query) | Q(text__icontains=query)
+        q_char = Q(name__icontains=query) | Q(text__icontains=query)
+        good_results = []
         results = list(chain(Character.objects.filter(q_char).distinct(),
                              Album.objects.filter(q_media).distinct(),
                              MusicVideo.objects.filter(q_media).distinct(),
                              Song.objects.filter(q_song).distinct(),
+                             SwgrsSong.objects.filter(q_media).distinct(),
                              Post.objects.filter(q_post).distinct(),
                              PostPhoto.objects.filter(q_post).distinct(),
                              PostVideo.objects.filter(q_post).distinct(),
                              SwgrsPost.objects.filter(q_post).distinct(),
-                             SwgrsMedia.objects.filter(q_post).distinct(),
-                             SwgrsSong.objects.filter(q_media).distinct()
+                             SwgrsMedia.objects.filter(q_post).distinct()
                              ))
-    else:
-        results = []
-    return render(request, 'hobro/search_index.html', {'query': query, 'results': results})
+    except Exception as e:
+        print(e)
+    finally:
+        if query:
+            q = query.lower()
+            for r in results:
+                if r.get_type() == "character" and q in r.name.lower():
+                    good_results.append(r.slug)
+                elif r.get_type() in ["album", 'musicvideo', 'swgrs-sang', 'song'] and q in r.title.lower():
+                    good_results.append(r.slug)
+    return render(request, 'hobro/search_index.html', {'query': query, 'results': results, 'good_results': good_results})
 
 
 def item_page(request, number=1):
