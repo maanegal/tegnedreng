@@ -9,12 +9,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="Description" content="Månegal Media præsenterer Tegnedreng Records — en fiktiv rap-gruppe fra Hobro, med lækre beats og smadrede rim">
         <meta name="theme-color" content="#5947b2"/>
-        <script type="text/javascript">
-        if (!("IntersectionObserver" in window)){
-            document.write('<script async crossorigin=\"anonymous\" src=\"https:\/\/polyfill.io\/v3\/polyfill.min.js?features=IntersectionObserver\"><\/script>');
-            }
-        </script>
-
+        <meta property='og:image' content='{% block ogimg %}{% get_media_prefix %}/default.jpg{% endblock %}'/>
+        <script type="text/javascript">if (!("IntersectionObserver" in window)){document.write('<script async crossorigin=\"anonymous\" src=\"https:\/\/polyfill.io\/v3\/polyfill.min.js?features=IntersectionObserver\"><\/script>');}</script>
           {% load django_simple_bulma %}
           {% bulma %}
         <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>

@@ -2,6 +2,7 @@
 {% load itemviews %}
 
 {% block title %}{{ album.title }}{% endblock %}
+{% block ogimg %}{{ album.photo.url }}{% endblock %}
 
 {% block content %}
 <div class="modal" id="modal_{{ album.slug }}">

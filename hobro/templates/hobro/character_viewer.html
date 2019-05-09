@@ -2,6 +2,7 @@
 {% load itemviews %}
 
 {% block title %}{{ character.name }}{% endblock %}
+{% block ogimg %}{{ character.photo.url }}{% endblock %}
 
 {% block content %}
 <div class="modal" id="modal_{{ character.slug }}">
