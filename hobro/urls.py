@@ -24,7 +24,6 @@ urlpatterns = [
     path('hashtags/', views.hashtag_list, name='hashtag_list'),
     path('hashtag/', views.redirect_character, name='redirect_hashtag'),
     path('<str:tp>/<slug:slug>/', views.item_detail, name='item_detail'),
-
 ]
 
 if settings.DEBUG:

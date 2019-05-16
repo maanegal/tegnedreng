@@ -15,10 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.sitemaps.views import sitemap
+from hobro.sitemaps import *
+
+sitemaps = {
+    'static' : StaticViewSitemap,
+    'Sange': SongSitemap,
+    'Albums': AlbumSitemap,
+    'Musikvideoer': MusicvideoSitemap,
+    'Medlemmer': CharacterSitemap,
+    'Swgrs-sange': SwSongSitemap,
+    'Kapitel': ChapterSitemap,
+}
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('hobro.urls')),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ]
 
 

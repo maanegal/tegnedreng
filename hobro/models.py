@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.text import slugify
 from datetime import datetime
 
@@ -51,6 +52,9 @@ class Character(models.Model):
     def get_type(self):
         class_name = "character"
         return class_name
+
+    def get_absolute_url(self):
+        return reverse('character_viewer', kwargs={'slug': self.slug})
 
 
 # POST ELEMENTS
@@ -166,6 +170,9 @@ class Album(models.Model):
         class_name = "album"
         return class_name
 
+    def get_absolute_url(self):
+        return reverse('album_viewer', kwargs={'slug': self.slug})
+
 
 class Song(models.Model):
     """A song. Most belong to an album"""
@@ -195,6 +202,9 @@ class Song(models.Model):
         class_name = "song"
         return class_name
 
+    def get_absolute_url(self):
+        return reverse('song_viewer', kwargs={'slug': self.slug})
+
 
 class MusicVideo(models.Model):
     """An album, containing songs"""
@@ -215,6 +225,9 @@ class MusicVideo(models.Model):
     def get_type(self):
         class_name = "musicvideo"
         return class_name
+
+    def get_absolute_url(self):
+        return reverse('musicvideo_viewer', kwargs={'slug': self.slug})
 
 
 class SwgrsPost(models.Model):
@@ -279,6 +292,9 @@ class SwgrsSong(models.Model):
     def get_type(self):
         class_name = "swgrs-sang"
         return class_name
+
+    def get_absolute_url(self):
+        return reverse('item_detail', kwargs={'tp': self.get_type(), 'slug': self.slug})
 
 
 class ItemEmbed(models.Model):
@@ -425,3 +441,6 @@ class Hashtag(models.Model):
     tagged_in_swgrs_post = models.ManyToManyField(SwgrsPost, related_name='swgrs_post_hashtag')
     tagged_in_swgrs_media = models.ManyToManyField(SwgrsMedia, related_name='swgrs_media_hashtag')
     tagged_in_motif = models.ManyToManyField(Motif, related_name='motif_hashtag')
+
+    def get_absolute_url(self):
+        return reverse('hashtag_viewer', kwargs={'slug': self.slug})
